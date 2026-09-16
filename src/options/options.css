@@ -938,3 +938,61 @@ summary::marker {
     justify-content: flex-end;
   }
 }
+
+/* Prebundled StarDict English - Vietnamese Dictionary card */
+.bundled-dict-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  border: 1px solid var(--page-border);
+  background: color-mix(in srgb, var(--page-fg) 3%, transparent);
+}
+
+.bundled-dict-info {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.bundled-dict-title {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--page-fg);
+  margin-bottom: 0.25rem;
+}
+
+.bundled-dict-desc {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--page-muted);
+  line-height: 1.4;
+}
+
+.bundled-dict-button {
+  flex-shrink: 0;
+  min-height: 38px;
+  padding: 0.4rem 0.85rem;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid var(--page-border);
+  background: var(--page-bg, #ffffff);
+  color: var(--page-fg);
+  cursor: pointer;
+}
+
+.bundled-dict-button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--page-fg) 8%, transparent);
+  border-color: var(--page-fg);
+}
+
+.bundled-dict-button:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+

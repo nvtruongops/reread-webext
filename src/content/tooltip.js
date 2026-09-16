@@ -147,6 +147,8 @@ function label(action) {
       return t("action_cancel");
     case "more":
       return t("bubble_more");
+    case "sentence":
+      return t("bubble_translate_sentence");
     case "reader":
     case "open-reader":
       return t("bubble_reader");
@@ -1344,14 +1346,14 @@ export const STYLE = `
  *  that opens the clipboard row (D110), and the reading view's page, the door
  *  into the reader from a bubble on somebody else's page (D188). `reader` is
  *  the launcher's door with words on it, a different dress for the same room.
- *  @typedef {"save" | "learned" | "edit" | "settings" | "more" | "reader" | "library" | "speak" | "copy" | "open-reader"} Action */
+ *  @typedef {"save" | "learned" | "edit" | "settings" | "more" | "reader" | "library" | "speak" | "copy" | "open-reader" | "sentence"} Action */
 /** The clipboard row's two presses (D110) - the bubble's own business, like
  *  editing: never offered by a caller, never reported to one.
  *  @typedef {"copy-original" | "copy-translation"} CopyChoice */
 /** What it reports - editing never leaves the bubble, and More leaves it only
  *  on the press that opens the layer, so a caller with nothing fetched yet can
  *  fetch it then. `dictionaries` is the hint line's word pressed (D192): the
- *  settings, at the dictionaries. @typedef {"save" | "choose" | "learned" | "settings" | "reader" | "library" | "more" | "speak" | "open-reader" | "dictionaries"} ReportedAction */
+ *  settings, at the dictionaries. @typedef {"save" | "choose" | "learned" | "settings" | "reader" | "library" | "more" | "speak" | "open-reader" | "dictionaries" | "sentence"} ReportedAction */
 
 /**
  * The second layer below the sentence: the dictionaries' shelf, one group

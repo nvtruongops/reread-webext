@@ -2185,5 +2185,34 @@
   "options_continue_import_aria": {
     "message": "Kontynuuj dodawanie $NAME$",
     "placeholders": { "name": { "content": "$1" } }
+  },
+  "bubble_translate_sentence": {
+    "message": "Przetłumacz zdanie"
+  },
+  "options_lazy_sentence": {
+    "message": "Błyskawiczne tłumaczenie pojedynczych słów (sub-50ms)"
+  },
+  "options_lazy_sentence_hint": {
+    "message": "Przy zaznaczeniu 1 lub 2 słów natychmiast tłumaczy słowo i sprawdza słownik StarDict bez czekania na przetłumaczenie całego zdania. Całe zdanie można przetłumaczyć w każdej chwili, klikając \"Przetłumacz zdanie\"."
+  },
+  "options_bundled_dict_title": {
+    "message": "Wbudowany słownik StarDict angielsko-wietnamski"
+  },
+  "options_bundled_dict_desc": {
+    "message": "227 823 słów z wymową IPA, częściami mowy i definicjami (offline)."
+  },
+  "options_install_bundled_dict": {
+    "message": "Zainstaluj słownik"
+  },
+  "options_bundled_dict_installed": {
+    "message": "Zainstalowano (gotowy offline)"
+  },
+  "options_bundled_dict_installing": {
+    "message": "Instalowanie słownika ($PERCENT$%)...",
+    "placeholders": {
+      "PERCENT": {
+        "content": "$1"
+      }
+    }
   }
 }

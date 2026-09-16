@@ -560,6 +560,32 @@ describe("the open layer", () => {
   });
 });
 
+describe("the lazy sentence switch", () => {
+  it("defaults to true for instant single-word lookup", () => {
+    assert.equal(withDefaults(undefined).lazySentence, true);
+    assert.equal(withDefaults({ sourceLang: "en" }).lazySentence, true);
+  });
+
+  it("keeps a choice somebody made, in both directions", () => {
+    assert.equal(withDefaults({ lazySentence: false }).lazySentence, false);
+    assert.equal(withDefaults({ lazySentence: true }).lazySentence, true);
+  });
+
+  it("treats a hand-edited value of the wrong type as the default", () => {
+    for (const lazySentence of ["false", 0, null, {}]) {
+      assert.equal(withDefaults({ lazySentence }).lazySentence, true);
+    }
+  });
+
+  it("writes the choice through writeConfig without touching the rest", async () => {
+    const store = installFakeBrowser({ config: { sourceLang: "de", targetLang: "en" } });
+    const written = await writeConfig({ lazySentence: false });
+
+    assert.deepEqual(written, { ...DEFAULTS, sourceLang: "de", targetLang: "en", lazySentence: false });
+    assert.equal(/** @type {any} */ (store["config"]).lazySentence, false);
+  });
+});
+
 describe("the default keep", () => {
   it("keeps what the reader opens, on profiles old and new", () => {
     // The switch arrives with D124, so every profile that predates it has a

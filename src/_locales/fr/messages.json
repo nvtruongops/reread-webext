@@ -1666,5 +1666,34 @@
   "options_continue_import_aria": {
     "message": "Continuer l'ajout de $NAME$",
     "placeholders": { "name": { "content": "$1" } }
+  },
+  "bubble_translate_sentence": {
+    "message": "Traduire la phrase"
+  },
+  "options_lazy_sentence": {
+    "message": "Traduction instantanée de mots (sub-50ms)"
+  },
+  "options_lazy_sentence_hint": {
+    "message": "Lors de la sélection d'un ou deux mots, traduit le mot et consulte le dictionnaire StarDict immédiatement sans attendre la traduction de la phrase entière. Vous pouvez traduire la phrase à tout moment en cliquant sur « Traduire la phrase »."
+  },
+  "options_bundled_dict_title": {
+    "message": "Dictionnaire StarDict anglais - vietnamien intégré"
+  },
+  "options_bundled_dict_desc": {
+    "message": "227 823 mots avec phonétique API, natures grammaticales et définitions (hors ligne)."
+  },
+  "options_install_bundled_dict": {
+    "message": "Installer le dictionnaire"
+  },
+  "options_bundled_dict_installed": {
+    "message": "Installé (prêt hors ligne)"
+  },
+  "options_bundled_dict_installing": {
+    "message": "Installation du dictionnaire ($PERCENT$%)...",
+    "placeholders": {
+      "PERCENT": {
+        "content": "$1"
+      }
+    }
   }
 }

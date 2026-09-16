@@ -93,7 +93,7 @@ let underlineForms = false;
  * the phrase is read, never later: by the time Save is pressed the page may
  * have moved on. Whether it is kept is the background's to decide, by the
  * setting it alone reads.
- * @type {{ text: string, stored: string, normalized: string, keepable: boolean, lang: string, answered: string, context: string | null } | null}
+ * @type {{ text: string, stored: string, normalized: string, keepable: boolean, lang: string, answered: string, context: string | null, gloss?: string } | null}
  */
 let current = null;
 
@@ -280,6 +280,7 @@ let hideActions = DEFAULTS.hideBubbleActions;
  * bubble is deliberately not its business (`showSaved`).
  */
 let showMore = DEFAULTS.showBubbleMore;
+let lazySentence = DEFAULTS.lazySentence;
 
 /**
  * How heavily saved phrases are underlined (D130), mirrored the same way. It
@@ -859,6 +860,7 @@ async function loadVocabulary(preloaded) {
     // flipping the switch in the popup reaches every open page on the spot.
     hideActions = config.hideBubbleActions;
     showMore = config.showBubbleMore;
+    lazySentence = config.lazySentence;
     // Read before the mirror is adopted below: `adopt` asks it whether the
     // mirror's forms may be matched at all (D208).
     underlineForms = config.underlineForms;
@@ -1087,7 +1089,7 @@ async function onAction(action, meanings) {
     await forget();
     return;
   }
-  if (action === "more") {
+  if (action === "more" || action === "sentence") {
     await fillSecondLayer();
     return;
   }
@@ -1377,6 +1379,12 @@ async function fillSecondLayer() {
 
   tooltip.setContext(sentence);
   tooltip.setEntries(groups);
+  tooltip.expand();
+  if (current !== null) {
+    secondLayer = ["more"];
+    const decision = keeping({ normalized: current.normalized, gloss: current.gloss ?? "", findable: current.keepable, deliberate: false });
+    tooltip.setActions([...offered(decision), ...secondLayer]);
+  }
 }
 
 /**
@@ -1619,8 +1627,14 @@ function present(selection, { deliberate, touch, chain = false }) {
     scheme: bubbleScheme?.() ?? null,
   });
 
+  const useLazy = lazySentence && wordsOf(normalized) <= 2 && selection.context !== null;
+
   /** @type {Promise<import("../lib/protocol.js").Result<import("../lib/protocol.js").Translation>>} */
-  const answer = ask(translateRequest(text, selection.context, selection.lang));
+  const answer = ask(
+    useLazy
+      ? translateRequest(text, null, selection.lang)
+      : translateRequest(text, selection.context, selection.lang),
+  );
 
   void answer.then((result) => {
     if (mine !== generation || !tooltip.isOpen()) return;
@@ -1680,6 +1694,7 @@ function present(selection, { deliberate, touch, chain = false }) {
       return;
     }
 
+    if (current !== null) current.gloss = gloss;
     tooltip.setBody(gloss, "normal");
     // Into the layer, which shows them or holds them as the opening said
     // (D186): out from the first frame, or waiting behind More - G0's
@@ -1693,11 +1708,15 @@ function present(selection, { deliberate, touch, chain = false }) {
     // decided by the count the translation carries, said nothing without it.
     const hint = dictionaryHint({ words, entries: (entries ?? []).length, dictionaries, findable: selection.findable });
     tooltip.setHint(hint === null ? null : translatingHint(hint, ttsLang, words));
+    if (useLazy && selection.context !== null) {
+      unfetched = { context: selection.context };
+    }
+    const sentenceAction = /** @type {import("./tooltip.js").Action[]} */ (unfetched !== null ? ["sentence"] : []);
     secondLayer =
       (sentence !== null && sentence.length > 0) || groups.length > 0 || hint !== null ? ["more"] : [];
 
     const decision = keeping({ normalized, gloss, findable: selection.findable, deliberate });
-    tooltip.setActions([...offered(decision), ...secondLayer]);
+    tooltip.setActions([...offered(decision), ...sentenceAction, ...secondLayer]);
     // A phrase that is a question rather than an answer - too long to keep
     // itself, or grown by a tap (D81) - leads with the asking: Save is the
     // point of this bubble, so the row it sits in comes out on its own.

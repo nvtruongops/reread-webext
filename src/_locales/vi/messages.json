@@ -2697,5 +2697,34 @@
         "content": "$1"
       }
     }
+  },
+  "bubble_translate_sentence": {
+    "message": "Dịch cả câu"
+  },
+  "options_lazy_sentence": {
+    "message": "Dịch từ tức thì (dưới 50ms)"
+  },
+  "options_lazy_sentence_hint": {
+    "message": "Khi chọn 1 hoặc 2 từ, dịch ngay từ đó và tra từ điển StarDict tức thì mà không phải chờ dịch cả câu. Bạn có thể dịch cả câu bất kỳ lúc nào bằng cách bấm \"Dịch cả câu\"."
+  },
+  "options_bundled_dict_title": {
+    "message": "Bộ từ điển Anh - Việt StarDict tích hợp sẵn"
+  },
+  "options_bundled_dict_desc": {
+    "message": "227.823 từ với phát âm IPA, từ loại, giải nghĩa chi tiết và ví dụ (hoàn toàn offline)."
+  },
+  "options_install_bundled_dict": {
+    "message": "Cài đặt từ điển"
+  },
+  "options_bundled_dict_installed": {
+    "message": "Đã cài đặt (sẵn sàng offline)"
+  },
+  "options_bundled_dict_installing": {
+    "message": "Đang cài đặt từ điển ($PERCENT$%)...",
+    "placeholders": {
+      "PERCENT": {
+        "content": "$1"
+      }
+    }
   }
 }

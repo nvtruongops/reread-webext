@@ -446,6 +446,15 @@
           "More".
         </p>
       </div>
+      <div class="row translation-only">
+        <label class="row-toggle">
+          <span class="row-name" data-i18n="options_lazy_sentence">Instant single-word translation (sub-50ms)</span>
+          <input type="checkbox" id="lazy-sentence" />
+        </label>
+        <p class="row-note" data-fold data-i18n="options_lazy_sentence_hint">
+          When selecting 1 or 2 words, translates the word and looks up the StarDict dictionary immediately without waiting for full sentence translation. You can translate the full sentence anytime by clicking "Translate sentence".
+        </p>
+      </div>
       <!-- The other forms of a saved word (D208): `read` underlined in
            `reads` and `reading` too, with the bubble over them `read`'s. Off
            by default - the README's "matching is literal" holds until it is
@@ -700,6 +709,19 @@
         >reapps.eu/read</a
       >.
     </p>
+
+    <!-- Prebundled StarDict English - Vietnamese Dictionary card for zero-config offline usage -->
+    <div id="bundled-dict-card" class="bundled-dict-card">
+      <div class="bundled-dict-info">
+        <strong class="bundled-dict-title" data-i18n="options_bundled_dict_title">Bundled English - Vietnamese StarDict Dictionary</strong>
+        <p id="bundled-dict-desc" class="bundled-dict-desc" data-i18n="options_bundled_dict_desc">
+          227,823 words with IPA pronunciation, parts of speech, and comprehensive definitions (offline).
+        </p>
+      </div>
+      <button type="button" id="install-bundled-dict" class="bundled-dict-button" data-i18n="options_install_bundled_dict">
+        Install dictionary
+      </button>
+    </div>
 
     <!-- The dictionary list's twin of the model refresh line: the one fetch
          this section can make besides a download, and the press that makes

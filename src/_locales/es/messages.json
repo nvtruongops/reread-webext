@@ -1654,5 +1654,34 @@
   "options_continue_import_aria": {
     "message": "Continuar añadiendo $NAME$",
     "placeholders": { "name": { "content": "$1" } }
+  },
+  "bubble_translate_sentence": {
+    "message": "Traducir frase"
+  },
+  "options_lazy_sentence": {
+    "message": "Traducción instantánea de palabras (sub-50ms)"
+  },
+  "options_lazy_sentence_hint": {
+    "message": "Al seleccionar 1 o 2 palabras, traduce la palabra y consulta el diccionario StarDict inmediatamente sin esperar a traducir toda la frase. Puede traducir la frase en cualquier momento pulsando \"Traducir frase\"."
+  },
+  "options_bundled_dict_title": {
+    "message": "Diccionario StarDict inglés - vietnamita integrado"
+  },
+  "options_bundled_dict_desc": {
+    "message": "227.823 palabras con fonética IPA, categorías gramaticales y definiciones (sin conexión)."
+  },
+  "options_install_bundled_dict": {
+    "message": "Instalar diccionario"
+  },
+  "options_bundled_dict_installed": {
+    "message": "Instalado (listo sin conexión)"
+  },
+  "options_bundled_dict_installing": {
+    "message": "Instalando diccionario ($PERCENT$%)...",
+    "placeholders": {
+      "PERCENT": {
+        "content": "$1"
+      }
+    }
   }
 }

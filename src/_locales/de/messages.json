@@ -1607,5 +1607,34 @@
   "options_continue_import_aria": {
     "message": "$NAME$ weiter hinzufügen",
     "placeholders": { "name": { "content": "$1" } }
+  },
+  "bubble_translate_sentence": {
+    "message": "Satz übersetzen"
+  },
+  "options_lazy_sentence": {
+    "message": "Sofortige Einzelwort-Übersetzung (sub-50ms)"
+  },
+  "options_lazy_sentence_hint": {
+    "message": "Beim Auswählen von 1 oder 2 Wörtern wird das Wort und das StarDict-Wörterbuch sofort aufgerufen, ohne auf die vollständige Satzübersetzung zu warten. Sie können den gesamten Satz jederzeit per Klick auf \"Satz übersetzen\" übersetzen."
+  },
+  "options_bundled_dict_title": {
+    "message": "Integriertes Englisch-Vietnamesisch StarDict-Wörterbuch"
+  },
+  "options_bundled_dict_desc": {
+    "message": "227.823 Wörter mit IPA-Lautschrift, Wortarten und ausführlichen Bedeutungen (offline)."
+  },
+  "options_install_bundled_dict": {
+    "message": "Wörterbuch installieren"
+  },
+  "options_bundled_dict_installed": {
+    "message": "Installiert (offline bereit)"
+  },
+  "options_bundled_dict_installing": {
+    "message": "Wörterbuch wird installiert ($PERCENT$%)...",
+    "placeholders": {
+      "PERCENT": {
+        "content": "$1"
+      }
+    }
   }
 }

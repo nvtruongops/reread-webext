@@ -136,6 +136,10 @@ export const CONFIG_KEY = "config";
  *   bubble over an underline is the reader's own saved meaning, and its layer
  *   stays behind More, fetched on that press (D27). Only a stored `false` is
  *   somebody having turned it off.
+ * @property {boolean} lazySentence Whether single-word selections translate
+ *   the word alone and look up the StarDict dictionary immediately (<50ms),
+ *   leaving sentence translation on-demand via a "Translate sentence" button.
+ *   Default `true`.
  * @property {boolean} underlineForms Whether a saved word is underlined in
  *   its other forms as well (D208): `read` in `reads` and `reading`, and the
  *   bubble over any of them is `read`'s. Off by default, and the README's
@@ -299,6 +303,7 @@ export const DEFAULTS = Object.freeze({
   libraryCopy: null,
   hideBubbleActions: false,
   showBubbleMore: true,
+  lazySentence: true,
   underlineForms: false,
   saveSentence: false,
   ttsVoices: {},
@@ -482,6 +487,8 @@ export function withDefaults(stored) {
     // folded the layer away.
     showBubbleMore:
       typeof raw["showBubbleMore"] === "boolean" ? raw["showBubbleMore"] : DEFAULTS.showBubbleMore,
+    lazySentence:
+      typeof raw["lazySentence"] === "boolean" ? raw["lazySentence"] : DEFAULTS.lazySentence,
     // Off unless a stored `true` says otherwise (D208): an underline over a
     // word nobody saved is the wrong direction to fall in.
     underlineForms:
@@ -554,6 +561,7 @@ export async function readConfig() {
  * @property {boolean} [showBubbleMore]
  * @property {boolean} [underlineForms]
  * @property {boolean} [saveSentence]
+ * @property {boolean} [lazySentence]
  * @property {Record<string, string>} [ttsVoices]
  * @property {number} [ttsRate]
  * @property {boolean} [ttsOff]

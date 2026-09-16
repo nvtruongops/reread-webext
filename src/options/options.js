@@ -73,7 +73,7 @@ import { modelRows, registryModels, registrySource } from "../lib/models/registr
 import { deleteModel, listModels, putModel } from "../lib/models/store.js";
 import { modelSourceUrl, updateAvailable } from "../lib/models/upstream.js";
 import { testLoadModel } from "../lib/models/validate.js";
-import { ensurePreloaded } from "../lib/preload.js";
+import { ensurePreloaded, preloadDictionary } from "../lib/preload.js";
 import { Message } from "../lib/protocol.js";
 import { ensurePersistent, isWebKit, persistenceNote, readStorage } from "../lib/storage-report.js";
 import { readBackupSummary } from "../lib/store/backup.js";
@@ -336,6 +336,12 @@ function renderQuietBubble() {
 function renderBubbleMore() {
   const toggle = document.getElementById("bubble-more");
   if (toggle instanceof HTMLInputElement) toggle.checked = config.showBubbleMore;
+}
+
+/** The lazy-sentence switch: whether single-word selections translate the word alone immediately. */
+function renderLazySentence() {
+  const toggle = document.getElementById("lazy-sentence");
+  if (toggle instanceof HTMLInputElement) toggle.checked = config.lazySentence;
 }
 
 /** The other-forms switch (D208): whether a saved word is underlined in its
@@ -2200,6 +2206,52 @@ function renderCatalogRow(entry) {
 }
 
 /**
+ * Syncs the prebundled StarDict English - Vietnamese dictionary card.
+ */
+async function syncBundledDictCard() {
+  const button = document.getElementById("install-bundled-dict");
+  const desc = document.getElementById("bundled-dict-desc");
+  if (!(button instanceof HTMLButtonElement) || desc === null) return;
+
+  const dicts = await listDictionaries();
+  const hasEnVi = dicts.some((d) => d.ready && d.langFrom === "en" && d.langTo === "vi");
+  const importingEnVi = dicts.find((d) => !d.ready && d.langFrom === "en" && d.langTo === "vi");
+
+  if (hasEnVi) {
+    button.textContent = t("options_bundled_dict_installed");
+    button.disabled = true;
+    desc.textContent = t("options_bundled_dict_desc");
+  } else if (importingEnVi) {
+    const total = importingEnVi.progress?.total ?? 1;
+    const done = importingEnVi.progress?.done ?? 0;
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    button.textContent = t("options_bundled_dict_installing", String(pct));
+    button.disabled = true;
+  } else {
+    button.textContent = t("options_install_bundled_dict");
+    button.disabled = false;
+    desc.textContent = t("options_bundled_dict_desc");
+  }
+}
+
+async function installBundledDictionary() {
+  const button = document.getElementById("install-bundled-dict");
+  if (!(button instanceof HTMLButtonElement) || button.disabled) return;
+
+  button.disabled = true;
+  button.textContent = t("options_bundled_dict_installing", "0");
+
+  try {
+    await preloadDictionary();
+  } catch (error) {
+    console.error("Failed to install bundled dictionary:", error);
+  } finally {
+    await syncBundledDictCard();
+    await renderCatalog();
+  }
+}
+
+/**
  * The one dictionary frame: what is stored first, each row with its delete
  * button, then every pair the catalogue offers - the same order the model
  * frame keeps. Redrawn at the edges of every download, import and delete, and
@@ -2209,6 +2261,7 @@ async function renderCatalog() {
   const container = document.getElementById("dictionary-catalog");
   if (container === null) return;
 
+  void syncBundledDictCard();
   const stored = await listDictionaries();
   const rows = dictionaryRows(stored, availableDictionaries(), config);
   // Read once per redraw, for every unfinished row: whether its import is
@@ -2796,7 +2849,10 @@ async function downloadFromLink() {
 }
 
 async function render() {
-  await ensurePreloaded();
+  void ensurePreloaded().then(async () => {
+    await syncBundledDictCard();
+    await renderCatalog();
+  });
   config = await readConfig();
   os = await platformOs();
   // The dated caches, and nothing asked of the network: each list stays as
@@ -2817,6 +2873,7 @@ async function render() {
   renderReaderOnly();
   renderQuietBubble();
   renderBubbleMore();
+  renderLazySentence();
   renderUnderlineForms();
   renderSaveSentence();
   renderKeepArticles();
@@ -2883,6 +2940,7 @@ async function refresh() {
   renderReaderOnly();
   renderQuietBubble();
   renderBubbleMore();
+  renderLazySentence();
   renderUnderlineForms();
   renderSaveSentence();
   renderKeepArticles();
@@ -2943,6 +3001,13 @@ document.getElementById("bubble-more")?.addEventListener("change", (event) => {
   // The same road again (D186): the next bubble over a selection opens its
   // layer the way the box now says, on every open page, with no reload.
   void writeConfig({ showBubbleMore: toggle.checked }).then((written) => {
+    config = written;
+  });
+});
+document.getElementById("lazy-sentence")?.addEventListener("change", (event) => {
+  const toggle = event.target;
+  if (!(toggle instanceof HTMLInputElement)) return;
+  void writeConfig({ lazySentence: toggle.checked }).then((written) => {
     config = written;
   });
 });
@@ -3158,6 +3223,7 @@ document.getElementById("tts-rate-up")?.addEventListener("click", () => {
 document.getElementById("add-model")?.addEventListener("click", () => void addSelectedModel());
 document.getElementById("refresh-models")?.addEventListener("click", () => void refreshList());
 document.getElementById("refresh-dictionaries")?.addEventListener("click", () => void refreshDictionaryList());
+document.getElementById("install-bundled-dict")?.addEventListener("click", () => void installBundledDictionary());
 document.getElementById("model-filter")?.addEventListener("input", () => applyModelFilter());
 document.getElementById("dictionary-filter")?.addEventListener("input", () => applyCatalogFilter());
 document.getElementById("models-show-all")?.addEventListener("click", () => toggleList("models"));

@@ -541,7 +541,7 @@ async function choicesFor(config, installed) {
 }
 
 async function render() {
-  await ensurePreloaded();
+  void ensurePreloaded();
   // The page is asked first and on its own (D194). Its answer decides the
   // two rows at the top, and every other read the popup makes - the models,
   // the dictionaries under the trim - used to stand between the question and

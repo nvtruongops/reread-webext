@@ -2185,5 +2185,34 @@
   "options_continue_import_aria": {
     "message": "Продовжити додавання $NAME$",
     "placeholders": { "name": { "content": "$1" } }
+  },
+  "bubble_translate_sentence": {
+    "message": "Перекласти речення"
+  },
+  "options_lazy_sentence": {
+    "message": "Миттєвий переклад окремих слів (sub-50ms)"
+  },
+  "options_lazy_sentence_hint": {
+    "message": "При виділенні 1 або 2 слів перекладає слово та шукає в словнику StarDict миттєво, не чекаючи перекладу всього речення. Ви можете перекласти речення у будь-який момент, натиснувши \"Перекласти речення\"."
+  },
+  "options_bundled_dict_title": {
+    "message": "Вбудований словник StarDict англійсько-в'єтнамський"
+  },
+  "options_bundled_dict_desc": {
+    "message": "227 823 слів з вимовою IPA, частинами мови та тлумаченнями (офлайн)."
+  },
+  "options_install_bundled_dict": {
+    "message": "Встановити словник"
+  },
+  "options_bundled_dict_installed": {
+    "message": "Встановлено (готовий офлайн)"
+  },
+  "options_bundled_dict_installing": {
+    "message": "Встановлення словника ($PERCENT$%)...",
+    "placeholders": {
+      "PERCENT": {
+        "content": "$1"
+      }
+    }
   }
 }
