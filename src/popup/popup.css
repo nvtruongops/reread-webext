@@ -219,47 +219,100 @@ body[data-os="android"][data-mode="lookup"] .popup-lookup-answer {
 }
 
 .popup-lookup-answer .lookup-example {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  padding: 0.15rem 0.35rem 0.15rem 1.2rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: 0.15rem;
+  column-gap: 0.35rem;
+  padding: 0.2rem 0.35rem 0.25rem 0.8rem;
   font-size: 0.82rem;
   line-height: 1.35;
   border-left: 2px solid var(--page-line);
-  margin: 0.1rem 0;
+  margin: 0.25rem 0 0.35rem 0;
 }
 
 .popup-lookup-answer .lookup-ex-bullet {
-  display: none;
+  grid-column: 1;
+  grid-row: 1;
+  color: var(--page-muted);
+  font-size: 0.75rem;
 }
 
 .popup-lookup-answer .lookup-ex-source {
+  grid-column: 2;
+  grid-row: 1;
   font-style: italic;
   font-weight: 500;
 }
 
 .popup-lookup-answer .lookup-ex-arrow {
+  grid-column: 1;
+  grid-row: 2;
   color: var(--page-muted);
   font-size: 0.75rem;
+  padding-left: 0.35rem;
 }
 
 .popup-lookup-answer .lookup-ex-target {
+  grid-column: 2;
+  grid-row: 2;
   color: var(--page-muted);
 }
 
 .popup-lookup-answer .lookup-idiom {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.35rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: 0.15rem;
+  column-gap: 0.35rem;
   padding: 0.2rem 0.35rem;
   font-size: 0.82rem;
   line-height: 1.35;
+  margin: 0.25rem 0 0.35rem 0;
 }
 
 .popup-lookup-answer .lookup-idiom-star {
+  grid-column: 1;
+  grid-row: 1;
   color: var(--page-accent);
+}
+
+.popup-lookup-answer .lookup-idiom-source {
+  grid-column: 2;
+  grid-row: 1;
+  font-weight: 600;
+}
+
+.popup-lookup-answer .lookup-idiom-target {
+  grid-column: 2;
+  grid-row: 2;
+  color: var(--page-muted);
+}
+
+.popup-lookup-answer .lookup-about-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.15rem 0.35rem;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.popup-lookup-answer .lookup-about-badge {
+  display: inline-block;
+  padding: 1px 5px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 3px;
+  border: 1px solid var(--page-line);
+  color: var(--page-muted);
+}
+
+.popup-lookup-answer .lookup-about-content {
+  color: var(--page-fg);
+}
+
+.popup-lookup-answer .lookup-about-bullet {
+  color: var(--page-muted);
 }
 
 .popup-lookup-answer .lookup-pronunciation {

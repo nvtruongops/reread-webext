@@ -1136,56 +1136,101 @@ button.lookup-show {
 }
 
 .lookup-example {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  padding: 0.25rem 0.35rem 0.25rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px) + 0.5rem);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: 0.2rem;
+  column-gap: 0.45rem;
+  padding: 0.25rem 0.35rem 0.35rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px) + 0.5rem);
   font-size: 0.85rem;
   line-height: 1.4;
   border-left: 2px solid var(--page-line);
-  margin: 0.1rem 0 0.2rem 0;
+  margin: 0.35rem 0 0.5rem 0;
 }
 
 .lookup-ex-bullet {
+  grid-column: 1;
+  grid-row: 1;
   color: var(--page-muted);
   font-size: 0.75rem;
 }
 
 .lookup-ex-source {
+  grid-column: 2;
+  grid-row: 1;
   font-style: italic;
   font-weight: 500;
 }
 
 .lookup-ex-arrow {
+  grid-column: 1;
+  grid-row: 2;
   color: var(--page-muted);
   font-size: 0.75rem;
+  padding-left: 0.4rem;
 }
 
 .lookup-ex-target {
+  grid-column: 2;
+  grid-row: 2;
   color: var(--page-muted);
 }
 
 .lookup-idiom {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  padding: 0.3rem 0.35rem 0.3rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: 0.2rem;
+  column-gap: 0.45rem;
+  padding: 0.3rem 0.35rem 0.35rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
   font-size: 0.85rem;
   line-height: 1.4;
+  margin: 0.35rem 0 0.5rem 0;
 }
 
 .lookup-idiom-star {
+  grid-column: 1;
+  grid-row: 1;
   color: var(--page-accent);
   font-size: 0.8rem;
 }
 
 .lookup-idiom-source {
+  grid-column: 2;
+  grid-row: 1;
   font-weight: 600;
 }
 
 .lookup-idiom-target {
+  grid-column: 2;
+  grid-row: 2;
+  color: var(--page-muted);
+}
+
+.lookup-about-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.2rem 0.35rem 0.25rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.lookup-about-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  border-radius: 4px;
+  border: 1px solid var(--page-line);
+  color: var(--page-muted);
+  letter-spacing: 0.03em;
+}
+
+.lookup-about-content {
+  color: var(--page-fg);
+}
+
+.lookup-about-bullet {
   color: var(--page-muted);
 }
 

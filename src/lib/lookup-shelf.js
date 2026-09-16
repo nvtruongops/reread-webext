@@ -204,6 +204,28 @@ export function formatDictName(name) {
 }
 
 /**
+ * @param {string} text
+ * @returns {HTMLElement}
+ */
+export function formatAboutRow(text) {
+  const clean = text.replace(/^[•*—\-–]+\s*/u, "").trim();
+  const row = element("div", "lookup-about-row");
+
+  if (clean.includes(" — ")) {
+    const badge = element("span", "lookup-about-badge", t("lookup_word_forms"));
+    const content = element("span", "lookup-about-content", clean);
+    row.append(badge, content);
+  } else if (/^(?:late\s+|early\s+)?(?:Old\s+English|Old\s+Norse|Middle\s+English|Latin|Greek|French|German|from)\b/i.test(clean)) {
+    const badge = element("span", "lookup-about-badge", t("lookup_etymology"));
+    const content = element("span", "lookup-about-content", clean);
+    row.append(badge, content);
+  } else {
+    row.append(element("span", "lookup-about-bullet", "•"), element("span", "lookup-about-content", clean));
+  }
+  return row;
+}
+
+/**
  * What the book says beside its meanings - the transcriptions and the
  * cross-references, in the order the entry had them - folded under "More
  * about the word" at the end of the book, closed until asked: a reader
@@ -229,7 +251,7 @@ function aboutFold(group, folds) {
     const trimmed = line.trim();
     if (seenTexts.has(trimmed)) continue;
     if (/sachxy\.com|từ điển anh việt/i.test(trimmed)) continue;
-    about.append(element("div", "lookup-paragraph", line));
+    about.append(formatAboutRow(trimmed));
     count += 1;
   }
   if (count === 0) {

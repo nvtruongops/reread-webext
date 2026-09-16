@@ -1,420 +1,853 @@
 {
-  "locale_code": { "message": "uk" },
-
+  "locale_code": {
+    "message": "uk"
+  },
   "extension_description": {
     "message": "Читайте вебстатті та книжки EPUB офлайн - і вивчайте мову, якою їх читаєте. Ніщо з прочитаного не покидає ваш пристрій."
   },
-
   "pair_label": {
     "message": "$FROM$ → $TO$",
     "placeholders": {
-      "from": { "content": "$1", "example": "англійська" },
-      "to": { "content": "$2", "example": "українська" }
+      "from": {
+        "content": "$1",
+        "example": "англійська"
+      },
+      "to": {
+        "content": "$2",
+        "example": "українська"
+      }
     }
   },
-
-  "settings": { "message": "Налаштування" },
-  "support": { "message": "Підтримка" },
-  "nav_menu": { "message": "Меню" },
-  "language_pair": { "message": "Мовна пара" },
-  "reading_list": { "message": "Офлайн-список читання" },
-  "private_browsing_note": { "message": "Ви в приватному режимі. Браузер використовує для цієї сторінки окрему базу даних і видаляє її після завершення приватного сеансу: список читання й позначення, які ви тут бачите, походять з їхніх копій, а збережена тут стаття, імпортована книжка, зроблене позначення чи будь-що видалене зникне разом із сеансом. Єдиний виняток - збережені фрази: вони зберігаються. Для всього іншого відкрийте re/read у звичайній вкладці." },
-  "saved_phrases": { "message": "Збережені фрази" },
-  "open_reader": { "message": "Відкрити в режимі читання" },
-  "quiet_bubble": { "message": "Типово приховувати дії в бульбашці" },
-  "action_delete": { "message": "Видалити" },
-  "action_download": { "message": "Завантажити" },
-  "action_cancel": { "message": "Скасувати" },
-  "action_save": { "message": "Зберегти" },
-  "action_update": { "message": "Оновити" },
-
-  "error_engine_missing": { "message": "Рушія перекладу ще немає - ця збірка не перекладає." },
-  "error_model_missing": { "message": "На цьому пристрої немає моделі для цієї мовної пари - завантажте її або додайте в налаштуваннях. А щоб читати без машинного перекладу, увімкніть там «Використовувати без моделі перекладу» - словники й далі відповідають, а фрази ви зберігаєте з їхніх значень." },
-  "error_unsupported_pair": { "message": "Для цієї мовної пари не існує жодної моделі." },
-  "error_too_long": { "message": "Це виділення задовге для перекладу." },
-  "error_no_page": { "message": "Тут немає сторінки для читання - відкрийте статтю й натисніть кнопку ще раз." },
-  "error_unknown_message": { "message": "Розширення надіслало запит, якого само не розуміє." },
-  "error_internal": { "message": "Щось пішло не так усередині розширення." },
-
-  "bubble_save": { "message": "Зберегти" },
-  "bubble_learned": { "message": "Вивчено" },
-  "bubble_edit_separator_hint": { "message": "Крапка з комою розділяє значення." },
-  "bubble_edit": { "message": "Редагувати" },
-  "bubble_settings": { "message": "Відкрити налаштування" },
-  "bubble_more": { "message": "Більше" },
-  "bubble_less": { "message": "Менше" },
-  "bubble_reader": { "message": "Читати в режимі читання" },
-  "bubble_library": { "message": "Відкрити офлайн-список читання" },
-  "bubble_translating": { "message": "Перекладаю..." },
-  "bubble_looking_up": { "message": "Шукаю у словниках..." },
-  "bubble_nothing_more": { "message": "Немає ні речення, ні словникової статті" },
-  "bubble_whole_words": { "message": "Виділіть цілі слова" },
-  "bubble_not_in_dictionary": { "message": "Немає у ваших словниках" },
+  "settings": {
+    "message": "Налаштування"
+  },
+  "support": {
+    "message": "Підтримка"
+  },
+  "nav_menu": {
+    "message": "Меню"
+  },
+  "language_pair": {
+    "message": "Мовна пара"
+  },
+  "reading_list": {
+    "message": "Офлайн-список читання"
+  },
+  "private_browsing_note": {
+    "message": "Ви в приватному режимі. Браузер використовує для цієї сторінки окрему базу даних і видаляє її після завершення приватного сеансу: список читання й позначення, які ви тут бачите, походять з їхніх копій, а збережена тут стаття, імпортована книжка, зроблене позначення чи будь-що видалене зникне разом із сеансом. Єдиний виняток - збережені фрази: вони зберігаються. Для всього іншого відкрийте re/read у звичайній вкладці."
+  },
+  "saved_phrases": {
+    "message": "Збережені фрази"
+  },
+  "open_reader": {
+    "message": "Відкрити в режимі читання"
+  },
+  "quiet_bubble": {
+    "message": "Типово приховувати дії в бульбашці"
+  },
+  "action_delete": {
+    "message": "Видалити"
+  },
+  "action_download": {
+    "message": "Завантажити"
+  },
+  "action_cancel": {
+    "message": "Скасувати"
+  },
+  "action_save": {
+    "message": "Зберегти"
+  },
+  "action_update": {
+    "message": "Оновити"
+  },
+  "error_engine_missing": {
+    "message": "Рушія перекладу ще немає - ця збірка не перекладає."
+  },
+  "error_model_missing": {
+    "message": "На цьому пристрої немає моделі для цієї мовної пари - завантажте її або додайте в налаштуваннях. А щоб читати без машинного перекладу, увімкніть там «Використовувати без моделі перекладу» - словники й далі відповідають, а фрази ви зберігаєте з їхніх значень."
+  },
+  "error_unsupported_pair": {
+    "message": "Для цієї мовної пари не існує жодної моделі."
+  },
+  "error_too_long": {
+    "message": "Це виділення задовге для перекладу."
+  },
+  "error_no_page": {
+    "message": "Тут немає сторінки для читання - відкрийте статтю й натисніть кнопку ще раз."
+  },
+  "error_unknown_message": {
+    "message": "Розширення надіслало запит, якого само не розуміє."
+  },
+  "error_internal": {
+    "message": "Щось пішло не так усередині розширення."
+  },
+  "bubble_save": {
+    "message": "Зберегти"
+  },
+  "bubble_learned": {
+    "message": "Вивчено"
+  },
+  "bubble_edit_separator_hint": {
+    "message": "Крапка з комою розділяє значення."
+  },
+  "bubble_edit": {
+    "message": "Редагувати"
+  },
+  "bubble_settings": {
+    "message": "Відкрити налаштування"
+  },
+  "bubble_more": {
+    "message": "Більше"
+  },
+  "bubble_less": {
+    "message": "Менше"
+  },
+  "bubble_reader": {
+    "message": "Читати в режимі читання"
+  },
+  "bubble_library": {
+    "message": "Відкрити офлайн-список читання"
+  },
+  "bubble_translating": {
+    "message": "Перекладаю..."
+  },
+  "bubble_looking_up": {
+    "message": "Шукаю у словниках..."
+  },
+  "bubble_nothing_more": {
+    "message": "Немає ні речення, ні словникової статті"
+  },
+  "bubble_whole_words": {
+    "message": "Виділіть цілі слова"
+  },
+  "bubble_not_in_dictionary": {
+    "message": "Немає у ваших словниках"
+  },
   "bubble_no_dictionary": {
     "message": "Ще немає словника для мови: $LANGUAGE$ - додайте його в $SETTINGS$",
     "placeholders": {
-      "language": { "content": "$1", "example": "англійська" },
-      "settings": { "content": "$2", "example": "налаштуваннях" }
+      "language": {
+        "content": "$1",
+        "example": "англійська"
+      },
+      "settings": {
+        "content": "$2",
+        "example": "налаштуваннях"
+      }
     }
   },
-  "bubble_settings_word": { "message": "налаштуваннях" },
-  "bubble_model_word": { "message": "Модель перекладу часто помиляється на окремому слові без контексту." },
-  "bubble_dictionary_sources": { "message": "Де шукати словники:" },
+  "bubble_settings_word": {
+    "message": "налаштуваннях"
+  },
+  "bubble_model_word": {
+    "message": "Модель перекладу часто помиляється на окремому слові без контексту."
+  },
+  "bubble_dictionary_sources": {
+    "message": "Де шукати словники:"
+  },
   "bubble_saves_under": {
     "message": "Буде збережено в активній мовній парі: $PAIR$",
-    "placeholders": { "pair": { "content": "$1", "example": "англійська → польська" } }
+    "placeholders": {
+      "pair": {
+        "content": "$1",
+        "example": "англійська → польська"
+      }
+    }
   },
   "bubble_saved_word": {
     "message": "Збережене слово: $WORD$",
-    "placeholders": { "word": { "content": "$1", "example": "read" } }
+    "placeholders": {
+      "word": {
+        "content": "$1",
+        "example": "read"
+      }
+    }
   },
-  "bubble_choose_meaning": { "message": "Натисніть на значення, щоб зберегти його" },
-  "bubble_speak": { "message": "Прочитати вголос" },
-  "bubble_sentence_collapse": { "message": "Згорнути речення" },
-  "bubble_sentence_expand": { "message": "Розгорнути речення" },
-  "bubble_copy": { "message": "Копіювати" },
-  "bubble_copy_original": { "message": "Копіювати оригінал" },
-  "bubble_copy_translation": { "message": "Копіювати переклад" },
-  "bubble_copied": { "message": "Скопійовано" },
-
+  "bubble_choose_meaning": {
+    "message": "Натисніть на значення, щоб зберегти його"
+  },
+  "bubble_speak": {
+    "message": "Прочитати вголос"
+  },
+  "bubble_sentence_collapse": {
+    "message": "Згорнути речення"
+  },
+  "bubble_sentence_expand": {
+    "message": "Розгорнути речення"
+  },
+  "bubble_copy": {
+    "message": "Копіювати"
+  },
+  "bubble_copy_original": {
+    "message": "Копіювати оригінал"
+  },
+  "bubble_copy_translation": {
+    "message": "Копіювати переклад"
+  },
+  "bubble_copied": {
+    "message": "Скопійовано"
+  },
   "popup_site_enabled": {
     "message": "Увімкнено на $DOMAIN$",
-    "placeholders": { "domain": { "content": "$1" } }
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      }
+    }
   },
-  "popup_site_toggle_title": { "message": "Чи працює re/read на цьому сайті" },
-  "popup_no_page": { "message": "re/read не працює на цій сторінці." },
+  "popup_site_toggle_title": {
+    "message": "Чи працює re/read на цьому сайті"
+  },
+  "popup_no_page": {
+    "message": "re/read не працює на цій сторінці."
+  },
   "popup_no_model": {
     "message": "На цьому пристрої ще немає моделі перекладу - натисніть тут і виберіть її в налаштуваннях."
   },
-
-  "vocab_title": { "message": "re/read - збережені фрази" },
+  "vocab_title": {
+    "message": "re/read - збережені фрази"
+  },
   "vocab_intro": {
     "message": "Усе, що ви зберегли для цієї мовної пари, найновіше першим - збережене під час читання й лише на цьому пристрої. «$LEARNED$» прибирає фразу разом з її підкресленнями; «$EDIT$» переписує її значення, по одному в рядку. Кілька значень одразу розділяйте крапкою з комою. Поруч із фразою два числа - лупа та книжка: скільки разів ви її перевіряли (відкривали її бульбашку) і скільки разів вона траплялася в текстах, які ви дочитали - у частині книги, яку ви залишили кнопкою «Наступна» під текстом, або в статті, позначеній як прочитана. Список можна впорядкувати за будь-яким із них.",
     "placeholders": {
-      "learned": { "content": "$1", "example": "Вивчено" },
-      "edit": { "content": "$2", "example": "Редагувати" }
+      "learned": {
+        "content": "$1",
+        "example": "Вивчено"
+      },
+      "edit": {
+        "content": "$2",
+        "example": "Редагувати"
+      }
     }
   },
-  "vocab_how_title": { "message": "Як це працює" },
-  "vocab_format_title": { "message": "Формат файлу" },
-  "vocab_filter_placeholder": { "message": "Фільтрувати за фразою чи значенням" },
-  "vocab_filter_label": { "message": "Фільтрувати список збережених фраз" },
-  "vocab_filter_clear": { "message": "Очистити фільтр" },
-  "vocab_add_title": { "message": "Додати фразу" },
-  "vocab_add_note": { "message": "Введіть слово й підтвердьте - позначте значення з ваших словників або впишіть власне." },
-  "lookup_label": { "message": "Знайти слово" },
-  "lookup_placeholder": { "message": "Введіть слово або фразу" },
-  "lookup_action": { "message": "Шукати" },
-  "lookup_clear": { "message": "Очистити поле" },
+  "vocab_how_title": {
+    "message": "Як це працює"
+  },
+  "vocab_format_title": {
+    "message": "Формат файлу"
+  },
+  "vocab_filter_placeholder": {
+    "message": "Фільтрувати за фразою чи значенням"
+  },
+  "vocab_filter_label": {
+    "message": "Фільтрувати список збережених фраз"
+  },
+  "vocab_filter_clear": {
+    "message": "Очистити фільтр"
+  },
+  "vocab_add_title": {
+    "message": "Додати фразу"
+  },
+  "vocab_add_note": {
+    "message": "Введіть слово й підтвердьте - позначте значення з ваших словників або впишіть власне."
+  },
+  "lookup_label": {
+    "message": "Знайти слово"
+  },
+  "lookup_placeholder": {
+    "message": "Введіть слово або фразу"
+  },
+  "lookup_action": {
+    "message": "Шукати"
+  },
+  "lookup_clear": {
+    "message": "Очистити поле"
+  },
   "lookup_saved_count": {
     "message": "Збережено: $COUNT$",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
-  "lookup_own": { "message": "Власні" },
-  "lookup_own_placeholder": { "message": "Впишіть власне значення" },
-  "lookup_more_about": { "message": "Більше про слово" },
+  "lookup_own": {
+    "message": "Власні"
+  },
+  "lookup_own_placeholder": {
+    "message": "Впишіть власне значення"
+  },
+  "lookup_more_about": {
+    "message": "Більше про слово"
+  },
   "lookup_show_all": {
     "message": "Показати всі ($COUNT$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
-  "lookup_show_fewer": { "message": "Показати менше" },
-  "lookup_show_in_list": { "message": "Показати в списку" },
+  "lookup_show_fewer": {
+    "message": "Показати менше"
+  },
+  "lookup_show_in_list": {
+    "message": "Показати в списку"
+  },
   "lookup_saved_group": {
     "message": "Збережено ($COUNT$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
-  "popup_lookup_back": { "message": "Назад до меню" },
-  "popup_lookup_add": { "message": "Зберегти на сторінці фраз" },
-  "popup_lookup_open": { "message": "Відкрити у збережених фразах" },
+  "popup_lookup_back": {
+    "message": "Назад до меню"
+  },
+  "popup_lookup_add": {
+    "message": "Зберегти на сторінці фраз"
+  },
+  "popup_lookup_open": {
+    "message": "Відкрити у збережених фразах"
+  },
   "vocab_count_filtered_one": {
     "message": "$MATCHING$ з $TOTAL$ збереженої фрази",
     "placeholders": {
-      "total": { "content": "$1", "example": "21" },
-      "matching": { "content": "$2", "example": "1" }
+      "total": {
+        "content": "$1",
+        "example": "21"
+      },
+      "matching": {
+        "content": "$2",
+        "example": "1"
+      }
     }
   },
   "vocab_count_filtered_few": {
     "message": "$MATCHING$ з $TOTAL$ збережених фраз",
     "placeholders": {
-      "total": { "content": "$1", "example": "3" },
-      "matching": { "content": "$2", "example": "2" }
+      "total": {
+        "content": "$1",
+        "example": "3"
+      },
+      "matching": {
+        "content": "$2",
+        "example": "2"
+      }
     }
   },
   "vocab_count_filtered_many": {
     "message": "$MATCHING$ з $TOTAL$ збережених фраз",
     "placeholders": {
-      "total": { "content": "$1", "example": "26" },
-      "matching": { "content": "$2", "example": "8" }
+      "total": {
+        "content": "$1",
+        "example": "26"
+      },
+      "matching": {
+        "content": "$2",
+        "example": "8"
+      }
     }
   },
   "vocab_count_filtered_other": {
     "message": "$MATCHING$ з $TOTAL$ збереженої фрази",
     "placeholders": {
-      "total": { "content": "$1", "example": "1,5" },
-      "matching": { "content": "$2", "example": "1" }
+      "total": {
+        "content": "$1",
+        "example": "1,5"
+      },
+      "matching": {
+        "content": "$2",
+        "example": "1"
+      }
     }
   },
   "vocab_edit_aria": {
     "message": "Редагувати фразу $PHRASE$",
-    "placeholders": { "phrase": { "content": "$1", "example": "банк" } }
+    "placeholders": {
+      "phrase": {
+        "content": "$1",
+        "example": "банк"
+      }
+    }
   },
   "vocab_learned_aria": {
     "message": "Позначити як вивчену: $PHRASE$",
-    "placeholders": { "phrase": { "content": "$1", "example": "банк" } }
+    "placeholders": {
+      "phrase": {
+        "content": "$1",
+        "example": "банк"
+      }
+    }
   },
   "vocab_speak_aria": {
     "message": "Прочитати вголос: $PHRASE$",
-    "placeholders": { "phrase": { "content": "$1", "example": "банк" } }
+    "placeholders": {
+      "phrase": {
+        "content": "$1",
+        "example": "банк"
+      }
+    }
   },
   "vocab_empty": {
     "message": "Для цієї пари ще нічого не збережено. Виділіть фразу під час читання й натисніть «$BUTTON$» - вона чекатиме тут.",
-    "placeholders": { "button": { "content": "$1", "example": "Зберегти" } }
+    "placeholders": {
+      "button": {
+        "content": "$1",
+        "example": "Зберегти"
+      }
+    }
   },
   "vocab_filter_status_one": {
     "message": "$SHOWN$ з $TOTAL$ фрази для «$QUERY$»",
     "placeholders": {
-      "total": { "content": "$1", "example": "1" },
-      "shown": { "content": "$2", "example": "1" },
-      "query": { "content": "$3", "example": "news" }
+      "total": {
+        "content": "$1",
+        "example": "1"
+      },
+      "shown": {
+        "content": "$2",
+        "example": "1"
+      },
+      "query": {
+        "content": "$3",
+        "example": "news"
+      }
     }
   },
   "vocab_filter_status_few": {
     "message": "$SHOWN$ з $TOTAL$ фраз для «$QUERY$»",
     "placeholders": {
-      "total": { "content": "$1", "example": "3" },
-      "shown": { "content": "$2", "example": "1" },
-      "query": { "content": "$3", "example": "news" }
+      "total": {
+        "content": "$1",
+        "example": "3"
+      },
+      "shown": {
+        "content": "$2",
+        "example": "1"
+      },
+      "query": {
+        "content": "$3",
+        "example": "news"
+      }
     }
   },
   "vocab_filter_status_many": {
     "message": "$SHOWN$ з $TOTAL$ фраз для «$QUERY$»",
     "placeholders": {
-      "total": { "content": "$1", "example": "827" },
-      "shown": { "content": "$2", "example": "1" },
-      "query": { "content": "$3", "example": "news" }
+      "total": {
+        "content": "$1",
+        "example": "827"
+      },
+      "shown": {
+        "content": "$2",
+        "example": "1"
+      },
+      "query": {
+        "content": "$3",
+        "example": "news"
+      }
     }
   },
   "vocab_filter_status_other": {
     "message": "$SHOWN$ з $TOTAL$ фрази для «$QUERY$»",
     "placeholders": {
-      "total": { "content": "$1", "example": "1,5" },
-      "shown": { "content": "$2", "example": "1" },
-      "query": { "content": "$3", "example": "news" }
+      "total": {
+        "content": "$1",
+        "example": "1,5"
+      },
+      "shown": {
+        "content": "$2",
+        "example": "1"
+      },
+      "query": {
+        "content": "$3",
+        "example": "news"
+      }
     }
   },
-  "vocab_order_label": { "message": "Порядок списку" },
-  "vocab_order_newest": { "message": "Найновіші першими" },
-  "vocab_order_recalled": { "message": "Найчастіше перевірені" },
-  "vocab_order_read": { "message": "Найчастіше читані" },
-  "vocab_order_alphabetical": { "message": "За алфавітом" },
+  "vocab_order_label": {
+    "message": "Порядок списку"
+  },
+  "vocab_order_newest": {
+    "message": "Найновіші першими"
+  },
+  "vocab_order_recalled": {
+    "message": "Найчастіше перевірені"
+  },
+  "vocab_order_read": {
+    "message": "Найчастіше читані"
+  },
+  "vocab_order_alphabetical": {
+    "message": "За алфавітом"
+  },
   "vocab_recalls_one": {
     "message": "Перевірено $COUNT$ раз",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
     }
   },
   "vocab_recalls_few": {
     "message": "Перевірено $COUNT$ рази",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "vocab_recalls_many": {
     "message": "Перевірено $COUNT$ разів",
     "placeholders": {
-      "count": { "content": "$1", "example": "20" }
+      "count": {
+        "content": "$1",
+        "example": "20"
+      }
     }
   },
   "vocab_recalls_other": {
     "message": "Перевірено $COUNT$ разу",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
     }
   },
   "vocab_reads_one": {
     "message": "$COUNT$ раз у прочитаних текстах",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
     }
   },
   "vocab_reads_few": {
     "message": "$COUNT$ рази у прочитаних текстах",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "vocab_reads_many": {
     "message": "$COUNT$ разів у прочитаних текстах",
     "placeholders": {
-      "count": { "content": "$1", "example": "100" }
+      "count": {
+        "content": "$1",
+        "example": "100"
+      }
     }
   },
   "vocab_reads_other": {
     "message": "$COUNT$ разу у прочитаних текстах",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
     }
   },
-  "vocab_legend_recalls": { "message": "перевірені – відкриття бульбашки під час читання" },
-  "vocab_legend_reads": { "message": "читані – появи в прочитаних текстах" },
+  "vocab_legend_recalls": {
+    "message": "перевірені – відкриття бульбашки під час читання"
+  },
+  "vocab_legend_reads": {
+    "message": "читані – появи в прочитаних текстах"
+  },
   "vocab_import_with_sentence_one": {
     "message": "$COUNT$ рядок несе речення - вже збережена фраза бере його лише тоді, коли не має власного.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
     }
   },
   "vocab_import_with_sentence_few": {
     "message": "$COUNT$ рядки несуть речення - вже збережена фраза бере його лише тоді, коли не має власного.",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "vocab_import_with_sentence_many": {
     "message": "$COUNT$ рядків несе речення - вже збережена фраза бере його лише тоді, коли не має власного.",
     "placeholders": {
-      "count": { "content": "$1", "example": "20" }
+      "count": {
+        "content": "$1",
+        "example": "20"
+      }
     }
   },
   "vocab_import_with_sentence_other": {
     "message": "$COUNT$ рядка несе речення - вже збережена фраза бере його лише тоді, коли не має власного.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
     }
   },
   "vocab_import_sentenced_one": {
     "message": "Речення з файлу додано до $COUNT$ вже збереженої фрази.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
     }
   },
   "vocab_import_sentenced_few": {
     "message": "Речення з файлу додано до $COUNT$ вже збережених фраз.",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "vocab_import_sentenced_many": {
     "message": "Речення з файлу додано до $COUNT$ вже збережених фраз.",
     "placeholders": {
-      "count": { "content": "$1", "example": "20" }
+      "count": {
+        "content": "$1",
+        "example": "20"
+      }
     }
   },
   "vocab_import_sentenced_other": {
     "message": "Речення з файлу додано до $COUNT$ вже збереженої фрази.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
     }
   },
   "pager_page_of": {
     "message": "Сторінка $PAGE$ з $PAGES$",
     "placeholders": {
-      "page": { "content": "$1", "example": "3" },
-      "pages": { "content": "$2", "example": "13" }
+      "page": {
+        "content": "$1",
+        "example": "3"
+      },
+      "pages": {
+        "content": "$2",
+        "example": "13"
+      }
     }
   },
-  "pager_prev": { "message": "Попередня" },
-  "pager_next": { "message": "Наступна" },
-  "action_export": { "message": "Експортувати" },
-  "vocab_export_anki": { "message": "Експортувати для Anki" },
-  "action_import": { "message": "Імпортувати" },
-  "transfer_heading": { "message": "Імпорт та експорт" },
+  "pager_prev": {
+    "message": "Попередня"
+  },
+  "pager_next": {
+    "message": "Наступна"
+  },
+  "action_export": {
+    "message": "Експортувати"
+  },
+  "vocab_export_anki": {
+    "message": "Експортувати для Anki"
+  },
+  "action_import": {
+    "message": "Імпортувати"
+  },
+  "transfer_heading": {
+    "message": "Імпорт та експорт"
+  },
   "vocab_transfer_note": {
     "message": "Файл .tsv із двома колонками - той самий формат пише плагін KOReader, а читає Anki. Імпорт додає лише фрази, яких у цій парі немає; збережених не змінює. У комірці значень крапка з комою з пробілом розділяє значення; без пробілу вона лишається всередині значення. «Експортувати для Anki» пише третю колонку з реченням, у якому фразу було збережено - порожню, якщо речення немає. Той файл теж можна імпортувати тут: речення повертаються разом із фразами, а вже збережена фраза бере речення з файлу лише тоді, коли не має власного."
   },
-  "vocab_import_into": { "message": "Імпортувати до" },
-  "vocab_import_nothing": { "message": "У цьому файлі немає фраз для імпорту." },
+  "vocab_import_into": {
+    "message": "Імпортувати до"
+  },
+  "vocab_import_nothing": {
+    "message": "У цьому файлі немає фраз для імпорту."
+  },
   "vocab_import_summary_one": {
     "message": "$NAME$ містить $COUNT$ рядок:",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "name": { "content": "$2", "example": "reread-en-pl.tsv" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "name": {
+        "content": "$2",
+        "example": "reread-en-pl.tsv"
+      }
     }
   },
   "vocab_import_summary_few": {
     "message": "$NAME$ містить $COUNT$ рядки:",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "name": { "content": "$2", "example": "reread-en-pl.tsv" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "name": {
+        "content": "$2",
+        "example": "reread-en-pl.tsv"
+      }
     }
   },
   "vocab_import_summary_many": {
     "message": "$NAME$ містить $COUNT$ рядків:",
     "placeholders": {
-      "count": { "content": "$1", "example": "1 243" },
-      "name": { "content": "$2", "example": "reread-en-pl.tsv" }
+      "count": {
+        "content": "$1",
+        "example": "1 243"
+      },
+      "name": {
+        "content": "$2",
+        "example": "reread-en-pl.tsv"
+      }
     }
   },
   "vocab_import_summary_other": {
     "message": "$NAME$ містить $COUNT$ рядка:",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" },
-      "name": { "content": "$2", "example": "reread-en-pl.tsv" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      },
+      "name": {
+        "content": "$2",
+        "example": "reread-en-pl.tsv"
+      }
     }
   },
   "vocab_import_added_one": {
     "message": "Додано $COUNT$ нову фразу.",
-    "placeholders": { "count": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "vocab_import_added_few": {
     "message": "Додано $COUNT$ нові фрази.",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "vocab_import_added_many": {
     "message": "Додано $COUNT$ нових фраз.",
-    "placeholders": { "count": { "content": "$1", "example": "1 243" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1 243"
+      }
+    }
   },
   "vocab_import_added_other": {
     "message": "Додано $COUNT$ фрази.",
-    "placeholders": { "count": { "content": "$1", "example": "1,5" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
+    }
   },
   "vocab_import_skipped_one": {
     "message": "Пропущено $COUNT$ вже збережену.",
-    "placeholders": { "count": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "vocab_import_skipped_few": {
     "message": "Пропущено $COUNT$ вже збережені.",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "vocab_import_skipped_many": {
     "message": "Пропущено $COUNT$ вже збережених.",
-    "placeholders": { "count": { "content": "$1", "example": "43" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "43"
+      }
+    }
   },
   "vocab_import_skipped_other": {
     "message": "Пропущено $COUNT$ вже збереженої.",
-    "placeholders": { "count": { "content": "$1", "example": "1,5" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
+    }
   },
   "vocab_import_unreadable_one": {
     "message": "Не вдалося прочитати $COUNT$ рядок.",
-    "placeholders": { "count": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "vocab_import_unreadable_few": {
     "message": "Не вдалося прочитати $COUNT$ рядки.",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "vocab_import_unreadable_many": {
     "message": "Не вдалося прочитати $COUNT$ рядків.",
-    "placeholders": { "count": { "content": "$1", "example": "7" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
   },
   "vocab_import_unreadable_other": {
     "message": "Не вдалося прочитати $COUNT$ рядка.",
-    "placeholders": { "count": { "content": "$1", "example": "1,5" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
+    }
   },
-
-  "reader_title": { "message": "re/read - режим читання" },
-  "reader_open_original": { "message": "Відкрити оригінал" },
+  "reader_title": {
+    "message": "re/read - режим читання"
+  },
+  "reader_open_original": {
+    "message": "Відкрити оригінал"
+  },
   "reader_pictures_save": {
     "message": "Завантажити зображення ($COUNT$)",
-    "placeholders": { "count": { "content": "$1", "example": "12" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
   },
   "reader_pictures_remove": {
     "message": "Видалити зображення ($SIZE$)",
-    "placeholders": { "size": { "content": "$1", "example": "4,2 MB" } }
+    "placeholders": {
+      "size": {
+        "content": "$1",
+        "example": "4,2 MB"
+      }
+    }
   },
   "reader_pictures_hint": {
     "message": "Завантажуються один раз із серверів статті, без cookie, і зберігаються разом зі статтею на цьому пристрої. Після завантаження вони відображаються в статті."
@@ -425,181 +858,435 @@
   "reader_pictures_progress": {
     "message": "Зображення $DONE$ з $OF$ - $SIZE$",
     "placeholders": {
-      "done": { "content": "$1", "example": "3" },
-      "of": { "content": "$2", "example": "12" },
-      "size": { "content": "$3", "example": "1,1 MB" }
+      "done": {
+        "content": "$1",
+        "example": "3"
+      },
+      "of": {
+        "content": "$2",
+        "example": "12"
+      },
+      "size": {
+        "content": "$3",
+        "example": "1,1 MB"
+      }
     }
   },
-  "reader_pictures_stop": { "message": "Натисніть рядок, щоб зупинити." },
+  "reader_pictures_stop": {
+    "message": "Натисніть рядок, щоб зупинити."
+  },
   "reader_pictures_done_one": {
     "message": "Завантажено $SAVED$ з $OF$ зображення ($SIZE$)",
     "placeholders": {
-      "of": { "content": "$1", "example": "1" },
-      "saved": { "content": "$2", "example": "1" },
-      "size": { "content": "$3", "example": "0,3 MB" }
+      "of": {
+        "content": "$1",
+        "example": "1"
+      },
+      "saved": {
+        "content": "$2",
+        "example": "1"
+      },
+      "size": {
+        "content": "$3",
+        "example": "0,3 MB"
+      }
     }
   },
   "reader_pictures_done_few": {
     "message": "Завантажено $SAVED$ з $OF$ зображень ($SIZE$)",
     "placeholders": {
-      "of": { "content": "$1", "example": "3" },
-      "saved": { "content": "$2", "example": "2" },
-      "size": { "content": "$3", "example": "0,8 MB" }
+      "of": {
+        "content": "$1",
+        "example": "3"
+      },
+      "saved": {
+        "content": "$2",
+        "example": "2"
+      },
+      "size": {
+        "content": "$3",
+        "example": "0,8 MB"
+      }
     }
   },
   "reader_pictures_done_many": {
     "message": "Завантажено $SAVED$ з $OF$ зображень ($SIZE$)",
     "placeholders": {
-      "of": { "content": "$1", "example": "12" },
-      "saved": { "content": "$2", "example": "11" },
-      "size": { "content": "$3", "example": "4,2 MB" }
+      "of": {
+        "content": "$1",
+        "example": "12"
+      },
+      "saved": {
+        "content": "$2",
+        "example": "11"
+      },
+      "size": {
+        "content": "$3",
+        "example": "4,2 MB"
+      }
     }
   },
   "reader_pictures_done_other": {
     "message": "Завантажено $SAVED$ з $OF$ зображення ($SIZE$)",
     "placeholders": {
-      "of": { "content": "$1", "example": "12" },
-      "saved": { "content": "$2", "example": "11" },
-      "size": { "content": "$3", "example": "4,2 MB" }
+      "of": {
+        "content": "$1",
+        "example": "12"
+      },
+      "saved": {
+        "content": "$2",
+        "example": "11"
+      },
+      "size": {
+        "content": "$3",
+        "example": "4,2 MB"
+      }
     }
   },
-  "reader_pictures_none": { "message": "Не вдалося завантажити жодного зображення." },
-  "reader_pictures_removed": { "message": "Зображення видалено." },
-  "reader_pictures_failed": { "message": "Не вдалося зберегти зображення." },
-  "reader_fullscreen": { "message": "На весь екран" },
-  "reader_fullscreen_exit": { "message": "Вийти з повноекранного режиму" },
+  "reader_pictures_none": {
+    "message": "Не вдалося завантажити жодного зображення."
+  },
+  "reader_pictures_removed": {
+    "message": "Зображення видалено."
+  },
+  "reader_pictures_failed": {
+    "message": "Не вдалося зберегти зображення."
+  },
+  "reader_fullscreen": {
+    "message": "На весь екран"
+  },
+  "reader_fullscreen_exit": {
+    "message": "Вийти з повноекранного режиму"
+  },
   "library_pictures_one": {
     "message": "$COUNT$ зображення · $SIZE$",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "size": { "content": "$2", "example": "0,3 MB" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "size": {
+        "content": "$2",
+        "example": "0,3 MB"
+      }
     }
   },
   "library_pictures_few": {
     "message": "$COUNT$ зображення · $SIZE$",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "size": { "content": "$2", "example": "0,8 MB" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "size": {
+        "content": "$2",
+        "example": "0,8 MB"
+      }
     }
   },
   "library_pictures_many": {
     "message": "$COUNT$ зображень · $SIZE$",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "size": { "content": "$2", "example": "4,2 MB" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "size": {
+        "content": "$2",
+        "example": "4,2 MB"
+      }
     }
   },
   "library_pictures_other": {
     "message": "$COUNT$ зображення · $SIZE$",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "size": { "content": "$2", "example": "4,2 MB" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "size": {
+        "content": "$2",
+        "example": "4,2 MB"
+      }
     }
   },
-  "reader_back_to_list": { "message": "Назад до списку читання" },
-  "reader_display_title": { "message": "Текст і голос" },
-  "reader_theme": { "message": "Тема" },
-  "reader_theme_auto": { "message": "Авто" },
-  "reader_theme_light": { "message": "Світла" },
-  "reader_theme_sepia": { "message": "Сепія" },
-  "reader_theme_dark": { "message": "Темна" },
-  "reader_font": { "message": "Шрифт" },
-  "reader_font_serif": { "message": "Із засічками" },
-  "reader_font_sans": { "message": "Без засічок" },
-  "reader_font_own": { "message": "Власний" },
-  "reader_bar_hide": { "message": "Сховати панель" },
-  "reader_bar_show": { "message": "Показати панель" },
-  "reader_size": { "message": "Розмір" },
-  "reader_smaller": { "message": "Менший" },
-  "reader_larger": { "message": "Більший" },
-  "reader_width": { "message": "Ширина" },
-  "reader_narrower": { "message": "Вужча" },
-  "reader_wider": { "message": "Ширша" },
-  "reader_links": { "message": "Посилання" },
-  "reader_links_plain": { "message": "Звичайний текст" },
-  "reader_links_active": { "message": "Активні" },
-  "reader_marker": { "message": "Маркер" },
-  "reader_underline": { "message": "Підкреслення" },
-  "underline_fine": { "message": "Тонке" },
-  "underline_medium": { "message": "Середнє" },
-  "underline_strong": { "message": "Виразне" },
-  "marker_delete": { "message": "Прибрати позначення" },
-  "marker_copy": { "message": "Копіювати" },
-  "marker_copied": { "message": "Скопійовано" },
-  "marker_note": { "message": "Нотатка" },
-  "marker_note_add": { "message": "Додати нотатку" },
-  "marker_note_edit": { "message": "Редагувати нотатку" },
-  "color_yellow": { "message": "Жовтий" },
-  "color_green": { "message": "Зелений" },
-  "color_blue": { "message": "Синій" },
-  "color_pink": { "message": "Рожевий" },
+  "reader_back_to_list": {
+    "message": "Назад до списку читання"
+  },
+  "reader_display_title": {
+    "message": "Текст і голос"
+  },
+  "reader_theme": {
+    "message": "Тема"
+  },
+  "reader_theme_auto": {
+    "message": "Авто"
+  },
+  "reader_theme_light": {
+    "message": "Світла"
+  },
+  "reader_theme_sepia": {
+    "message": "Сепія"
+  },
+  "reader_theme_dark": {
+    "message": "Темна"
+  },
+  "reader_font": {
+    "message": "Шрифт"
+  },
+  "reader_font_serif": {
+    "message": "Із засічками"
+  },
+  "reader_font_sans": {
+    "message": "Без засічок"
+  },
+  "reader_font_own": {
+    "message": "Власний"
+  },
+  "reader_bar_hide": {
+    "message": "Сховати панель"
+  },
+  "reader_bar_show": {
+    "message": "Показати панель"
+  },
+  "reader_size": {
+    "message": "Розмір"
+  },
+  "reader_smaller": {
+    "message": "Менший"
+  },
+  "reader_larger": {
+    "message": "Більший"
+  },
+  "reader_width": {
+    "message": "Ширина"
+  },
+  "reader_narrower": {
+    "message": "Вужча"
+  },
+  "reader_wider": {
+    "message": "Ширша"
+  },
+  "reader_links": {
+    "message": "Посилання"
+  },
+  "reader_links_plain": {
+    "message": "Звичайний текст"
+  },
+  "reader_links_active": {
+    "message": "Активні"
+  },
+  "reader_marker": {
+    "message": "Маркер"
+  },
+  "reader_underline": {
+    "message": "Підкреслення"
+  },
+  "underline_fine": {
+    "message": "Тонке"
+  },
+  "underline_medium": {
+    "message": "Середнє"
+  },
+  "underline_strong": {
+    "message": "Виразне"
+  },
+  "marker_delete": {
+    "message": "Прибрати позначення"
+  },
+  "marker_copy": {
+    "message": "Копіювати"
+  },
+  "marker_copied": {
+    "message": "Скопійовано"
+  },
+  "marker_note": {
+    "message": "Нотатка"
+  },
+  "marker_note_add": {
+    "message": "Додати нотатку"
+  },
+  "marker_note_edit": {
+    "message": "Редагувати нотатку"
+  },
+  "color_yellow": {
+    "message": "Жовтий"
+  },
+  "color_green": {
+    "message": "Зелений"
+  },
+  "color_blue": {
+    "message": "Синій"
+  },
+  "color_pink": {
+    "message": "Рожевий"
+  },
   "reader_footnote_aria": {
     "message": "Виноска $MARK$",
-    "placeholders": { "mark": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "mark": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
-  "reader_listen": { "message": "Читати вголос" },
-  "reader_voice": { "message": "Голос" },
-  "reader_speed": { "message": "Швидкість" },
-  "reader_slower": { "message": "Повільніше" },
-  "reader_faster": { "message": "Швидше" },
-  "reader_speech_bar": { "message": "Читання вголос" },
-  "reader_speech_back": { "message": "Назад" },
-  "reader_speech_play": { "message": "Продовжити" },
-  "reader_speech_pause": { "message": "Пауза" },
-  "reader_speech_stop": { "message": "Стоп" },
-  "reader_speech_forward": { "message": "Далі" },
-  "reader_speech_failed": { "message": "Цей пристрій не зміг прочитати статтю вголос." },
-  "reader_segment_unread": { "message": "До прочитання" },
-  "reader_segment_read": { "message": "Прочитане" },
+  "reader_listen": {
+    "message": "Читати вголос"
+  },
+  "reader_voice": {
+    "message": "Голос"
+  },
+  "reader_speed": {
+    "message": "Швидкість"
+  },
+  "reader_slower": {
+    "message": "Повільніше"
+  },
+  "reader_faster": {
+    "message": "Швидше"
+  },
+  "reader_speech_bar": {
+    "message": "Читання вголос"
+  },
+  "reader_speech_back": {
+    "message": "Назад"
+  },
+  "reader_speech_play": {
+    "message": "Продовжити"
+  },
+  "reader_speech_pause": {
+    "message": "Пауза"
+  },
+  "reader_speech_stop": {
+    "message": "Стоп"
+  },
+  "reader_speech_forward": {
+    "message": "Далі"
+  },
+  "reader_speech_failed": {
+    "message": "Цей пристрій не зміг прочитати статтю вголос."
+  },
+  "reader_segment_unread": {
+    "message": "До прочитання"
+  },
+  "reader_segment_read": {
+    "message": "Прочитане"
+  },
   "reader_segment_unread_count": {
     "message": "До прочитання ($COUNT$)",
-    "placeholders": { "count": { "content": "$1", "example": "4" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "4"
+      }
+    }
   },
   "reader_segment_read_count": {
     "message": "Прочитане ($COUNT$)",
-    "placeholders": { "count": { "content": "$1", "example": "2" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
   },
-  "reader_save": { "message": "Зберегти до списку читання" },
-  "reader_delete_confirm": { "message": "Точно?" },
+  "reader_save": {
+    "message": "Зберегти до списку читання"
+  },
+  "reader_delete_confirm": {
+    "message": "Точно?"
+  },
   "reader_delete_aria": {
     "message": "Видалити статтю $TITLE$",
-    "placeholders": { "title": { "content": "$1", "example": "Old Chinese" } }
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Old Chinese"
+      }
+    }
   },
   "reader_delete_confirm_aria": {
     "message": "Підтвердити видалення: $TITLE$",
-    "placeholders": { "title": { "content": "$1", "example": "Old Chinese" } }
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Old Chinese"
+      }
+    }
   },
-  "reader_mark_read": { "message": "Позначити прочитаним" },
-  "reader_marked_read": { "message": "Позначено прочитаним" },
-  "reader_mark_book_read": { "message": "Позначити книжку прочитаною" },
-  "reader_book_marked_read": { "message": "Книжку позначено прочитаною" },
-  "reader_no_article": { "message": "На тій сторінці не вдалося знайти статтю." },
-  "reader_list_write_failed": { "message": "Не вдалося записати список читання." },
+  "reader_mark_read": {
+    "message": "Позначити прочитаним"
+  },
+  "reader_marked_read": {
+    "message": "Позначено прочитаним"
+  },
+  "reader_mark_book_read": {
+    "message": "Позначити книжку прочитаною"
+  },
+  "reader_book_marked_read": {
+    "message": "Книжку позначено прочитаною"
+  },
+  "reader_no_article": {
+    "message": "На тій сторінці не вдалося знайти статтю."
+  },
+  "reader_list_write_failed": {
+    "message": "Не вдалося записати список читання."
+  },
   "reader_empty_none": {
     "message": "Ще нічого не збережено - відкрийте статтю в режимі читання й натисніть «$BUTTON$». Збережена сторінка залишається на цьому пристрої й відкривається навіть без інтернету.",
-    "placeholders": { "button": { "content": "$1", "example": "Зберегти до списку читання" } }
+    "placeholders": {
+      "button": {
+        "content": "$1",
+        "example": "Зберегти до списку читання"
+      }
+    }
   },
-  "reader_empty_all_read": { "message": "Читати більше нічого - усе збережене позначено прочитаним." },
-  "reader_empty_none_read": { "message": "Ще нічого не позначено прочитаним." },
-  "reader_filter_placeholder": { "message": "Шукати за назвою чи сайтом" },
-  "reader_filter_label": { "message": "Шукати у списку читання" },
+  "reader_empty_all_read": {
+    "message": "Читати більше нічого - усе збережене позначено прочитаним."
+  },
+  "reader_empty_none_read": {
+    "message": "Ще нічого не позначено прочитаним."
+  },
+  "reader_filter_placeholder": {
+    "message": "Шукати за назвою чи сайтом"
+  },
+  "reader_filter_label": {
+    "message": "Шукати у списку читання"
+  },
   "reader_filter_no_match": {
     "message": "Жодна збережена стаття не відповідає «$QUERY$».",
-    "placeholders": { "query": { "content": "$1", "example": "wikipedia" } }
+    "placeholders": {
+      "query": {
+        "content": "$1",
+        "example": "wikipedia"
+      }
+    }
   },
-  "reader_filter_clear": { "message": "Очистити пошук" },
+  "reader_filter_clear": {
+    "message": "Очистити пошук"
+  },
   "reader_filter_count": {
     "message": "$MATCHING$ з $TOTAL$",
     "placeholders": {
-      "matching": { "content": "$1", "example": "3" },
-      "total": { "content": "$2", "example": "12" }
+      "matching": {
+        "content": "$1",
+        "example": "3"
+      },
+      "total": {
+        "content": "$2",
+        "example": "12"
+      }
     }
   },
-  "reader_how_title": { "message": "Як це працює" },
+  "reader_how_title": {
+    "message": "Як це працює"
+  },
   "reader_library_note": {
     "message": "Усе тут - текстові копії: статті з вебу, відкриті в режимі читання і свідомо збережені в читальні, а також статті та файли .epub, імпортовані через «Імпортувати» нижче. Усе це відкривається без інтернету й залишається на цьому пристрої, навіть якщо оригінальна сторінка зникне."
   },
-  "reader_format_title": { "message": "Формат файлу" },
+  "reader_format_title": {
+    "message": "Формат файлу"
+  },
   "reader_transfer_note": {
     "message": "Імпорт лише додає те, чого бракує, і ніколи не перезаписує збереженого: стаття, яка вже є, зберігає свою копію, збережена фраза зберігає значення й бере лише речення, якого не має, або вищий лічильник, позначення, яке вже є, пропускається."
   },
@@ -609,99 +1296,183 @@
   "reader_export_pictures_one": {
     "message": "Експорт із зображеннями ($COUNT$ зображення · $SIZE$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "size": { "content": "$2", "example": "12,4 МБ" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12,4 МБ"
+      }
     }
   },
   "reader_export_pictures_few": {
     "message": "Експорт із зображеннями ($COUNT$ зображення · $SIZE$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "34" },
-      "size": { "content": "$2", "example": "12,4 МБ" }
+      "count": {
+        "content": "$1",
+        "example": "34"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12,4 МБ"
+      }
     }
   },
   "reader_export_pictures_many": {
     "message": "Експорт із зображеннями ($COUNT$ зображень · $SIZE$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "34" },
-      "size": { "content": "$2", "example": "12,4 МБ" }
+      "count": {
+        "content": "$1",
+        "example": "34"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12,4 МБ"
+      }
     }
   },
   "reader_export_pictures_other": {
     "message": "Експорт із зображеннями ($COUNT$ зображення · $SIZE$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "34" },
-      "size": { "content": "$2", "example": "12,4 МБ" }
+      "count": {
+        "content": "$1",
+        "example": "34"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12,4 МБ"
+      }
     }
   },
   "reader_export_books_one": {
     "message": "Експорт із книгами ($COUNT$ книга · $SIZE$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "size": { "content": "$2", "example": "6,6 МБ" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "size": {
+        "content": "$2",
+        "example": "6,6 МБ"
+      }
     }
   },
   "reader_export_books_few": {
     "message": "Експорт із книгами ($COUNT$ книги · $SIZE$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "size": { "content": "$2", "example": "6,6 МБ" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "size": {
+        "content": "$2",
+        "example": "6,6 МБ"
+      }
     }
   },
   "reader_export_books_many": {
     "message": "Експорт із книгами ($COUNT$ книг · $SIZE$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "size": { "content": "$2", "example": "6,6 МБ" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "size": {
+        "content": "$2",
+        "example": "6,6 МБ"
+      }
     }
   },
   "reader_export_books_other": {
     "message": "Експорт із книгами ($COUNT$ книги · $SIZE$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "size": { "content": "$2", "example": "6,6 МБ" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "size": {
+        "content": "$2",
+        "example": "6,6 МБ"
+      }
     }
   },
   "reader_import_pictures_one": {
     "message": "Із $COUNT$ зображенням ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "size": { "content": "$2", "example": "0,3 MB" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "size": {
+        "content": "$2",
+        "example": "0,3 MB"
+      }
     }
   },
   "reader_import_pictures_few": {
     "message": "Із $COUNT$ зображеннями ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "size": { "content": "$2", "example": "0,8 MB" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "size": {
+        "content": "$2",
+        "example": "0,8 MB"
+      }
     }
   },
   "reader_import_pictures_many": {
     "message": "Із $COUNT$ зображеннями ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "34" },
-      "size": { "content": "$2", "example": "12,4 MB" }
+      "count": {
+        "content": "$1",
+        "example": "34"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12,4 MB"
+      }
     }
   },
   "reader_import_pictures_other": {
     "message": "Із $COUNT$ зображеннями ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "34" },
-      "size": { "content": "$2", "example": "12,4 MB" }
+      "count": {
+        "content": "$1",
+        "example": "34"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12,4 MB"
+      }
     }
   },
   "reader_import_pictures_added_one": {
     "message": "Додано зображень: $COUNT$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "size": { "content": "$2", "example": "0,3 MB" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "size": {
+        "content": "$2",
+        "example": "0,3 MB"
+      }
     }
   },
   "reader_import_pictures_added_other": {
     "message": "Додано зображень: $COUNT$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "34" },
-      "size": { "content": "$2", "example": "12,4 MB" }
+      "count": {
+        "content": "$1",
+        "example": "34"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12,4 MB"
+      }
     }
   },
   "reader_transfer_epub": {
@@ -713,140 +1484,278 @@
   "reader_backup_books_note": {
     "message": "Книги є в резервній копії лише тоді, коли ви позначите «Експорт із книгами»; інакше збережіть свої файли .epub - коли ви знову імпортуєте ту саму книгу, а після неї резервну копію, її позначення повернуться."
   },
-  "reader_export_marks": { "message": "Експортувати позначення" },
-  "reader_marks_export_notes": { "message": "Експортувати як нотатки (.md)" },
-  "reader_marks_notes_hint": { "message": "Файл .md - це текстовий список цитат і нотаток, згрупованих за документами - для читання та для власних нотаток. Його не можна імпортувати." },
+  "reader_export_marks": {
+    "message": "Експортувати позначення"
+  },
+  "reader_marks_export_notes": {
+    "message": "Експортувати як нотатки (.md)"
+  },
+  "reader_marks_notes_hint": {
+    "message": "Файл .md - це текстовий список цитат і нотаток, згрупованих за документами - для читання та для власних нотаток. Його не можна імпортувати."
+  },
   "reader_marks_import_books_one": {
     "message": "Позначення з $COUNT$ книги чекають: $TITLES$. Імпортуйте цю книгу з її файлу .epub, а потім ще раз цей файл.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "titles": { "content": "$2", "example": "A Novel" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "A Novel"
+      }
     }
   },
   "reader_marks_import_books_few": {
     "message": "Позначення з $COUNT$ книг чекають: $TITLES$. Імпортуйте ці книги з їхніх файлів .epub, а потім ще раз цей файл.",
     "placeholders": {
-      "count": { "content": "$1", "example": "2" },
-      "titles": { "content": "$2", "example": "A Novel, Another Novel" }
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "A Novel, Another Novel"
+      }
     }
   },
   "reader_marks_import_books_many": {
     "message": "Позначення з $COUNT$ книг чекають: $TITLES$. Імпортуйте ці книги з їхніх файлів .epub, а потім ще раз цей файл.",
     "placeholders": {
-      "count": { "content": "$1", "example": "2" },
-      "titles": { "content": "$2", "example": "A Novel, Another Novel" }
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "A Novel, Another Novel"
+      }
     }
   },
   "reader_marks_import_books_other": {
     "message": "Позначення з $COUNT$ книги чекають: $TITLES$. Імпортуйте ці книги з їхніх файлів .epub, а потім ще раз цей файл.",
     "placeholders": {
-      "count": { "content": "$1", "example": "2" },
-      "titles": { "content": "$2", "example": "A Novel, Another Novel" }
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "A Novel, Another Novel"
+      }
     }
   },
   "reader_marks_import_unplaced_one": {
     "message": "$COUNT$ позначення не вдалося розмістити в поточному тексті ($TITLES$). Воно залишається на сторінці Позначення.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "titles": { "content": "$2", "example": "Роман" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "Роман"
+      }
     }
   },
   "reader_marks_import_unplaced_few": {
     "message": "$COUNT$ позначення не вдалося розмістити в поточному тексті ($TITLES$). Вони залишаються на сторінці Позначення.",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "titles": { "content": "$2", "example": "Роман, Інший роман" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "Роман, Інший роман"
+      }
     }
   },
   "reader_marks_import_unplaced_many": {
     "message": "$COUNT$ позначень не вдалося розмістити в поточному тексті ($TITLES$). Вони залишаються на сторінці Позначення.",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "titles": { "content": "$2", "example": "Роман, Інший роман" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "Роман, Інший роман"
+      }
     }
   },
   "reader_marks_import_unplaced_other": {
     "message": "$COUNT$ позначення не вдалося розмістити в поточному тексті ($TITLES$). Вони залишаються на сторінці Позначення.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" },
-      "titles": { "content": "$2", "example": "Роман" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "Роман"
+      }
     }
   },
   "reader_marks_import_missing_one": {
     "message": "$COUNT$ документа немає в списку читання: $TITLES$. Спершу імпортуйте його - книжку з її файлу .epub, статтю з резервної копії списку читання - а потім ще раз цей файл.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "titles": { "content": "$2", "example": "Роман" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "Роман"
+      }
     }
   },
   "reader_marks_import_missing_few": {
     "message": "$COUNT$ документів немає в списку читання: $TITLES$. Спершу імпортуйте їх - книжки з їхніх файлів .epub, статті з резервної копії списку читання - а потім ще раз цей файл.",
     "placeholders": {
-      "count": { "content": "$1", "example": "2" },
-      "titles": { "content": "$2", "example": "Роман, Стаття" }
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "Роман, Стаття"
+      }
     }
   },
   "reader_marks_import_missing_many": {
     "message": "$COUNT$ документів немає в списку читання: $TITLES$. Спершу імпортуйте їх - книжки з їхніх файлів .epub, статті з резервної копії списку читання - а потім ще раз цей файл.",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "titles": { "content": "$2", "example": "Роман, Стаття, ..." }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "Роман, Стаття, ..."
+      }
     }
   },
   "reader_marks_import_missing_other": {
     "message": "$COUNT$ документів немає в списку читання: $TITLES$. Спершу імпортуйте їх - книжки з їхніх файлів .epub, статті з резервної копії списку читання - а потім ще раз цей файл.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" },
-      "titles": { "content": "$2", "example": "Роман" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "Роман"
+      }
     }
   },
   "reader_marks_import_twins_one": {
     "message": "$COUNT$ позначення вже є тут.",
-    "placeholders": { "count": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "reader_marks_import_twins_few": {
     "message": "$COUNT$ позначення вже є тут.",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_marks_import_twins_many": {
     "message": "$COUNT$ позначень уже є тут.",
-    "placeholders": { "count": { "content": "$1", "example": "12" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
   },
   "reader_marks_import_twins_other": {
     "message": "$COUNT$ позначення вже є тут.",
-    "placeholders": { "count": { "content": "$1", "example": "1,5" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
+    }
   },
   "reader_marks_import_overlap_one": {
     "message": "$COUNT$ позначення перекриває позначення, яке вже є тут, і пропускається.",
-    "placeholders": { "count": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "reader_marks_import_overlap_few": {
     "message": "$COUNT$ позначення перекривають позначення, які вже є тут, і пропускаються.",
-    "placeholders": { "count": { "content": "$1", "example": "2" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
   },
   "reader_marks_import_overlap_many": {
     "message": "$COUNT$ позначень перекривають позначення, які вже є тут, і пропускаються.",
-    "placeholders": { "count": { "content": "$1", "example": "12" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
   },
   "reader_marks_import_overlap_other": {
     "message": "$COUNT$ позначення перекривають позначення, які вже є тут, і пропускаються.",
-    "placeholders": { "count": { "content": "$1", "example": "1,5" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
+    }
   },
   "reader_marks_import_done_one": {
     "message": "Додано $COUNT$ позначення.",
-    "placeholders": { "count": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "reader_marks_import_done_few": {
     "message": "Додано $COUNT$ позначення.",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_marks_import_done_many": {
     "message": "Додано $COUNT$ позначень.",
-    "placeholders": { "count": { "content": "$1", "example": "12" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
   },
   "reader_marks_import_done_other": {
     "message": "Додано $COUNT$ позначення.",
-    "placeholders": { "count": { "content": "$1", "example": "1,5" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
+    }
   },
   "reader_transfer_marks": {
     "message": "нотатки з позначеннями зі статей і книг, для експорту зі сторінки позначень."
@@ -854,9 +1763,18 @@
   "reader_backup_done": {
     "message": "Резервну копію записано до $FILE$ ($SIZE$): $PARTS$.",
     "placeholders": {
-      "file": { "content": "$1", "example": "reread-backup.zip" },
-      "size": { "content": "$2", "example": "2.3 MB" },
-      "parts": { "content": "$3", "example": "12 articles, 856 saved phrases, 41 highlights, the settings" }
+      "file": {
+        "content": "$1",
+        "example": "reread-backup.zip"
+      },
+      "size": {
+        "content": "$2",
+        "example": "2.3 MB"
+      },
+      "parts": {
+        "content": "$3",
+        "example": "12 articles, 856 saved phrases, 41 highlights, the settings"
+      }
     }
   },
   "reader_backup_settings_word": {
@@ -865,15 +1783,27 @@
   "reader_backup_summary": {
     "message": "$NAME$ - резервна копія re/read від $DATE$ (re/read $APP$):",
     "placeholders": {
-      "name": { "content": "$1", "example": "reread-backup.zip" },
-      "date": { "content": "$2", "example": "13/09/2026" },
-      "app": { "content": "$3", "example": "0.5.56" }
+      "name": {
+        "content": "$1",
+        "example": "reread-backup.zip"
+      },
+      "date": {
+        "content": "$2",
+        "example": "13/09/2026"
+      },
+      "app": {
+        "content": "$3",
+        "example": "0.5.56"
+      }
     }
   },
   "reader_backup_summary_highlights": {
     "message": "$NAME$ містить позначення:",
     "placeholders": {
-      "name": { "content": "$1", "example": "reread-backup.zip" }
+      "name": {
+        "content": "$1",
+        "example": "reread-backup.zip"
+      }
     }
   },
   "reader_backup_settings_restore": {
@@ -885,7 +1815,10 @@
   "reader_backup_newer": {
     "message": "Цей файл записала новіша версія re/read ($APP$). Оновіть re/read та імпортуйте його знову.",
     "placeholders": {
-      "app": { "content": "$1", "example": "0.5.56" }
+      "app": {
+        "content": "$1",
+        "example": "0.5.56"
+      }
     }
   },
   "reader_backup_nothing": {
@@ -897,776 +1830,1465 @@
   "reader_backup_articles_one": {
     "message": "$COUNT$ стаття",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_articles_few": {
     "message": "$COUNT$ статті",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_articles_many": {
     "message": "$COUNT$ статей",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_articles_other": {
     "message": "$COUNT$ статті",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_books_one": {
     "message": "$COUNT$ книга",
-    "placeholders": { "count": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "reader_backup_books_few": {
     "message": "$COUNT$ книги",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_backup_books_many": {
     "message": "$COUNT$ книг",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_backup_books_other": {
     "message": "$COUNT$ книги",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_backup_highlights_one": {
     "message": "$COUNT$ позначення",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_highlights_few": {
     "message": "$COUNT$ позначення",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_highlights_many": {
     "message": "$COUNT$ позначень",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_highlights_other": {
     "message": "$COUNT$ позначення",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_part_articles_one": {
     "message": "$COUNT$ стаття, з них $NEW$ ще немає в списку",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "new": { "content": "$2", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "new": {
+        "content": "$2",
+        "example": "3"
+      }
     }
   },
   "reader_backup_part_articles_few": {
     "message": "$COUNT$ статті, з них $NEW$ ще немає в списку",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "new": { "content": "$2", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "new": {
+        "content": "$2",
+        "example": "3"
+      }
     }
   },
   "reader_backup_part_articles_many": {
     "message": "$COUNT$ статей, з них $NEW$ ще немає в списку",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "new": { "content": "$2", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "new": {
+        "content": "$2",
+        "example": "3"
+      }
     }
   },
   "reader_backup_part_articles_other": {
     "message": "$COUNT$ статті, з них $NEW$ ще немає в списку",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "new": { "content": "$2", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "new": {
+        "content": "$2",
+        "example": "3"
+      }
     }
   },
   "reader_backup_part_books_one": {
     "message": "$COUNT$ книга, з них $NEW$ ще немає в списку",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "new": { "content": "$2", "example": "2" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "new": {
+        "content": "$2",
+        "example": "2"
+      }
     }
   },
   "reader_backup_part_books_few": {
     "message": "$COUNT$ книги, з них $NEW$ ще немає в списку",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "new": { "content": "$2", "example": "2" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "new": {
+        "content": "$2",
+        "example": "2"
+      }
     }
   },
   "reader_backup_part_books_many": {
     "message": "$COUNT$ книг, з них $NEW$ ще немає в списку",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "new": { "content": "$2", "example": "2" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "new": {
+        "content": "$2",
+        "example": "2"
+      }
     }
   },
   "reader_backup_part_books_other": {
     "message": "$COUNT$ книги, з них $NEW$ ще немає в списку",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "new": { "content": "$2", "example": "2" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "new": {
+        "content": "$2",
+        "example": "2"
+      }
     }
   },
   "reader_backup_part_phrases_one": {
     "message": "$COUNT$ збережена фраза ($PAIRS$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "pairs": { "content": "$2", "example": "English → Polish" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "pairs": {
+        "content": "$2",
+        "example": "English → Polish"
+      }
     }
   },
   "reader_backup_part_phrases_few": {
     "message": "$COUNT$ збережені фрази ($PAIRS$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "pairs": { "content": "$2", "example": "English → Polish" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "pairs": {
+        "content": "$2",
+        "example": "English → Polish"
+      }
     }
   },
   "reader_backup_part_phrases_many": {
     "message": "$COUNT$ збережених фраз ($PAIRS$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "pairs": { "content": "$2", "example": "English → Polish" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "pairs": {
+        "content": "$2",
+        "example": "English → Polish"
+      }
     }
   },
   "reader_backup_part_phrases_other": {
     "message": "$COUNT$ збереженої фрази ($PAIRS$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "pairs": { "content": "$2", "example": "English → Polish" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "pairs": {
+        "content": "$2",
+        "example": "English → Polish"
+      }
     }
   },
   "reader_backup_part_highlights_one": {
     "message": "$COUNT$ позначення - те, що вже є тут або не має свого документа, буде пропущене",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_part_highlights_few": {
     "message": "$COUNT$ позначення - ті, що вже є тут або не мають свого документа, будуть пропущені",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_part_highlights_many": {
     "message": "$COUNT$ позначень - ті, що вже є тут або не мають свого документа, будуть пропущені",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_part_highlights_other": {
     "message": "$COUNT$ позначення - ті, що вже є тут або не мають свого документа, будуть пропущені",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_phrases_counted_one": {
     "message": "$COUNT$ збережена фраза отримала вищі лічильники з файлу.",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_phrases_counted_few": {
     "message": "$COUNT$ збережені фрази отримали вищі лічильники з файлу.",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_phrases_counted_many": {
     "message": "$COUNT$ збережених фраз отримали вищі лічильники з файлу.",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_backup_phrases_counted_other": {
     "message": "$COUNT$ збереженої фрази отримали вищі лічильники з файлу.",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
-  "reader_transfer_pick": { "message": "Щоб експортувати лише частину статей або книг, натисніть «Вибрати» над списком і позначте їх." },
-  "reader_pick_start": { "message": "Вибрати" },
-  "reader_pick_close": { "message": "Закрити вибір" },
-  "reader_pick_all": { "message": "Вибрати все" },
+  "reader_transfer_pick": {
+    "message": "Щоб експортувати лише частину статей або книг, натисніть «Вибрати» над списком і позначте їх."
+  },
+  "reader_pick_start": {
+    "message": "Вибрати"
+  },
+  "reader_pick_close": {
+    "message": "Закрити вибір"
+  },
+  "reader_pick_all": {
+    "message": "Вибрати все"
+  },
   "reader_pick_count_one": {
     "message": "Вибрано $COUNT$ документ",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
     }
   },
   "reader_pick_count_few": {
     "message": "Вибрано $COUNT$ документи",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "reader_pick_count_many": {
     "message": "Вибрано $COUNT$ документів",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "reader_pick_count_other": {
     "message": "Вибрано $COUNT$ документа",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "reader_export_selected": {
     "message": "Експортувати вибрані ($COUNT$)",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "reader_export_done_one": {
     "message": "Експортовано $COUNT$ документ до $FILE$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "file": { "content": "$2", "example": "reread-selection.zip" },
-      "size": { "content": "$3", "example": "2,1 МБ" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-selection.zip"
+      },
+      "size": {
+        "content": "$3",
+        "example": "2,1 МБ"
+      }
     }
   },
   "reader_export_done_few": {
     "message": "Експортовано $COUNT$ документи до $FILE$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "file": { "content": "$2", "example": "reread-selection.zip" },
-      "size": { "content": "$3", "example": "2,1 МБ" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-selection.zip"
+      },
+      "size": {
+        "content": "$3",
+        "example": "2,1 МБ"
+      }
     }
   },
   "reader_export_done_many": {
     "message": "Експортовано $COUNT$ документів до $FILE$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "file": { "content": "$2", "example": "reread-selection.zip" },
-      "size": { "content": "$3", "example": "2,1 МБ" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-selection.zip"
+      },
+      "size": {
+        "content": "$3",
+        "example": "2,1 МБ"
+      }
     }
   },
   "reader_export_done_other": {
     "message": "Експортовано $COUNT$ документа до $FILE$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "file": { "content": "$2", "example": "reread-selection.zip" },
-      "size": { "content": "$3", "example": "2,1 МБ" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-selection.zip"
+      },
+      "size": {
+        "content": "$3",
+        "example": "2,1 МБ"
+      }
     }
   },
   "reader_export_marks_done_one": {
     "message": "Експортовано позначення з $COUNT$ документа до $FILE$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "file": { "content": "$2", "example": "reread-highlights.md" },
-      "size": { "content": "$3", "example": "4 KB" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-highlights.md"
+      },
+      "size": {
+        "content": "$3",
+        "example": "4 KB"
+      }
     }
   },
   "reader_export_marks_done_few": {
     "message": "Експортовано позначення з $COUNT$ документів до $FILE$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "file": { "content": "$2", "example": "reread-highlights.md" },
-      "size": { "content": "$3", "example": "12 KB" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-highlights.md"
+      },
+      "size": {
+        "content": "$3",
+        "example": "12 KB"
+      }
     }
   },
   "reader_export_marks_done_many": {
     "message": "Експортовано позначення з $COUNT$ документів до $FILE$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "15" },
-      "file": { "content": "$2", "example": "reread-highlights.md" },
-      "size": { "content": "$3", "example": "60 KB" }
+      "count": {
+        "content": "$1",
+        "example": "15"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-highlights.md"
+      },
+      "size": {
+        "content": "$3",
+        "example": "60 KB"
+      }
     }
   },
   "reader_export_marks_done_other": {
     "message": "Експортовано позначення з $COUNT$ документа до $FILE$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" },
-      "file": { "content": "$2", "example": "reread-highlights.md" },
-      "size": { "content": "$3", "example": "4 KB" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-highlights.md"
+      },
+      "size": {
+        "content": "$3",
+        "example": "4 KB"
+      }
     }
   },
   "vocab_export_done_one": {
     "message": "Експортовано $COUNT$ фразу до $FILE$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "file": { "content": "$2", "example": "reread-en-uk.tsv" },
-      "size": { "content": "$3", "example": "1 KB" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-en-uk.tsv"
+      },
+      "size": {
+        "content": "$3",
+        "example": "1 KB"
+      }
     }
   },
   "vocab_export_done_few": {
     "message": "Експортовано $COUNT$ фрази до $FILE$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "file": { "content": "$2", "example": "reread-en-uk.tsv" },
-      "size": { "content": "$3", "example": "1 KB" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-en-uk.tsv"
+      },
+      "size": {
+        "content": "$3",
+        "example": "1 KB"
+      }
     }
   },
   "vocab_export_done_many": {
     "message": "Експортовано $COUNT$ фраз до $FILE$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "240" },
-      "file": { "content": "$2", "example": "reread-en-uk.tsv" },
-      "size": { "content": "$3", "example": "19 KB" }
+      "count": {
+        "content": "$1",
+        "example": "240"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-en-uk.tsv"
+      },
+      "size": {
+        "content": "$3",
+        "example": "19 KB"
+      }
     }
   },
   "vocab_export_done_other": {
     "message": "Експортовано $COUNT$ фрази до $FILE$ ($SIZE$).",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" },
-      "file": { "content": "$2", "example": "reread-en-uk.tsv" },
-      "size": { "content": "$3", "example": "1 KB" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-en-uk.tsv"
+      },
+      "size": {
+        "content": "$3",
+        "example": "1 KB"
+      }
     }
   },
-  "reader_marks_title": { "message": "Позначення" },
-  "reader_marks_title_all": { "message": "Усі позначення" },
-  "reader_marks_title_article": { "message": "Позначення в цій статті" },
-  "reader_marks_title_book": { "message": "Позначення в цій книжці" },
-  "reader_marks_filter_label": { "message": "Фільтрувати позначення" },
-  "reader_marks_filter_placeholder": { "message": "Фільтр за цитатою чи назвою" },
+  "reader_marks_title": {
+    "message": "Позначення"
+  },
+  "reader_marks_title_all": {
+    "message": "Усі позначення"
+  },
+  "reader_marks_title_article": {
+    "message": "Позначення в цій статті"
+  },
+  "reader_marks_title_book": {
+    "message": "Позначення в цій книжці"
+  },
+  "reader_marks_filter_label": {
+    "message": "Фільтрувати позначення"
+  },
+  "reader_marks_filter_placeholder": {
+    "message": "Фільтр за цитатою чи назвою"
+  },
   "reader_marks_empty": {
     "message": "Поки що нічого не позначено - позначають під час читання. Відкрийте щось з офлайн-списку читання, візьміть маркер і позначте уривок; він чекатиме тут."
   },
-  "reader_marks_empty_doc": { "message": "У цьому документі поки що нічого не позначено." },
+  "reader_marks_empty_doc": {
+    "message": "У цьому документі поки що нічого не позначено."
+  },
   "reader_marks_no_match": {
     "message": "Жодне позначення не відповідає «$QUERY$».",
-    "placeholders": { "query": { "content": "$1", "example": "wikipedia" } }
+    "placeholders": {
+      "query": {
+        "content": "$1",
+        "example": "wikipedia"
+      }
+    }
   },
-  "reader_marks_back": { "message": "Назад до позначень" },
+  "reader_marks_back": {
+    "message": "Назад до позначень"
+  },
   "reader_back_to_doc": {
     "message": "Назад до «$TITLE$»",
-    "placeholders": { "title": { "content": "$1", "example": "Old Chinese" } }
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Old Chinese"
+      }
+    }
   },
   "reader_marks_open": {
     "message": "Відкрити «$TITLE$» на цьому позначенні",
-    "placeholders": { "title": { "content": "$1", "example": "Old Chinese" } }
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Old Chinese"
+      }
+    }
   },
-  "reader_transfer_link": { "message": "Імпорт та експорт (резервна копія або EPUB)" },
-  "reader_transfer_accepts": { "message": "Імпорт читає поданий файл: резервну копію re/read (.zip - або старіші файли .json списку та позначень) чи електронну книгу (.epub)." },
-  "reader_book_label": { "message": "Книжка" },
+  "reader_transfer_link": {
+    "message": "Імпорт та експорт (резервна копія або EPUB)"
+  },
+  "reader_transfer_accepts": {
+    "message": "Імпорт читає поданий файл: резервну копію re/read (.zip - або старіші файли .json списку та позначень) чи електронну книгу (.epub)."
+  },
+  "reader_book_label": {
+    "message": "Книжка"
+  },
   "reader_book_part_of": {
     "message": "Частина $PART$ з $PARTS$",
     "placeholders": {
-      "part": { "content": "$1", "example": "3" },
-      "parts": { "content": "$2", "example": "12" }
+      "part": {
+        "content": "$1",
+        "example": "3"
+      },
+      "parts": {
+        "content": "$2",
+        "example": "12"
+      }
     }
   },
   "reader_percent_read": {
     "message": "прочитано $PERCENT$%",
     "placeholders": {
-      "percent": { "content": "$1", "example": "34" }
+      "percent": {
+        "content": "$1",
+        "example": "34"
+      }
     }
   },
-  "reader_book_nav": { "message": "Частини книжки" },
-  "reader_book_toc": { "message": "Зміст" },
-  "reader_search_title": { "message": "Пошук у тексті" },
-  "reader_search_label": { "message": "Фраза для пошуку" },
-  "reader_search_placeholder": { "message": "Знайти фразу" },
-  "reader_search_go": { "message": "Шукати" },
-  "reader_search_short": { "message": "Введіть щонайменше 2 символи." },
-  "reader_search_none": { "message": "Нічого не знайдено." },
+  "reader_book_nav": {
+    "message": "Частини книжки"
+  },
+  "reader_book_toc": {
+    "message": "Зміст"
+  },
+  "reader_search_title": {
+    "message": "Пошук у тексті"
+  },
+  "reader_search_label": {
+    "message": "Фраза для пошуку"
+  },
+  "reader_search_placeholder": {
+    "message": "Знайти фразу"
+  },
+  "reader_search_go": {
+    "message": "Шукати"
+  },
+  "reader_search_short": {
+    "message": "Введіть щонайменше 2 символи."
+  },
+  "reader_search_none": {
+    "message": "Нічого не знайдено."
+  },
   "reader_search_count_one": {
     "message": "Знайдено $COUNT$ збіг.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
     }
   },
   "reader_search_count_few": {
     "message": "Знайдено $COUNT$ збіги.",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "reader_search_count_many": {
     "message": "Знайдено $COUNT$ збігів.",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_search_count_other": {
     "message": "Знайдено $COUNT$ збігу.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
     }
   },
   "reader_search_capped": {
     "message": "Показано перші $COUNT$.",
     "placeholders": {
-      "count": { "content": "$1", "example": "200" }
+      "count": {
+        "content": "$1",
+        "example": "200"
+      }
     }
   },
-  "reader_library_search_toggle": { "message": "Шукати також у текстах" },
-  "reader_search_more": { "message": "Шукати далі" },
+  "reader_library_search_toggle": {
+    "message": "Шукати також у текстах"
+  },
+  "reader_search_more": {
+    "message": "Шукати далі"
+  },
   "reader_search_progress": {
     "message": "Переглянуто $AT$ з $TOTAL$ документів.",
     "placeholders": {
-      "at": { "content": "$1", "example": "12" },
-      "total": { "content": "$2", "example": "80" }
+      "at": {
+        "content": "$1",
+        "example": "12"
+      },
+      "total": {
+        "content": "$2",
+        "example": "80"
+      }
     }
   },
-  "reader_search_in_titles": { "message": "У заголовках" },
-  "reader_search_in_text": { "message": "У тексті" },
+  "reader_search_in_titles": {
+    "message": "У заголовках"
+  },
+  "reader_search_in_text": {
+    "message": "У тексті"
+  },
   "reader_search_more_hits_one": {
     "message": "і ще $COUNT$ збіг",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
     }
   },
   "reader_search_more_hits_few": {
     "message": "і ще $COUNT$ збіги",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "reader_search_more_hits_many": {
     "message": "і ще $COUNT$ збігів",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_search_more_hits_other": {
     "message": "і ще $COUNT$ збігу",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
     }
   },
-  "close": { "message": "Закрити" },
+  "close": {
+    "message": "Закрити"
+  },
   "reader_book_importing": {
     "message": "Додавання книжки - частина $PART$",
     "placeholders": {
-      "part": { "content": "$1", "example": "3" }
+      "part": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "reader_book_importing_pictures": {
     "message": "Додавання книжки - частина $PART$, зображення $PICTURE$ ($SIZE$)",
     "placeholders": {
-      "part": { "content": "$1", "example": "3" },
-      "picture": { "content": "$2", "example": "12" },
-      "size": { "content": "$3", "example": "4,2 МБ" }
+      "part": {
+        "content": "$1",
+        "example": "3"
+      },
+      "picture": {
+        "content": "$2",
+        "example": "12"
+      },
+      "size": {
+        "content": "$3",
+        "example": "4,2 МБ"
+      }
     }
   },
   "reader_book_added": {
     "message": "Додано «$TITLE$».",
     "placeholders": {
-      "title": { "content": "$1", "example": "Dracula" }
+      "title": {
+        "content": "$1",
+        "example": "Dracula"
+      }
     }
   },
-  "reader_book_drm": { "message": "Ця книжка захищена DRM, її не можна імпортувати." },
-  "reader_book_unreadable": { "message": "Не вдалося прочитати цей файл як книжку EPUB." },
+  "reader_book_drm": {
+    "message": "Ця книжка захищена DRM, її не можна імпортувати."
+  },
+  "reader_book_unreadable": {
+    "message": "Не вдалося прочитати цей файл як книжку EPUB."
+  },
   "reader_book_pair_note": {
     "message": "Мова книжки: $BOOK$; поточна пара перекладає з: $PAIR$.",
     "placeholders": {
-      "book": { "content": "$1", "example": "німецька" },
-      "pair": { "content": "$2", "example": "англійська" }
+      "book": {
+        "content": "$1",
+        "example": "німецька"
+      },
+      "pair": {
+        "content": "$2",
+        "example": "англійська"
+      }
     }
   },
-  "reader_import_nothing": { "message": "У цьому файлі немає статей для імпорту." },
+  "reader_import_nothing": {
+    "message": "У цьому файлі немає статей для імпорту."
+  },
   "reader_import_summary_one": {
     "message": "$NAME$ містить $COUNT$ статтю:",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" },
-      "name": { "content": "$2", "example": "reread-articles.json" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "name": {
+        "content": "$2",
+        "example": "reread-articles.json"
+      }
     }
   },
   "reader_import_summary_few": {
     "message": "$NAME$ містить $COUNT$ статті:",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" },
-      "name": { "content": "$2", "example": "reread-articles.json" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "name": {
+        "content": "$2",
+        "example": "reread-articles.json"
+      }
     }
   },
   "reader_import_summary_many": {
     "message": "$NAME$ містить $COUNT$ статей:",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" },
-      "name": { "content": "$2", "example": "reread-articles.json" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "name": {
+        "content": "$2",
+        "example": "reread-articles.json"
+      }
     }
   },
   "reader_import_summary_other": {
     "message": "$NAME$ містить $COUNT$ статті:",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" },
-      "name": { "content": "$2", "example": "reread-articles.json" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      },
+      "name": {
+        "content": "$2",
+        "example": "reread-articles.json"
+      }
     }
   },
   "reader_import_more_one": {
     "message": "і ще $COUNT$ стаття",
-    "placeholders": { "count": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "reader_import_more_few": {
     "message": "і ще $COUNT$ статті",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_import_more_many": {
     "message": "і ще $COUNT$ статей",
-    "placeholders": { "count": { "content": "$1", "example": "297" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "297"
+      }
+    }
   },
   "reader_import_more_other": {
     "message": "і ще $COUNT$ статті",
-    "placeholders": { "count": { "content": "$1", "example": "297" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "297"
+      }
+    }
   },
   "reader_import_added_one": {
     "message": "Додано $COUNT$ нову статтю.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
     }
   },
   "reader_import_added_few": {
     "message": "Додано $COUNT$ нові статті.",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "reader_import_added_many": {
     "message": "Додано $COUNT$ нових статей.",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_import_added_other": {
     "message": "Додано $COUNT$ статті.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
     }
   },
   "reader_import_skipped_one": {
     "message": "Пропущено $COUNT$ вже збережену.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
     }
   },
   "reader_import_skipped_few": {
     "message": "Пропущено $COUNT$ вже збережені.",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "reader_import_skipped_many": {
     "message": "Пропущено $COUNT$ вже збережених.",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_import_skipped_other": {
     "message": "Пропущено $COUNT$ вже збереженої.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
     }
   },
   "reader_import_books_added_one": {
     "message": "Додано $COUNT$ нову книгу.",
-    "placeholders": { "count": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "reader_import_books_added_few": {
     "message": "Додано $COUNT$ нові книги.",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_import_books_added_many": {
     "message": "Додано $COUNT$ нових книг.",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_import_books_added_other": {
     "message": "Додано $COUNT$ нової книги.",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_import_books_skipped_one": {
     "message": "Пропущено $COUNT$ книгу, яка вже є.",
-    "placeholders": { "count": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "reader_import_books_skipped_few": {
     "message": "Пропущено $COUNT$ книги, які вже є.",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_import_books_skipped_many": {
     "message": "Пропущено $COUNT$ книг, які вже є.",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_import_books_skipped_other": {
     "message": "Пропущено $COUNT$ книги, яка вже є.",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_import_unreadable_one": {
     "message": "Не вдалося прочитати $COUNT$ запис.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1" }
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
     }
   },
   "reader_import_unreadable_few": {
     "message": "Не вдалося прочитати $COUNT$ записи.",
     "placeholders": {
-      "count": { "content": "$1", "example": "3" }
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
     }
   },
   "reader_import_unreadable_many": {
     "message": "Не вдалося прочитати $COUNT$ записів.",
     "placeholders": {
-      "count": { "content": "$1", "example": "12" }
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
     }
   },
   "reader_import_unreadable_other": {
     "message": "Не вдалося прочитати $COUNT$ запису.",
     "placeholders": {
-      "count": { "content": "$1", "example": "1,5" }
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
     }
   },
-
-  "download_cancelled": { "message": "Завантаження скасовано. Нічого не збережено." },
-  "download_failed": { "message": "Завантаження не завершилося, і нічого не збережено." },
+  "download_cancelled": {
+    "message": "Завантаження скасовано. Нічого не збережено."
+  },
+  "download_failed": {
+    "message": "Завантаження не завершилося, і нічого не збережено."
+  },
   "model_download_network": {
     "message": "Не вдалося зв'язатися з місцем, де зберігаються моделі$DETAIL$. Нічого не збережено.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "model_download_http": {
     "message": "Завантаження відхилено$DETAIL$. Модель, можливо, переїхала; нічого не збережено.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "model_download_size": {
     "message": "Завантаження обірвалося зарано$DETAIL$, тож файл викинуто.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "model_download_checksum": {
     "message": "Те, що надійшло, не є моделлю, на яку чекає ця версія$DETAIL$, тож його викинуто. Спробуйте ще раз - якщо повторюватиметься, файл на тому боці змінився.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "model_download_unpack": {
     "message": "Завантажене не вдалося розпакувати$DETAIL$, тож його викинуто.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "dict_download_network": {
     "message": "Не вдалося зв'язатися з місцем, де зберігаються словники$DETAIL$. Нічого не збережено.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "dict_download_http": {
     "message": "Завантаження відхилено$DETAIL$. Словник, можливо, переїхав; нічого не збережено.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "dict_download_too_big": {
     "message": "Завантаження значно більше, ніж словник має бути$DETAIL$, тож його зупинено. Нічого не збережено.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
-
-  "model_files_one_of_them": { "message": "один із файлів" },
-  "model_files_empty": { "message": "Не вибрано жодного файлу." },
+  "model_files_one_of_them": {
+    "message": "один із файлів"
+  },
+  "model_files_empty": {
+    "message": "Не вибрано жодного файлу."
+  },
   "model_files_unknown_file": {
     "message": "Не є частиною моделі: $FILE$. Очікуються назви, що починаються з model., lex. і vocab.",
-    "placeholders": { "file": { "content": "$1" } }
+    "placeholders": {
+      "file": {
+        "content": "$1"
+      }
+    }
   },
   "model_files_unknown_pair": {
     "message": "Неможливо визначити, для яких мов цей файл: $FILE$.",
-    "placeholders": { "file": { "content": "$1" } }
+    "placeholders": {
+      "file": {
+        "content": "$1"
+      }
+    }
   },
   "model_files_mixed_pairs": {
     "message": "Ці файли належать більш ніж одній мовній парі ($PAIRS$). Завантажуйте один напрямок за раз.",
-    "placeholders": { "pairs": { "content": "$1" } }
+    "placeholders": {
+      "pairs": {
+        "content": "$1"
+      }
+    }
   },
-  "model_files_missing_model": { "message": "Бракує файлу моделі (model.<pair>.intgemm.alphas.bin)." },
-  "model_files_missing_shortlist": { "message": "Бракує файлу shortlist (lex.<pair>.s2t.bin)." },
-  "model_files_missing_vocab": { "message": "Бракує словникового файлу (vocab.<pair>.spm)." },
-  "model_files_not_a_model": { "message": "Ці файли не є моделлю перекладу." },
-
-  "dict_link_empty": { "message": "Спочатку вставте адресу архіву. Нічого не збережено." },
-  "dict_link_invalid": { "message": "Це не вебадреса. Нічого не збережено." },
-  "dict_link_not_https": { "message": "Приймаються лише адреси https. Нічого не збережено." },
+  "model_files_missing_model": {
+    "message": "Бракує файлу моделі (model.<pair>.intgemm.alphas.bin)."
+  },
+  "model_files_missing_shortlist": {
+    "message": "Бракує файлу shortlist (lex.<pair>.s2t.bin)."
+  },
+  "model_files_missing_vocab": {
+    "message": "Бракує словникового файлу (vocab.<pair>.spm)."
+  },
+  "model_files_not_a_model": {
+    "message": "Ці файли не є моделлю перекладу."
+  },
+  "dict_link_empty": {
+    "message": "Спочатку вставте адресу архіву. Нічого не збережено."
+  },
+  "dict_link_invalid": {
+    "message": "Це не вебадреса. Нічого не збережено."
+  },
+  "dict_link_not_https": {
+    "message": "Приймаються лише адреси https. Нічого не збережено."
+  },
   "dict_link_credentials": {
     "message": "Адреса з іменем користувача або паролем не приймається. Нічого не збережено."
   },
-  "dict_default_name": { "message": "Словник" },
-  "dict_import_empty": { "message": "Не вибрано жодного файлу. Нічого не збережено." },
-  "dict_import_missing_ifo": { "message": "Серед цих файлів немає .ifo, тож це не словник StarDict. Нічого не збережено." },
-  "dict_import_missing_idx": { "message": "Бракує індексу (.idx або .idx.gz). Нічого не збережено." },
-  "dict_import_missing_dict": { "message": "Бракує тіла словника (.dict або .dict.dz). Нічого не збережено." },
+  "dict_default_name": {
+    "message": "Словник"
+  },
+  "dict_import_empty": {
+    "message": "Не вибрано жодного файлу. Нічого не збережено."
+  },
+  "dict_import_missing_ifo": {
+    "message": "Серед цих файлів немає .ifo, тож це не словник StarDict. Нічого не збережено."
+  },
+  "dict_import_missing_idx": {
+    "message": "Бракує індексу (.idx або .idx.gz). Нічого не збережено."
+  },
+  "dict_import_missing_dict": {
+    "message": "Бракує тіла словника (.dict або .dict.dz). Нічого не збережено."
+  },
   "dict_import_mixed": {
     "message": "Ці файли належать більш ніж одному словнику ($NAMES$). Додавайте по одному. Нічого не збережено.",
-    "placeholders": { "names": { "content": "$1" } }
+    "placeholders": {
+      "names": {
+        "content": "$1"
+      }
+    }
   },
-  "dict_import_not_stardict": { "message": "Цей файл .ifo не є словником StarDict. Нічого не збережено." },
+  "dict_import_not_stardict": {
+    "message": "Цей файл .ifo не є словником StarDict. Нічого не збережено."
+  },
   "dict_import_not_stardict_detail": {
     "message": "Це $KIND$, чого це розширення не вміє читати. Нічого не збережено.",
-    "placeholders": { "kind": { "content": "$1" } }
+    "placeholders": {
+      "kind": {
+        "content": "$1"
+      }
+    }
   },
   "dict_import_unpack": {
     "message": "Файли стиснуто в спосіб, який не вдалося розпакувати$DETAIL$. Нічого не збережено.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
-  "dict_import_no_entries": { "message": "Індекс порожній - у цьому словнику немає слів. Нічого не збережено." },
+  "dict_import_no_entries": {
+    "message": "Індекс порожній - у цьому словнику немає слів. Нічого не збережено."
+  },
   "dict_import_no_entries_detail": {
     "message": "Жодного з $COUNT$ слів в індексі не вдалося прочитати, тож ці файли не пасують одне до одного. Нічого не збережено.",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
-  "dict_import_unreadable": { "message": "Ці файли не є словником, який це розширення вміє читати. Нічого не збережено." },
-
-  "zip_not_zip": { "message": "Те, що надійшло, не є zip-архівом. Нічого не збережено." },
+  "dict_import_unreadable": {
+    "message": "Ці файли не є словником, який це розширення вміє читати. Нічого не збережено."
+  },
+  "zip_not_zip": {
+    "message": "Те, що надійшло, не є zip-архівом. Нічого не збережено."
+  },
   "zip_unsupported": {
     "message": "Архів використовує можливість, якої це розширення не читає$DETAIL$. Нічого не збережено.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "zip_too_big": {
     "message": "Архів більший, ніж словник має будь-яку причину бути$DETAIL$. Нічого не збережено.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "zip_bad": {
     "message": "Архів пошкоджено$DETAIL$. Нічого не збережено - спробуйте завантажити ще раз.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
-  "zip_unreadable": { "message": "Архів не вдалося прочитати. Нічого не збережено." },
-
+  "zip_unreadable": {
+    "message": "Архів не вдалося прочитати. Нічого не збережено."
+  },
   "words_one": {
     "message": "$COUNT$ слово",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "words_few": {
     "message": "$COUNT$ слова",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "words_many": {
     "message": "$COUNT$ слів",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "words_other": {
     "message": "$COUNT$ слова",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "spellings_one": {
     "message": "$COUNT$ інше написання",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "spellings_few": {
     "message": "$COUNT$ інші написання",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "spellings_many": {
     "message": "$COUNT$ інших написань",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "spellings_other": {
     "message": "$COUNT$ іншого написання",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "phrases_one": {
     "message": "$COUNT$ збережена фраза",
-    "placeholders": { "count": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "phrases_few": {
     "message": "$COUNT$ збережені фрази",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "phrases_many": {
     "message": "$COUNT$ збережених фраз",
-    "placeholders": { "count": { "content": "$1", "example": "1 243" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1 243"
+      }
+    }
   },
   "phrases_other": {
     "message": "$COUNT$ збереженої фрази",
-    "placeholders": { "count": { "content": "$1", "example": "1,5" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
+    }
   },
-
-  "options_title": { "message": "re/read - налаштування" },
-  "back_to_reading": {"message": "Повернутися до читання"},
+  "options_title": {
+    "message": "re/read - налаштування"
+  },
+  "back_to_reading": {
+    "message": "Повернутися до читання"
+  },
   "options_local_intro": {
     "message": "Усе, що робить re/read, відбувається на цьому пристрої (офлайн): переклад, словник, список читання, збережені фрази. Нічого з того, що ви читаєте чи виділяєте, нікуди не надсилається. Інтернет-з'єднання потрібне, лише коли ви хочете завантажити нову модель перекладу чи словник - і лише з двох URL-адрес, відкрито наведених у цих розділах."
   },
-  "options_first_steps_heading": { "message": "Перші кроки" },
+  "options_first_steps_heading": {
+    "message": "Перші кроки"
+  },
   "options_first_steps_intro": {
     "message": "Поки що ніщо не перекладається - моделі, яка б це робила, ще немає на цьому пристрої. Підготовка займає хвилину:"
   },
@@ -1682,191 +3304,428 @@
   "options_first_steps_pin_android": {
     "message": "Кнопку re/read знайдете в меню браузера (⋮), у розділі розширень - вона відкриває режим читання, список читання, збережені фрази та вимикач для сайту, на якому ви зараз."
   },
-  "options_sections_aria": { "message": "Розділи цієї сторінки" },
-  "options_engine": { "message": "Рушій" },
-  "options_engine_value": { "message": "Bergamot, усередині пакета - перекладає офлайн" },
-  "options_storage": { "message": "Дані на цьому пристрої" },
+  "options_sections_aria": {
+    "message": "Розділи цієї сторінки"
+  },
+  "options_engine": {
+    "message": "Рушій"
+  },
+  "options_engine_value": {
+    "message": "Bergamot, усередині пакета - перекладає офлайн"
+  },
+  "options_storage": {
+    "message": "Дані на цьому пристрої"
+  },
   "options_storage_value": {
     "message": "$SIZE$ - моделі, словники, список читання і ваші фрази разом",
-    "placeholders": { "size": { "content": "$1", "example": "143,2 MB" } }
+    "placeholders": {
+      "size": {
+        "content": "$1",
+        "example": "143,2 MB"
+      }
+    }
   },
-  "options_storage_how": { "message": "Обсяг пам'яті, який займає розширення. Словники займають більше місця, ніж їхні файли, через структуру бази даних. Видалення статті або книги повністю вилучає її текст, зображення, позначення, нотатки та прогрес читання." },
-  "options_storage_persistent": { "message": "Постійне сховище: надано. Браузер пообіцяв не стирати ці дані, щоб звільнити місце." },
-  "options_storage_at_risk": { "message": "Постійне сховище: не надано. Safari стирає дані сайту приблизно після місяця користування без жодного дотику до його сторінок, а сторінки цього розширення рахуються як один сайт. Ваші фрази мають копію, яка це переживе (рядок нижче); моделі, словники і список читання - ні, тож час від часу відкривайте режим читання або ці налаштування." },
+  "options_storage_how": {
+    "message": "Обсяг пам'яті, який займає розширення. Словники займають більше місця, ніж їхні файли, через структуру бази даних. Видалення статті або книги повністю вилучає її текст, зображення, позначення, нотатки та прогрес читання."
+  },
+  "options_storage_persistent": {
+    "message": "Постійне сховище: надано. Браузер пообіцяв не стирати ці дані, щоб звільнити місце."
+  },
+  "options_storage_at_risk": {
+    "message": "Постійне сховище: не надано. Safari стирає дані сайту приблизно після місяця користування без жодного дотику до його сторінок, а сторінки цього розширення рахуються як один сайт. Ваші фрази мають копію, яка це переживе (рядок нижче); моделі, словники і список читання - ні, тож час від часу відкривайте режим читання або ці налаштування."
+  },
   "options_storage_backup_one": {
     "message": "Копія словника: $COUNT$ фраза, записана $WHEN$ - там, де браузер не стирає дані сам.",
-    "placeholders": { "count": { "content": "$1", "example": "1" }, "when": { "content": "$2", "example": "26.08.26, 12:41" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "when": {
+        "content": "$2",
+        "example": "26.08.26, 12:41"
+      }
+    }
   },
   "options_storage_backup_few": {
     "message": "Копія словника: $COUNT$ фрази, записана $WHEN$ - там, де браузер не стирає дані сам.",
-    "placeholders": { "count": { "content": "$1", "example": "3" }, "when": { "content": "$2", "example": "26.08.26, 12:41" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "when": {
+        "content": "$2",
+        "example": "26.08.26, 12:41"
+      }
+    }
   },
   "options_storage_backup_many": {
     "message": "Копія словника: $COUNT$ фраз, записана $WHEN$ - там, де браузер не стирає дані сам.",
-    "placeholders": { "count": { "content": "$1", "example": "1234" }, "when": { "content": "$2", "example": "26.08.26, 12:41" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1234"
+      },
+      "when": {
+        "content": "$2",
+        "example": "26.08.26, 12:41"
+      }
+    }
   },
   "options_storage_backup_other": {
     "message": "Копія словника: $COUNT$ фрази, записана $WHEN$ - там, де браузер не стирає дані сам.",
-    "placeholders": { "count": { "content": "$1", "example": "1,5" }, "when": { "content": "$2", "example": "26.08.26, 12:41" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      },
+      "when": {
+        "content": "$2",
+        "example": "26.08.26, 12:41"
+      }
+    }
   },
-  "options_storage_backup_none": { "message": "Копія словника: ще немає - з'явиться з наступною збереженою фразою." },
+  "options_storage_backup_none": {
+    "message": "Копія словника: ще немає - з'явиться з наступною збереженою фразою."
+  },
   "options_storage_marks_backup_one": {
     "message": "Копія позначень: $COUNT$ позначення з нотатками, записана $WHEN$.",
-    "placeholders": { "count": { "content": "$1", "example": "1" }, "when": { "content": "$2", "example": "26.08.26, 12:41" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "when": {
+        "content": "$2",
+        "example": "26.08.26, 12:41"
+      }
+    }
   },
   "options_storage_marks_backup_few": {
     "message": "Копія позначень: $COUNT$ позначення з нотатками, записана $WHEN$.",
-    "placeholders": { "count": { "content": "$1", "example": "3" }, "when": { "content": "$2", "example": "26.08.26, 12:41" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "when": {
+        "content": "$2",
+        "example": "26.08.26, 12:41"
+      }
+    }
   },
   "options_storage_marks_backup_many": {
     "message": "Копія позначень: $COUNT$ позначень з нотатками, записана $WHEN$.",
-    "placeholders": { "count": { "content": "$1", "example": "37" }, "when": { "content": "$2", "example": "26.08.26, 12:41" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "37"
+      },
+      "when": {
+        "content": "$2",
+        "example": "26.08.26, 12:41"
+      }
+    }
   },
   "options_storage_marks_backup_other": {
     "message": "Копія позначень: $COUNT$ позначення з нотатками, записана $WHEN$.",
-    "placeholders": { "count": { "content": "$1", "example": "1,5" }, "when": { "content": "$2", "example": "26.08.26, 12:41" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      },
+      "when": {
+        "content": "$2",
+        "example": "26.08.26, 12:41"
+      }
+    }
   },
-  "options_storage_marks_backup_none": { "message": "Копія позначень: ще немає - з'явиться з наступним позначенням." },
+  "options_storage_marks_backup_none": {
+    "message": "Копія позначень: ще немає - з'явиться з наступним позначенням."
+  },
   "options_storage_library_copy_one": {
     "message": "Копія списку читання: $COUNT$ документ, $SIZE$.",
-    "placeholders": { "count": { "content": "$1", "example": "1" }, "size": { "content": "$2", "example": "12,4 МБ" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12,4 МБ"
+      }
+    }
   },
   "options_storage_library_copy_few": {
     "message": "Копія списку читання: $COUNT$ документи, $SIZE$.",
-    "placeholders": { "count": { "content": "$1", "example": "3" }, "size": { "content": "$2", "example": "12,4 МБ" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12,4 МБ"
+      }
+    }
   },
   "options_storage_library_copy_many": {
     "message": "Копія списку читання: $COUNT$ документів, $SIZE$.",
-    "placeholders": { "count": { "content": "$1", "example": "37" }, "size": { "content": "$2", "example": "12,4 МБ" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "37"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12,4 МБ"
+      }
+    }
   },
   "options_storage_library_copy_other": {
     "message": "Копія списку читання: $COUNT$ документа, $SIZE$.",
-    "placeholders": { "count": { "content": "$1", "example": "1,5" }, "size": { "content": "$2", "example": "12,4 МБ" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12,4 МБ"
+      }
+    }
   },
-  "options_storage_library_copy_none": { "message": "Копія списку читання: ще немає - з'явиться з наступною збереженою сторінкою або імпортованою книгою." },
-  "options_storage_library_copy_off": { "message": "Копія списку читання: вимкнена." },
-  "options_library_copy": { "message": "Копія списку читання" },
+  "options_storage_library_copy_none": {
+    "message": "Копія списку читання: ще немає - з'явиться з наступною збереженою сторінкою або імпортованою книгою."
+  },
+  "options_storage_library_copy_off": {
+    "message": "Копія списку читання: вимкнена."
+  },
+  "options_library_copy": {
+    "message": "Копія списку читання"
+  },
   "options_library_copy_hint": {
     "message": "Створює резервну копію списку читання для захисту від автоматичного очищення браузера та помилок бази даних. Це подвоює обсяг пам'яті, який займає список, але збережені статті залишаються в безпеці, навіть якщо базу даних буде втрачено."
   },
   "reader_marks_delete_all_one": {
     "message": "Видалити $COUNT$ цитату з цієї сторінки",
-    "placeholders": { "count": { "content": "$1", "example": "1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "reader_marks_delete_all_few": {
     "message": "Видалити всі $COUNT$ цитати з цієї сторінки",
-    "placeholders": { "count": { "content": "$1", "example": "3" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
   },
   "reader_marks_delete_all_many": {
     "message": "Видалити всі $COUNT$ цитат з цієї сторінки",
-    "placeholders": { "count": { "content": "$1", "example": "5" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
   "reader_marks_delete_all_other": {
     "message": "Видалити всі $COUNT$ цитати з цієї сторінки",
-    "placeholders": { "count": { "content": "$1", "example": "5" } }
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
   },
-  "reader_mark_text_changed": { "message": "Текст сторінки змінився відтоді, як було зроблено позначення, тому показати його тут не вдається." },
-  "reader_marks_missing_doc": { "message": "Цей документ більше не збережено - цитата повернулася з копії. Відкрийте сторінку знову, і позначення буде на місці." },
-  "options_pair_hint": { "message": "Показує мовні пари, завантажені на цей пристрій. Щоб додати нові мови, завантажте їх у розділі" },
-  "options_pair_hint_rest": { "message": "нижче." },
-  "options_pair_none": { "message": "Ще немає моделі чи словника - додайте нижче" },
+  "reader_mark_text_changed": {
+    "message": "Текст сторінки змінився відтоді, як було зроблено позначення, тому показати його тут не вдається."
+  },
+  "reader_marks_missing_doc": {
+    "message": "Цей документ більше не збережено - цитата повернулася з копії. Відкрийте сторінку знову, і позначення буде на місці."
+  },
+  "options_pair_hint": {
+    "message": "Показує мовні пари, завантажені на цей пристрій. Щоб додати нові мови, завантажте їх у розділі"
+  },
+  "options_pair_hint_rest": {
+    "message": "нижче."
+  },
+  "options_pair_none": {
+    "message": "Ще немає моделі чи словника - додайте нижче"
+  },
   "options_pair_dictionary_only": {
     "message": "$PAIR$ (словник)",
-    "placeholders": { "pair": { "content": "$1", "example": "англійська → англійська" } }
+    "placeholders": {
+      "pair": {
+        "content": "$1",
+        "example": "англійська → англійська"
+      }
+    }
   },
   "options_pair_hint_quiet": {
     "message": "Без моделі перекладу пара означає, якою мовою ви читаєте і де зберігаються збережені фрази. Пари походять з установлених моделей і словників."
   },
   "options_reading_pair_quiet": {
     "message": "Ви читаєте: $FROM$ - машинний переклад вимкнено, збережені фрази належать до цієї пари.",
-    "placeholders": { "from": { "content": "$1", "example": "англійська" } }
+    "placeholders": {
+      "from": {
+        "content": "$1",
+        "example": "англійська"
+      }
+    }
   },
-  "options_reader_only": { "message": "Лише в режимі читання" },
+  "options_reader_only": {
+    "message": "Лише в режимі читання"
+  },
   "options_reader_only_hint": {
     "message": "Обмежує підкреслення збережених фраз і бульбашку перекладу режимом читання. Виділення тексту на звичайній вебсторінці показуватиме лише кнопку для відкриття сторінки в режимі читання. Коли опція ввімкнена, жодна вебсторінка не може дізнатися, які з її слів ви зберегли. На Android та iOS ця опція типово ввімкнена."
   },
-  "options_keep_articles": { "message": "Типово зберігати в офлайн-списку читання" },
+  "options_keep_articles": {
+    "message": "Типово зберігати в офлайн-списку читання"
+  },
   "options_keep_articles_hint": {
     "message": "Автоматично зберігає кожну сторінку, відкриту в режимі читання, для читання офлайн. Збережені сторінки, позначення та прогрес читання залишаються в безпеці, навіть якщо оригінальний сайт зміниться або зникне."
   },
-  "options_font_custom": { "message": "Власний шрифт" },
+  "options_font_custom": {
+    "message": "Власний шрифт"
+  },
   "options_font_custom_hint": {
     "message": "Введіть назву шрифту, встановленого на цьому пристрої, наприклад Georgia або Noto Serif. Рядок Шрифт у режимі читання запропонує його як Власний. Залиште поле порожнім, щоб використовувати лише вбудовані шрифти."
   },
   "options_quiet_bubble_hint": {
     "message": "Показує в бульбашці лише текст перекладу. Кнопки дій (копіювання, збереження) з'являються лише після кліку або дотику по бульбашці."
   },
-  "options_bubble_more": { "message": "Одразу показувати речення та словникові статті" },
+  "options_bubble_more": {
+    "message": "Одразу показувати речення та словникові статті"
+  },
   "options_bubble_more_hint": {
     "message": "Після виділення тексту бульбашка одразу показує те, що інакше з'являється лише після натискання «Більше»: перекладене речення та словникові статті. Варто залишити ввімкненим, якщо встановлено словник - модель перекладу часто помиляється на окремому слові, а словник показує, що воно означає насправді. Бульбашка над уже збереженою фразою показує лише збережений переклад - речення та словникові статті з'являться після натискання «Більше»."
   },
-  "options_underline_forms": { "message": "Підкреслювати також інші форми збережених слів" },
+  "options_underline_forms": {
+    "message": "Підкреслювати також інші форми збережених слів"
+  },
   "options_underline_forms_hint": {
     "message": "Збережене слово підкреслюється також в інших формах: після збереження «read» підкреслюються й «reads» та «reading», а бульбашка над ними показує те, що ви зберегли для «read». Які форми враховуються, вирішує ваш словник мови, яку ви читаєте - він має бути встановлений. Поки що лише тоді, коли ви читаєте англійською. Якщо вимкнено, підкреслюється лише та форма, яку ви зберегли."
   },
-  "options_save_sentence": { "message": "Зберігати речення разом із фразою" },
+  "options_save_sentence": {
+    "message": "Зберігати речення разом із фразою"
+  },
   "options_save_sentence_hint": {
     "message": "Коли ви зберігаєте фразу з бульбашки, разом із нею зберігається речення навколо неї - таке, як на сторінці, без перекладу. Воно показується під фразою на сторінці збережених фраз, згорнуте в один рядок, і записується до третьої колонки експорту для Anki. Для фрази, збереженої без речення, речення навколо неї зберігається, коли ви наступного разу відкриєте її бульбашку на сторінці. Як і фраза, речення зберігається лише на цьому пристрої. Якщо вимкнено, нові речення не зберігаються; збережені раніше не видаляються."
   },
-  "options_no_translation": { "message": "Використовувати без моделі перекладу" },
+  "options_no_translation": {
+    "message": "Використовувати без моделі перекладу"
+  },
   "options_no_translation_hint": {
     "message": "Вимикає машинний переклад (модель). Режим читання, офлайн-список читання і маркер працюють далі. З вибраною парою мов бульбашка й далі показує значення зі словників, а фрази можна зберігати та бачити їх підкреслення. Ідеально для читання зі словниками або рідною мовою. Збережені дані не видаляються і повертаються після вимкнення цієї опції."
   },
-  "options_bubble_off": { "message": "Без бульбашки при виділенні тексту" },
+  "options_bubble_off": {
+    "message": "Без бульбашки при виділенні тексту"
+  },
   "options_bubble_off_hint": {
     "message": "Коли це ввімкнено, виділення тексту на звичайній сторінці не робить нічого - сторінку відкривайте в режимі читання кнопкою re/read або сполученням Alt+Shift+R. У режимі читання виділення - лише миттєве підсвічування: бульбашка не відкривається, дотик або Escape знімає його, а Ctrl+C чи Cmd+C копіює (на сенсорному екрані скопіювати нічого не можна)."
   },
-  "options_bubble_scale": { "message": "Розмір тексту бульбашки" },
+  "options_bubble_scale": {
+    "message": "Розмір тексту бульбашки"
+  },
   "options_bubble_scale_hint": {
     "message": "Змінює розмір тексту та кнопок у бульбашці перекладу на всіх сторінках."
   },
-  "options_note_more": { "message": "Показати повний опис" },
-  "options_tts": { "message": "Читання вголос" },
+  "options_note_more": {
+    "message": "Показати повний опис"
+  },
+  "options_tts": {
+    "message": "Читання вголос"
+  },
   "options_tts_hint": {
     "message": "Вмикає функцію читання вголос. Вимкнення цієї опції приховує всі кнопки читання в бульбашці, списках і режимі читання."
   },
-  "options_tts_voice": { "message": "Голос для читання вголос" },
-  "options_tts_lang": { "message": "Мова голосу" },
-  "options_tts_default": { "message": "Типовий голос" },
-  "options_tts_listen": { "message": "Прослухати" },
+  "options_tts_voice": {
+    "message": "Голос для читання вголос"
+  },
+  "options_tts_lang": {
+    "message": "Мова голосу"
+  },
+  "options_tts_default": {
+    "message": "Типовий голос"
+  },
+  "options_tts_listen": {
+    "message": "Прослухати"
+  },
   "options_tts_voice_hint": {
     "message": "Оберіть для кожної мови голос для читання фраз і статей. Пропонуються лише голоси, що працюють офлайн: мовлення створюється на цьому пристрої, і нічого не надсилається в інтернет."
   },
-  "speech_no_offline_voice": { "message": "На цьому пристрої немає офлайн-голосу для цієї мови." },
-  "options_tts_rate": { "message": "Швидкість читання" },
-  "options_models_heading": { "message": "Моделі перекладу" },
+  "speech_no_offline_voice": {
+    "message": "На цьому пристрої немає офлайн-голосу для цієї мови."
+  },
+  "options_tts_rate": {
+    "message": "Швидкість читання"
+  },
+  "options_models_heading": {
+    "message": "Моделі перекладу"
+  },
   "options_models_intro": {
     "message": "Завантажте тут модель перекладу для кожної мовної пари, яку хочете перекладати. Це офіційні файли Mozilla, які працюють повністю офлайн на вашому пристрої."
   },
   "options_models_single_word": {
     "message": "Модель добре перекладає речення, але окреме слово без контексту часто перекладається неправильно - результат буває обрізаним або є словом, якого не існує. Для окремих слів кращим джерелом є словник із розділу нижче."
   },
-  "options_update_list": { "message": "Оновити список" },
-  "options_list_dated": { "message": "Список станом на" },
-  "options_filter_placeholder": { "message": "Фільтруйте за мовою або кодом" },
-  "options_filter_models_label": { "message": "Фільтрувати список моделей перекладу" },
-  "options_filter_dictionaries_label": { "message": "Фільтрувати список словників" },
+  "options_update_list": {
+    "message": "Оновити список"
+  },
+  "options_list_dated": {
+    "message": "Список станом на"
+  },
+  "options_filter_placeholder": {
+    "message": "Фільтруйте за мовою або кодом"
+  },
+  "options_filter_models_label": {
+    "message": "Фільтрувати список моделей перекладу"
+  },
+  "options_filter_dictionaries_label": {
+    "message": "Фільтрувати список словників"
+  },
   "options_show_all": {
     "message": "Показати всі ($COUNT$)",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
-  "options_show_fewer": { "message": "Показати менше" },
-  "options_model_note_from": { "message": "Моделі завантажуються з" },
+  "options_show_fewer": {
+    "message": "Показати менше"
+  },
+  "options_model_note_from": {
+    "message": "Моделі завантажуються з"
+  },
   "options_model_note_rest": {
     "message": "- саме там їх публікує Mozilla. Розширення з'єднується з цим публічним сервером лише тоді, коли ви натискаєте Оновити список або Завантажити. Жодні персональні дані не надсилаються."
   },
-  "options_add_model_heading": { "message": "Додати модель із файлів" },
+  "options_add_model_heading": {
+    "message": "Додати модель із файлів"
+  },
   "options_add_model_summary": {
     "message": "Щоб вручну додати модель, якої немає в списку вище, завантажте її файли тут."
   },
   "options_add_model_intro": {
     "message": "Вкажіть три файли одного напрямку - і їх буде збережено локально. Файли gzip розпаковуються тут-таки, тож завантаження придатні такими, як є:"
   },
-  "options_add_model_button": { "message": "Додати модель" },
+  "options_add_model_button": {
+    "message": "Додати модель"
+  },
   "options_files_note": {
     "message": "Додавання моделі з файлів не робить жодного мережевого запиту, а ця сторінка лишається запасним виходом на день, коли місце, звідки беруться моделі, перестане відповідати."
   },
-  "options_dictionaries_heading": { "message": "Словники" },
+  "options_dictionaries_heading": {
+    "message": "Словники"
+  },
   "options_dictionaries_intro": {
     "message": "Додайте словники, щоб бачити детальні визначення слів у бульбашці перекладу. Ви можете змінювати порядок їх відображення за допомогою стрілок."
   },
@@ -1876,33 +3735,57 @@
   "options_dictionary_order_hint": {
     "message": "Бульбашка відповідає в порядку, поданому нижче. Відповідають лише словники мови, яку ви читаєте."
   },
-  "options_dictionary_note_from": { "message": "Словники завантажуються з" },
+  "options_dictionary_note_from": {
+    "message": "Словники завантажуються з"
+  },
   "options_dictionary_note_rest": {
     "message": "- саме там WikDict публікує словники, які будує з Вікісловника (CC BY-SA). Розширення з'єднується з цим публічним сервером лише тоді, коли ви натискаєте Оновити список або Завантажити. Жодні персональні дані не надсилаються."
   },
-  "options_add_dictionary_heading": { "message": "Додати словник із файлів" },
+  "options_add_dictionary_heading": {
+    "message": "Додати словник із файлів"
+  },
   "options_add_dictionary_summary": {
     "message": "Імпортуйте власні словники у форматі StarDict. Розпакуйте архів, оберіть необхідні файли (.ifo, .idx, .dict), вкажіть мови та натисніть Додати словник."
   },
-  "options_file_ifo": { "message": "- як словник сам себе називає" },
-  "options_file_idx": { "message": "- індекс слів" },
-  "options_file_dict_or": { "message": "або" },
-  "options_file_dict": { "message": "- тлумачення" },
-  "options_file_syn": { "message": "- інші написання, якщо словник їх має" },
-  "options_words_in": { "message": "Мова слів:" },
-  "options_explained_in": { "message": "мова пояснень:" },
-  "options_add_dictionary_button": { "message": "Додати словник" },
+  "options_file_ifo": {
+    "message": "- як словник сам себе називає"
+  },
+  "options_file_idx": {
+    "message": "- індекс слів"
+  },
+  "options_file_dict_or": {
+    "message": "або"
+  },
+  "options_file_dict": {
+    "message": "- тлумачення"
+  },
+  "options_file_syn": {
+    "message": "- інші написання, якщо словник їх має"
+  },
+  "options_words_in": {
+    "message": "Мова слів:"
+  },
+  "options_explained_in": {
+    "message": "мова пояснень:"
+  },
+  "options_add_dictionary_button": {
+    "message": "Додати словник"
+  },
   "options_add_dictionary_mono": {
     "message": "Одномовний словник теж працює, наприклад англійсько-англійський: виберіть ту саму мову з обох боків."
   },
   "options_dict_files_note": {
     "message": "Додавання з файлів не робить жодного мережевого запиту. Працюють будь-які файли StarDict, зокрема й файли каталогу, опубліковані на"
   },
-  "options_add_link_heading": { "message": "Додати словник за посиланням" },
+  "options_add_link_heading": {
+    "message": "Додати словник за посиланням"
+  },
   "options_add_link_summary": {
     "message": "Вставте адресу словника StarDict, запакованого у файл .zip, вкажіть мови та натисніть Завантажити. Розширення з'єднується з цією адресою один раз, коли ви натискаєте кнопку, і з жодною іншою; нічого вашого не надсилається. Архів розпаковується та перевіряється на цьому пристрої, точно так само, як файли, які ви обираєте самі."
   },
-  "options_link_label": { "message": "Адреса" },
+  "options_link_label": {
+    "message": "Адреса"
+  },
   "options_link_sources": {
     "message": "Де шукати словники, зокрема одномовні - наприклад, англійсько-англійський - кожен із зазначеною ліцензією:"
   },
@@ -1911,280 +3794,545 @@
   },
   "options_downloading_link": {
     "message": "Завантаження з $HOST$...",
-    "placeholders": { "host": { "content": "$1", "example": "www.reader-dict.com" } }
+    "placeholders": {
+      "host": {
+        "content": "$1",
+        "example": "www.reader-dict.com"
+      }
+    }
   },
   "options_link_answered_by": {
     "message": "Адреса вела до $HOST$, і саме звідти прийшов архів.",
-    "placeholders": { "host": { "content": "$1", "example": "objects.githubusercontent.com" } }
+    "placeholders": {
+      "host": {
+        "content": "$1",
+        "example": "objects.githubusercontent.com"
+      }
+    }
   },
-  "options_disabled_heading": { "message": "Вимкнені сайти" },
+  "options_disabled_heading": {
+    "message": "Вимкнені сайти"
+  },
   "options_disabled_intro": {
     "message": "Список вебсайтів, де розширення вимкнено: без перекладу, без бульбашки, без підкреслень. Додайте сайт перемикачем під іконкою розширення на панелі браузера, перебуваючи на ньому, або введіть його адресу нижче. Перемикача немає, коли водночас увімкнено „Використовувати без моделі перекладу\" і „Без бульбашки при виділенні тексту\": на звичайних сторінках тоді нічого не відбувається, тож немає чого вимикати."
   },
-  "options_add_host_label": { "message": "Адреса сайту" },
-  "options_add_host_button": { "message": "Додати" },
+  "options_add_host_label": {
+    "message": "Адреса сайту"
+  },
+  "options_add_host_button": {
+    "message": "Додати"
+  },
   "options_add_host_note": {
     "message": "Адреса так, як її показує браузер, наприклад example.org; www.example.org - той самий сайт. Піддомен, як-от news.example.org, - окремий сайт. Можна вставити повну адресу сторінки; залишається лише частина з назвою сайту."
   },
-  "options_host_empty": { "message": "Спочатку введіть адресу сайту." },
-  "options_host_invalid": { "message": "Це не адреса сайту." },
+  "options_host_empty": {
+    "message": "Спочатку введіть адресу сайту."
+  },
+  "options_host_invalid": {
+    "message": "Це не адреса сайту."
+  },
   "options_host_added": {
     "message": "Вимкнено на $HOST$.",
-    "placeholders": { "host": { "content": "$1", "example": "www.example.org" } }
+    "placeholders": {
+      "host": {
+        "content": "$1",
+        "example": "www.example.org"
+      }
+    }
   },
   "options_host_listed": {
     "message": "$HOST$ уже є в списку.",
-    "placeholders": { "host": { "content": "$1", "example": "www.example.org" } }
+    "placeholders": {
+      "host": {
+        "content": "$1",
+        "example": "www.example.org"
+      }
+    }
   },
-  "options_custom_css_heading": { "message": "Власний CSS" },
+  "options_custom_css_heading": {
+    "message": "Власний CSS"
+  },
   "options_custom_css_intro": {
     "message": "Для тих, хто хоче змінити вигляд бульбашки, сторінки режиму читання та вікна кнопки на панелі інструментів власними правилами CSS. Ця сторінка лишається поза їхньою дією, тож хибне правило завжди можна скасувати тут: очистьте поле та збережіть."
   },
-  "options_custom_css_more": { "message": "Більше про правила CSS та назви" },
+  "options_custom_css_more": {
+    "message": "Більше про правила CSS та назви"
+  },
   "options_custom_css_reach": {
     "message": "Правила діють у бульбашці перекладу, на сторінці режиму читання - разом із панеллю та списками - та у вікні кнопки на панелі інструментів, ніколи на сторінках, які ви читаєте. Хибне правило може зіпсувати вигляд або керування в тих місцях, доки поле не буде очищене."
   },
   "options_custom_css_rules": {
     "message": "Правила, які завантажували б щось із мережі (url(), @import, @font-face), відхиляються. Назви елементів ми намагаємося зберігати від версії до версії; коли якусь доводиться змінити, про це кажуть примітки до випуску. Назви походять із цих файлів:"
   },
-  "options_custom_css_source_bubble": { "message": "tooltip.js (бульбашка)" },
-  "options_custom_css_source_reader": { "message": "reader.css (режим читання)" },
-  "options_custom_css_source_popup": { "message": "popup.css (вікно кнопки)" },
-  "options_custom_css_source_shared": { "message": "page.css (усі сторінки)" },
-  "options_custom_css_save": { "message": "Зберегти" },
-  "options_custom_css_saved": { "message": "Збережено" },
+  "options_custom_css_source_bubble": {
+    "message": "tooltip.js (бульбашка)"
+  },
+  "options_custom_css_source_reader": {
+    "message": "reader.css (режим читання)"
+  },
+  "options_custom_css_source_popup": {
+    "message": "popup.css (вікно кнопки)"
+  },
+  "options_custom_css_source_shared": {
+    "message": "page.css (усі сторінки)"
+  },
+  "options_custom_css_save": {
+    "message": "Зберегти"
+  },
+  "options_custom_css_saved": {
+    "message": "Збережено"
+  },
   "options_custom_css_refused": {
     "message": "Не збережено: правила відхилено. Правила, які завантажують щось із мережі (url(), @import, @font-face), не дозволені."
   },
   "options_custom_css_example": {
     "message": "Приклад: .bubble { outline: 3px solid darkorange; } малює помаранчеву рамку навколо кожної бульбашки."
   },
-  "options_custom_css_cleared": { "message": "Збережено: без правил, отже стандартний вигляд." },
+  "options_custom_css_cleared": {
+    "message": "Збережено: без правил, отже стандартний вигляд."
+  },
   "options_support_intro": {
     "message": "re/read розробляє неприбуткова фундація - без інвесторів, без реклами, без стеження. Якщо розширення вам корисне й ви хочете підтримати його розвиток, кожна пожертва допомагає нам створювати програми, вільні від комерційного тиску."
   },
-  "options_support_donate": { "message": "Зробити внесок через Wise" },
-  "options_support_more": { "message": "Інші способи підтримки" },
-
-  "options_badge_reading": { "message": "це ви читаєте" },
-  "options_delete_confirm": { "message": "Точно?" },
+  "options_support_donate": {
+    "message": "Зробити внесок через Wise"
+  },
+  "options_support_more": {
+    "message": "Інші способи підтримки"
+  },
+  "options_badge_reading": {
+    "message": "це ви читаєте"
+  },
+  "options_delete_confirm": {
+    "message": "Точно?"
+  },
   "options_delete_model_aria": {
     "message": "Видалити модель $PAIR$",
-    "placeholders": { "pair": { "content": "$1" } }
+    "placeholders": {
+      "pair": {
+        "content": "$1"
+      }
+    }
   },
   "options_delete_dictionary_aria": {
     "message": "Видалити словник $NAME$",
-    "placeholders": { "name": { "content": "$1" } }
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
   },
   "options_delete_confirm_aria": {
     "message": "Підтвердити видалення: $NAME$",
-    "placeholders": { "name": { "content": "$1" } }
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
   },
   "options_size_here": {
     "message": "$SIZE$ на пристрої",
-    "placeholders": { "size": { "content": "$1" } }
+    "placeholders": {
+      "size": {
+        "content": "$1"
+      }
+    }
   },
   "options_progress_of": {
     "message": "$RECEIVED$ з $TOTAL$",
     "placeholders": {
-      "received": { "content": "$1" },
-      "total": { "content": "$2" }
+      "received": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
     }
   },
   "options_deleted_model": {
     "message": "Модель $PAIR$ видалено.",
-    "placeholders": { "pair": { "content": "$1" } }
+    "placeholders": {
+      "pair": {
+        "content": "$1"
+      }
+    }
   },
   "options_checking_model": {
     "message": "Перевірка моделі $PAIR$ в рушії...",
-    "placeholders": { "pair": { "content": "$1", "example": "з англійської на польську" } }
+    "placeholders": {
+      "pair": {
+        "content": "$1",
+        "example": "з англійської на польську"
+      }
+    }
   },
   "options_model_rejected": {
     "message": "Рушій не зміг завантажити те, що прийшло$DETAIL$. Нічого не збережено.",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
-  "options_refreshing_list": { "message": "Освіження списку моделей..." },
-  "options_refreshing_dict_list": { "message": "Освіження списку словників..." },
+  "options_refreshing_list": {
+    "message": "Освіження списку моделей..."
+  },
+  "options_refreshing_dict_list": {
+    "message": "Освіження списку словників..."
+  },
   "options_refresh_failed": {
     "message": "Не вдалося освіжити список$DETAIL$. Залишається список від $DATE$.",
     "placeholders": {
-      "detail": { "content": "$1" },
-      "date": { "content": "$2", "example": "2026-08-13" }
+      "detail": {
+        "content": "$1"
+      },
+      "date": {
+        "content": "$2",
+        "example": "2026-08-13"
+      }
     }
   },
-  "options_version_unknown": { "message": "версія невідома" },
+  "options_version_unknown": {
+    "message": "версія невідома"
+  },
   "options_downloading_model": {
     "message": "Завантаження моделі $PAIR$ - $SIZE$.",
     "placeholders": {
-      "pair": { "content": "$1" },
-      "size": { "content": "$2" }
+      "pair": {
+        "content": "$1"
+      },
+      "size": {
+        "content": "$2"
+      }
     }
   },
   "options_downloaded_model": {
     "message": "Модель $PAIR$ завантажено, $SIZE$ на пристрої.",
     "placeholders": {
-      "pair": { "content": "$1" },
-      "size": { "content": "$2" }
+      "pair": {
+        "content": "$1"
+      },
+      "size": {
+        "content": "$2"
+      }
     }
   },
   "options_store_failed": {
     "message": "Модель завантажилася, але її не вдалося зберегти: $DETAIL$",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "options_reading_pair": {
     "message": "Читаєте: $FROM$, перекладаєте на: $TO$.",
     "placeholders": {
-      "from": { "content": "$1" },
-      "to": { "content": "$2" }
+      "from": {
+        "content": "$1"
+      },
+      "to": {
+        "content": "$2"
+      }
     }
   },
   "options_reading_pair_missing": {
     "message": "Читаєте: $FROM$, перекладаєте на: $TO$ - а моделі цього напрямку тут ще немає.",
     "placeholders": {
-      "from": { "content": "$1" },
-      "to": { "content": "$2" }
+      "from": {
+        "content": "$1"
+      },
+      "to": {
+        "content": "$2"
+      }
     }
   },
-  "options_no_models": { "message": "Тут немає моделей і немає чого завантажувати - ця збірка не перелічує жодної." },
-  "options_filter_no_match_models": { "message": "Жодна пара не підходить. Фільтр приймає назву мови або код." },
-  "options_filter_no_match_dictionaries": { "message": "Жоден словник не підходить. Фільтр приймає назву мови або код." },
-  "options_no_disabled": { "message": "Жоден сайт не вимкнено. Вимикають у спливному вікні панелі інструментів." },
-  "options_turn_back_on": { "message": "Увімкнути назад" },
+  "options_no_models": {
+    "message": "Тут немає моделей і немає чого завантажувати - ця збірка не перелічує жодної."
+  },
+  "options_filter_no_match_models": {
+    "message": "Жодна пара не підходить. Фільтр приймає назву мови або код."
+  },
+  "options_filter_no_match_dictionaries": {
+    "message": "Жоден словник не підходить. Фільтр приймає назву мови або код."
+  },
+  "options_no_disabled": {
+    "message": "Жоден сайт не вимкнено. Вимикають у спливному вікні панелі інструментів."
+  },
+  "options_turn_back_on": {
+    "message": "Увімкнути назад"
+  },
   "options_reading_model_files": {
     "message": "Читання файлів для пари $PAIR$...",
-    "placeholders": { "pair": { "content": "$1" } }
+    "placeholders": {
+      "pair": {
+        "content": "$1"
+      }
+    }
   },
   "options_file_disappeared": {
     "message": "$NAME$ зник під час читання",
-    "placeholders": { "name": { "content": "$1" } }
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
   },
   "options_added_model": {
     "message": "Модель $PAIR$ додано, $SIZE$ на пристрої.",
     "placeholders": {
-      "pair": { "content": "$1" },
-      "size": { "content": "$2" }
+      "pair": {
+        "content": "$1"
+      },
+      "size": {
+        "content": "$2"
+      }
     }
   },
   "options_add_model_failed": {
     "message": "Не вдалося додати модель: $DETAIL$",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "options_deleted_dictionary": {
     "message": "$NAME$ видалено.",
-    "placeholders": { "name": { "content": "$1" } }
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
   },
   "options_deleting_dictionary": {
     "message": "Видалення $NAME$ - великий словник забирає трохи часу...",
-    "placeholders": { "name": { "content": "$1" } }
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
   },
-  "options_deleting_row": { "message": "Видалення..." },
+  "options_deleting_row": {
+    "message": "Видалення..."
+  },
   "options_delete_dictionary_failed": {
     "message": "Не вдалося видалити $NAME$: $DETAIL$",
     "placeholders": {
-      "name": { "content": "$1" },
-      "detail": { "content": "$2" }
+      "name": {
+        "content": "$1"
+      },
+      "detail": {
+        "content": "$2"
+      }
     }
   },
   "options_move_dictionary_up_aria": {
     "message": "Перемістити $NAME$ вгору",
-    "placeholders": { "name": { "content": "$1", "example": "WikDict en-pl" } }
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "WikDict en-pl"
+      }
+    }
   },
   "options_move_dictionary_down_aria": {
     "message": "Перемістити $NAME$ вниз",
-    "placeholders": { "name": { "content": "$1", "example": "WikDict en-pl" } }
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "WikDict en-pl"
+      }
+    }
   },
   "options_dictionary_moved": {
     "message": "$NAME$ тепер відповідає як $PLACE$ з $TOTAL$.",
     "placeholders": {
-      "name": { "content": "$1", "example": "WikDict en-pl" },
-      "place": { "content": "$2", "example": "1" },
-      "total": { "content": "$3", "example": "3" }
+      "name": {
+        "content": "$1",
+        "example": "WikDict en-pl"
+      },
+      "place": {
+        "content": "$2",
+        "example": "1"
+      },
+      "total": {
+        "content": "$3",
+        "example": "3"
+      }
     }
   },
-  "options_dictionary_details": { "message": "Подробиці" },
+  "options_dictionary_details": {
+    "message": "Подробиці"
+  },
   "options_dictionary_file_name": {
     "message": "Назва з файлу: $NAME$",
-    "placeholders": { "name": { "content": "$1", "example": "English-Polish FreeDict+WikDict dictionary (en-pl)" } }
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "English-Polish FreeDict+WikDict dictionary (en-pl)"
+      }
+    }
   },
-  "options_dictionary_display_name": { "message": "Відображувана назва" },
+  "options_dictionary_display_name": {
+    "message": "Відображувана назва"
+  },
   "options_dictionary_display_name_aria": {
     "message": "Відображувана назва словника $NAME$",
-    "placeholders": { "name": { "content": "$1", "example": "English-Polish FreeDict+WikDict dictionary (en-pl)" } }
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "English-Polish FreeDict+WikDict dictionary (en-pl)"
+      }
+    }
   },
   "options_dictionary_name_taken": {
     "message": "Інший словник уже відображається як $NAME$ - виберіть іншу назву.",
-    "placeholders": { "name": { "content": "$1", "example": "FreeDict en-pl" } }
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "FreeDict en-pl"
+      }
+    }
   },
   "options_rename_failed": {
     "message": "Не вдалося зберегти назву: $DETAIL$",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "options_reorder_failed": {
     "message": "Не вдалося змінити порядок: $DETAIL$",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
-  "options_no_catalog": { "message": "Немає словників для завантаження - ця збірка не перелічує жодного." },
+  "options_no_catalog": {
+    "message": "Немає словників для завантаження - ця збірка не перелічує жодного."
+  },
   "options_downloading_dictionary": {
     "message": "Завантаження словника $PAIR$...",
-    "placeholders": { "pair": { "content": "$1" } }
+    "placeholders": {
+      "pair": {
+        "content": "$1"
+      }
+    }
   },
   "options_storing_dictionary": {
     "message": "Збереження $NAME$ - $DONE$ з $TOTAL$...",
     "placeholders": {
-      "name": { "content": "$1" },
-      "done": { "content": "$2" },
-      "total": { "content": "$3" }
+      "name": {
+        "content": "$1"
+      },
+      "done": {
+        "content": "$2"
+      },
+      "total": {
+        "content": "$3"
+      }
     }
   },
   "options_added_dictionary": {
     "message": "Додано $NAME$: $WORDS$, $SIZE$.",
     "placeholders": {
-      "name": { "content": "$1" },
-      "words": { "content": "$2" },
-      "size": { "content": "$3" }
+      "name": {
+        "content": "$1"
+      },
+      "words": {
+        "content": "$2"
+      },
+      "size": {
+        "content": "$3"
+      }
     }
   },
   "options_skipped_entries_one": {
     "message": "Не вдалося прочитати $COUNT$ запис - його пропущено.",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "options_skipped_entries_few": {
     "message": "Не вдалося прочитати $COUNT$ записи - їх пропущено.",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "options_skipped_entries_many": {
     "message": "Не вдалося прочитати $COUNT$ записів - їх пропущено.",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "options_skipped_entries_other": {
     "message": "Не вдалося прочитати $COUNT$ запису - його пропущено.",
-    "placeholders": { "count": { "content": "$1" } }
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
   },
   "options_add_dictionary_failed": {
     "message": "Не вдалося додати словник: $DETAIL$",
-    "placeholders": { "detail": { "content": "$1" } }
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
   },
   "options_reading_file": {
     "message": "Читання $NAME$...",
-    "placeholders": { "name": { "content": "$1" } }
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
   },
   "options_swept_unfinished": {
     "message": "Видалено словник, імпорт якого так і не завершився ($NAMES$).",
-    "placeholders": { "names": { "content": "$1" } }
+    "placeholders": {
+      "names": {
+        "content": "$1"
+      }
+    }
   },
   "options_import_interrupted": {
     "message": "Перервано на $DONE$ з $TOTAL$ - «Продовжити» підхопить із цього місця.",
     "placeholders": {
-      "done": { "content": "$1" },
-      "total": { "content": "$2" }
+      "done": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
     }
   },
-  "options_import_interrupted_early": { "message": "Перервано до збереження першого запису - «Продовжити» почне спочатку." },
-  "options_import_elsewhere": { "message": "Інша вкладка саме додає словник - зачекайте, поки вона закінчить." },
-  "options_continue_import": { "message": "Продовжити" },
+  "options_import_interrupted_early": {
+    "message": "Перервано до збереження першого запису - «Продовжити» почне спочатку."
+  },
+  "options_import_elsewhere": {
+    "message": "Інша вкладка саме додає словник - зачекайте, поки вона закінчить."
+  },
+  "options_continue_import": {
+    "message": "Продовжити"
+  },
   "options_continue_import_aria": {
     "message": "Продовжити додавання $NAME$",
-    "placeholders": { "name": { "content": "$1" } }
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
   },
   "bubble_translate_sentence": {
     "message": "Перекласти речення"
@@ -2214,5 +4362,11 @@
         "content": "$1"
       }
     }
+  },
+  "lookup_word_forms": {
+    "message": "Форми слова"
+  },
+  "lookup_etymology": {
+    "message": "Етимологія"
   }
 }

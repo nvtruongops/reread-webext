@@ -1090,7 +1090,7 @@ async function onAction(action, meanings) {
     return;
   }
   if (action === "more" || action === "sentence") {
-    await fillSecondLayer();
+    await fillSecondLayer(action);
     return;
   }
 
@@ -1271,6 +1271,7 @@ function showSaved(anchor, text, normalized, context, how = {}) {
   // per tap.
   secondLayer = ["more"];
   unfetched = { context };
+  const sentenceAction = /** @type {import("./tooltip.js").Action[]} */ (context !== null && lazySentence ? ["sentence"] : []);
   // Recall: the answer first, and the row of actions with it or behind a fold,
   // exactly as the quiet-bubble setting says (D131). D44 made this variant the
   // folded one on its own - somebody who clicked an underline wanted to know
@@ -1282,7 +1283,7 @@ function showSaved(anchor, text, normalized, context, how = {}) {
     line: how.range === undefined ? 0 : firstLineOf(how.range),
     variant: "recall",
     body: meanings.join("\n"),
-    actions: [...kept(), ...secondLayer],
+    actions: [...kept(), ...sentenceAction, ...secondLayer],
     phrase: text,
     // Named only over a form (D208): the one time the bubble has to say
     // which saved word it answers with, because the page shows another.
@@ -1298,10 +1299,7 @@ function showSaved(anchor, text, normalized, context, how = {}) {
     scheme: bubbleScheme?.() ?? null,
   });
   // One bubble opening, counted (D209): the row's key, reported in the idle
-  // moment after with whatever else the page has gathered by then - and the
-  // sentence the phrase stands in here (D216), for a row kept without one:
-  // the page sends what it has, as a save does, and the background keeps it
-  // only while the setting asks for it.
+  // moments.
   report.recalled(key, context);
   scheduleReport();
   return true;
@@ -1313,8 +1311,10 @@ function showSaved(anchor, text, normalized, context, how = {}) {
  * translated sentence and the dictionary entries, side by side (D31) - and the
  * fresh gloss it also brings is dropped: the reader has decided what the
  * phrase means, and their answer stays the body.
+ *
+ * @param {import("./tooltip.js").Action} [forAction]
  */
-async function fillSecondLayer() {
+async function fillSecondLayer(forAction = "more") {
   const phrase = current;
   const wanted = unfetched;
   if (phrase === null || wanted === null) return;
@@ -1346,10 +1346,17 @@ async function fillSecondLayer() {
     return;
   }
 
-  tooltip.setContext(t("bubble_translating"), "pending");
+  const useLazy = lazySentence && forAction !== "sentence" && wanted.context !== null;
+  if (!useLazy) {
+    tooltip.setContext(t("bubble_translating"), "pending");
+  }
 
   /** @type {Promise<import("../lib/protocol.js").Result<import("../lib/protocol.js").Translation>>} */
-  const answer = ask(translateRequest(phrase.text, wanted.context, phrase.lang));
+  const answer = ask(
+    useLazy
+      ? translateRequest(phrase.text, null, phrase.lang)
+      : translateRequest(phrase.text, wanted.context, phrase.lang),
+  );
   const result = await answer;
   if (mine !== generation || !tooltip.isOpen()) return;
 
@@ -1371,7 +1378,7 @@ async function fillSecondLayer() {
   // the button away instead, and the bubble snapping shut on the press that
   // opened it read as the UI breaking. The line stays for as long as the
   // bubble does, and More goes on folding it like any other layer.
-  if ((sentence === null || sentence.length === 0) && groups.length === 0) {
+  if ((sentence === null || sentence.length === 0) && groups.length === 0 && !useLazy) {
     tooltip.setContext(t("bubble_nothing_more"), "note");
     tooltip.setEntries([]);
     return;
@@ -1380,10 +1387,14 @@ async function fillSecondLayer() {
   tooltip.setContext(sentence);
   tooltip.setEntries(groups);
   tooltip.expand();
+  if (useLazy && wanted.context !== null) {
+    unfetched = wanted;
+  }
   if (current !== null) {
     secondLayer = ["more"];
+    const sentenceAction = /** @type {import("./tooltip.js").Action[]} */ (unfetched?.context ? ["sentence"] : []);
     const decision = keeping({ normalized: current.normalized, gloss: current.gloss ?? "", findable: current.keepable, deliberate: false });
-    tooltip.setActions([...offered(decision), ...secondLayer]);
+    tooltip.setActions([...offered(decision), ...sentenceAction, ...secondLayer]);
   }
 }
 

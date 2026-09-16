@@ -2726,5 +2726,11 @@
         "content": "$1"
       }
     }
+  },
+  "lookup_word_forms": {
+    "message": "Dạng từ"
+  },
+  "lookup_etymology": {
+    "message": "Nguồn gốc từ"
   }
 }

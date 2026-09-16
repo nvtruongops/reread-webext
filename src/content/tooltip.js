@@ -437,7 +437,7 @@ const TOUCH_SIZES = `
 
 /** Exported for the test that holds the size system together, nothing else. */
 export const STYLE = `
-  :host { all: initial; }
+:host { all: initial; }
   * { box-sizing: border-box; }
 
   /* The hidden attribute is a rule in the browser's own stylesheet, and any
@@ -827,28 +827,95 @@ export const STYLE = `
     letter-spacing: 0.05em;
   }
   .lookup-example {
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 6px;
-    padding: 3px 5px 3px calc(5px + var(--lookup-box-size) + var(--lookup-line-gap) + 8px);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    row-gap: 3px;
+    column-gap: 6px;
+    padding: 4px 6px 5px calc(5px + var(--lookup-box-size) + var(--lookup-line-gap) + 8px);
     font-size: calc(var(--type-second) * var(--bubble-scale, 1) * 0.9);
-    opacity: 0.85;
-    border-left: 1.5px solid currentColor;
-    margin: 2px 0 3px 0;
+    opacity: 0.9;
+    border-left: 2px solid color-mix(in srgb, currentColor 30%, transparent);
+    margin: 6px 0 8px 0;
   }
-  .lookup-ex-source { font-style: italic; font-weight: 500; }
-  .lookup-ex-arrow { opacity: 0.6; }
+  .lookup-ex-bullet {
+    grid-column: 1;
+    grid-row: 1;
+    opacity: 0.75;
+    line-height: 1.45;
+  }
+  .lookup-ex-source {
+    grid-column: 2;
+    grid-row: 1;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+  .lookup-ex-arrow {
+    grid-column: 1;
+    grid-row: 2;
+    opacity: 0.7;
+    padding-left: 6px;
+    line-height: 1.45;
+  }
+  .lookup-ex-target {
+    grid-column: 2;
+    grid-row: 2;
+    line-height: 1.45;
+    opacity: 0.95;
+  }
   .lookup-idiom {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    row-gap: 3px;
+    column-gap: 6px;
+    padding: 4px 6px 5px calc(5px + var(--lookup-box-size) + var(--lookup-line-gap));
+    font-size: calc(var(--type-second) * var(--bubble-scale, 1) * 0.9);
+    margin: 6px 0 8px 0;
+  }
+  .lookup-idiom-star {
+    grid-column: 1;
+    grid-row: 1;
+    opacity: 0.9;
+    line-height: 1.45;
+  }
+  .lookup-idiom-source {
+    grid-column: 2;
+    grid-row: 1;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+  .lookup-idiom-target {
+    grid-column: 2;
+    grid-row: 2;
+    line-height: 1.45;
+    opacity: 0.95;
+  }
+  .lookup-about-row {
     display: flex;
-    align-items: baseline;
     flex-wrap: wrap;
+    align-items: baseline;
     gap: 6px;
     padding: 3px 5px 3px calc(5px + var(--lookup-box-size) + var(--lookup-line-gap));
-    font-size: calc(var(--type-second) * var(--bubble-scale, 1) * 0.9);
+    font-size: calc(var(--type-second) * var(--bubble-scale, 1) * 0.88);
+    line-height: 1.45;
   }
-  .lookup-idiom-star { opacity: 0.9; }
-  .lookup-idiom-source { font-weight: 600; }
+  .lookup-about-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border-radius: 4px;
+    border: 1px solid currentColor;
+    opacity: 0.85;
+    letter-spacing: 0.03em;
+  }
+  .lookup-about-content {
+    opacity: 0.9;
+  }
+  .lookup-about-bullet {
+    opacity: 0.7;
+    margin-right: 2px;
+  }
 
   /* A meaning as a row: the box, then the text, 40px tall so a finger has
      something to press; the text wraps as it needs to. What says a meaning
@@ -1250,7 +1317,20 @@ export const STYLE = `
      targets. Sizing only - the reveal mechanic deliberately has no touch
      branch (D44), and a hybrid using its mouse loses nothing to bigger type. */
   @media (pointer: coarse) {
-    .bubble {${TOUCH_SIZES}}
+    .bubble {
+    --type-body: 16px;
+    --type-second: 15px;
+    --type-label: 12px;
+    --type-action: 14px;
+    --type-cta: 15px;
+    --gap-actions: 0.63em;
+    --pad-action: 0.57em 0.43em;
+    --pull-action: -0.43em;
+    --pad-cta: 0.53em 1.07em;
+    --icon: 1.43em;
+    --type-door: 16px;
+    --icon-door: 20px;
+}
   }
 
   /* The same tier by the gesture's own word (D84): the pointer that made the
@@ -1260,7 +1340,20 @@ export const STYLE = `
      7-inch slate. Only ever forced up, never down: a mouse selection on a
      device whose media query says coarse keeps the bigger type, for the
      hybrid's reason above. */
-  .bubble[data-pointer="coarse"] {${TOUCH_SIZES}}
+  .bubble[data-pointer="coarse"] {
+    --type-body: 16px;
+    --type-second: 15px;
+    --type-label: 12px;
+    --type-action: 14px;
+    --type-cta: 15px;
+    --gap-actions: 0.63em;
+    --pad-action: 0.57em 0.43em;
+    --pull-action: -0.43em;
+    --pad-cta: 0.53em 1.07em;
+    --icon: 1.43em;
+    --type-door: 16px;
+    --icon-door: 20px;
+}
 
   @media (prefers-color-scheme: dark) {
     .bubble:not([data-scheme]) {
