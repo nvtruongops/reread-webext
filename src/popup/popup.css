@@ -2,13 +2,17 @@
    overrides what being a popup means: a width instead of a reading column,
    and rows instead of sections. */
 
+html {
+  container-type: inline-size;
+}
+
 body {
   /* The desktop panel sizes itself to the page, so the page has to name a
      width - this is a measure of the panel, not an assumption about screens. */
   width: 19rem;
   margin: 0;
   padding: 0.4rem 0.9rem;
-  max-width: none;
+  max-width: 100%;
   font-size: 14px;
   /* A surface raised over the page (the fourth brief's D3): the page's
      paper a step lighter in sepia and in the dark, the paper itself where
@@ -27,6 +31,19 @@ body {
 body[data-os="android"] {
   width: auto;
   font-size: 16px;
+}
+
+/* Chrome MV3 Side Panel: adapts smoothly when panel width is expanded beyond 24rem */
+@container (min-width: 24rem) {
+  body {
+    width: auto;
+    padding: 0.75rem 1.4rem;
+    font-size: 15px;
+  }
+
+  .popup-row {
+    padding: 0.7rem 0;
+  }
 }
 
 body[data-os="android"] .popup-row {

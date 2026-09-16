@@ -245,6 +245,9 @@
           </button>
         </span>
       </header>
+      <div id="reader-progress-rail" class="reader-progress-rail" aria-hidden="true">
+        <div id="reader-progress-bar" class="reader-progress-bar"></div>
+      </div>
 
       <!-- The bookmark tab (Michał's design, after a mobileread request): a
            ribbon hanging off the bar's far edge, the one hand on the bar's
@@ -343,6 +346,14 @@
           <span class="reader-choices" id="links-choices">
             <button type="button" data-links="plain" data-i18n="reader_links_plain">Plain text</button>
             <button type="button" data-links="active" data-i18n="reader_links_active">Active</button>
+          </span>
+        </div>
+
+        <div class="reader-setting" id="bionic-setting">
+          <span class="reader-setting-name">Bionic</span>
+          <span class="reader-choices" id="bionic-choices">
+            <button type="button" data-bionic="off" aria-pressed="true">Off</button>
+            <button type="button" data-bionic="on" aria-pressed="false">On</button>
           </span>
         </div>
 
@@ -1674,6 +1685,9 @@
           <path d="M7.6 3.6v8.8L12.9 8zM2.4 3.6v8.8L7.7 8z" fill="currentColor" />
         </svg>
         <span class="speech-label" data-i18n="reader_speech_forward">Forward</span>
+      </button>
+      <button type="button" id="speech-rate" class="speech-rate-pill" title="Playback speed">
+        <span id="speech-rate-label">1.0&times;</span>
       </button>
     </div>
 

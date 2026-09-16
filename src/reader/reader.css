@@ -2649,3 +2649,39 @@ body.reader[data-view="list"] .page-end,
 body.reader[data-view="marks"] .page-end {
   display: block;
 }
+
+/* Minimal 2px Reading Progress Rail */
+.reader-progress-rail {
+  width: 100%;
+  height: 2px;
+  background: transparent;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.reader-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--page-accent);
+  transition: width 80ms ease-out;
+}
+
+/* Bionic reading visual fixation */
+:root[data-bionic="true"] article b,
+:root[data-bionic="true"] #page b {
+  font-weight: 700;
+}
+
+/* Speech rate pill button in speech-bar */
+.speech-bar .speech-rate-pill {
+  font-weight: 600;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--page-border);
+  border-radius: 4px;
+}
+

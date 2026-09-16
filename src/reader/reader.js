@@ -30,6 +30,7 @@ import {
   MarksController,
   TtsController,
 } from "./controllers/index.js";
+import { fixationLength } from "../lib/bionic.js";
 import {
   refresh as refreshHighlights,
   supported as highlightsSupported,
@@ -5650,21 +5651,29 @@ function applyAppearance(reader) {
   applyLinkStops(reader.links);
 
   for (const button of document.querySelectorAll(
-    "[data-theme], [data-font], [data-links], [data-marker-color]",
+    "[data-theme], [data-font], [data-links], [data-marker-color], [data-bionic]",
   )) {
     const wanted =
       button.getAttribute("data-theme") ??
       button.getAttribute("data-font") ??
       button.getAttribute("data-links") ??
-      button.getAttribute("data-marker-color");
+      button.getAttribute("data-marker-color") ??
+      button.getAttribute("data-bionic");
     const current = button.hasAttribute("data-theme")
       ? reader.theme
       : button.hasAttribute("data-font")
         ? reader.font
         : button.hasAttribute("data-links")
           ? reader.links
-          : reader.markerColor;
+          : button.hasAttribute("data-marker-color")
+            ? reader.markerColor
+            : document.documentElement.dataset["bionic"] === "true" ? "on" : "off";
     button.setAttribute("aria-pressed", String(wanted === current));
+  }
+
+  const speechRateLabel = document.getElementById("speech-rate-label");
+  if (speechRateLabel !== null) {
+    speechRateLabel.textContent = `${(settings.ttsRate / 100).toFixed(1)}×`;
   }
 
   // The mark toolbar's swatches speak for the pen while no mark is active
@@ -5914,10 +5923,93 @@ async function stepRate(by) {
  *
  * @param {Event} event
  */
+/**
+ * Safely transforms a text node into Bionic Reading DOM nodes without innerHTML.
+ * @param {Text} textNode
+ * @returns {DocumentFragment}
+ */
+function createBionicFragment(textNode) {
+  const fragment = document.createDocumentFragment();
+  const text = textNode.textContent ?? "";
+  const tokens = text.split(/(\s+)/);
+  for (const token of tokens) {
+    if (/^\s+$/.test(token)) {
+      fragment.appendChild(document.createTextNode(token));
+      continue;
+    }
+    const match = /^([^\p{L}\p{N}]*)([\p{L}\p{N}]+)([^\p{L}\p{N}]*)$/u.exec(token);
+    if (!match) {
+      fragment.appendChild(document.createTextNode(token));
+      continue;
+    }
+    const [, leading = "", word = "", trailing = ""] = match;
+    if (leading) fragment.appendChild(document.createTextNode(leading));
+    const fixLen = fixationLength(word.length);
+    const b = document.createElement("b");
+    b.className = "bionic-bold";
+    b.textContent = word.slice(0, fixLen);
+    fragment.appendChild(b);
+    const rest = word.slice(fixLen) + trailing;
+    if (rest) fragment.appendChild(document.createTextNode(rest));
+  }
+  return fragment;
+}
+
+/**
+ * Toggles Bionic Reading fixation bolding on the article body text using safe DOM APIs.
+ * @param {boolean} enable
+ */
+function applyBionicToArticle(enable) {
+  const article = document.querySelector("article") ?? document.getElementById("page");
+  if (!article) return;
+  if (enable) {
+    const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (node.parentElement?.closest("script, style, code, pre, .bionic-bold")) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    });
+    /** @type {Text[]} */
+    const nodes = [];
+    while (walker.nextNode()) {
+      nodes.push(/** @type {Text} */ (walker.currentNode));
+    }
+    for (const node of nodes) {
+      if (node.textContent && node.textContent.trim().length > 0) {
+        const frag = createBionicFragment(node);
+        node.replaceWith(frag);
+      }
+    }
+  } else {
+    const boldElements = article.querySelectorAll(".bionic-bold");
+    for (const b of boldElements) {
+      b.replaceWith(b.textContent ?? "");
+    }
+    article.normalize();
+  }
+}
+
+/**
+ * @param {Event} event
+ */
 async function onDisplayPress(event) {
   const target = event.target;
   const button = target instanceof Element ? target.closest("button") : null;
   if (!(button instanceof HTMLButtonElement)) return;
+
+  const bionic = button.getAttribute("data-bionic");
+  if (bionic !== null) {
+    const enable = bionic === "on";
+    const controller = new AppearanceController({ root: document.documentElement });
+    controller.setBionic(enable);
+    for (const b of document.querySelectorAll("[data-bionic]")) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-bionic") === bionic));
+    }
+    applyBionicToArticle(enable);
+    return;
+  }
 
   const rate = button.getAttribute("data-rate");
   if (rate !== null) {
@@ -6846,6 +6938,26 @@ onSpeechPress("speech-play", () => toggleReading());
 onSpeechPress("speech-stop", () => stopReading());
 onSpeechPress("speech-back", () => skipSentence(-1));
 onSpeechPress("speech-forward", () => skipSentence(1));
+onSpeechPress("speech-rate", async () => {
+  const current = (await readConfig()).ttsRate;
+  const rates = [80, 100, 120, 150, 180, 200];
+  const next = rates.find((r) => r > current) ?? rates[0];
+  adoptConfig(await writeConfig({ ttsRate: next }));
+});
+
+function updateReadingProgress() {
+  const progressBar = document.getElementById("reader-progress-bar");
+  if (!progressBar) return;
+  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+  if (scrollHeight <= 0) {
+    progressBar.style.width = "0%";
+    return;
+  }
+  const pct = Math.min(100, Math.max(0, (window.scrollY / scrollHeight) * 100));
+  progressBar.style.width = `${pct.toFixed(1)}%`;
+}
+
+window.addEventListener("scroll", () => requestAnimationFrame(updateReadingProgress), { passive: true });
 
 voiceChoice?.addEventListener("change", () => {
   if (voiceChoice === null) return;
