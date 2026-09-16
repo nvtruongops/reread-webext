@@ -153,7 +153,11 @@ export function forTarget(manifest, target) {
   patched["permissions"] = [
     .../** @type {string[]} */ (manifest["permissions"] ?? []),
     "offscreen",
+    "sidePanel",
   ];
+  patched["side_panel"] = {
+    default_path: "popup/index.html",
+  };
   patched["icons"] = { ...CHROMIUM_ICONS };
   // Gecko-only: theme-aware toolbar icon variants. Chromium flags the key.
   const action = { .../** @type {Record<string, unknown>} */ (patched["action"]) };

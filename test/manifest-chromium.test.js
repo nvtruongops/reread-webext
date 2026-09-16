@@ -49,11 +49,10 @@ describe("the manifest Chromium gets", () => {
     assert.equal(patched["minimum_chrome_version"], MINIMUM_CHROME_VERSION);
   });
 
-  it("adds exactly one permission: offscreen", async () => {
+  it("adds permissions for offscreen engine and sidePanel", async () => {
     const { source, patched } = await manifests();
-    // The engine host. Anything beyond this one addition is a permission the
-    // README's table does not answer for.
-    assert.deepEqual(patched["permissions"], [...source["permissions"], "offscreen"]);
+    assert.deepEqual(patched["permissions"], [...source["permissions"], "offscreen", "sidePanel"]);
+    assert.deepEqual(patched["side_panel"], { default_path: "popup/index.html" });
     assert.deepEqual(patched["host_permissions"], source["host_permissions"]);
   });
 

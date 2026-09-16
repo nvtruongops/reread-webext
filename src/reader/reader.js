@@ -23,6 +23,14 @@
  */
 
 import {
+  AppearanceController,
+  ArticleViewerController,
+  EpubViewerController,
+  LibraryController,
+  MarksController,
+  TtsController,
+} from "./controllers/index.js";
+import {
   refresh as refreshHighlights,
   supported as highlightsSupported,
   unregister as unregisterHighlight,

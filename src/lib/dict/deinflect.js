@@ -24,13 +24,21 @@
  * words.
  */
 
+import { MULTILINGUAL_RULES, normalizeVietnamese } from "./rules/index.js";
+
 /**
- * The one language whose endings this table knows. Everything else asks for
- * what was selected and takes what it gets - a wrong guess in a language we
- * do not know would find a real entry for a word nobody selected, or
- * underline one nobody saved.
+ * Languages supported by the morphological deinflection engine.
  */
 export const RULED_LANGUAGE = "en";
+export const RULED_LANGUAGES = Object.freeze(["en", "de", "fr", "es", "pl", "vi"]);
+
+/**
+ * @param {unknown} lang
+ * @returns {boolean}
+ */
+export function isRuledLanguage(lang) {
+  return typeof lang === "string" && RULED_LANGUAGES.includes(lang.toLowerCase());
+}
 
 /** Below this, taking a suffix off produces noise rather than a word. */
 const MIN_LENGTH = 2;
@@ -86,14 +94,43 @@ const DOUBLED = /([bcdfghjklmnpqrstvwxz])\1$/u;
 
 /**
  * @param {string} word already normalized: trimmed, folded, no edge punctuation
- * @param {readonly RuleKind[]} [kinds] which endings to undo - every kind
- *   for a look-up, the noun's and the verb's alone when asking whose form a
- *   word is (`forms.js`)
+ * @param {readonly RuleKind[] | string} [kindsOrLang] which endings to undo, or language code (e.g. 'de', 'fr', 'es', 'pl', 'vi', 'en')
+ * @param {readonly RuleKind[]} [kinds]
  * @returns {string[]} forms worth asking a dictionary about, best first, never
  *   including the word itself
  */
-export function baseForms(word, kinds = EVERY_KIND) {
+export function baseForms(word, kindsOrLang = EVERY_KIND, kinds = EVERY_KIND) {
+  const lang = typeof kindsOrLang === "string" ? kindsOrLang.toLowerCase() : "en";
+  const activeKinds = Array.isArray(kindsOrLang) ? kindsOrLang : kinds;
+
   if (word.length < MIN_LENGTH) return [];
+
+  if (lang === "vi") {
+    const normalized = normalizeVietnamese(word);
+    return normalized !== word ? [normalized] : [];
+  }
+
+  if (lang !== "en") {
+    const rules = MULTILINGUAL_RULES[lang];
+    if (!rules) return [];
+    /** @type {Set<string>} */
+    const forms = new Set();
+    const lower = word.toLowerCase();
+    for (const rule of rules) {
+      if (lower.endsWith(rule.suffix)) {
+        let stem = lower.slice(0, lower.length - rule.suffix.length);
+        if (rule.prefix) {
+          if (!stem.startsWith(rule.prefix)) continue;
+          stem = stem.slice(rule.prefix.length);
+        }
+        const candidate = stem + rule.replacement;
+        if (candidate.length >= MIN_LENGTH && candidate !== lower) {
+          forms.add(candidate);
+        }
+      }
+    }
+    return [...forms].slice(0, MAX_FORMS);
+  }
 
   /** @type {Set<string>} */
   const forms = new Set();
@@ -104,7 +141,7 @@ export function baseForms(word, kinds = EVERY_KIND) {
   };
 
   for (const { suffix, replacement, kind } of RULES) {
-    if (!kinds.includes(kind) || !word.endsWith(suffix)) continue;
+    if (!activeKinds.includes(kind) || !word.endsWith(suffix)) continue;
     const stem = word.slice(0, word.length - suffix.length) + replacement;
     offer(stem);
 

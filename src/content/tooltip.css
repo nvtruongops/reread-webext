@@ -1,0 +1,917 @@
+:host { all: initial; }
+  * { box-sizing: border-box; }
+
+  /* The hidden attribute is a rule in the browser's own stylesheet, and any
+     rule of ours beats it: one display on .editor was enough to leave an empty
+     text box sitting under every translation. */
+  [hidden] { display: none !important; }
+
+  .bubble {
+    color-scheme: light dark;
+    /* Hanging off the host's line (D77): the host is a full-width strip of no
+       height pinned by top alone, and which way the bubble hangs off it is
+       the data-grow rules below. */
+    position: absolute;
+    /* A column in the order of distance from the phrase - gloss, actions,
+       second layer - which the mirror below reverses whole when the bubble
+       stands above the phrase. */
+    display: flex;
+    flex-direction: column;
+    /* Every size the bubble draws its type and its presses at, in two tiers
+       (D84): these desktop values, and TOUCH_SIZES above, spliced in below -
+       by the media query, or by the data-pointer attribute when the gesture
+       that made the selection was a finger or a pen. The attribute exists
+       because the media query can be wrong about a device: an Onyx e-ink
+       tablet reports a fine primary pointer over its touch screen, and the
+       gesture is the ground truth. Lengths that have to grow with the type
+       are written in em; the fonts multiply by --bubble-scale, the reader's
+       own knob over all of it (D85), which show() sets inline here. */
+    --type-body: 14px;
+    --type-second: 13px;
+    --type-label: 11px;
+    --type-action: 12px;
+    --type-cta: 13px;
+    --gap-actions: 0.43em;
+    --pad-action: 0.17em 0.33em;
+    --pull-action: -0.33em;
+    --pad-cta: 0.23em 0.77em;
+    --icon: 1.33em;
+    /* The dictionaries' shelf's measures (lib/lookup-shelf.js, the fifth
+       brief): the box's square and its gap to the text, the line's height
+       for centring the box on the text's first line, and the optical
+       correction under that - the middle of the x-height, which the
+       interface face puts a tenth of the size below the middle of the line
+       box (the page's serif a bit more; page.css). From the second layer's
+       type, so they step up with the tier and with the knob. */
+    --lookup-box-size: 20px;
+    --lookup-line-gap: 12px;
+    --lookup-line-height: calc(var(--type-second) * var(--bubble-scale, 1) * 1.45);
+    --lookup-check-offset: calc(var(--type-second) * var(--bubble-scale, 1) * 0.1);
+    /* The rows' rhythm (the sixth brief), the pages' own reckoning at the
+       bubble's compact floor: the least a row keeps above and below its
+       text, grown to what centres one line on the floor, so a one-line row
+       is exactly the floor tall; a name line's bottom is that same pad and
+       its top what the floor still needs over the label's line - so the
+       space from a book's name to its first row is the space between two
+       rows, in px, here as on the pages. */
+    --lookup-touch: 40px;
+    --lookup-row-gap: calc(var(--type-second) * var(--bubble-scale, 1) * 0.6);
+    --lookup-label-size: calc(var(--type-label) * var(--bubble-scale, 1));
+    --lookup-label-line: calc(var(--lookup-label-size) * 1.3);
+    --lookup-row-pad: max(var(--lookup-row-gap), calc((var(--lookup-touch) - var(--lookup-line-height)) / 2));
+    --lookup-label-pad-top: max(var(--lookup-row-pad), calc(var(--lookup-touch) - var(--lookup-label-line) - var(--lookup-row-pad)));
+    /* The box's top margin: half of what the line stands tall over the box,
+       plus the optical correction. */
+    --lookup-box-top: calc((var(--lookup-line-height) - var(--lookup-box-size)) / 2 + var(--lookup-check-offset));
+    /* The launcher's two doors (D182): their type never under 15px - the
+       words are the meaning, and a door is read at arm's length - and their
+       pictures between 16 and 20. Both step up on the touch tier. */
+    --type-door: 15px;
+    --icon-door: 18px;
+    /* The ink and the paper the doors are drawn in: the bubble's own text
+       and background, named so that the dark and the reader's schemes can
+       hand the doors their own pair below. The filled door is ink on which
+       the paper's colour writes; the outlined door is a line of ink. */
+    --door-ink: #1f2430;
+    --door-paper: #ffffff;
+    /* One strength for every line the bubble draws, past 4.5:1 against its own
+       paper. An e-ink panel quantizes the screen to 16 greys and rounds a
+       near-white hairline back into it, so a tenth of a black is not a faint
+       line there - it is no line at all, which is how the separators went
+       missing on a Boox. The pages get two strengths (page.css: separators
+       quieter than a control's edge), and the bubble had them too for one
+       build - but read on paper the quieter one still looked like a mistake
+       beside the louder, so the bubble keeps the one that survives. A solid
+       color and not an alpha, because nothing here is laid over the page: the
+       bubble's background is painted under its own border, so every line in it
+       stands on paper we chose. The dark value is in the query at the bottom. */
+    --edge: #6e7583;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: calc(var(--type-body) * var(--bubble-scale, 1));
+    line-height: 1.45;
+    max-width: min(calc(22rem * var(--bubble-scale, 1)), 90vw);
+    padding: 10px 12px;
+    border-radius: 10px;
+    /* The edge, not the shadow, is what says where the bubble ends: an e-ink
+       panel flattens the shadow into nothing, and it has to say so over any
+       page's colors - so it holds --edge, the strength page.css gives a
+       control's border, and not a hairline's. A third of a black said the
+       same thing far too quietly there. */
+    border: 1px solid var(--edge);
+    background: #ffffff;
+    color: #1f2430;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+    overflow-wrap: break-word;
+  }
+
+  /* Which way the bubble hangs. Only ever off the host's top-pinned line,
+     never off a bottom computed from the viewport's height: Android's
+     dynamic toolbar walks bottom-anchored fixed elements up and down with
+     itself, and a bubble pinned that way landed on its own phrase (D77). */
+  .bubble[data-grow="down"] { top: 0; }
+  .bubble[data-grow="up"] { bottom: 0; }
+
+  /* A flex item does not shrink below its own content unless it is told to, and
+     one long word in a gloss would push the bubble past its maximum width. */
+  .bubble > * { min-width: 0; }
+
+  /* The saved word, named over one of its forms (D208): "reading" underlined,
+     "read" saved. The hint line's quiet italic, because it is the same voice -
+     the bubble about its own answer - and it stands between the phrase and
+     the meanings whichever way the column runs, so it is read first: the
+     word, then what it means. Empty, which is every other bubble, it costs
+     no line. */
+  .saved-word {
+    margin-bottom: 4px;
+    font-size: calc(var(--type-second) * var(--bubble-scale, 1));
+    font-style: italic;
+    opacity: 0.6;
+  }
+  .saved-word:empty { display: none; }
+  .bubble[data-grow="up"] .saved-word { margin: 4px 0 0; }
+
+  .body { white-space: pre-wrap; }
+  .body[data-tone="pending"] { opacity: 0.6; font-style: italic; }
+  .body[data-tone="error"] { color: #a3341f; }
+  /* The launcher says nothing in its body - its signature is another element -
+     and an empty line would still cost the row of pixels its line-height
+     reserves. */
+  .body:empty { display: none; }
+
+  /* Quieter than the gloss and fenced off from the rest: this is the sentence
+     the phrase was in, not another meaning of it. Style and colour go on every
+     edge but width on one, so that the mirror below can move the line to the
+     other side by widths alone and the colour stays one rule per theme.
+     Inside, two columns (D96): the text gives way, the fold in the corner
+     keeps its size - and the section's own inside never reorders, whichever
+     way the mirror runs the bubble. */
+  .context {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5em;
+    margin-top: 8px;
+    padding-top: 8px;
+    border: 0 solid var(--edge);
+    border-top-width: 1px;
+    font-size: calc(var(--type-second) * var(--bubble-scale, 1));
+    opacity: 0.85;
+  }
+  .context-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* The same tones the body knows, for the one bubble that fetches its second
+     layer on demand: a recalled phrase answers from the database, and the
+     sentence starts being translated only when More asks for it. A note is
+     the fetch coming back empty-handed - said in the pending line's quiet
+     voice, because both are the layer talking about itself, not a sentence. */
+  .context[data-tone="pending"],
+  .context[data-tone="note"] { opacity: 0.6; font-style: italic; }
+  .context[data-tone="error"] { color: #a3341f; }
+
+  /* The clamp the fold buys (D96): one line, cut honestly with an ellipsis.
+     The room it frees reaches the dictionary box through the next placement -
+     the squeeze (D79) starts from scratch every time - not through anything
+     written here. */
+  .context[data-folded="true"] .context-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* The fold itself, dressed as a control on purpose: the triangle under the
+     dictionary list is a passive mark of a cut box, and two identical glyphs
+     of which only one answers a press would teach the wrong lesson about the
+     other. So this one carries the frame pressable things get here - the
+     edge's solid ink, which an e-ink panel can draw - and its chevron turns
+     to point at what the press would do. No transition on the turn: a flip
+     is one repaint, an animation is a smear on paper. */
+  .context-toggle {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0.25em;
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 1px solid var(--edge);
+    border-radius: 5px;
+    opacity: 0.7;
+    cursor: pointer;
+  }
+  .context-toggle:hover { opacity: 1; }
+  .context-toggle:focus-visible {
+    opacity: 1;
+    outline: 1px solid currentColor;
+    outline-offset: 0;
+  }
+  .context-toggle svg {
+    width: var(--icon);
+    height: var(--icon);
+    display: block;
+  }
+  .context[data-folded="true"] .context-toggle svg { transform: rotate(180deg); }
+
+  /* A dictionary entry can be long, and a bubble that grows past the window is
+     a bubble that covers the sentence somebody was reading. It scrolls instead;
+     the page underneath keeps the bubble open while it does. */
+  .entries {
+    margin-top: 8px;
+    padding-top: 8px;
+    /* The strip the mark below stands in, kept clear of the text whether or
+       not the mark is drawn: reserving it only when the list overflows would
+       reflow the very list somebody is reading down. */
+    padding-right: 0.9em;
+    border: 0 solid var(--edge);
+    border-top-width: 1px;
+    font-size: calc(var(--type-second) * var(--bubble-scale, 1));
+    max-height: 40vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* Where a bar is drawn at all it is drawn in our ink. It cannot be the
+       thing that says the list scrolls, though: Gecko fades its bar out again
+       when nothing is moving, and on Android it is not there until a finger
+       is (measured on a Boox - the mark below exists because of it). */
+    scrollbar-width: thin;
+    scrollbar-color: var(--edge) transparent;
+  }
+
+  /* A list longer than its box, said twice: the box closes on a line where it
+     was cut, and a small triangle stands in the strip at that corner.
+
+     An inset shadow said it first - macOS hides its scrollbars until something
+     moves, so an entry running past the bottom read as an entry that ended
+     there - but a shadow is the one thing an e-ink panel cannot draw: 16 greys
+     turn it into either nothing or a grey smear lying across the very line it
+     was meant to help read. The line that replaced it was honest and too
+     quiet: on a Boox a cut and a separator are one and the same line, and a
+     reader with no bar on the screen can miss that there is anything to
+     scroll at all. So the triangle, and it is ink rather than a fade: one
+     conic wedge with a hard stop, nothing for a panel to dither.
+
+     What it says is that the box is cut, not that there is more below this
+     exact spot - which is why it may stand still while the reader scrolls.
+     The list is longer than the box wherever they have got to, and a mark that
+     needs a scroll listener to stop lying would repaint an e-ink panel to say
+     something the edge already said.
+
+     Both ways the bubble hangs are covered: growing up the mirror has put the
+     line here already. The width growing down adds costs the bubble nothing -
+     a box that scrolls is a box already capped in height, and box-sizing is
+     border-box. */
+  .entries[data-more="true"] {
+    border-bottom-width: 1px;
+    background-image: conic-gradient(from -45deg at 50% 100%, var(--edge) 0 90deg, transparent 0);
+    background-size: 0.7em 0.35em;
+    background-position: right 0.1em bottom 0.3em;
+    background-repeat: no-repeat;
+  }
+
+  /* The hint line (D192), last in the layer: the same quiet italic the note
+     line wears, because it is the same voice - the layer talking about its
+     own answer, not a sentence of the page. Its link is dressed as a link
+     and as nothing else: underlined text in the line's own ink, which a
+     16-grey panel draws, and a shade less faded than the words around it so
+     that the one pressable thing on the line is the one that stands out. */
+  .hint {
+    margin-top: 8px;
+    padding-top: 8px;
+    border: 0 solid var(--edge);
+    border-top-width: 1px;
+    font-size: calc(var(--type-second) * var(--bubble-scale, 1));
+    font-style: italic;
+  }
+  .hint-text { opacity: 0.6; }
+  /* One dress for the anchor and for the press: a word of the sentence that
+     can be pressed looks like a link, whether it leaves the page or opens
+     the settings - the button's own box would make it the loudest thing on
+     a line meant to be read. */
+  .hint-link {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    opacity: 0.8;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    cursor: pointer;
+  }
+  .hint-link:hover { opacity: 1; }
+  .hint-link:focus-visible {
+    opacity: 1;
+    outline: 1px solid currentColor;
+    outline-offset: 1px;
+  }
+
+  /* The dictionaries' shelf (Michał's fifth brief): the same rows as the
+     saved-phrases page's (lib/lookup-shelf.js), in the bubble's own dress -
+     a book per fold with the browser's own triangle and the count of its
+     meanings, a native checkbox per line that saves at once, the labels
+     over their meanings, "More about the word" folded at the book's end.
+     No "Show all": the box this list scrolls in is the fold a long book
+     gets elsewhere. In em where it can be, so it grows with the tier and
+     with --bubble-scale; the shelf's own measures stand with the tiers'
+     variables on .bubble above. */
+
+  /* A line between one book and the next: how the bubble already sets off
+     its layers, and ink, which a 16-grey panel draws. A frame or a wash per
+     book stays rejected (D174). */
+  .lookup-entries > * + * { border-top: 1px solid var(--edge); }
+
+  /* The fold's line is the book's name with its count, and "More about the
+     word" a fold under it: small uppercase at three quarters (six tenths was
+     too faint to read - mobileread report), the browser's own triangle
+     before the name as a list item, the whole line the press, 40px tall in
+     the bubble's compact measure. */
+  .lookup-group-label,
+  .lookup-about-label {
+    display: list-item;
+    min-height: var(--lookup-touch);
+    margin: 0;
+    padding: var(--lookup-label-pad-top) 5px var(--lookup-row-pad);
+    font-size: var(--lookup-label-size);
+    line-height: 1.3;
+    opacity: 0.75;
+    cursor: pointer;
+  }
+  .lookup-group-label {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  /* The book's name is what somebody with several dictionaries scans the
+     list by, so it is the half with weight. */
+  .lookup-group-label .lookup-entry-dict { font-weight: 600; }
+  .lookup-about-label { padding-left: calc(5px + var(--lookup-box-size) + var(--lookup-line-gap)); }
+  :is(.lookup-group-label, .lookup-about-label):focus-visible {
+    opacity: 1;
+    outline: 1px solid currentColor;
+    outline-offset: 0;
+  }
+
+  /* A headword the book answered under when it is not the word selected
+     (D23), and a part of speech over the meanings after it - quiet lines at
+     the label's size, the label at the rows' text inset: nothing to tick. */
+  .lookup-entry-headword,
+  .lookup-entry-heading {
+    padding: 0.4em 5px 0;
+    font-size: var(--lookup-label-size);
+    opacity: 0.75;
+  }
+  .lookup-entry-headword { font-style: italic; }
+  .lookup-entry-heading {
+    padding-left: calc(5px + var(--lookup-box-size) + var(--lookup-line-gap));
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .lookup-pronunciation {
+    padding: 0.2em 5px 0 calc(5px + var(--lookup-box-size) + var(--lookup-line-gap));
+    font-size: var(--lookup-label-size);
+    opacity: 0.8;
+  }
+  .lookup-cefr-wrap {
+    padding: 0.2em 5px 0 calc(5px + var(--lookup-box-size) + var(--lookup-line-gap));
+  }
+  .lookup-cefr-badge {
+    display: inline-block;
+    padding: 1px 5px;
+    font-size: calc(var(--lookup-label-size) * 0.9);
+    font-weight: 600;
+    border-radius: 3px;
+    border: 1px solid currentColor;
+    opacity: 0.85;
+    letter-spacing: 0.05em;
+  }
+  .lookup-example {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 3px 5px 3px calc(5px + var(--lookup-box-size) + var(--lookup-line-gap) + 8px);
+    font-size: calc(var(--type-second) * var(--bubble-scale, 1) * 0.9);
+    opacity: 0.85;
+    border-left: 1.5px solid currentColor;
+    margin: 2px 0 3px 0;
+  }
+  .lookup-ex-source { font-style: italic; font-weight: 500; }
+  .lookup-ex-arrow { opacity: 0.6; }
+  .lookup-idiom {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 3px 5px 3px calc(5px + var(--lookup-box-size) + var(--lookup-line-gap));
+    font-size: calc(var(--type-second) * var(--bubble-scale, 1) * 0.9);
+  }
+  .lookup-idiom-star { opacity: 0.9; }
+  .lookup-idiom-source { font-weight: 600; }
+
+  /* A meaning as a row: the box, then the text, 40px tall so a finger has
+     something to press; the text wraps as it needs to. What says a meaning
+     is kept is the box's own mark and the weight of the text - no frame, no
+     wash: a wash is one of the 16 greys an e-ink panel rounds back to paper.
+     The hover says nothing with a wash either: under a mouse the text
+     underlines, and only under a mouse - under a finger :hover is an
+     emulation that sticks to the last line touched (reported from a Pixel),
+     and the pointer media query answers wrong on a Boox (D84), so the gate
+     is the gesture's own attribute. */
+  .lookup-line {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--lookup-line-gap);
+    min-height: var(--lookup-touch);
+    margin: 0;
+    padding: var(--lookup-row-pad) 5px;
+    cursor: pointer;
+  }
+  .lookup-line:not(label) { cursor: default; }
+  .bubble:not([data-pointer="coarse"]) label.lookup-line:hover .lookup-line-text {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+  .lookup-line-text {
+    min-width: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .lookup-line[data-saved="true"] .lookup-line-text { font-weight: 600; }
+  /* The box centred on the first line of its text: half of what the line
+     stands tall over the box, plus the optical correction (the tokens above).
+     In the bubble's own ink, so the mark reads on either paper. */
+  .lookup-line > .lookup-line-box {
+    flex: none;
+    width: var(--lookup-box-size);
+    height: var(--lookup-box-size);
+    /* Never taller than the line as a whole (page.css says why): the
+       bottom margin takes back what the box stands out under a short line. */
+    margin: var(--lookup-box-top) 0 min(0px, calc(var(--lookup-line-height) - var(--lookup-box-size) - var(--lookup-box-top)));
+    color: inherit;
+    accent-color: currentColor;
+    cursor: pointer;
+  }
+  /* Out of reach while the edit box is open, unlike every other disabled
+     control here not faded: the row is still there to be read, it just
+     cannot be ticked for as long as the gloss is being typed by hand. */
+  .lookup-line-box:disabled { opacity: 1; cursor: default; }
+  .lookup-line-box:focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 1px;
+  }
+
+  /* A line of "More about the word": a transcription or a cross-reference,
+     plain text at the rows' text inset, one paragraph each. */
+  .lookup-paragraph {
+    padding: 0.2em 5px 0.2em calc(5px + var(--lookup-box-size) + var(--lookup-line-gap));
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+    opacity: 0.85;
+  }
+
+  .editor {
+    display: block;
+    width: 100%;
+    min-width: 16rem;
+    margin: 0;
+    padding: 4px 6px;
+    font: inherit;
+    color: inherit;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--edge);
+    border-radius: 6px;
+    resize: none;
+  }
+
+  /* The line under the edit box (D203): the one word about the semicolon,
+     in the hint's quiet voice, never in the way of the box. */
+  .editor-hint {
+    margin: 4px 0 0;
+    font-size: calc(var(--type-second) * var(--bubble-scale, 1));
+    opacity: 0.6;
+  }
+
+  /* The row of actions, folded. The fold is a grid row going from zero to one
+     fraction - the one way to animate to a height nobody knows in advance - and
+     the clipped child below is what makes it read as unfolding rather than as
+     text being squeezed. Folded is where every bubble starts; whether it is
+     ever seen there is the reader's setting (D81, D131) - with the row asked
+     for, the revealed class is on from the first frame (see show) and the fold
+     is never seen; without it, the row waits for somebody to come looking. */
+  .reveal {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 150ms ease, opacity 150ms ease;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gap-actions);
+    /* The two pixels on the far side are for a focus ring: a folded row is
+       clipped, and a ring drawn flush with the edge would be clipped with it. */
+    padding: 8px 0 2px;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .actions:empty { display: none; }
+
+  /* Three ways in, and the class is the one that keeps it: a row that folded
+     itself away again on mouseleave would flicker at every brush of the
+     bubble's edge, and nothing is gained by taking back an answer somebody has
+     just gone looking for. The bubble closes in one piece soon enough.
+
+     No branch for touch screens, and that is deliberate (D44): a finger arrives
+     by pressing, and the press adds the same class every other way in ends at.
+     A media query on hover bought nothing anyway - a hybrid reports hover:hover
+     and would have kept the folding, while its taps emulate :hover and unfold
+     it - so one rule for every device is also the only consistent one. */
+  .bubble:hover .reveal,
+  .bubble:focus-within .reveal,
+  .bubble.revealed .reveal {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none; }
+  }
+
+  /* The mirror (D44). The edge nearest the phrase is pinned (see placement),
+     and the gloss has to be the thing lying on it, so everything that appears
+     or grows - the row unfolding, the second layer opening behind "More" -
+     lands on the far side of the gloss and moves only the edge away from the
+     line being read. One rule reverses the whole column, which is what keeps
+     the two variants one layout: the same file of elements, read from the
+     phrase outwards. */
+  .bubble[data-grow="up"] { flex-direction: column-reverse; }
+  .bubble[data-grow="up"] .actions { padding: 2px 0 8px; }
+
+  /* Reversing the column moves no borders: the separators in front of the
+     second layer change sides by width, colour and style stay put. */
+  .bubble[data-grow="up"] .context,
+  .bubble[data-grow="up"] .entries,
+  .bubble[data-grow="up"] .hint {
+    margin: 0 0 8px;
+    padding: 0 0 8px;
+    border-width: 0 0 1px;
+  }
+
+  /* The strip for the scroll mark is not the mirror's business, and the
+     shorthand above would take it away. */
+  .bubble[data-grow="up"] .entries { padding-right: 0.9em; }
+
+  /* The launcher is its row under its signature, so the row's padding - which
+     exists to stand the row off a gloss that is not there - goes too; the
+     signature's own margin is the whole gap above it. After the mirror, whose
+     padding this outranks by standing below it. The quiet bubble (D120) is the
+     same shape with two pictures in the row. */
+  .bubble[data-variant="launcher"] .actions,
+  /* Only the pairless trim keeps the zeroed row: two icons are its whole
+     content, and the padding was pure emptiness around them. With a pair the
+     quiet row carries Edit and Save - and turns into Save/Cancel over the
+     edit box - so it needs the ordinary row's breathing room (Michał's
+     report: the buttons sat flush against the box). */
+  .bubble[data-variant="quiet"]:not([data-choosable="true"]) .actions { padding: 0; }
+
+  /* An error bubble is not a translation, and it drops the mirror's rule for
+     the same reason the mirror exists: the near edge belongs to the eye's way
+     back, and when the bubble is an apology with one way out, the way out is
+     what should lie on it. The order moves only the row of actions - a recall
+     bubble whose save failed keeps its second layer where the mirror put it,
+     borders and all. */
+  .bubble[data-tone="error"][data-grow="up"] .reveal { order: -1; }
+  .bubble[data-tone="error"][data-grow="up"] .actions { padding: 8px 0 2px; }
+
+  /* The signature, on the two bubbles that have to say who is talking. A
+     translation needs none - the answer is the point, and a header would cost
+     the line D23 saved - but an error may be the first thing this extension
+     ever shows somebody, and an unsigned complaint floating over a page reads
+     as the page's own.
+
+     The launcher (D126) has the same problem in a different tense: one
+     unlabelled offer standing over somebody else's page, and on Android it is
+     the default mode, so it is the first thing the extension does at all. The
+     word is the answer to both halves of the question - who is asking, and
+     where the press leads: it is the same word the reader page's own header
+     says, so the offer and its destination sign the same name. */
+  .brand {
+    display: none;
+    font-size: calc(11px * var(--bubble-scale, 1));
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    opacity: 0.6;
+    margin-bottom: 4px;
+  }
+  .bubble[data-tone="error"] .brand,
+  .bubble[data-variant="launcher"] .brand { display: block; }
+  /* A signature signs at the top, also when the mirror reverses the column. */
+  .bubble[data-tone="error"][data-grow="up"] .brand,
+  .bubble[data-variant="launcher"][data-grow="up"] .brand { order: 1; }
+  /* Over the launcher's doors the signature is a small label of the brand
+     and no more (D182): a size up from the error's, at a strength past
+     4.5:1 rather than a caption's, and one small gap under it - the bubble
+     reads as one menu of two ways in, not as a heading over a section. */
+  .bubble[data-variant="launcher"] .brand {
+    font-size: calc(12px * var(--bubble-scale, 1));
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+
+  /* An action is a label and not a control. What makes one findable is standing
+     where the reader is already looking; a box around it would make it the
+     loudest thing in a bubble whose whole job is one line of translation. */
+  .actions button {
+    font: inherit;
+    font-size: calc(var(--type-action) * var(--bubble-scale, 1));
+    margin: 0;
+    padding: var(--pad-action);
+    color: inherit;
+    background: none;
+    border: 0;
+    border-radius: 4px;
+    opacity: 0.7;
+    cursor: pointer;
+  }
+  /* A label carries padding so that a focus ring has somewhere to go, and the
+     first one gives it back: the row has to start on the same vertical line as
+     the gloss above it. Save, the launcher and Settings bring their own box
+     and need no pulling. */
+  .actions button:first-child:not([data-action="save"]):not([data-action="reader"]):not([data-action="settings"]) { margin-left: var(--pull-action); }
+  .actions button:hover:not(:disabled) { opacity: 1; }
+  .actions button:focus-visible {
+    opacity: 1;
+    outline: 1px solid currentColor;
+    outline-offset: 0;
+  }
+  .actions button:disabled { opacity: 0.35; cursor: default; }
+
+  /* The clipboard row (D110): an extra row the copy icon opens, so Save never
+     leaves the screen for it. It reads like the action row - quiet labels,
+     one starting line with the gloss - and lives outside the fold: the icon
+     that opens it is inside the fold already, so a visible row implies an
+     unfolded bubble. Put away by the hidden attribute, whose rule above
+     outranks this display. */
+  .copy-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gap-actions);
+    padding: 2px 0;
+  }
+  .copy-row button {
+    font: inherit;
+    font-size: calc(var(--type-action) * var(--bubble-scale, 1));
+    margin: 0;
+    padding: var(--pad-action);
+    color: inherit;
+    background: none;
+    border: 0;
+    border-radius: 4px;
+    opacity: 0.7;
+    cursor: pointer;
+  }
+  .copy-row button:first-child { margin-left: var(--pull-action); }
+  .copy-row button:hover { opacity: 1; }
+  .copy-row button:focus-visible {
+    opacity: 1;
+    outline: 1px solid currentColor;
+    outline-offset: 0;
+  }
+
+  /* The speaker is the row's one picture (D83): universally readable where a
+     "Read aloud" label would push the row past one line on a phone, and an
+     honest signal that it acts on the phrase itself, not on the vocabulary.
+     Inline-flex centers the icon in the same box the text labels get, and the
+     icon matches their cap height, so the row keeps one baseline rhythm. */
+  .actions button[data-action="speak"],
+  .actions button[data-action="copy"],
+  .actions button[data-action="open-reader"] {
+    display: inline-flex;
+    align-items: center;
+  }
+  .actions button[data-action="speak"] svg,
+  .actions button[data-action="copy"] svg,
+  .actions button[data-action="open-reader"] svg {
+    width: var(--icon);
+    height: var(--icon);
+    display: block;
+  }
+
+  /* The exception, and the only real call to action a bubble has: Save is the
+     press that keeps a phrase which would otherwise be gone, the launcher's
+     offer is what its bubble is for, and Settings is the one thing an error
+     bubble can offer - none of the three ever shares a screen with another, so
+     none outshouts the rest. The launcher's own doors are dressed further
+     down (D182): its offer is one of two presses there, and the pair has its
+     own component. */
+  .actions button[data-action="save"],
+  .actions button[data-action="reader"],
+  .actions button[data-action="settings"] {
+    font-size: calc(var(--type-cta) * var(--bubble-scale, 1));
+    padding: var(--pad-cta);
+    opacity: 1;
+    /* What makes these three look pressable is the box, and the box has to be
+       there on paper too: the tint inside it is the first thing an e-ink panel
+       rounds away, and a Save that has lost its frame is one more label in a
+       row of labels. */
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--edge);
+    border-radius: 6px;
+  }
+  .actions button[data-action="save"]:hover:not(:disabled):not([aria-disabled="true"]),
+  .actions button[data-action="reader"]:hover:not(:disabled),
+  .actions button[data-action="settings"]:hover:not(:disabled) { background: rgba(0, 0, 0, 0.1); }
+  /* Dimmed two ways that look the same: disabled, when there is nothing a
+     press could do, and aria-disabled, when a press has one thing to say -
+     the note line's sentence about pressing a dictionary line (D175). A
+     disabled button swallows its clicks, and the reader whose press met
+     silence is the reason the sentence exists. */
+  .actions button[data-action="save"]:is(:disabled, [aria-disabled="true"]) { opacity: 0.45; }
+
+  /* The launcher's two doors (D182): a menu of two presses, not an offer
+     with a label beside it. Both are one component - the bubble's full
+     width, one under the other, a finger's height - told apart by weight
+     alone: the door into THIS page is filled, the door into the reading
+     list is outlined in the same ink. The first cut (D129) kept the second
+     door a plain label so that two frames would not make a menu of the
+     offer, and readers took the label for a caption - a room nobody could
+     see the door to was a room nobody entered. Ink and paper are the
+     bubble's own text and background (the variables above), so on an e-ink
+     panel the filled door rounds to black and the outline to a black line:
+     drawn at the text's own strength, because a tint is the first thing
+     sixteen greys round away (page.css's lesson). */
+  .bubble[data-variant="launcher"] {
+    min-width: 240px;
+    max-width: min(320px, 90vw);
+  }
+  .bubble[data-variant="launcher"] .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    /* The focus ring stands two pixels off a door, and the row's clip - the
+       fold's, which this bubble never uses - would cut it. */
+    overflow: visible;
+  }
+  .bubble[data-variant="launcher"] .actions button {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    width: 100%;
+    min-height: 44px;
+    margin: 0;
+    padding: 0.5em 0.8em;
+    font-size: calc(var(--type-door) * var(--bubble-scale, 1));
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: left;
+    color: var(--door-ink);
+    background: transparent;
+    border: 1px solid var(--door-ink);
+    border-radius: 8px;
+    opacity: 1;
+  }
+  .bubble[data-variant="launcher"] .actions button svg {
+    width: calc(var(--icon-door) * var(--bubble-scale, 1));
+    height: calc(var(--icon-door) * var(--bubble-scale, 1));
+    flex: none;
+  }
+  .bubble[data-variant="launcher"] .actions button[data-action="reader"] {
+    color: var(--door-paper);
+    background: var(--door-ink);
+  }
+  .bubble[data-variant="launcher"] .actions button:focus-visible {
+    outline: 2px solid var(--door-ink);
+    outline-offset: 2px;
+  }
+  .bubble[data-variant="launcher"] .actions button:active {
+    background: color-mix(in srgb, var(--door-ink) 12%, transparent);
+  }
+  .bubble[data-variant="launcher"] .actions button[data-action="reader"]:active {
+    background: color-mix(in srgb, var(--door-ink) 82%, var(--door-paper));
+  }
+  /* Hover only where a pointer can hover: a finger's tap must not leave a
+     door looking pressed until the next tap somewhere else. */
+  @media (hover: hover) {
+    .bubble[data-variant="launcher"] .actions button:hover {
+      background: color-mix(in srgb, var(--door-ink) 8%, transparent);
+    }
+    .bubble[data-variant="launcher"] .actions button[data-action="reader"]:hover {
+      background: color-mix(in srgb, var(--door-ink) 88%, var(--door-paper));
+    }
+  }
+
+  /* A hand is not a cursor: where the primary pointer is a finger, the type
+     steps up toward the page's own reading size and the presses grow into
+     targets. Sizing only - the reveal mechanic deliberately has no touch
+     branch (D44), and a hybrid using its mouse loses nothing to bigger type. */
+  @media (pointer: coarse) {
+    .bubble {
+    --type-body: 16px;
+    --type-second: 15px;
+    --type-label: 12px;
+    --type-action: 14px;
+    --type-cta: 15px;
+    --gap-actions: 0.63em;
+    --pad-action: 0.57em 0.43em;
+    --pull-action: -0.43em;
+    --pad-cta: 0.53em 1.07em;
+    --icon: 1.43em;
+    --type-door: 16px;
+    --icon-door: 20px;
+}
+  }
+
+  /* The same tier by the gesture's own word (D84): the pointer that made the
+     selection is the pointer about to press these buttons, and the media
+     query can answer for the wrong device - a Boox e-ink tablet reports a
+     fine primary pointer over its touch screen, and got desktop type on a
+     7-inch slate. Only ever forced up, never down: a mouse selection on a
+     device whose media query says coarse keeps the bigger type, for the
+     hybrid's reason above. */
+  .bubble[data-pointer="coarse"] {
+    --type-body: 16px;
+    --type-second: 15px;
+    --type-label: 12px;
+    --type-action: 14px;
+    --type-cta: 15px;
+    --gap-actions: 0.63em;
+    --pad-action: 0.57em 0.43em;
+    --pull-action: -0.43em;
+    --pad-cta: 0.53em 1.07em;
+    --icon: 1.43em;
+    --type-door: 16px;
+    --icon-door: 20px;
+}
+
+  @media (prefers-color-scheme: dark) {
+    .bubble:not([data-scheme]) {
+      /* A step lighter than the dark themes it floats over, because the
+         shadow that separates the planes on glass does not exist on black
+         and quantizes away on e-ink - the background difference and the
+         border have to do it alone (reported from a phone: the bubble sank
+         into the reader's dark theme). */
+      background: #262c3a;
+      color: #f2f4f8;
+      /* The one strength against this paper instead of white, and a step
+         lighter than page.css uses for the same job, because this paper is a
+         step lighter than the pages' - 4.6:1 either way. Every line in the
+         bubble reads it, so the dark theme is this one colour plus the washes
+         that only glass can show. */
+      --edge: #8d95a6;
+      border-color: var(--edge);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+      /* The doors swap ink and paper with the bubble (D182). */
+      --door-ink: #f2f4f8;
+      --door-paper: #262c3a;
+    }
+    .bubble:not([data-scheme]) :is(.body, .context)[data-tone="error"] { color: #f09a3e; }
+    .bubble:not([data-scheme]) .editor { background: rgba(255, 255, 255, 0.06); }
+    /* The quiet labels need nothing here: they are the bubble's own colour at
+       seven tenths, which lands right on either background. */
+    /* Not the launcher's: its doors carry their own ink and paper (D182). */
+    .bubble:not([data-scheme]):not([data-variant="launcher"]) .actions :is(button[data-action="save"], button[data-action="reader"], button[data-action="settings"]) { background: rgba(255, 255, 255, 0.08); }
+    .bubble:not([data-scheme]):not([data-variant="launcher"]) .actions :is(button[data-action="save"], button[data-action="reader"], button[data-action="settings"]):hover:not(:disabled):not([aria-disabled="true"]) { background: rgba(255, 255, 255, 0.16); }
+  }
+
+  /* The reader's own paper, by name: the reader hands its theme down with
+     every show, because a dark or sepia article must not get a white bubble
+     just because the system is set to light (mobileread report). A named
+     scheme outranks the system - the query's block above steps aside for
+     [data-scheme] - and no name means a page that is not ours, where the
+     query stays the only signal. Values are kept in step with page.css's
+     palettes by hand, a step off the page's paper each (the dark comment
+     above says why the bubble never sits exactly on it). */
+  .bubble[data-scheme="light"] { color-scheme: light; }
+  .bubble[data-scheme="dark"] {
+    color-scheme: dark;
+    background: #262c3a;
+    color: #f2f4f8;
+    --edge: #8d95a6;
+    border-color: var(--edge);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+    --door-ink: #f2f4f8;
+    --door-paper: #262c3a;
+  }
+  .bubble[data-scheme="dark"] :is(.body, .context)[data-tone="error"] { color: #f09a3e; }
+  .bubble[data-scheme="dark"] .editor { background: rgba(255, 255, 255, 0.06); }
+  .bubble[data-scheme="dark"]:not([data-variant="launcher"]) .actions :is(button[data-action="save"], button[data-action="reader"], button[data-action="settings"]) { background: rgba(255, 255, 255, 0.08); }
+  .bubble[data-scheme="dark"]:not([data-variant="launcher"]) .actions :is(button[data-action="save"], button[data-action="reader"], button[data-action="settings"]):hover:not(:disabled):not([aria-disabled="true"]) { background: rgba(255, 255, 255, 0.16); }
+  /* Sepia is the one paper the system query never dresses. A step lighter
+     than the page's #f4ecd8 - the light bubble's manner, it floats - with
+     the sepia ink, and an edge holding the 4.5:1 the lines test asks of
+     every scheme. The light washes underneath already read on it. */
+  .bubble[data-scheme="sepia"] {
+    color-scheme: light;
+    background: #fbf5e7;
+    color: #322a21;
+    --edge: #7a6c55;
+    border-color: var(--edge);
+    --door-ink: #322a21;
+    --door-paper: #fbf5e7;
+  }
