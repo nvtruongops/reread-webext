@@ -1,0 +1,112 @@
+/*
+ * How a saved phrase looks - on a page that is not ours, and in the reader,
+ * which links this same file. One stylesheet, because an underline that looked
+ * different in the two places would be two marks to learn instead of one.
+ *
+ * This is the entire visual footprint of the extension on a page, and it is a
+ * file rather than a style element injected by script on purpose: the page's
+ * DOM stays exactly as its author wrote it, and what the underline looks like
+ * is something anyone can read in the package instead of finding it in a
+ * bundle.
+ *
+ * `::highlight()` only accepts a handful of properties - colour, background,
+ * text decoration and shadow - which is the same reason the CSS Custom
+ * Highlight API is used here at all: it cannot move anything on the page.
+ *
+ * **Quiet on purpose.** The method this tool is built around is reading for
+ * comprehension: the reader stays in the text and reaches for a translation
+ * only when the sentence did not give the meaning away. A mark that pulls the
+ * eye works against that - it turns every saved word into an interruption of
+ * the paragraph it is in. So the underline is dotted and thin, and its job is
+ * to be findable when looked for rather than noticed when not: "you had trouble
+ * here once", said quietly enough to read past.
+ *
+ * **The page's own text colour, not one of ours.** A fixed colour has to be a
+ * compromise that reads on white and on black, and a compromise that reads
+ * everywhere is loud somewhere. `prefers-color-scheme` does not fix it either -
+ * that query answers what the browser is set to, not what the page under the
+ * underline is painted with, and a dark rule on a white article would be worse.
+ * `currentColor` answers exactly the right question, and answers it per page.
+ *
+ * One caveat worth knowing when this looks wrong: highlight pseudo-elements
+ * inherit down a chain of their own, so `currentColor` here is the colour the
+ * page sets on its root, not the one on the paragraph. A page whose article
+ * text is a different colour from its root gets an underline in the root's
+ * colour - which is still a colour from that page, and still better than one
+ * of ours.
+ */
+
+/*
+ * Two dials, and they are the whole design: how much ink a dot has
+ * (`thickness`) and how far it is from the text colour (the `color-mix`
+ * percentage). Both were lower here and the mark disappeared while reading;
+ * both a step higher was the balance Michał settled on, and that balance is
+ * the first of the three rules below. The style and the colour are not up for
+ * tuning - only these two numbers ever were.
+ *
+ * **Three weights, one dial** (D130). The dial is in the reader's Aa panel and
+ * moves both numbers at once, because the reason to reach for it is a screen,
+ * not a taste: an e-ink panel has sixteen greys and rounds a thin faint rule
+ * back into the paper, so a thicker line in the same faint ink would still be
+ * faint exactly where the change was asked for. `fine` is the line this
+ * extension drew for a year; **`medium` is what a profile that never touched
+ * the setting gets** (D133), because the first day of `fine` on a Boox Page
+ * settled the question of which of the three is the ordinary one.
+ *
+ * A rule per weight rather than a custom property, because the property would
+ * have to be set on the root of the page being read - and that page keeps
+ * exactly the DOM its author wrote (`lib/underline.js` says the rest). The
+ * script registers its ranges under one of these three names; the names are
+ * held to this file by `test/underline.test.js`.
+ */
+::highlight(reread-fine),
+::highlight(reread-medium),
+::highlight(reread-strong) {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  /* Not the full text colour: at full strength a dotted rule reads as a second
+     row of letters under the word. */
+  text-decoration-color: color-mix(in srgb, currentColor 75%, transparent);
+  text-decoration-thickness: 1.5px;
+  /* Clear of the descenders, so `g` and `y` are still whole letters. */
+  text-underline-offset: 2px;
+}
+
+/* A step up in both numbers, and the offset with them: a thicker dot hangs
+   lower for the same reason the thin one does not have to. */
+::highlight(reread-medium) {
+  text-decoration-color: color-mix(in srgb, currentColor 88%, transparent);
+  text-decoration-thickness: 2.5px;
+  text-underline-offset: 3px;
+}
+
+/* The panel's answer to a mark that vanished into the paper: the page's full
+   ink and a dot an e-ink screen cannot round away. Loud on purpose - it is
+   asked for, never arrived at. */
+::highlight(reread-strong) {
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 4px;
+  text-underline-offset: 4px;
+}
+
+/*
+ * The phrase an open recall bubble is about, marked for exactly as long as the
+ * bubble stands (D89). The bubble deliberately does not repeat its phrase, and
+ * for a fresh selection the selection itself points back at the word - but a
+ * tap on an underline selects nothing, and with two saved words side by side
+ * nothing on the page said which of them the bubble answers (reported from a
+ * Pixel: `handful` beside `entities`, one bubble between them). The mark is
+ * that answer, and every way the bubble closes takes it along.
+ *
+ * A wash of the page's own ink, for the underline's reason above: any colour
+ * of ours is wrong on somebody's page. The percentage is this rule's one dial,
+ * and it has to survive three papers with a single number - a wash lightening
+ * dark paper needs roughly half again as much as one darkening white (the
+ * reader's own washes are calibrated 15% against 25%, reader.css), and an
+ * e-ink panel's 16 greys round a light wash back into the paper. So the dark
+ * calibration for everybody: a mark that means "this one" may not be the
+ * fainter wash on any of the three.
+ */
+::highlight(reread-active) {
+  background-color: color-mix(in srgb, currentColor 25%, transparent);
+}

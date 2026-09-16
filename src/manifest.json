@@ -1,0 +1,71 @@
+{
+  "manifest_version": 3,
+  "name": "re/read - read offline, translate and learn",
+  "short_name": "re/read",
+  "version": "0.5.61",
+  "description": "__MSG_extension_description__",
+  "default_locale": "en",
+  "homepage_url": "https://github.com/fundacja-reborn/reread-webext",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "@reread-webext-reapps-eu",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
+    }
+  },
+  "icons": {
+    "48": "assets/icons/icon.svg",
+    "96": "assets/icons/icon.svg"
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https:; object-src 'none'; form-action 'none'"
+  },
+  "permissions": ["storage", "unlimitedStorage", "contextMenus"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "scripts": ["background/index.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/index.js"],
+      "css": ["content/highlight.css"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_title": "re/read",
+    "default_popup": "popup/index.html",
+    "default_icon": "assets/icons/icon.svg",
+    "theme_icons": [
+      {
+        "light": "assets/icons/icon-light.svg",
+        "dark": "assets/icons/icon-dark.svg",
+        "size": 16
+      },
+      {
+        "light": "assets/icons/icon-light.svg",
+        "dark": "assets/icons/icon-dark.svg",
+        "size": 32
+      }
+    ]
+  },
+  "commands": {
+    "open-reader": {
+      "suggested_key": {
+        "default": "Alt+Shift+R"
+      },
+      "description": "__MSG_open_reader__"
+    }
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  }
+}

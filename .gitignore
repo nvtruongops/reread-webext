@@ -1,0 +1,37 @@
+# Claude Code: local instructions and tooling settings. None of it describes the
+# extension, so it stays out of a repository people clone to read the extension.
+CLAUDE.md
+.claude/
+
+# Working files (scratch, experiments, captured logs)
+tmp/
+.chrome-profile/
+.codegraph/
+.gemini/
+
+# Heavy local resources (downloaded on demand, not in git)
+models/
+dictionaries/
+
+# Build output and the packages built from it
+dist/
+web-ext-artifacts/
+*.xpi
+*.zip
+
+# Safari wrapper: per-user Xcode state, and the extension payload that
+# `npm run build:safari` syncs from dist/ (the repository carries one copy
+# of the extension, not two)
+safari/reread.xcodeproj/xcuserdata/
+safari/reread.xcodeproj/project.xcworkspace/xcuserdata/
+safari/reread Extension/Resources/
+
+# Dependencies
+node_modules/
+
+# Signing credentials for `web-ext sign` (AMO API key and secret)
+.web-ext-config.mjs
+.env
+
+# macOS
+.DS_Store

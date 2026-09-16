@@ -1,0 +1,940 @@
+/* The settings page: a compact header with a table of contents, settings rows
+   as a grid, and the two catalogues standing in the page's own flow - no box
+   scrolling inside the page. Typography, buttons, notes and statuses lean on
+   assets/page.css, shared by every page this extension owns; everything below
+   is this page's own layout.
+
+   Base styles lay the page out for a narrow screen; the one media query at
+   the end spreads the same HTML out for a desktop. */
+
+/* A touch wider than the shared 44rem: the list rows hold three columns and
+   the extra room goes to the pair names. No top padding of its own: the
+   headroom is the stuck box's paper over the bar (`.page-chrome`,
+   page.css - D219), the same on every page - and tighter than the stock
+   padding anyway: with the table of contents and the first-steps card
+   above the rows, that one pushed the models section under a 768px fold. */
+body {
+  max-width: 46rem;
+}
+
+/* Denser prose rhythm for the same reason - this page stacks many short
+   explaining paragraphs, and the default paragraph margins are what stood
+   between the fold and the first section. */
+p.explain {
+  margin: 0.75rem 0;
+}
+
+/* A highlighter's stroke over the sentences worth a second look (D192): the
+   accent as a wash, on both papers, in the ink around it - the browser's own
+   mark is a yellow block with black text, which no theme of ours has. Cloned
+   at the line breaks, so a stroke that wraps starts and ends its padding on
+   every line it spans. */
+p.explain mark {
+  background: color-mix(in srgb, var(--page-accent) 20%, transparent);
+  color: inherit;
+  padding: 0.05em 0.2em;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Focus must be findable on every control here - the quiet row buttons erase
+   their resting border, so the browser default cannot be trusted to survive
+   the styling. */
+:is(a, button, select, summary, input):focus-visible {
+  outline: 2px solid var(--page-accent);
+  outline-offset: 2px;
+}
+
+/* Hover feedback eases in; nothing depends on it, and it stops entirely for
+   readers who asked motion to stop. */
+button,
+summary {
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* The clip pattern: real labels for the two filter boxes, read by screen
+   readers, invisible to everyone else. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The translation-off switch (D120): everything that only serves translation
+   wears this class, and the body wears the mode. Display rather than the
+   `hidden` attribute, because the first-steps fold manages its own `hidden`
+   and must stay away regardless of what its logic decides. */
+body.no-translation .translation-only {
+  display: none;
+}
+
+/* The jump line draws its dot before every link but the first - counting
+   hidden siblings, so without this the row would open on a stray separator. */
+body.no-translation .jump .translation-only + a::before {
+  content: none;
+}
+
+/* The reading-aloud switch (D148): the two voice rows wear this class and
+   fold away with it, the translation-off manner. */
+body.no-tts .tts-only {
+  display: none;
+}
+
+/* The translation-off switch's sub-option (D149): the mirror of
+   `translation-only` - on the page only while the switch is on. */
+body:not(.no-translation) .no-translation-only {
+  display: none;
+}
+
+/* A sub-option stands indented under the switch it belongs to: the indent is
+   the whole of what says "this one depends on the row above". */
+.row-sub {
+  padding-left: 1.5rem;
+}
+
+/* --- the header: the shared bar, title, the table of contents ---
+
+   The bar and its menu (`.page-bar`, `.page-mark`, `.nav-menu`) live in
+   assets/page.css - the dress every header of this extension wears. The
+   mark here is a plain line, not a button: the door it opens elsewhere is
+   this very room. */
+
+/* The title stands clear under the bar's line; an opened menu panel pushes
+   it down from between the two, as on the other pages. A step tighter than
+   the saved phrases' 2rem, for this page's own fold arithmetic. */
+header h1 {
+  margin: 1.5rem 0 0.75rem;
+}
+
+/* Plain links in a wrapping line; the dot between them is drawn, not written,
+   so a screen reader hears three links and no punctuation. Each link keeps
+   the touch floor without growing its text. */
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.6rem;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.jump a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* The dot rides the link it precedes, so a wrapped line never ends in a
+   lone separator - it starts the next line with its link instead. */
+.jump a + a::before {
+  content: "\00B7" / "";
+  margin-right: 0.6rem;
+  color: var(--page-muted);
+}
+
+/* The support section's two doors, one per line - the jump links' touch
+   floor without their separator: these are the section's whole content, not
+   a table of contents. */
+.support-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0.75rem 0 0;
+}
+
+.support-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* The anchors' landing pads: a heading flush with the stuck bar's line
+   (the root's scroll padding, page.css - D219) reads as cut off, so each
+   lands a step under it. The margin above sections is a step wider than the shared
+   default (Michał's request, 2026-08-17): the rows above end dense, and a
+   section heading needs air to read as a new chapter - worth more than the
+   fold arithmetic that once kept it tight. */
+h2 {
+  margin-top: 3rem;
+  scroll-margin-top: 0.75rem;
+}
+
+/* --- the settings rows: label | control, wrapping where the control needs
+   the width --- */
+
+.rows {
+  border-top: 1px solid var(--page-line);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.25rem 1rem;
+  align-items: center;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--page-line);
+}
+
+/* Labels speak at the page's full color; the notes below them are the quiet
+   ones. The touch floor lives on each row's control (select, button, the
+   toggle line) - a label beside a 44px control needs no height of its own,
+   and the one all-text row may be denser. */
+.row-value {
+  color: var(--page-muted);
+}
+
+.row > :is(select, button, .row-value) {
+  justify-self: end;
+}
+
+.row select {
+  min-height: 44px;
+}
+
+.row button {
+  min-height: 44px;
+  padding: 0.35rem 1rem;
+}
+
+/* An explanation under the row's own line, inside the same borders, so it can
+   never drift away from what it explains - and outside the toggle's label, so
+   brushing against a paragraph on a phone never flips a switch. */
+.row .row-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+}
+
+/* The rows whose control wants the whole width on a phone: label above,
+   control below. The media query at the end puts them back on one line. */
+.row-stack {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.row-stack > :is(select, .row-value) {
+  justify-self: stretch;
+}
+
+/* The whole first line is one label: text left, checkbox right, and every
+   point between them flips the switch too. */
+.row-toggle {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* Large enough to read as the control it is (~22px); the whole line is the
+   touch target either way. */
+.row-toggle input {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+/* --- the folded descriptions (D155) --- */
+
+/* A note's box: the text, clipped to two lines while folded, and the chevron
+   beside it. The box takes the note's place in the row's grid; the note
+   itself keeps `.row-note`'s dress. A press anywhere in the box opens or
+   closes it - but only a box with something folded away is a handle, and
+   only that one says so with the pointer. */
+.note-fold {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.note-fold[data-long] {
+  cursor: pointer;
+}
+
+.note-fold > .row-note {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* The clip: the first two lines and an ellipsis. Visual only - the text is
+   all there for a screen reader, and `scrollHeight` still measures it, which
+   is how the page knows whether the chevron has anything to promise. */
+.note-fold[data-folded] > .row-note {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* The chevron: the quiet dressing of the row buttons, a touch target as tall
+   as the two lines it stands beside, its glyph at the row's right edge the
+   way the checkboxes stand (the hit box reaches past it). Down while folded,
+   up while open - turned, not swapped, and without a transition: an e-ink
+   panel draws a turn as a smear. The element is in the selector so this
+   outranks `.row button` above. */
+button.note-toggle {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0 -0.85rem 0 0;
+  padding: 0;
+  border-color: transparent;
+  color: var(--page-muted);
+  transition: none;
+}
+
+/* A note that fits its two lines shows no chevron - but keeps the chevron's
+   column. The verdict is measured on the note, and a column that came and
+   went with the verdict moved the note's width, which re-measured the note
+   in the same frame: the "ResizeObserver loop" Chrome lists among the
+   extension's errors. So every note wraps at the same edge whatever the
+   verdict, and the button only stops being drawn - and, undrawn, stops
+   asking for its two lines of height, so a short note keeps its own. */
+.note-fold:not([data-long]) > .note-toggle {
+  visibility: hidden;
+  height: 0;
+  min-height: 0;
+}
+
+.note-toggle:hover,
+.note-toggle:focus-visible {
+  border-color: var(--page-border);
+  background: color-mix(in srgb, var(--page-fg) 6%, transparent);
+  color: var(--page-fg);
+}
+
+.note-fold:not([data-folded]) .note-toggle .page-icon {
+  transform: rotate(180deg);
+}
+
+/* --- the refresh line: a quiet button and the list's date --- */
+
+/* The button keeps the shared secondary look on purpose: refreshing is the
+   rare act of this section, and the accent stays with what the section is
+   for. On a narrow screen the date wraps below the button. */
+.list-refresh {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.9rem;
+  margin: 1rem 0 0;
+}
+
+.list-refresh button {
+  min-height: 44px;
+  padding: 0.35rem 1rem;
+}
+
+.list-dated {
+  margin: 0;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+}
+
+.list-dated strong {
+  color: var(--page-fg);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- the filter boxes --- */
+
+.model-filter {
+  margin: 1rem 0 0;
+}
+
+.model-filter input {
+  width: 100%;
+  min-height: 44px;
+  font: inherit;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--page-border);
+  background: transparent;
+  color: var(--page-fg);
+}
+
+/* --- the lists: rows in the page's own flow, no box scrolling inside the
+   page. Name | size | action on a desktop; on a phone the name takes the
+   first line and the rest right-aligns below it. --- */
+
+.models {
+  margin: 0.5rem 0 0;
+  border-top: 1px solid var(--page-line);
+}
+
+.model {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 0.25rem 0.75rem;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--page-line);
+}
+
+.model-name {
+  grid-column: 1 / -1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.model-meta {
+  grid-column: 2;
+  justify-self: end;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem 0.75rem;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
+.model-act {
+  grid-column: 3;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.model-act button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.35rem 0.9rem;
+}
+
+.badge {
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--page-line);
+  color: var(--page-muted);
+  font-size: 0.75rem;
+  /* A pill that wraps mid-text stops reading as a pill. */
+  white-space: nowrap;
+}
+
+/* --- the dictionary list: every row a stack of lines, the same at every
+   width (the seventh brief, D2). The list is a real list, so the browser's
+   own bullets and indent come off; the rows keep the models' separator. --- */
+
+ul.models {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dictionary-row {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--page-line);
+}
+
+/* The first line: the pair, the badge of the pair being read, and the
+   buttons at the right edge. The pair never breaks in the middle - "English
+   to" over "Polish" read as two things - while the badge may drop to the
+   next line; the buttons are one group that never wraps inside itself.
+   Only a pair wider than the whole row is cut, with an ellipsis, rather
+   than pushing the page into a sideways scroll. */
+.dictionary-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.6rem;
+}
+
+.dictionary-pair {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dictionary-head .badge {
+  margin-left: 0;
+}
+
+.dictionary-actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.dictionary-actions button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.35rem 0.9rem;
+  white-space: nowrap;
+}
+
+/* The row's title: the name the reader knows the book by, at the weight of
+   the page's own headings. Wrapped when long, never cut. */
+.dictionary-name {
+  margin: 0.15rem 0 0;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+/* The small print under the title: the file's name when it differs, the
+   counts, the size - one line that wraps between its items on a phone. A
+   count keeps its unit on one line; a file's name may break anywhere,
+   since a name written without spaces would otherwise be wider than the
+   screen. */
+.dictionary-meta {
+  margin: 0.15rem 0 0;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.dictionary-count {
+  white-space: nowrap;
+}
+
+/* The same line while a download runs: the bar and the byte count beside it. */
+.dictionary-fetching {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+}
+
+/* --- the fold every finished book ends with: "Details" --- */
+
+.dictionary-details summary {
+  /* The block padding is the touch target: 0.9rem text alone stands 39px.
+     Default display, because summary loses its fold marker without it. */
+  padding: 0.7rem 0;
+  cursor: pointer;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+}
+
+/* The name a reader gives a dictionary (D199): the caption over the field,
+   the field the width of the fold up to a name's worth - the record cuts at
+   forty characters, and thirty-six of them stand in the field before it
+   scrolls - in the filter fields' quiet dress. */
+.dictionary-rename {
+  display: block;
+  color: var(--page-muted);
+  font-size: 0.85rem;
+}
+
+.dictionary-rename-label {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.dictionary-rename-field {
+  display: block;
+  width: 100%;
+  max-width: 36ch;
+  min-height: 44px;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--page-border);
+  background: transparent;
+  color: var(--page-fg);
+}
+
+/* What the file calls the book, said in full under the field - here it is
+   information, not the title said twice. */
+.dictionary-file-name {
+  margin: 0.5rem 0 0;
+  color: var(--page-muted);
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+
+/* The arrows that arrange the dictionaries: the quiet Delete's dressing (no
+   border at rest, wash on hover and focus), because they sit on the same row
+   and three differently dressed buttons would read as three unrelated
+   controls. Square, so the pair costs one Delete's width on a phone; the
+   element is in the selector for the same reason it is below. */
+button.model-move {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.35rem;
+  border-color: transparent;
+  color: var(--page-muted);
+  /* The glyph is the label: at the button's own font size it reads as
+     punctuation next to the words around it. */
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.model-move:hover:not(:disabled),
+.model-move:focus-visible {
+  border-color: var(--page-border);
+  background: color-mix(in srgb, var(--page-fg) 6%, transparent);
+  color: var(--page-fg);
+}
+
+/* At the ends of the list the arrow stays in place rather than vanishing: a
+   row whose buttons come and go moves the Delete under a finger already on
+   its way down. Unavailable is said with the separator lines' own ink, not
+   with a thinner version of the glyph's (block 3 of the seventh brief): on
+   e-ink, posterised to sixteen greys, the muted glyph and the frame's token
+   fall one step apart in the light and sepia palettes while the line's
+   token stands three to five steps away - and a solid colour stays crisp
+   where a translucent one dithers. The hover is spelled out because the
+   page's own disabled-button rule would otherwise draw a frame around an
+   arrow that does nothing. */
+.model-move:disabled,
+.model-move:disabled:hover {
+  border-color: transparent;
+  background: none;
+  color: var(--page-line);
+  opacity: 1;
+}
+
+/* Delete asks with a second press, so it dresses down at rest: no border,
+   muted, always visible - touch and e-ink have no hover to reveal it with.
+   Nowrap so "Sure?" grows leftward from a fixed right edge and the second
+   press lands where the first one did. */
+/* The element in the selector, or `.model-act button` above would outweigh
+   this rule and keep its own padding. */
+button.model-delete {
+  /* The reading list's quiet-delete metrics, kept identical on purpose: one
+     pattern across the pages. The touch floor stands on the button itself,
+     not on the cell around it. */
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.35rem 0.8rem;
+  border-color: transparent;
+  color: var(--page-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.model-delete:hover,
+.model-delete:focus-visible {
+  border-color: var(--page-border);
+  background: color-mix(in srgb, var(--page-fg) 6%, transparent);
+  color: var(--page-fg);
+}
+
+/* The armed state: the accent frames and fills the asking button while the
+   text keeps the page's own color - readable in both themes. Last, so it
+   outranks the quiet hover above. */
+.model-delete[data-armed],
+.model-delete[data-armed]:hover,
+.model-delete[data-armed]:focus-visible {
+  border-color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 12%, transparent);
+  color: var(--page-fg);
+}
+
+/* A trailing Delete hands its resting padding to the gutter, the way the
+   article actions do on the left edge: its label ends where a bordered
+   button's frame ends, so every row's line closes on the one right edge
+   instead of the quiet rows stopping visibly short of it. The hit box keeps
+   its full size, reaching past the edge. Only the quiet button may hang out
+   there - a bordered Download or Cancel ending the line stays flush. */
+.model-act > .model-delete:last-child,
+.dictionary-actions > .model-delete:last-child {
+  margin-inline-end: calc(-0.8rem - 1px);
+}
+
+/* The bar rides the meta cell; on a phone that cell has the second line to
+   itself, so the bar may take what a thumb needs. */
+.model-progress {
+  width: clamp(6rem, 40vw, 12rem);
+  height: 0.5rem;
+  accent-color: var(--page-accent);
+}
+
+/* The one visible move of a collapsed list: a quiet line at the rows' left
+   edge saying how much stands folded under it - "Show all (N)" - and, once
+   unfolded, "Show fewer" (block 4 of the seventh brief). It reads like the
+   shelf's own "Show all" under a long book: a text button in the list's
+   axis, no box at rest, the underline on hover and focus - not a bar across
+   the frame, since unfolding is a rare act. */
+.show-all {
+  display: block;
+  width: auto;
+  min-height: 44px;
+  margin: 0.25rem 0 0;
+  padding: 0.35rem 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+  text-align: start;
+}
+
+.show-all:hover,
+.show-all:focus-visible {
+  color: var(--page-fg);
+  text-decoration: underline;
+}
+
+/* Who made the dictionary, in its own words: the line breaks are the ones its
+   description had - a licence written as four lines reads as four lines. */
+.dictionary-credit {
+  margin: 0.5rem 0 0.35rem;
+  color: var(--page-muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  white-space: pre-line;
+}
+
+/* --- the folded by-hand sections --- */
+
+.fold {
+  margin: 2rem 0;
+}
+
+.fold summary {
+  padding: 0.55rem 0;
+  cursor: pointer;
+}
+
+/* The heading keeps its size but sits on the marker's line, and the page
+   rhythm it usually brings moves onto the fold itself. */
+.fold summary h3 {
+  display: inline;
+  margin: 0;
+}
+
+.files {
+  color: var(--page-muted);
+  line-height: 1.9;
+}
+
+.files em {
+  color: var(--page-accent);
+  font-style: normal;
+}
+
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* A minus, a value, a plus - the bubble-size row's control cell. Its own
+   class so the voice row's .inline keeps stretching: this one sits at the
+   row's control edge like every other single control does. */
+.row > .stepper {
+  justify-self: end;
+  margin: 0;
+}
+
+.stepper output {
+  min-width: 4ch;
+  color: var(--page-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.inline select {
+  min-height: 44px;
+}
+
+.inline button {
+  min-height: 44px;
+  padding: 0.35rem 1rem;
+}
+
+/* The font name's field (D163), in the filter fields' quiet dress - and
+   wide enough for a real name ("Atkinson Hyperlegible"), capped so an
+   empty field is not a line across the page. Its inline font-family is the
+   preview: options.js sets it from the cleaned name. */
+#font-custom,
+#dictionary-link,
+#disabled-host {
+  flex: 1 1 12rem;
+  max-width: 22rem;
+  min-width: 0;
+  min-height: 44px;
+  font: inherit;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--page-border);
+  background: transparent;
+  color: var(--page-fg);
+}
+
+/* The pasted address (D187) wears the same dress, wider: an address is long,
+   and a field that cuts it off hides the part that says which file it is. */
+#dictionary-link {
+  flex: 1 1 18rem;
+  max-width: 40rem;
+}
+
+/* The reader's own rules (D176): a code field in the same quiet dress, but
+   monospace, the width of the column and tall enough for a handful of rules.
+   It grows by hand (resize) and never by itself - a stylesheet is typed, not
+   read, and a field growing under the fingers would move the Save button. */
+.custom-css textarea {
+  display: block;
+  width: 100%;
+  min-height: 9rem;
+  padding: 0.5rem 0.6rem;
+  font: 0.9rem/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--page-fg);
+  background: transparent;
+  border: 1px solid var(--page-border);
+  border-radius: 6px;
+  resize: vertical;
+  tab-size: 2;
+}
+
+.custom-css .inline {
+  margin-top: 0.5rem;
+}
+
+/* The status is an output element, inline by nature; here it is a line of
+   its own under the button, and a refusal wears the report's frame. */
+.custom-css output {
+  display: block;
+}
+
+/* The custom CSS section's fold stands under the field, tighter than the
+   by-hand sections' folds: a footnote to a field, not a section of its own.
+   The source files inside it share one wrapping line with the jump links'
+   dots - four doors one under the other took a screen (Michał's smoke). */
+.fold-tight {
+  margin: 0.75rem 0 0;
+}
+
+.sources {
+  margin-top: 0.25rem;
+}
+
+/* The voice names are the device's own and can run long; the select takes the
+   line's spare width and may shrink below its content, so a long name never
+   pushes the Listen button off the page. */
+#tts-voice {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+/* The language before it keeps to its content - a language's name is short -
+   and gives way last. */
+#tts-lang {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+/* --- the fresh-install signpost --- */
+
+/* The note's frame, the page's full color - it is instructions to act on, not
+   an aside. Open while a model or a dictionary is missing; with both stored
+   it folds to its heading and stays, one line of the note's frame, there to
+   reread. */
+.first-steps {
+  margin: 1rem 0 1.25rem;
+  color: var(--page-fg);
+}
+
+.first-steps summary {
+  padding: 0.55rem 0;
+  cursor: pointer;
+}
+
+.first-steps summary h2 {
+  /* The signpost speaks at the card's volume, not a section's - and sits on
+     the marker's line, the way the by-hand folds' headings do. */
+  display: inline;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.first-steps p {
+  margin: 0.35rem 0;
+}
+
+.first-steps ol {
+  margin: 0.35rem 0;
+  padding-left: 1.4rem;
+}
+
+.first-steps li {
+  margin: 0.3rem 0;
+}
+
+/* Every summary marker on this page speaks at the same volume. */
+summary::marker {
+  color: var(--page-muted);
+}
+
+/* The colophon's dress lives in page.css now - the same line closes the
+   reading list, the highlights and the saved phrases. */
+
+/* --- one breakpoint: the same HTML, spread out for a desktop --- */
+
+@media (min-width: 600px) {
+  /* The stacked rows return to one line: label left, control right. */
+  .row-stack {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .row-stack > :is(select, .row-value) {
+    justify-self: end;
+  }
+
+  /* The storage row's value is a sentence, and the `auto` track above would
+     take the label's room and wrap "Data on this device" word by word
+     (Michał's Firefox, 2026-08-26). Here the label keeps its width and the
+     sentence is what wraps - flush right, the way every value stands. */
+  .row-storage {
+    grid-template-columns: max-content minmax(0, 1fr);
+  }
+
+  .row-storage > .row-value {
+    text-align: end;
+  }
+
+  /* The voice row's label keeps its width the storage row's way: its control
+     cell holds two selects and a button, whose content took the whole row
+     and left the label folded on itself under the first select (Michał's
+     smoke, 2026-08-29). The cell is the row's remainder; the voice select
+     grows into it, and what has to wrap wraps at the right edge, where every
+     control of this page stands. */
+  .row-voice {
+    grid-template-columns: max-content minmax(0, 1fr);
+  }
+
+  .row-voice > .inline {
+    justify-content: flex-end;
+  }
+
+  /* List rows on one line: name | size | action. */
+  .model-name {
+    grid-column: 1;
+  }
+}
+
+/* The one narrow-screen move of the dictionary list: the buttons leave the
+   pair's line for a line of their own under it, flush right, so a pair
+   and three buttons never fight for one 360px line (the seventh brief). */
+@media (max-width: 480px) {
+  .dictionary-actions {
+    flex-basis: 100%;
+    justify-content: flex-end;
+  }
+}

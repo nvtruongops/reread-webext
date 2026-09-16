@@ -1,0 +1,2701 @@
+{
+  "locale_code": {
+    "message": "vi"
+  },
+  "extension_description": {
+    "message": "Đọc bài viết web và sách EPUB ngoại tuyến - học ngoại ngữ khi đọc. Mọi nội dung luôn lưu trên thiết bị của bạn."
+  },
+  "pair_label": {
+    "message": "$FROM$ → $TO$",
+    "placeholders": {
+      "from": {
+        "content": "$1",
+        "example": "English"
+      },
+      "to": {
+        "content": "$2",
+        "example": "Polish"
+      }
+    }
+  },
+  "settings": {
+    "message": "Cài đặt"
+  },
+  "support": {
+    "message": "Ủng hộ"
+  },
+  "nav_menu": {
+    "message": "Trình đơn"
+  },
+  "language_pair": {
+    "message": "Cặp ngôn ngữ"
+  },
+  "reading_list": {
+    "message": "Danh sách đọc ngoại tuyến"
+  },
+  "private_browsing_note": {
+    "message": "Bạn đang ở chế độ duyệt web ẩn danh. Trình duyệt cung cấp cho trang này cơ sở dữ liệu riêng biệt và xóa nó khi phiên ẩn danh kết thúc. Cụm từ đã lưu là ngoại lệ duy nhất - chúng được giữ lại. Mở re/read từ tab bình thường cho mọi thứ khác."
+  },
+  "saved_phrases": {
+    "message": "Từ & cụm từ đã lưu"
+  },
+  "open_reader": {
+    "message": "Mở trong chế độ đọc"
+  },
+  "quiet_bubble": {
+    "message": "Mặc định ẩn thao tác trên khung nổi"
+  },
+  "action_delete": {
+    "message": "Xóa"
+  },
+  "action_download": {
+    "message": "Tải xuống"
+  },
+  "action_cancel": {
+    "message": "Hủy"
+  },
+  "action_save": {
+    "message": "Lưu"
+  },
+  "action_update": {
+    "message": "Cập nhật"
+  },
+  "error_engine_missing": {
+    "message": "Chưa có công cụ dịch thuật - bản dựng này không thể dịch."
+  },
+  "error_model_missing": {
+    "message": "Chưa có mô hình cho cặp ngôn ngữ này trên thiết bị - hãy tải xuống hoặc thêm trong phần cài đặt. Và để đọc không cần máy dịch, hãy bật \"Sử dụng không cần mô hình dịch\" tại đó - từ điển vẫn phản hồi và bạn lưu cụm từ từ các nghĩa của chúng."
+  },
+  "error_unsupported_pair": {
+    "message": "Không có mô hình nào cho cặp ngôn ngữ này."
+  },
+  "error_too_long": {
+    "message": "Đoạn văn bản được chọn quá dài để dịch."
+  },
+  "error_no_page": {
+    "message": "Không có trang nào để đọc ở đây - hãy mở một bài viết và bấm lại nút."
+  },
+  "error_unknown_message": {
+    "message": "Tiện ích đã gửi một yêu cầu không được nhận dạng."
+  },
+  "error_internal": {
+    "message": "Đã xảy ra lỗi nội bộ trong tiện ích."
+  },
+  "bubble_save": {
+    "message": "Lưu"
+  },
+  "bubble_learned": {
+    "message": "Đã thuộc"
+  },
+  "bubble_edit_separator_hint": {
+    "message": "Dấu chấm phẩy phân tách các nghĩa."
+  },
+  "bubble_edit": {
+    "message": "Sửa"
+  },
+  "bubble_settings": {
+    "message": "Mở cài đặt"
+  },
+  "bubble_more": {
+    "message": "Thêm"
+  },
+  "bubble_less": {
+    "message": "Bớt"
+  },
+  "bubble_reader": {
+    "message": "Đọc trong chế độ đọc"
+  },
+  "bubble_library": {
+    "message": "Mở danh sách đọc ngoại tuyến"
+  },
+  "bubble_translating": {
+    "message": "Đang dịch..."
+  },
+  "bubble_looking_up": {
+    "message": "Đang tra từ điển..."
+  },
+  "bubble_nothing_more": {
+    "message": "Không còn câu hoặc mục từ điển nào để hiển thị"
+  },
+  "bubble_whole_words": {
+    "message": "Chọn cả từ"
+  },
+  "bubble_not_in_dictionary": {
+    "message": "Không có trong các từ điển của bạn"
+  },
+  "bubble_no_dictionary": {
+    "message": "Chưa có từ điển cho $LANGUAGE$ - hãy thêm trong $SETTINGS$",
+    "placeholders": {
+      "language": {
+        "content": "$1",
+        "example": "English"
+      },
+      "settings": {
+        "content": "$2",
+        "example": "settings"
+      }
+    }
+  },
+  "bubble_settings_word": {
+    "message": "cài đặt"
+  },
+  "bubble_model_word": {
+    "message": "Mô hình dịch đôi khi dịch sai một từ khi đứng riêng lẻ."
+  },
+  "bubble_dictionary_sources": {
+    "message": "Nơi tìm thêm từ điển:"
+  },
+  "bubble_saves_under": {
+    "message": "Sẽ được lưu vào cặp ngôn ngữ đang kích hoạt: $PAIR$",
+    "placeholders": {
+      "pair": {
+        "content": "$1",
+        "example": "English → Polish"
+      }
+    }
+  },
+  "bubble_saved_word": {
+    "message": "Từ đã lưu: $WORD$",
+    "placeholders": {
+      "word": {
+        "content": "$1",
+        "example": "read"
+      }
+    }
+  },
+  "bubble_choose_meaning": {
+    "message": "Nhấn vào một nghĩa để lưu"
+  },
+  "bubble_speak": {
+    "message": "Phát âm"
+  },
+  "bubble_sentence_collapse": {
+    "message": "Thu gọn câu"
+  },
+  "bubble_sentence_expand": {
+    "message": "Mở rộng câu"
+  },
+  "bubble_copy": {
+    "message": "Sao chép"
+  },
+  "bubble_copy_original": {
+    "message": "Sao chép bản gốc"
+  },
+  "bubble_copy_translation": {
+    "message": "Sao chép bản dịch"
+  },
+  "bubble_copied": {
+    "message": "Đã sao chép"
+  },
+  "popup_site_enabled": {
+    "message": "Đã bật trên $DOMAIN$",
+    "placeholders": {
+      "domain": {
+        "content": "$1",
+        "example": "en.wikipedia.org"
+      }
+    }
+  },
+  "popup_site_toggle_title": {
+    "message": "Bật/tắt re/read trên trang web này"
+  },
+  "popup_no_page": {
+    "message": "re/read không hoạt động trên trang này."
+  },
+  "popup_no_model": {
+    "message": "Chưa có mô hình dịch trên thiết bị này - nhấn vào đây để chọn trong cài đặt."
+  },
+  "vocab_title": {
+    "message": "re/read - từ & cụm từ đã lưu"
+  },
+  "vocab_intro": {
+    "message": "Mọi cụm từ bạn lưu cho cặp ngôn ngữ này, mới nhất ở đầu - được lưu khi đọc, chỉ lưu trên thiết bị này. $LEARNED$ xóa cụm từ và gạch chân tương ứng; $EDIT$ sửa lại nghĩa, mỗi nghĩa một dòng. Thêm nhiều nghĩa cùng lúc: ngăn cách bằng dấu chấm phẩy. Bên cạnh mỗi cụm từ là hai số đếm - kính lúp và quyển sách: số lần bạn kiểm tra từ đó (mở khung nổi), và số lần từ xuất hiện trong các bài bạn đã đọc xong - phần sách bạn chuyển qua bằng nút Tiếp dưới bài đọc, bài viết bạn đánh dấu đã đọc. Danh sách có thể sắp xếp theo cả hai tiêu chí.",
+    "placeholders": {
+      "learned": {
+        "content": "$1",
+        "example": "Learned"
+      },
+      "edit": {
+        "content": "$2",
+        "example": "Edit"
+      }
+    }
+  },
+  "vocab_how_title": {
+    "message": "Cách hoạt động"
+  },
+  "vocab_format_title": {
+    "message": "Định dạng tệp"
+  },
+  "vocab_filter_placeholder": {
+    "message": "Tìm theo từ hoặc nghĩa..."
+  },
+  "vocab_filter_label": {
+    "message": "Lọc từ vựng"
+  },
+  "vocab_filter_clear": {
+    "message": "Xóa bộ lọc"
+  },
+  "vocab_add_title": {
+    "message": "Thêm cụm từ"
+  },
+  "vocab_add_note": {
+    "message": "Nhập một từ và xác nhận - chọn các nghĩa từ từ điển hoặc tự viết nghĩa của bạn."
+  },
+  "lookup_label": {
+    "message": "Tra từ"
+  },
+  "lookup_placeholder": {
+    "message": "Nhập từ hoặc cụm từ"
+  },
+  "lookup_action": {
+    "message": "Tìm kiếm"
+  },
+  "lookup_clear": {
+    "message": "Xóa ô nhập"
+  },
+  "lookup_saved_count": {
+    "message": "Đã lưu: $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "lookup_own": {
+    "message": "Nghĩa của bạn"
+  },
+  "lookup_own_placeholder": {
+    "message": "Thêm nghĩa khác..."
+  },
+  "lookup_more_about": {
+    "message": "Thêm thông tin về từ này"
+  },
+  "lookup_show_all": {
+    "message": "Xem tất cả ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "lookup_show_fewer": {
+    "message": "Thu gọn bớt"
+  },
+  "lookup_show_in_list": {
+    "message": "Hiển thị trong danh sách"
+  },
+  "lookup_saved_group": {
+    "message": "Đã lưu ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "popup_lookup_back": {
+    "message": "Quay lại trình đơn"
+  },
+  "popup_lookup_add": {
+    "message": "Lưu trên trang từ vựng"
+  },
+  "popup_lookup_open": {
+    "message": "Mở trong từ & cụm từ đã lưu"
+  },
+  "vocab_count_filtered_other": {
+    "message": "$MATCHING$ trên $TOTAL$ cụm từ đã lưu",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "26"
+      },
+      "matching": {
+        "content": "$2",
+        "example": "8"
+      }
+    }
+  },
+  "vocab_edit_aria": {
+    "message": "Sửa cụm từ $PHRASE$",
+    "placeholders": {
+      "phrase": {
+        "content": "$1",
+        "example": "bank"
+      }
+    }
+  },
+  "vocab_learned_aria": {
+    "message": "Đánh dấu đã thuộc: $PHRASE$",
+    "placeholders": {
+      "phrase": {
+        "content": "$1",
+        "example": "bank"
+      }
+    }
+  },
+  "vocab_speak_aria": {
+    "message": "Đọc to: $PHRASE$",
+    "placeholders": {
+      "phrase": {
+        "content": "$1",
+        "example": "bank"
+      }
+    }
+  },
+  "vocab_empty": {
+    "message": "Chưa có cụm từ nào được lưu cho cặp ngôn ngữ này. $BUTTON$",
+    "placeholders": {
+      "button": {
+        "content": "$1",
+        "example": "Save"
+      }
+    }
+  },
+  "vocab_filter_status_other": {
+    "message": "$SHOWN$ trên $TOTAL$ cụm từ cho \"$QUERY$\"",
+    "placeholders": {
+      "total": {
+        "content": "$1",
+        "example": "827"
+      },
+      "shown": {
+        "content": "$2",
+        "example": "1"
+      },
+      "query": {
+        "content": "$3",
+        "example": "news"
+      }
+    }
+  },
+  "vocab_order_label": {
+    "message": "Thứ tự sắp xếp"
+  },
+  "vocab_order_newest": {
+    "message": "Mới nhất trước"
+  },
+  "vocab_order_recalled": {
+    "message": "Được tra nhiều nhất"
+  },
+  "vocab_order_read": {
+    "message": "Được đọc nhiều nhất"
+  },
+  "vocab_order_alphabetical": {
+    "message": "Từ A đến Z"
+  },
+  "vocab_recalls_other": {
+    "message": "Đã kiểm tra $COUNT$ lần",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
+  "vocab_reads_other": {
+    "message": "$COUNT$ lần trong bài đọc đã xong",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "100"
+      }
+    }
+  },
+  "vocab_legend_recalls": {
+    "message": "đã kiểm tra • số lần mở khung nổi khi đọc"
+  },
+  "vocab_legend_reads": {
+    "message": "Số lần gặp từ này trong các bài đọc đã hoàn thành"
+  },
+  "vocab_import_with_sentence_other": {
+    "message": "$COUNT$ dòng có câu ví dụ kèm theo.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
+    }
+  },
+  "vocab_import_sentenced_other": {
+    "message": "Đã thêm câu ví dụ vào $COUNT$ cụm từ đã lưu.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,5"
+      }
+    }
+  },
+  "pager_page_of": {
+    "message": "Trang $PAGE$ / $PAGES$",
+    "placeholders": {
+      "page": {
+        "content": "$1",
+        "example": "3"
+      },
+      "pages": {
+        "content": "$2",
+        "example": "13"
+      }
+    }
+  },
+  "pager_prev": {
+    "message": "Trang trước"
+  },
+  "pager_next": {
+    "message": "Trang sau"
+  },
+  "action_export": {
+    "message": "Xuất"
+  },
+  "vocab_export_anki": {
+    "message": "Xuất cho Anki"
+  },
+  "action_import": {
+    "message": "Nhập"
+  },
+  "transfer_heading": {
+    "message": "Nhập và xuất"
+  },
+  "vocab_transfer_note": {
+    "message": "Tệp .tsv hai cột - tương thích với plugin KOReader và Anki. Nhập tệp sẽ thêm các cụm từ còn thiếu và không ghi đè cụm từ đã có."
+  },
+  "vocab_import_into": {
+    "message": "Nhập vào"
+  },
+  "vocab_import_nothing": {
+    "message": "Không có cụm từ nào để nhập trong tệp đó."
+  },
+  "vocab_import_summary_other": {
+    "message": "$NAME$ chứa $COUNT$ dòng:",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,243"
+      },
+      "name": {
+        "content": "$2",
+        "example": "reread-en-pl.tsv"
+      }
+    }
+  },
+  "vocab_import_added_other": {
+    "message": "Đã thêm $COUNT$ cụm từ mới.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,243"
+      }
+    }
+  },
+  "vocab_import_skipped_other": {
+    "message": "Đã bỏ qua $COUNT$ cụm từ đã có.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "43"
+      }
+    }
+  },
+  "vocab_import_unreadable_other": {
+    "message": "$COUNT$ dòng không thể đọc được.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "7"
+      }
+    }
+  },
+  "reader_title": {
+    "message": "re/read - Trình đọc"
+  },
+  "reader_open_original": {
+    "message": "Open the original"
+  },
+  "reader_pictures_save": {
+    "message": "Tải xuống pictures ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "reader_pictures_remove": {
+    "message": "Remove pictures ($SIZE$)",
+    "placeholders": {
+      "size": {
+        "content": "$1",
+        "example": "4.2 MB"
+      }
+    }
+  },
+  "reader_pictures_hint": {
+    "message": "Downloaded once from the article's own servers, without cookies, and kept with the article on this device. After the Tải xuống they are shown in the article."
+  },
+  "reader_pictures_book_hint": {
+    "message": "The pictures come from the book file and were saved with the book when it was added. This row removes only the pictures - the book stays, and the pictures come Quay lại only when you add the file again."
+  },
+  "reader_pictures_progress": {
+    "message": "Picture $DONE$ of $OF$ - $SIZE$",
+    "placeholders": {
+      "done": {
+        "content": "$1",
+        "example": "3"
+      },
+      "of": {
+        "content": "$2",
+        "example": "12"
+      },
+      "size": {
+        "content": "$3",
+        "example": "1.1 MB"
+      }
+    }
+  },
+  "reader_pictures_stop": {
+    "message": "Press the row to stop."
+  },
+  "reader_pictures_done_other": {
+    "message": "$SAVED$ of $OF$ pictures downloaded ($SIZE$)",
+    "placeholders": {
+      "of": {
+        "content": "$1",
+        "example": "12"
+      },
+      "saved": {
+        "content": "$2",
+        "example": "11"
+      },
+      "size": {
+        "content": "$3",
+        "example": "4.2 MB"
+      }
+    }
+  },
+  "reader_pictures_none": {
+    "message": "None of the pictures could be downloaded."
+  },
+  "reader_pictures_removed": {
+    "message": "Pictures removed."
+  },
+  "reader_pictures_failed": {
+    "message": "The pictures could not be written."
+  },
+  "reader_fullscreen": {
+    "message": "Toàn màn hình"
+  },
+  "reader_fullscreen_exit": {
+    "message": "Exit Toàn màn hình"
+  },
+  "library_pictures_other": {
+    "message": "$COUNT$ hình ảnh • $SIZE$",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "size": {
+        "content": "$2",
+        "example": "4.2 MB"
+      }
+    }
+  },
+  "reader_back_to_list": {
+    "message": "Quay lại to the Danh sách đọc"
+  },
+  "reader_display_title": {
+    "message": "Text and voice"
+  },
+  "reader_theme": {
+    "message": "Theme"
+  },
+  "reader_theme_auto": {
+    "message": "Auto"
+  },
+  "reader_theme_light": {
+    "message": "Sáng"
+  },
+  "reader_theme_sepia": {
+    "message": "Nâu đỏ"
+  },
+  "reader_theme_dark": {
+    "message": "Tối"
+  },
+  "reader_font": {
+    "message": "Type"
+  },
+  "reader_font_serif": {
+    "message": "Serif"
+  },
+  "reader_font_sans": {
+    "message": "Sans"
+  },
+  "reader_font_own": {
+    "message": "Custom"
+  },
+  "reader_bar_hide": {
+    "message": "Hide the bar"
+  },
+  "reader_bar_show": {
+    "message": "Show the bar"
+  },
+  "reader_size": {
+    "message": "Size"
+  },
+  "reader_smaller": {
+    "message": "Smaller"
+  },
+  "reader_larger": {
+    "message": "Larger"
+  },
+  "reader_width": {
+    "message": "Width"
+  },
+  "reader_narrower": {
+    "message": "Narrower"
+  },
+  "reader_wider": {
+    "message": "Wider"
+  },
+  "reader_links": {
+    "message": "Links"
+  },
+  "reader_links_plain": {
+    "message": "Plain text"
+  },
+  "reader_links_active": {
+    "message": "Active"
+  },
+  "reader_marker": {
+    "message": "Highlighter"
+  },
+  "reader_underline": {
+    "message": "Underline"
+  },
+  "underline_fine": {
+    "message": "Mảnh"
+  },
+  "underline_medium": {
+    "message": "Vừa"
+  },
+  "underline_strong": {
+    "message": "Đậm"
+  },
+  "marker_delete": {
+    "message": "Xóa đoạn đánh dấu"
+  },
+  "marker_copy": {
+    "message": "Sao chép"
+  },
+  "marker_copied": {
+    "message": "Đã sao chép"
+  },
+  "marker_note": {
+    "message": "Ghi chú"
+  },
+  "marker_note_add": {
+    "message": "Thêm ghi chú"
+  },
+  "marker_note_edit": {
+    "message": "Sửa ghi chú"
+  },
+  "color_yellow": {
+    "message": "Vàng"
+  },
+  "color_green": {
+    "message": "Xanh lá"
+  },
+  "color_blue": {
+    "message": "Xanh dương"
+  },
+  "color_pink": {
+    "message": "Hồng"
+  },
+  "reader_footnote_aria": {
+    "message": "Footnote $MARK$",
+    "placeholders": {
+      "mark": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "reader_listen": {
+    "message": "Read aloud"
+  },
+  "reader_voice": {
+    "message": "Voice"
+  },
+  "reader_speed": {
+    "message": "Speed"
+  },
+  "reader_slower": {
+    "message": "Slower"
+  },
+  "reader_faster": {
+    "message": "Faster"
+  },
+  "reader_speech_bar": {
+    "message": "Reading aloud"
+  },
+  "reader_speech_back": {
+    "message": "Quay lại"
+  },
+  "reader_speech_play": {
+    "message": "Resume"
+  },
+  "reader_speech_pause": {
+    "message": "Pause"
+  },
+  "reader_speech_stop": {
+    "message": "Stop"
+  },
+  "reader_speech_forward": {
+    "message": "Forward"
+  },
+  "reader_speech_failed": {
+    "message": "This device could not read the article aloud."
+  },
+  "reader_segment_unread": {
+    "message": "To read"
+  },
+  "reader_segment_read": {
+    "message": "Read"
+  },
+  "reader_segment_unread_count": {
+    "message": "To read ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "4"
+      }
+    }
+  },
+  "reader_segment_read_count": {
+    "message": "Read ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "reader_save": {
+    "message": "Lưu to Danh sách đọc"
+  },
+  "reader_delete_confirm": {
+    "message": "Sure?"
+  },
+  "reader_delete_aria": {
+    "message": "Xóa the article $TITLE$",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Old Chinese"
+      }
+    }
+  },
+  "reader_delete_confirm_aria": {
+    "message": "Confirm deletion: $TITLE$",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Old Chinese"
+      }
+    }
+  },
+  "reader_mark_read": {
+    "message": "Mark as read"
+  },
+  "reader_marked_read": {
+    "message": "Marked as read"
+  },
+  "reader_mark_book_read": {
+    "message": "Mark the book as read"
+  },
+  "reader_book_marked_read": {
+    "message": "Book marked as read"
+  },
+  "reader_no_article": {
+    "message": "There was no article to find on that page."
+  },
+  "reader_list_write_failed": {
+    "message": "The Danh sách đọc could not be written."
+  },
+  "reader_empty_none": {
+    "message": "Nothing is saved yet - open an article in the Trình đọc and press \"$BUTTON$\". A saved page stays on this device and opens without a connection.",
+    "placeholders": {
+      "button": {
+        "content": "$1",
+        "example": "Save to reading list"
+      }
+    }
+  },
+  "reader_empty_all_read": {
+    "message": "Nothing left to read - everything saved is marked as read."
+  },
+  "reader_empty_none_read": {
+    "message": "Nothing is marked as read yet."
+  },
+  "reader_filter_placeholder": {
+    "message": "Tìm kiếm by title or site"
+  },
+  "reader_filter_label": {
+    "message": "Tìm kiếm the Danh sách đọc"
+  },
+  "reader_filter_no_match": {
+    "message": "No saved article matches \"$QUERY$\".",
+    "placeholders": {
+      "query": {
+        "content": "$1",
+        "example": "wikipedia"
+      }
+    }
+  },
+  "reader_filter_clear": {
+    "message": "Clear the Tìm kiếm"
+  },
+  "reader_filter_count": {
+    "message": "$MATCHING$ of $TOTAL$",
+    "placeholders": {
+      "matching": {
+        "content": "$1",
+        "example": "3"
+      },
+      "total": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "reader_how_title": {
+    "message": "How it works"
+  },
+  "reader_library_note": {
+    "message": "Everything here is a text copy: web articles you opened in the Chế độ đọc and deliberately saved, and the articles and .epub files you imported with Nhập below. They all open without a connection and stay on your device, even if the original page goes away."
+  },
+  "reader_format_title": {
+    "message": "File format"
+  },
+  "reader_transfer_note": {
+    "message": "Nhập only adds what is missing and never overwrites what is saved: an article already here keeps its copy, a saved phrase keeps its meanings and takes only a sentence it lacks or a higher count, a Đoạn đánh dấu already here is left out."
+  },
+  "reader_transfer_settings": {
+    "message": "The Cài đặt are restored only when you tick \"Restore the Cài đặt too\"."
+  },
+  "reader_export_pictures_other": {
+    "message": "Xuất with pictures ($COUNT$ pictures · $SIZE$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "34"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12.4 MB"
+      }
+    }
+  },
+  "reader_export_books_other": {
+    "message": "Xuất with books ($COUNT$ books · $SIZE$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "size": {
+        "content": "$2",
+        "example": "6.6 MB"
+      }
+    }
+  },
+  "reader_import_pictures_other": {
+    "message": "With $COUNT$ pictures ($SIZE$).",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "34"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12.4 MB"
+      }
+    }
+  },
+  "reader_import_pictures_added_other": {
+    "message": "Pictures added: $COUNT$ ($SIZE$).",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "34"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12.4 MB"
+      }
+    }
+  },
+  "reader_transfer_epub": {
+    "message": "the electronic book format. A book is stored as text and pictures, split into parts at Nhập."
+  },
+  "reader_backup_scope": {
+    "message": "The backup holds your articles with their Đoạn đánh dấu and reading positions, the Từ & cụm từ đã lưu of every Cặp ngôn ngữ, and the Cài đặt. Đoạn đánh dấu made in books are in it too."
+  },
+  "reader_backup_books_note": {
+    "message": "Books are in the backup only when you tick \"Xuất with books\"; otherwise keep your .epub files - when you Nhập the same book again and the backup after it, its Đoạn đánh dấu come Quay lại."
+  },
+  "reader_export_marks": {
+    "message": "Xuất Đoạn đánh dấu"
+  },
+  "reader_marks_export_notes": {
+    "message": "Xuất as notes (.md)"
+  },
+  "reader_marks_notes_hint": {
+    "message": "The .md file is a plain-text list of the quotes and notes, grouped by document - for reading and for your own notes. It cannot be imported."
+  },
+  "reader_marks_import_books_other": {
+    "message": "Đoạn đánh dấu of $COUNT$ books are waiting: $TITLES$. Nhập those books from their .epub files, then Nhập this file again.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "A Novel, Another Novel"
+      }
+    }
+  },
+  "reader_marks_import_unplaced_other": {
+    "message": "$COUNT$ Đoạn đánh dấu could not be placed in the current text of $TITLES$. They are kept on the Đoạn đánh dấu page.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "A Novel, Another Novel"
+      }
+    }
+  },
+  "reader_marks_import_missing_other": {
+    "message": "$COUNT$ documents are not in the Danh sách đọc: $TITLES$. Nhập them first - books from their .epub files, articles from the Danh sách đọc's backup - then Nhập this file again.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "titles": {
+        "content": "$2",
+        "example": "A Novel, An article"
+      }
+    }
+  },
+  "reader_marks_import_twins_other": {
+    "message": "$COUNT$ Đoạn đánh dấu are already here.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "reader_marks_import_overlap_other": {
+    "message": "$COUNT$ Đoạn đánh dấu overlap Đoạn đánh dấu already here and are left out.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "reader_marks_import_done_other": {
+    "message": "Added $COUNT$ Đoạn đánh dấu.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "reader_transfer_marks": {
+    "message": "notes with the Đoạn đánh dấu of articles and books, exported from the Đoạn đánh dấu page."
+  },
+  "reader_backup_done": {
+    "message": "Backup written to $FILE$ ($SIZE$): $PARTS$.",
+    "placeholders": {
+      "file": {
+        "content": "$1",
+        "example": "reread-backup.zip"
+      },
+      "size": {
+        "content": "$2",
+        "example": "2.3 MB"
+      },
+      "parts": {
+        "content": "$3",
+        "example": "12 articles, 856 saved phrases, 41 highlights, the settings"
+      }
+    }
+  },
+  "reader_backup_settings_word": {
+    "message": "the Cài đặt"
+  },
+  "reader_backup_summary": {
+    "message": "$NAME$ is a re/read backup from $DATE$ (re/read $APP$):",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "reread-backup.zip"
+      },
+      "date": {
+        "content": "$2",
+        "example": "13/09/2026"
+      },
+      "app": {
+        "content": "$3",
+        "example": "0.5.56"
+      }
+    }
+  },
+  "reader_backup_summary_highlights": {
+    "message": "$NAME$ holds Đoạn đánh dấu:",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "reread-backup.zip"
+      }
+    }
+  },
+  "reader_backup_settings_restore": {
+    "message": "Restore the Cài đặt too"
+  },
+  "reader_backup_settings_done": {
+    "message": "Cài đặt restored."
+  },
+  "reader_backup_newer": {
+    "message": "That file was written by a newer re/read ($APP$). Cập nhật re/read and Nhập it again.",
+    "placeholders": {
+      "app": {
+        "content": "$1",
+        "example": "0.5.56"
+      }
+    }
+  },
+  "reader_backup_nothing": {
+    "message": "There is nothing to Nhập in that file."
+  },
+  "reader_marks_backup_elsewhere": {
+    "message": "Đoạn đánh dấu travel in the backup of everything, exported and imported on the Danh sách đọc - for books too."
+  },
+  "reader_backup_articles_other": {
+    "message": "$COUNT$ articles",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "reader_backup_books_other": {
+    "message": "$COUNT$ books",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "reader_backup_highlights_other": {
+    "message": "$COUNT$ Đoạn đánh dấu",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "reader_backup_part_articles_other": {
+    "message": "$COUNT$ articles, $NEW$ not in the list yet",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "new": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "reader_backup_part_books_other": {
+    "message": "$COUNT$ books, $NEW$ not in the list yet",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "new": {
+        "content": "$2",
+        "example": "2"
+      }
+    }
+  },
+  "reader_backup_part_phrases_other": {
+    "message": "$COUNT$ Từ & cụm từ đã lưu ($PAIRS$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "pairs": {
+        "content": "$2",
+        "example": "English → Polish"
+      }
+    }
+  },
+  "reader_backup_part_highlights_other": {
+    "message": "$COUNT$ Đoạn đánh dấu - those already here or without their document are left out",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "reader_backup_phrases_counted_other": {
+    "message": "$COUNT$ Từ & cụm từ đã lưu took higher counts from the file.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "reader_transfer_pick": {
+    "message": "To Xuất only some of the articles or books, press Select above the list and tick them."
+  },
+  "reader_pick_start": {
+    "message": "Select"
+  },
+  "reader_pick_close": {
+    "message": "Đóng the selection"
+  },
+  "reader_pick_all": {
+    "message": "Select all"
+  },
+  "reader_pick_count_other": {
+    "message": "$COUNT$ documents selected",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "reader_export_selected": {
+    "message": "Xuất selected ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "reader_export_done_other": {
+    "message": "Exported $COUNT$ documents to $FILE$ ($SIZE$).",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-selection.zip"
+      },
+      "size": {
+        "content": "$3",
+        "example": "2.1 MB"
+      }
+    }
+  },
+  "reader_export_marks_done_other": {
+    "message": "Exported the Đoạn đánh dấu of $COUNT$ documents to $FILE$ ($SIZE$).",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-highlights.md"
+      },
+      "size": {
+        "content": "$3",
+        "example": "12 KB"
+      }
+    }
+  },
+  "vocab_export_done_other": {
+    "message": "Đã xuất $COUNT$ cụm từ ra $FILE$ ($SIZE$).",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "240"
+      },
+      "file": {
+        "content": "$2",
+        "example": "reread-en-pl.tsv"
+      },
+      "size": {
+        "content": "$3",
+        "example": "19 KB"
+      }
+    }
+  },
+  "reader_marks_title": {
+    "message": "Đoạn đánh dấu"
+  },
+  "reader_marks_title_all": {
+    "message": "All Đoạn đánh dấu"
+  },
+  "reader_marks_title_article": {
+    "message": "Đoạn đánh dấu in this article"
+  },
+  "reader_marks_title_book": {
+    "message": "Đoạn đánh dấu in this book"
+  },
+  "reader_marks_filter_label": {
+    "message": "Filter the Đoạn đánh dấu"
+  },
+  "reader_marks_filter_placeholder": {
+    "message": "Filter by quote or title"
+  },
+  "reader_marks_empty": {
+    "message": "Nothing is highlighted yet - Đoạn đánh dấu are made while reading. Open something from the Danh sách đọc ngoại tuyến, take the highlighter and mark a passage; it will be waiting here."
+  },
+  "reader_marks_empty_doc": {
+    "message": "Nothing is highlighted in this document yet."
+  },
+  "reader_marks_no_match": {
+    "message": "No Đoạn đánh dấu matches \"$QUERY$\".",
+    "placeholders": {
+      "query": {
+        "content": "$1",
+        "example": "wikipedia"
+      }
+    }
+  },
+  "reader_marks_back": {
+    "message": "Quay lại to the Đoạn đánh dấu"
+  },
+  "reader_back_to_doc": {
+    "message": "Quay lại to \"$TITLE$\"",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Old Chinese"
+      }
+    }
+  },
+  "reader_marks_open": {
+    "message": "Open \"$TITLE$\" at this Đoạn đánh dấu",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Old Chinese"
+      }
+    }
+  },
+  "reader_transfer_link": {
+    "message": "Nhập and Xuất (backup or EPUB)"
+  },
+  "reader_transfer_accepts": {
+    "message": "Nhập reads the file it is given: a re/read backup (.zip - or the older .json files of the list and of the Đoạn đánh dấu), or a book (.epub)."
+  },
+  "reader_book_label": {
+    "message": "Book"
+  },
+  "reader_book_part_of": {
+    "message": "Part $PART$ of $PARTS$",
+    "placeholders": {
+      "part": {
+        "content": "$1",
+        "example": "3"
+      },
+      "parts": {
+        "content": "$2",
+        "example": "12"
+      }
+    }
+  },
+  "reader_percent_read": {
+    "message": "$PERCENT$% read",
+    "placeholders": {
+      "percent": {
+        "content": "$1",
+        "example": "34"
+      }
+    }
+  },
+  "reader_book_nav": {
+    "message": "Book parts"
+  },
+  "reader_book_toc": {
+    "message": "Contents"
+  },
+  "reader_search_title": {
+    "message": "Tìm kiếm in text"
+  },
+  "reader_search_label": {
+    "message": "The phrase to find"
+  },
+  "reader_search_placeholder": {
+    "message": "Find a phrase"
+  },
+  "reader_search_go": {
+    "message": "Tìm kiếm"
+  },
+  "reader_search_short": {
+    "message": "Type at least 2 characters."
+  },
+  "reader_search_none": {
+    "message": "Nothing found."
+  },
+  "reader_search_count_other": {
+    "message": "$COUNT$ hits found.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "reader_search_capped": {
+    "message": "Showing the first $COUNT$.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "200"
+      }
+    }
+  },
+  "reader_library_search_toggle": {
+    "message": "Tìm kiếm in the texts too"
+  },
+  "reader_search_more": {
+    "message": "Tìm kiếm further"
+  },
+  "reader_search_progress": {
+    "message": "Searched $AT$ of $TOTAL$ documents.",
+    "placeholders": {
+      "at": {
+        "content": "$1",
+        "example": "12"
+      },
+      "total": {
+        "content": "$2",
+        "example": "80"
+      }
+    }
+  },
+  "reader_search_in_titles": {
+    "message": "In titles"
+  },
+  "reader_search_in_text": {
+    "message": "In the text"
+  },
+  "reader_search_more_hits_other": {
+    "message": "and $COUNT$ more hits",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "close": {
+    "message": "Đóng"
+  },
+  "reader_book_importing": {
+    "message": "Adding the book - part $PART$",
+    "placeholders": {
+      "part": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "reader_book_importing_pictures": {
+    "message": "Adding the book - part $PART$, picture $PICTURE$ ($SIZE$)",
+    "placeholders": {
+      "part": {
+        "content": "$1",
+        "example": "3"
+      },
+      "picture": {
+        "content": "$2",
+        "example": "12"
+      },
+      "size": {
+        "content": "$3",
+        "example": "4.2 MB"
+      }
+    }
+  },
+  "reader_book_added": {
+    "message": "Added “$TITLE$”.",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Dracula"
+      }
+    }
+  },
+  "reader_book_drm": {
+    "message": "This book is copy-protected (DRM) and cannot be imported."
+  },
+  "reader_book_unreadable": {
+    "message": "This file could not be read as an EPUB book."
+  },
+  "reader_book_pair_note": {
+    "message": "The book's language is $BOOK$; the current pair translates from $PAIR$.",
+    "placeholders": {
+      "book": {
+        "content": "$1",
+        "example": "German"
+      },
+      "pair": {
+        "content": "$2",
+        "example": "English"
+      }
+    }
+  },
+  "reader_import_nothing": {
+    "message": "There are no articles to Nhập in that file."
+  },
+  "reader_import_summary_other": {
+    "message": "$NAME$ holds $COUNT$ articles:",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "name": {
+        "content": "$2",
+        "example": "reread-articles.json"
+      }
+    }
+  },
+  "reader_import_more_other": {
+    "message": "and $COUNT$ more articles",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "297"
+      }
+    }
+  },
+  "reader_import_added_other": {
+    "message": "Added $COUNT$ new articles.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      }
+    }
+  },
+  "reader_import_skipped_other": {
+    "message": "Skipped $COUNT$ already saved.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "reader_import_books_added_other": {
+    "message": "Added $COUNT$ new books.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "reader_import_books_skipped_other": {
+    "message": "Skipped $COUNT$ books already here.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "reader_import_unreadable_other": {
+    "message": "$COUNT$ entries could not be read.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "download_cancelled": {
+    "message": "Đã hủy tải xuống. Không có gì được lưu."
+  },
+  "download_failed": {
+    "message": "Tải xuống không hoàn tất và không có gì được lưu."
+  },
+  "model_download_network": {
+    "message": "Không thể kết nối đến máy chủ lưu trữ mô hình$DETAIL$. Không có gì được lưu.",
+    "placeholders": {
+      "detail": {
+        "content": "$1",
+        "example": " (timeout)"
+      }
+    }
+  },
+  "model_download_http": {
+    "message": "Tải xuống bị từ chối$DETAIL$. Mô hình có thể đã chuyển vị trí; không có gì được lưu.",
+    "placeholders": {
+      "detail": {
+        "content": "$1",
+        "example": " (404 Not Found)"
+      }
+    }
+  },
+  "model_download_size": {
+    "message": "Quá trình tải xuống kết thúc sớm$DETAIL$ và đã bị hủy.",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "model_download_checksum": {
+    "message": "Tệp nhận được không đúng với mô hình mà phiên bản này yêu cầu$DETAIL$. Hãy thử lại.",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "model_download_unpack": {
+    "message": "Tệp tải xuống không thể giải nén$DETAIL$ và đã bị hủy.",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "dict_download_network": {
+    "message": "Không thể kết nối đến máy chủ lưu trữ từ điển$DETAIL$. Không có gì được lưu.",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "dict_download_http": {
+    "message": "Tải xuống bị từ chối$DETAIL$. Từ điển có thể đã bị di chuyển; không có gì được lưu.",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "dict_download_too_big": {
+    "message": "Tệp tải xuống lớn hơn nhiều so với dung lượng từ điển bình thường$DETAIL$, nên đã bị dừng. Không có gì được lưu.",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "model_files_one_of_them": {
+    "message": "một trong các tệp"
+  },
+  "model_files_empty": {
+    "message": "Chưa chọn tệp nào."
+  },
+  "model_files_unknown_file": {
+    "message": "Không phải phần của mô hình: $FILE$. Tên tệp cần bắt đầu bằng model., lex. hoặc vocab.",
+    "placeholders": {
+      "file": {
+        "content": "$1",
+        "example": "notes.txt"
+      }
+    }
+  },
+  "model_files_unknown_pair": {
+    "message": "Không thể xác định cặp ngôn ngữ cho tệp: $FILE$.",
+    "placeholders": {
+      "file": {
+        "content": "$1"
+      }
+    }
+  },
+  "model_files_mixed_pairs": {
+    "message": "Các tệp đó thuộc về nhiều cặp ngôn ngữ ($PAIRS$). Hãy nạp từng chiều một.",
+    "placeholders": {
+      "pairs": {
+        "content": "$1",
+        "example": "enpl, plen"
+      }
+    }
+  },
+  "model_files_missing_model": {
+    "message": "Thiếu tệp mô hình (model.<pair>.intgemm.alphas.bin)."
+  },
+  "model_files_missing_shortlist": {
+    "message": "Thiếu tệp shortlist (lex.<pair>.s2t.bin)."
+  },
+  "model_files_missing_vocab": {
+    "message": "Thiếu tệp từ vựng (vocab.<pair>.spm)."
+  },
+  "model_files_not_a_model": {
+    "message": "Các tệp đó không phải là mô hình dịch."
+  },
+  "dict_link_empty": {
+    "message": "Hãy dán địa chỉ của tệp lưu trữ trước. Không có gì được lưu."
+  },
+  "dict_link_invalid": {
+    "message": "Đó không phải là địa chỉ trang web hợp lệ. Không có gì được lưu."
+  },
+  "dict_link_not_https": {
+    "message": "Chỉ chấp nhận địa chỉ bảo mật https. Không có gì được lưu."
+  },
+  "dict_link_credentials": {
+    "message": "Địa chỉ chứa tên người dùng hoặc mật khẩu không được chấp nhận. Không có gì được lưu."
+  },
+  "dict_default_name": {
+    "message": "Từ điển"
+  },
+  "dict_import_empty": {
+    "message": "Chưa có tệp nào được chọn. Không có gì được lưu."
+  },
+  "dict_import_missing_ifo": {
+    "message": "Không có tệp .ifo nào trong số đó, do đó đây không phải là từ điển StarDict. Không có gì được lưu."
+  },
+  "dict_import_missing_idx": {
+    "message": "Thiếu tệp chỉ mục (.idx hoặc .idx.gz). Không có gì được lưu."
+  },
+  "dict_import_missing_dict": {
+    "message": "Thiếu phần nội dung từ điển (.dict hoặc .dict.dz). Không có gì được lưu."
+  },
+  "dict_import_mixed": {
+    "message": "Những tệp đó thuộc về nhiều hơn một từ điển ($NAMES$). Hãy thêm từng từ điển một. Không có gì được lưu.",
+    "placeholders": {
+      "names": {
+        "content": "$1"
+      }
+    }
+  },
+  "dict_import_not_stardict": {
+    "message": "Tệp .ifo đó không phải là từ điển StarDict hợp lệ. Không có gì được lưu."
+  },
+  "dict_import_not_stardict_detail": {
+    "message": "Đó là $KIND$, định dạng mà tiện ích không thể đọc được. Không có gì được lưu.",
+    "placeholders": {
+      "kind": {
+        "content": "$1",
+        "example": "a Babylon dictionary"
+      }
+    }
+  },
+  "dict_import_unpack": {
+    "message": "Các tệp được nén theo cách không thể giải nén$DETAIL$. Không có gì được lưu.",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "dict_import_no_entries": {
+    "message": "Chỉ mục trống - không có từ nào trong từ điển này. Không có gì được lưu."
+  },
+  "dict_import_no_entries_detail": {
+    "message": "Không thể đọc được từ nào trong số $COUNT$ từ trong chỉ mục. Không có gì được lưu.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "52,401"
+      }
+    }
+  },
+  "dict_import_unreadable": {
+    "message": "Những tệp đó không phải là từ điển tiện ích có thể đọc được. Không có gì được lưu."
+  },
+  "zip_not_zip": {
+    "message": "Tệp nhận được không phải là tệp nén zip. Không có gì được lưu."
+  },
+  "zip_unsupported": {
+    "message": "Tệp lưu trữ sử dụng tính năng tiện ích không hỗ trợ$DETAIL$. Không có gì được lưu.",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "zip_too_big": {
+    "message": "Tệp lưu trữ lớn bất thường$DETAIL$. Không có gì được lưu.",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "zip_bad": {
+    "message": "Tệp lưu trữ bị hỏng$DETAIL$. Không có gì được lưu - hãy thử tải lại.",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "zip_unreadable": {
+    "message": "Không thể đọc tệp lưu trữ. Không có gì được lưu."
+  },
+  "words_other": {
+    "message": "$COUNT$ từ",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "52,401"
+      }
+    }
+  },
+  "spellings_other": {
+    "message": "$COUNT$ cách viết khác",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "phrases_other": {
+    "message": "$COUNT$ cụm từ đã lưu",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1,243"
+      }
+    }
+  },
+  "options_title": {
+    "message": "re/read - Cài đặt"
+  },
+  "back_to_reading": {
+    "message": "Quay lại bài đọc"
+  },
+  "options_local_intro": {
+    "message": "Everything re/read does happens on this device (offline): translating, the Từ điển, the Danh sách đọc, your Từ & cụm từ đã lưu. Nothing you read or select is ever sent anywhere. An internet connection is needed only when you want to Tải xuống a new translation model or a Từ điển - and only from the two URLs shown openly in those sections."
+  },
+  "options_first_steps_heading": {
+    "message": "First steps"
+  },
+  "options_first_steps_intro": {
+    "message": "Nothing translates yet - the model that would do it is not yet on this device. Setting up takes a minute:"
+  },
+  "options_first_steps_model": {
+    "message": "Under \"Mô hình dịch thuật\", find the Cặp ngôn ngữ you need (the filter finds it fastest) and press \"Tải xuống\". The model is stored on this device and translates offline from then on - and the first model sets the Cặp ngôn ngữ above by itself."
+  },
+  "options_first_steps_dictionary": {
+    "message": "Under \"Từ điển\", Tải xuống a Từ điển for the same pair (optional, but worth it) - single words then get fuller answers than a translation alone, shown in the translation bubble below the translation."
+  },
+  "options_first_steps_pin": {
+    "message": "Last, pin re/read to the toolbar: the puzzle-piece icon at the right end of the bar, then the gear Tiếp theo to re/read and \"Pin to Toolbar\". The button opens the Trình đọc, the Danh sách đọc, your Từ & cụm từ đã lưu and the switch for the site you are on."
+  },
+  "options_first_steps_pin_android": {
+    "message": "The re/read button is in the browser menu (⋮), under Extensions - it opens the Trình đọc, the Danh sách đọc, your Từ & cụm từ đã lưu and the switch for the site you are on."
+  },
+  "options_sections_aria": {
+    "message": "Sections of this page"
+  },
+  "options_engine": {
+    "message": "Engine"
+  },
+  "options_engine_value": {
+    "message": "Bergamot, inside the package - translates offline"
+  },
+  "options_storage": {
+    "message": "Data on this device"
+  },
+  "options_storage_value": {
+    "message": "$SIZE$ - the models, the Từ điển, the Danh sách đọc and your phrases together",
+    "placeholders": {
+      "size": {
+        "content": "$1",
+        "example": "143.2 MB"
+      }
+    }
+  },
+  "options_storage_how": {
+    "message": "Disk space used by the extension. Từ điển take up more space than their file size because of the database structure. Deleting an article or book completely removes its text, images, Đoạn đánh dấu, notes and reading progress."
+  },
+  "options_storage_persistent": {
+    "message": "Persistent storage: granted. The browser has promised not to clear this data to make room."
+  },
+  "options_storage_at_risk": {
+    "message": "Persistent storage: not granted. Safari clears a site's data after about a month of use without a tap on its pages, and this extension's pages count as one site. Your phrases have a copy that survives this (the line below); the models, the Từ điển and the Danh sách đọc do not - open the Trình đọc or these Cài đặt now and then."
+  },
+  "options_storage_backup_other": {
+    "message": "Copy of the vocabulary: $COUNT$ phrases, written $WHEN$ - kept where the browser does not clear data on its own.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1234"
+      },
+      "when": {
+        "content": "$2",
+        "example": "8/26/26, 12:41 PM"
+      }
+    }
+  },
+  "options_storage_backup_none": {
+    "message": "Copy of the vocabulary: none yet - it is written with the Tiếp theo phrase you Lưu."
+  },
+  "options_storage_marks_backup_other": {
+    "message": "Copy of the Đoạn đánh dấu: $COUNT$ Đoạn đánh dấu with their notes, written $WHEN$.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "37"
+      },
+      "when": {
+        "content": "$2",
+        "example": "8/26/26, 12:41 PM"
+      }
+    }
+  },
+  "options_storage_marks_backup_none": {
+    "message": "Copy of the Đoạn đánh dấu: none yet - it is written with the Tiếp theo Đoạn đánh dấu you make."
+  },
+  "options_storage_library_copy_other": {
+    "message": "Copy of the Danh sách đọc: $COUNT$ documents, $SIZE$.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "37"
+      },
+      "size": {
+        "content": "$2",
+        "example": "12.4 MB"
+      }
+    }
+  },
+  "options_storage_library_copy_none": {
+    "message": "Copy of the Danh sách đọc: none yet - it is written with the Tiếp theo page you Lưu or book you Nhập."
+  },
+  "options_storage_library_copy_off": {
+    "message": "Copy of the Danh sách đọc: off."
+  },
+  "options_library_copy": {
+    "message": "Copy of the Danh sách đọc"
+  },
+  "options_library_copy_hint": {
+    "message": "Creates a backup of your Danh sách đọc to protect it against automatic browser cleanups and database errors. This doubles the disk space the list takes, but keeps your saved articles safe if the database is lost."
+  },
+  "reader_marks_delete_all_other": {
+    "message": "Xóa all $COUNT$ quotes of this page",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "reader_mark_text_changed": {
+    "message": "The page's text has changed since this was highlighted, so the Đoạn đánh dấu cannot be shown here."
+  },
+  "reader_marks_missing_doc": {
+    "message": "Its document is no longer saved - this quote came Quay lại from the copy. Open the page again and the Đoạn đánh dấu will be there."
+  },
+  "options_pair_hint": {
+    "message": "Shows the language pairs downloaded to this device. To add new languages, Tải xuống them in the"
+  },
+  "options_pair_hint_rest": {
+    "message": "section below."
+  },
+  "options_pair_none": {
+    "message": "No model or Từ điển yet - add one below"
+  },
+  "options_pair_dictionary_only": {
+    "message": "$PAIR$ (Từ điển)",
+    "placeholders": {
+      "pair": {
+        "content": "$1",
+        "example": "English → English"
+      }
+    }
+  },
+  "options_pair_hint_quiet": {
+    "message": "Without a translation model, the pair says which language you are reading and where Từ & cụm từ đã lưu are kept. Pairs come from installed models and Từ điển."
+  },
+  "options_reading_pair_quiet": {
+    "message": "Reading $FROM$ - machine translation is off, and Từ & cụm từ đã lưu are kept under this pair.",
+    "placeholders": {
+      "from": {
+        "content": "$1",
+        "example": "English"
+      }
+    }
+  },
+  "options_reader_only": {
+    "message": "Only in the Trình đọc"
+  },
+  "options_reader_only_hint": {
+    "message": "Limits the underlining of Từ & cụm từ đã lưu and the translation bubble to the Trình đọc. Selecting text on an ordinary web page will only show an option to open the page in the Trình đọc. With it on, no web page can tell which of its words you have saved. On Android and iOS it is on by default."
+  },
+  "options_keep_articles": {
+    "message": "Lưu in the Danh sách đọc ngoại tuyến by default"
+  },
+  "options_keep_articles_hint": {
+    "message": "Automatically saves every page you open in the Trình đọc for offline reading. Your saved pages, Đoạn đánh dấu and reading progress are kept safe even if the original website changes or disappears."
+  },
+  "options_font_custom": {
+    "message": "Own font"
+  },
+  "options_font_custom_hint": {
+    "message": "Type the name of a font installed on this device, for example Georgia or Noto Serif. The Chế độ đọc's Type row will then offer it as Custom. Leave the field empty to use the built-in typefaces only."
+  },
+  "options_quiet_bubble_hint": {
+    "message": "Shows only the translated text in the bubble. The action buttons (such as copy or Lưu) appear only when you click or tap the bubble."
+  },
+  "options_bubble_more": {
+    "message": "Show the sentence and Từ điển entries right away"
+  },
+  "options_bubble_more_hint": {
+    "message": "When you select text, the bubble shows right away what is otherwise shown only after a press on \"More\": the translated sentence and the Từ điển entries. Worth keeping on with a Từ điển installed - a translation model often gets a single word wrong, and the Từ điển shows what it really means. The bubble over an already saved phrase shows only the saved translation - the sentence and the Từ điển entries appear after you press \"More\"."
+  },
+  "options_underline_forms": {
+    "message": "Underline other forms of saved words"
+  },
+  "options_underline_forms_hint": {
+    "message": "A saved word is underlined in its other forms too: Lưu \"read\", and \"reads\" and \"reading\" are underlined as well - the bubble over them shows what you saved for \"read\". Which forms count is decided by your Từ điển for the language you read, so one has to be installed. For now only when you read English. Switched off, only the exact form you saved is underlined."
+  },
+  "options_save_sentence": {
+    "message": "Lưu the sentence with the phrase"
+  },
+  "options_save_sentence_hint": {
+    "message": "When you Lưu a phrase from the bubble, the sentence around it is saved with it - the sentence as the page shows it, without its translation. It is shown under the phrase on the Từ & cụm từ đã lưu page, folded to one line, and written into the third column of the Xuất for Anki. For a phrase saved without a sentence, the sentence around it is saved the Tiếp theo time you open its bubble on a page. Like the phrase, the sentence is stored only on this device. Switched off, no new sentence is saved; the ones already saved are not deleted."
+  },
+  "options_no_translation": {
+    "message": "Use without a translation model"
+  },
+  "options_no_translation_hint": {
+    "message": "Turns off machine translation (the model). The Trình đọc, the Danh sách đọc ngoại tuyến and the highlighter keep working. With a Cặp ngôn ngữ chosen, the bubble still shows Từ điển meanings, and you can Lưu phrases and see their underlines. Ideal for reading with Từ điển or in your native language. Your saved data is not deleted and returns when you turn this off."
+  },
+  "options_bubble_off": {
+    "message": "No bubble when selecting text"
+  },
+  "options_bubble_off_hint": {
+    "message": "With this on, selecting text on an ordinary page does nothing at all - open a page in the Trình đọc from re/read's button or with Alt+Shift+R. In the Trình đọc a selection is only a Đoạn đánh dấu for the moment: no bubble opens, a tap or Escape clears it, and Ctrl+C or Cmd+C copies it (on a touch screen nothing can be copied)."
+  },
+  "options_bubble_scale": {
+    "message": "Bubble text size"
+  },
+  "options_bubble_scale_hint": {
+    "message": "Adjusts the text and button size inside the translation bubble across all pages."
+  },
+  "options_note_more": {
+    "message": "Show the full description"
+  },
+  "options_tts": {
+    "message": "Reading aloud"
+  },
+  "options_tts_hint": {
+    "message": "Enables the text-to-speech function. Turning this off hides all read-aloud buttons in the bubble, lists, and the Trình đọc."
+  },
+  "options_tts_voice": {
+    "message": "Voice for reading aloud"
+  },
+  "options_tts_lang": {
+    "message": "Language of the voice"
+  },
+  "options_tts_default": {
+    "message": "Default voice"
+  },
+  "options_tts_listen": {
+    "message": "Listen"
+  },
+  "options_tts_voice_hint": {
+    "message": "Select the voice used to read phrases and articles in each language. Only voices that speak offline are offered: speech is made on this device and nothing is sent to the internet."
+  },
+  "speech_no_offline_voice": {
+    "message": "Thiết bị này không có giọng đọc ngoại tuyến cho ngôn ngữ này."
+  },
+  "options_tts_rate": {
+    "message": "Reading speed"
+  },
+  "options_models_heading": {
+    "message": "Mô hình dịch thuật"
+  },
+  "options_models_intro": {
+    "message": "Tải xuống a translation model here for each Cặp ngôn ngữ you want to translate. These are official Mozilla files that run entirely offline on your device."
+  },
+  "options_models_single_word": {
+    "message": "A model translates sentences well, but a single word on its own is often translated wrongly - the result is cut short, or is a word that does not exist. For single words, a Từ điển from the section below is the better source."
+  },
+  "options_update_list": {
+    "message": "Cập nhật the list"
+  },
+  "options_list_dated": {
+    "message": "List from"
+  },
+  "options_filter_placeholder": {
+    "message": "Filter by language or code"
+  },
+  "options_filter_models_label": {
+    "message": "Filter the list of Mô hình dịch thuật"
+  },
+  "options_filter_dictionaries_label": {
+    "message": "Filter the list of Từ điển"
+  },
+  "options_show_all": {
+    "message": "Show all ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "118"
+      }
+    }
+  },
+  "options_show_fewer": {
+    "message": "Show fewer"
+  },
+  "options_model_note_from": {
+    "message": "Model downloads come from"
+  },
+  "options_model_note_rest": {
+    "message": "- where Mozilla publishes them. The extension connects to this public server only when you press Cập nhật the list or Tải xuống. No personal data is ever sent."
+  },
+  "options_add_model_heading": {
+    "message": "Add a model from files"
+  },
+  "options_add_model_summary": {
+    "message": "To add by hand a model the list above does not offer, load its files here."
+  },
+  "options_add_model_intro": {
+    "message": "Pick the three files of one direction and they are stored locally. Gzipped files are unpacked here, so the downloads can be used as they come:"
+  },
+  "options_add_model_button": {
+    "message": "Add model"
+  },
+  "options_files_note": {
+    "message": "Adding a model by hand makes no network request, and this page stays the way in on the day the place models are downloaded from stops answering."
+  },
+  "options_dictionaries_heading": {
+    "message": "Từ điển"
+  },
+  "options_dictionaries_intro": {
+    "message": "Add Từ điển to see detailed word definitions in the translation bubble. You can change the order in which they appear using the arrows."
+  },
+  "options_dictionaries_sources": {
+    "message": "The Từ điển listed below come from WikDict. You can also add your own - from files or from a link, and several for one language - in the sections under the list. Where to find them, each with its licence:"
+  },
+  "options_dictionary_order_hint": {
+    "message": "The bubble answers in the order below. Only the Từ điển of the language you are reading answer."
+  },
+  "options_dictionary_note_from": {
+    "message": "Từ điển downloads come from"
+  },
+  "options_dictionary_note_rest": {
+    "message": "- where WikDict publishes the Từ điển it builds from Wiktionary (CC BY-SA). The extension connects to this public server only when you press Cập nhật the list or Tải xuống. No personal data is ever sent."
+  },
+  "options_add_dictionary_heading": {
+    "message": "Add a Từ điển from files"
+  },
+  "options_add_dictionary_summary": {
+    "message": "Nhập your own Từ điển in the StarDict format. Unpack the archive, select the required files (.ifo, .idx, .dict), choose the languages and press Add Từ điển."
+  },
+  "options_file_ifo": {
+    "message": "- what the Từ điển calls itself"
+  },
+  "options_file_idx": {
+    "message": "- the index of words"
+  },
+  "options_file_dict_or": {
+    "message": "or"
+  },
+  "options_file_dict": {
+    "message": "- the entries"
+  },
+  "options_file_syn": {
+    "message": "- other spellings, when the Từ điển has them"
+  },
+  "options_words_in": {
+    "message": "Words in"
+  },
+  "options_explained_in": {
+    "message": "explained in"
+  },
+  "options_add_dictionary_button": {
+    "message": "Add Từ điển"
+  },
+  "options_add_dictionary_mono": {
+    "message": "A monolingual Từ điển works too, for example English-English: choose the same language on both sides."
+  },
+  "options_dict_files_note": {
+    "message": "Adding from files makes no network request. Any StarDict files work, including the catalogue's own, which are published at"
+  },
+  "options_add_link_heading": {
+    "message": "Add a Từ điển from a link"
+  },
+  "options_add_link_summary": {
+    "message": "Paste the address of a StarDict Từ điển packed as a .zip file, choose the languages and press Tải xuống. The extension connects to that address once, when you press the button, and to nowhere else; nothing of yours is sent along. The archive is unpacked and checked on this device, exactly like files you pick yourself."
+  },
+  "options_link_label": {
+    "message": "Address"
+  },
+  "options_link_sources": {
+    "message": "Where to find Từ điển, monolingual ones too - English-English, for example - each with its licence:"
+  },
+  "options_link_note": {
+    "message": "Only https addresses are accepted. An archive that is not a .zip file (.tar.xz, .tar.zst) has to be unpacked and added from files."
+  },
+  "options_downloading_link": {
+    "message": "Downloading from $HOST$...",
+    "placeholders": {
+      "host": {
+        "content": "$1",
+        "example": "www.reader-dict.com"
+      }
+    }
+  },
+  "options_link_answered_by": {
+    "message": "The address led to $HOST$, and the archive came from there.",
+    "placeholders": {
+      "host": {
+        "content": "$1",
+        "example": "objects.githubusercontent.com"
+      }
+    }
+  },
+  "options_disabled_heading": {
+    "message": "Switched-off sites"
+  },
+  "options_disabled_intro": {
+    "message": "A list of websites where the extension is switched off: no translation, no bubble, no underlines. Add a site with the switch under the extension's icon in the browser's toolbar while you are on it, or type its address below. There is no switch when both \"Use without a translation model\" and \"No bubble when selecting text\" are on: nothing happens on ordinary pages then, so there is nothing to switch off."
+  },
+  "options_add_host_label": {
+    "message": "Site address"
+  },
+  "options_add_host_button": {
+    "message": "Add"
+  },
+  "options_add_host_note": {
+    "message": "The address as the browser shows it, for example example.org; www.example.org is the same site. A subdomain such as news.example.org is a separate site. A page's whole address can be pasted; only the site part is kept."
+  },
+  "options_host_empty": {
+    "message": "Type the site's address first."
+  },
+  "options_host_invalid": {
+    "message": "That is not a site address."
+  },
+  "options_host_added": {
+    "message": "Switched off on $HOST$.",
+    "placeholders": {
+      "host": {
+        "content": "$1",
+        "example": "www.example.org"
+      }
+    }
+  },
+  "options_host_listed": {
+    "message": "$HOST$ is already on the list.",
+    "placeholders": {
+      "host": {
+        "content": "$1",
+        "example": "www.example.org"
+      }
+    }
+  },
+  "options_custom_css_heading": {
+    "message": "Custom CSS"
+  },
+  "options_custom_css_intro": {
+    "message": "For changing how the bubble, the Trình đọc page and the toolbar popup look with CSS rules of your own. This page stays out of their reach, so a wrong rule can always be undone here: clear the field and Lưu."
+  },
+  "options_custom_css_more": {
+    "message": "More about the CSS rules and the names"
+  },
+  "options_custom_css_reach": {
+    "message": "The rules apply inside the translation bubble, on the Trình đọc page - its bar and lists included - and in the toolbar button's window, never on the pages you read. A wrong rule can break the look or the controls of those places until the field is cleared."
+  },
+  "options_custom_css_rules": {
+    "message": "Rules that would load anything from the network (url(), @Nhập, @font-face) are refused. The names of the elements are kept from version to version where possible; when one has to change, the release notes say so. The names come from these files:"
+  },
+  "options_custom_css_source_bubble": {
+    "message": "tooltip.js (the bubble)"
+  },
+  "options_custom_css_source_reader": {
+    "message": "Trình đọc.css (the Trình đọc)"
+  },
+  "options_custom_css_source_popup": {
+    "message": "popup.css (the popup)"
+  },
+  "options_custom_css_source_shared": {
+    "message": "page.css (shared by every page)"
+  },
+  "options_custom_css_save": {
+    "message": "Lưu"
+  },
+  "options_custom_css_saved": {
+    "message": "Saved"
+  },
+  "options_custom_css_refused": {
+    "message": "Not saved: the rules were refused. Rules that load anything from the network (url(), @Nhập, @font-face) are not allowed."
+  },
+  "options_custom_css_example": {
+    "message": "Example: .bubble { outline: 3px solid darkorange; } draws an orange line around every bubble."
+  },
+  "options_custom_css_cleared": {
+    "message": "Saved: no rules, so the default look."
+  },
+  "options_support_intro": {
+    "message": "re/read is built by a non-profit foundation - no investors, no ads, no tracking. If you find it useful and want to support its continued development, every donation helps us build software free from commercial pressure."
+  },
+  "options_support_donate": {
+    "message": "Donate via Wise"
+  },
+  "options_support_more": {
+    "message": "More ways to support"
+  },
+  "options_badge_reading": {
+    "message": "what you are reading"
+  },
+  "options_delete_confirm": {
+    "message": "Sure?"
+  },
+  "options_delete_model_aria": {
+    "message": "Xóa the $PAIR$ model",
+    "placeholders": {
+      "pair": {
+        "content": "$1",
+        "example": "English to Polish"
+      }
+    }
+  },
+  "options_delete_dictionary_aria": {
+    "message": "Xóa the Từ điển $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "WikDict en-pl"
+      }
+    }
+  },
+  "options_delete_confirm_aria": {
+    "message": "Confirm deletion: $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "English to Polish"
+      }
+    }
+  },
+  "options_size_here": {
+    "message": "$SIZE$ here",
+    "placeholders": {
+      "size": {
+        "content": "$1",
+        "example": "40.2 MB"
+      }
+    }
+  },
+  "options_progress_of": {
+    "message": "$RECEIVED$ of $TOTAL$",
+    "placeholders": {
+      "received": {
+        "content": "$1",
+        "example": "1.2 MB"
+      },
+      "total": {
+        "content": "$2",
+        "example": "40.2 MB"
+      }
+    }
+  },
+  "options_deleted_model": {
+    "message": "Deleted the $PAIR$ model.",
+    "placeholders": {
+      "pair": {
+        "content": "$1",
+        "example": "English to Polish"
+      }
+    }
+  },
+  "options_downloading_model": {
+    "message": "Downloading the $PAIR$ model - $SIZE$.",
+    "placeholders": {
+      "pair": {
+        "content": "$1"
+      },
+      "size": {
+        "content": "$2",
+        "example": "40.2 MB"
+      }
+    }
+  },
+  "options_checking_model": {
+    "message": "Checking the $PAIR$ model in the engine...",
+    "placeholders": {
+      "pair": {
+        "content": "$1",
+        "example": "English to Polish"
+      }
+    }
+  },
+  "options_model_rejected": {
+    "message": "The engine could not load what arrived$DETAIL$. Không có gì được lưu.",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "options_refreshing_list": {
+    "message": "Refreshing the list of models..."
+  },
+  "options_refreshing_dict_list": {
+    "message": "Refreshing the list of Từ điển..."
+  },
+  "options_refresh_failed": {
+    "message": "Could not refresh the list$DETAIL$. The list from $DATE$ stays.",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      },
+      "date": {
+        "content": "$2",
+        "example": "2026-08-13"
+      }
+    }
+  },
+  "options_version_unknown": {
+    "message": "version unknown"
+  },
+  "options_downloaded_model": {
+    "message": "Downloaded the $PAIR$ model, $SIZE$ on this device.",
+    "placeholders": {
+      "pair": {
+        "content": "$1"
+      },
+      "size": {
+        "content": "$2"
+      }
+    }
+  },
+  "options_store_failed": {
+    "message": "The model downloaded but could not be stored: $DETAIL$",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "options_reading_pair": {
+    "message": "Reading $FROM$, translating into $TO$.",
+    "placeholders": {
+      "from": {
+        "content": "$1",
+        "example": "English"
+      },
+      "to": {
+        "content": "$2",
+        "example": "Polish"
+      }
+    }
+  },
+  "options_reading_pair_missing": {
+    "message": "Reading $FROM$, translating into $TO$ - and there is no model for this direction here yet.",
+    "placeholders": {
+      "from": {
+        "content": "$1"
+      },
+      "to": {
+        "content": "$2"
+      }
+    }
+  },
+  "options_no_models": {
+    "message": "No models here, and none to Tải xuống - this build lists none."
+  },
+  "options_filter_no_match_models": {
+    "message": "No pair matches that. The filter takes a language name or a code."
+  },
+  "options_filter_no_match_dictionaries": {
+    "message": "No Từ điển matches that. The filter takes a language name or a code."
+  },
+  "options_no_disabled": {
+    "message": "No sites are switched off. The toolbar popup is where one is."
+  },
+  "options_turn_back_on": {
+    "message": "Turn Quay lại on"
+  },
+  "options_reading_model_files": {
+    "message": "Reading the files for $PAIR$...",
+    "placeholders": {
+      "pair": {
+        "content": "$1",
+        "example": "English to Polish"
+      }
+    }
+  },
+  "options_file_disappeared": {
+    "message": "$NAME$ disappeared while reading",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "vocab.enpl.spm"
+      }
+    }
+  },
+  "options_added_model": {
+    "message": "Added the $PAIR$ model, $SIZE$ on this device.",
+    "placeholders": {
+      "pair": {
+        "content": "$1"
+      },
+      "size": {
+        "content": "$2"
+      }
+    }
+  },
+  "options_add_model_failed": {
+    "message": "Could not add the model: $DETAIL$",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "options_deleted_dictionary": {
+    "message": "Deleted $NAME$.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "WikDict en-pl"
+      }
+    }
+  },
+  "options_deleting_dictionary": {
+    "message": "Deleting $NAME$ - a large Từ điển takes a while...",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  },
+  "options_deleting_row": {
+    "message": "Deleting..."
+  },
+  "options_delete_dictionary_failed": {
+    "message": "Could not Xóa $NAME$: $DETAIL$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "detail": {
+        "content": "$2"
+      }
+    }
+  },
+  "options_move_dictionary_up_aria": {
+    "message": "Move $NAME$ up",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "WikDict en-pl"
+      }
+    }
+  },
+  "options_move_dictionary_down_aria": {
+    "message": "Move $NAME$ down",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "WikDict en-pl"
+      }
+    }
+  },
+  "options_dictionary_moved": {
+    "message": "$NAME$ now answers $PLACE$ of $TOTAL$.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "WikDict en-pl"
+      },
+      "place": {
+        "content": "$2",
+        "example": "1"
+      },
+      "total": {
+        "content": "$3",
+        "example": "3"
+      }
+    }
+  },
+  "options_dictionary_details": {
+    "message": "Details"
+  },
+  "options_dictionary_file_name": {
+    "message": "File name: $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "English-Polish FreeDict+WikDict dictionary (en-pl)"
+      }
+    }
+  },
+  "options_dictionary_display_name": {
+    "message": "Display name"
+  },
+  "options_dictionary_display_name_aria": {
+    "message": "Display name of $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "English-Polish FreeDict+WikDict dictionary (en-pl)"
+      }
+    }
+  },
+  "options_dictionary_name_taken": {
+    "message": "Another Từ điển is already shown as $NAME$ - choose a different name.",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "FreeDict en-pl"
+      }
+    }
+  },
+  "options_rename_failed": {
+    "message": "Could not Lưu the name: $DETAIL$",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "options_reorder_failed": {
+    "message": "Could not change the order: $DETAIL$",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "options_no_catalog": {
+    "message": "No Từ điển to Tải xuống - this build lists none."
+  },
+  "options_downloading_dictionary": {
+    "message": "Downloading the $PAIR$ Từ điển...",
+    "placeholders": {
+      "pair": {
+        "content": "$1",
+        "example": "English to Polish"
+      }
+    }
+  },
+  "options_storing_dictionary": {
+    "message": "Storing $NAME$ - $DONE$ of $TOTAL$...",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "done": {
+        "content": "$2",
+        "example": "5,000"
+      },
+      "total": {
+        "content": "$3",
+        "example": "61,204"
+      }
+    }
+  },
+  "options_added_dictionary": {
+    "message": "Added $NAME$: $WORDS$, $SIZE$.",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      },
+      "words": {
+        "content": "$2",
+        "example": "52,401 words"
+      },
+      "size": {
+        "content": "$3",
+        "example": "11.9 MB"
+      }
+    }
+  },
+  "options_skipped_entries_other": {
+    "message": "$COUNT$ entries could not be read and were left out.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "options_add_dictionary_failed": {
+    "message": "Could not add the Từ điển: $DETAIL$",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "options_reading_file": {
+    "message": "Reading $NAME$...",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "wikdict-en-pl"
+      }
+    }
+  },
+  "options_swept_unfinished": {
+    "message": "Removed a Từ điển that was never finished importing ($NAMES$).",
+    "placeholders": {
+      "names": {
+        "content": "$1"
+      }
+    }
+  },
+  "options_import_interrupted": {
+    "message": "Interrupted at $DONE$ of $TOTAL$ - Continue picks up from there.",
+    "placeholders": {
+      "done": {
+        "content": "$1",
+        "example": "612,000"
+      },
+      "total": {
+        "content": "$2",
+        "example": "1,470,678"
+      }
+    }
+  },
+  "options_import_interrupted_early": {
+    "message": "Interrupted before the first entry was stored - Continue starts it over."
+  },
+  "options_import_elsewhere": {
+    "message": "Another tab is adding a Từ điển right now - wait for it to finish."
+  },
+  "options_continue_import": {
+    "message": "Continue"
+  },
+  "options_continue_import_aria": {
+    "message": "Continue adding $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1"
+      }
+    }
+  }
+}

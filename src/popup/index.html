@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- On Android the popup opens as a page over the whole window, and a page
+         without this meta is laid out at 980px and shrunk to fit. The desktop
+         panel ignores it. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>re/read</title>
+    <link rel="stylesheet" href="../assets/page.css" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <!--
+      Eleven rows and nothing else: this site and what to do with it first,
+      the pair and the look-up field, the extension's own pages, the two
+      reading preferences, and the quiet heart. No counters, no logo - the
+      popup is a hallway, not a room. On a
+      fresh install the pair row yields its place to a signpost, because a
+      pair nothing can translate yet is a promise the popup must not make;
+      with translation switched off most of these rows leave altogether
+      (`rows.js` holds the whole rule).
+    -->
+    <!-- The English in this file is the fallback: `localizePage` swaps every
+         `data-i18n`-marked text for the catalogue's language before the popup
+         is seen. A marked element holds text only - the locales test enforces
+         that, because the swap goes through `textContent`. -->
+    <!-- The label text carries the hostname inside it ("Enabled on ..."), so
+         the script builds it from the catalogue; no fallback stands here.
+         The row stands from the first paint, not from the page's answer
+         (D194): a row that appears late pushes every row below it down under
+         a cursor already on its way to Settings, and the checkbox that
+         arrives under the cursor gets ticked instead (Michał's report,
+         2026-09-11). Until the page says which site this is, the label says
+         the host is being asked and the switch waits disabled; the answer
+         lands in place - or the note below takes the row's place, at the
+         same height. -->
+    <label class="popup-row popup-site" id="site-row">
+      <span class="popup-site-label" id="site-label"></span>
+      <input
+        type="checkbox"
+        id="site-toggle"
+        title="Whether re/read runs on this site"
+        data-i18n-title="popup_site_toggle_title"
+        disabled
+      />
+    </label>
+    <p class="popup-row popup-note" id="site-note" data-i18n="popup_no_page" hidden>
+      re/read does not work on this page.
+    </p>
+
+    <!-- Second from the top (Michał's call, 2026-08-17): the row most presses
+         come for, right under the site it acts on - and the one row wearing a
+         drawn glyph (his call too, same day): a page of prose, the reading
+         view's own association, in the accent that says "start here". The
+         glyph stands outside the marked span (`localizePage` swaps text only)
+         and outside the accessible name. The label names the act, not the
+         page (the popup is always about the page it opened over) - short
+         enough for one line in six languages (D201). Over a page nothing
+         listens in (the note above stands), the row stays and goes quiet:
+         there is no page for the reading view to read. -->
+    <button type="button" class="popup-row popup-action popup-reader" id="open-reader">
+      <svg class="popup-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <rect
+          x="3"
+          y="2.25"
+          width="10"
+          height="11.5"
+          rx="1.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.3"
+        />
+        <path
+          d="M5.5 5.5h5M5.5 8h5M5.5 10.5h3"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.3"
+          stroke-linecap="round"
+        />
+      </svg>
+      <span data-i18n="open_reader">Open in reading view</span>
+    </button>
+
+    <label class="popup-row popup-pair" id="pair-row">
+      <span data-i18n="language_pair">Language pair</span>
+      <select id="pair"></select>
+    </label>
+    <!-- Stands in the pair row's place while no model is stored at all. The
+         whole row is a door: pressing it opens the settings, where the
+         choosing and the downloading happen. -->
+    <button type="button" class="popup-row popup-action popup-setup" id="setup-row" data-i18n="popup_no_model" hidden>
+      No translation model on this device yet - press here to pick one in the settings.
+    </button>
+    <!-- The note that stood here with translation switched off (D120, D128:
+         "Machine translation is off - the reader and your dictionaries keep
+         working") left with D202: the switch nine rows down, ticked, is the
+         state itself, and a sentence repeating it read as a warning over the
+         pair. -->
+
+    <!-- The look-up field (D197): a word typed instead of selected, answered
+         by the dictionaries in the pair's language - never by the model. Right
+         under the pair, which says which language the word is in. Stands from
+         the first paint like the pair row and leaves only without a pair
+         (`rows.js`): the settings alone decide, so the row is settled before
+         the models are read and nothing below it moves (D194).
+         Once the field has answered, the popup is in its results mode
+         (`body[data-mode="lookup"]`, popup.css): every other row leaves, this
+         row stays at the top with the arrow back to the menu in it, the
+         answer scrolls inside itself under it, and the button stays at the
+         bottom. The field only reads here - a popup leaves at a click
+         beside it, and a save nobody saw is the wrong surprise (Michał's
+         call after the first smoke): the same answer as the saved-phrases
+         page's, without its boxes, what is saved first under its own name;
+         its one act is the button under the answer, which opens the
+         saved-phrases page with the word already looked up in its "Add a
+         phrase" fold and the list narrowed to it. Field, answer and rules:
+         `lib/lookup-box.js`, `lib/lookup.js`. -->
+    <div
+      class="popup-row popup-lookup-head"
+      id="lookup-head"
+      role="group"
+      aria-label="Look up a word"
+      data-i18n-aria-label="lookup_label"
+    >
+      <!-- The pages' own "Back" arrow (`.page-back`, page.css), shown in the
+           results mode only: it brings the rows back, the word kept in the
+           field. Escape is the browser's and closes the popup. -->
+      <button
+        type="button"
+        class="page-back popup-lookup-back popup-lookup-only"
+        id="lookup-back"
+        title="Back to the menu"
+        data-i18n-title="popup_lookup_back"
+        aria-label="Back to the menu"
+        data-i18n-aria-label="popup_lookup_back"
+      >
+        <svg class="page-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M13.25 8H3.1M7.3 3.8 3.1 8l4.2 4.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <div class="lookup-box" id="lookup-form"></div>
+    </div>
+    <div class="lookup-box popup-lookup-answer popup-lookup-only" id="lookup-answer"></div>
+    <!-- A framed button, not a row (D182's lesson: a bare line after a long
+         entry reads as a caption). Its words are the state's (the phrase not
+         saved yet, or already saved), written by the script from the
+         catalogue; no fallback stands here. -->
+    <button type="button" class="popup-lookup-door popup-lookup-only" id="lookup-door" hidden></button>
+
+    <!-- The extension's rooms right under the pair (Michał's call, second
+         round 2026-08-17): the rows visited often stand above the switches
+         flipped rarely. Settings stays below, at the preferences' side - it
+         is their own room. -->
+    <button type="button" class="popup-row popup-action" id="open-library" data-i18n="reading_list">
+      Offline reading list
+    </button>
+    <!-- The highlights page (D108), by the row the pages' menus carry: the
+         reader tab turned to every kept quote. -->
+    <button type="button" class="popup-row popup-action" id="open-marks" data-i18n="reader_marks_title">
+      Highlights
+    </button>
+    <button type="button" class="popup-row popup-action" id="open-vocabulary" data-i18n="saved_phrases">
+      Saved phrases
+    </button>
+
+    <!-- The quiet-bubble switch (D81) stood here from D128 to D197; it is set
+         once and left, and the popup keeps what is flipped often (Michał's
+         call, 2026-09-11) - the settings page keeps it. -->
+
+    <!-- The reader-only switch: a mode flipped depending on what is being
+         read, and the popup is the surface in reach. It replaces the status
+         line that used to stand at the bottom -
+         a switch says the state and changes it in one row, where the line
+         could only point at the settings. The hint stays on the settings
+         page, where there is room to say it. -->
+    <label class="popup-row popup-reader-only" id="reader-only-row">
+      <span data-i18n="options_reader_only">Only in the reader</span>
+      <input type="checkbox" id="reader-only" />
+    </label>
+
+    <!-- The translation-off switch (D120), in the popup since D128 and last
+         of the three, right above the settings: it is flipped the rarest of
+         all - an article read in one's own language, an evening of reading
+         rather than of learning - and the popup's order runs from what is
+         pressed daily to what is flipped seldom. The one switch that stays
+         when it is on: it is the way back, and the rows it takes away say
+         their own piece in the note above. The promise it stands on
+         ("nothing is deleted") is too long for a hallway and stays on the
+         settings page, where the same switch keeps its hint. -->
+    <label class="popup-row popup-no-translation" id="no-translation-row">
+      <span data-i18n="options_no_translation">Use without a translation model</span>
+      <input type="checkbox" id="no-translation" />
+    </label>
+
+    <button type="button" class="popup-row popup-action" id="open-settings" data-i18n="settings">
+      Settings
+    </button>
+
+    <!-- The quietest row, and the last: the one outward door in the popup,
+         to the foundation's support page - a thank-you to press, never a
+         toll. The heart stands outside the marked span (`localizePage` swaps
+         text only) and outside the accessible name: the word is the name,
+         the heart is the dress. -->
+    <button type="button" class="popup-row popup-action popup-support" id="open-support">
+      <span class="support-heart" aria-hidden="true">&#9829;</span>
+      <span data-i18n="support">Support</span>
+    </button>
+
+    <script src="index.js" defer></script>
+  </body>
+</html>

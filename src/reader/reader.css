@@ -1,0 +1,2651 @@
+/* The reader's own typography, on top of the shared page styles.
+   Two variables carry what the reader can change about the text - its size and
+   how many characters fit on a line - and the theme is an attribute on the root
+   rather than a third variable, because a theme is six colours moving
+   together. The palettes those attributes swap live in page.css (D104): the
+   theme is every page's paper, and `auto` stamps a value no palette matches,
+   letting the browser answer. Every theme keeps page.css's two strengths of
+   edge - separators near 2.6:1, control borders past 3:1 - so lines survive
+   an e-ink panel's 16 greys. */
+
+/* The two washes reading aloud paints with (D87), theme by theme - see the rule
+   at `::highlight(reread-speaking)` for why one number cannot serve both ends
+   of the range. The pair here is the light one, and it is also what the `auto`
+   theme gets on a browser set to light; the media query below is `auto`'s other
+   half, and the two attribute blocks are the hand-set themes. */
+:root {
+  --reader-speaking: color-mix(in srgb, var(--page-fg) 15%, transparent);
+  --reader-speaking-word: color-mix(in srgb, var(--page-accent) 38%, transparent);
+  /* The highlighter's inks (D106), real colours rather than washes of the
+     text ink: a mark means "this, in this colour", and per theme because the
+     same yellow that reads on white drowns on near-black. What the wet
+     stroke wears while being drawn is an alias of the chosen ink - the Aa
+     panel's pick, written onto the root by the reader - so the preview is
+     the result. */
+  --reader-marker-yellow: rgba(250, 205, 0, 0.4);
+  --reader-marker-green: rgba(110, 205, 90, 0.4);
+  --reader-marker-blue: rgba(100, 180, 255, 0.4);
+  --reader-marker-pink: rgba(255, 130, 190, 0.4);
+  --reader-marker-current: var(--reader-marker-yellow);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --reader-speaking: color-mix(in srgb, var(--page-fg) 25%, transparent);
+    --reader-speaking-word: color-mix(in srgb, var(--page-accent) 45%, transparent);
+    --reader-marker-yellow: rgba(255, 200, 50, 0.3);
+    --reader-marker-green: rgba(120, 210, 100, 0.28);
+    --reader-marker-blue: rgba(110, 185, 255, 0.28);
+    --reader-marker-pink: rgba(255, 130, 200, 0.28);
+  }
+}
+
+/* The palettes the same attribute swaps live in page.css since D104 - the
+   theme is every page's paper now, not the reader's alone. What stays here
+   is the reader's own paint: how strong each speaking wash is, per theme,
+   because the wash washes THIS page's ink. */
+:root[data-reader-theme="light"] {
+  --reader-speaking: color-mix(in srgb, var(--page-fg) 15%, transparent);
+  --reader-speaking-word: color-mix(in srgb, var(--page-accent) 38%, transparent);
+  --reader-marker-yellow: rgba(250, 205, 0, 0.4);
+  --reader-marker-green: rgba(110, 205, 90, 0.4);
+  --reader-marker-blue: rgba(100, 180, 255, 0.4);
+  --reader-marker-pink: rgba(255, 130, 190, 0.4);
+}
+
+:root[data-reader-theme="dark"] {
+  --reader-speaking: color-mix(in srgb, var(--page-fg) 25%, transparent);
+  --reader-speaking-word: color-mix(in srgb, var(--page-accent) 45%, transparent);
+  --reader-marker-yellow: rgba(255, 200, 50, 0.3);
+  --reader-marker-green: rgba(120, 210, 100, 0.28);
+  --reader-marker-blue: rgba(110, 185, 255, 0.28);
+  --reader-marker-pink: rgba(255, 130, 200, 0.28);
+}
+
+:root[data-reader-theme="sepia"] {
+  --reader-speaking: color-mix(in srgb, var(--page-fg) 15%, transparent);
+  --reader-speaking-word: color-mix(in srgb, var(--page-accent) 38%, transparent);
+  --reader-marker-yellow: rgba(214, 165, 0, 0.42);
+  --reader-marker-green: rgba(95, 175, 70, 0.42);
+  --reader-marker-blue: rgba(80, 155, 225, 0.42);
+  --reader-marker-pink: rgba(235, 110, 170, 0.42);
+}
+
+/* The article's font lives on the body so that `ch` means what it should: a
+   column measured in characters has to be measured in the characters it will
+   hold. That is the ONLY thing the body's font is for - nothing standing on
+   the body reads in it (the rule after the next one dresses the page in
+   the interface, and the texts take the reading face back by name).
+   No top padding: the page's headroom is the stuck box's own paper
+   (`.page-chrome`, page.css), so the bar rests where it sticks - until
+   D219's smoke half of it stayed here, and the box slid up by that half
+   on the first scroll. */
+body.reader {
+  max-width: var(--reader-measure, 65ch);
+  font-family: var(--reader-font-lead, var(--reader-font-stack));
+  font-size: var(--reader-size, 18px);
+  line-height: 1.65;
+}
+
+/* The list views' column is layout, not typography: `ch` grows with the
+   font, which is exactly right under an article - a measure counts the
+   characters it will hold - and wrong over the reading list and the
+   highlights page, where stepping the text size made the whole page
+   breathe (Michał's report). The pinned twin is the same count with the
+   size cancelled back out (set beside the live one in applyAppearance),
+   so these views hold their width while their text grows. */
+body.reader[data-view="list"],
+body.reader[data-view="marks"] {
+  max-width: var(--reader-measure-pinned, 65ch);
+}
+
+/* Everything on the page is interface unless it is a text. The Aa panel's
+   face and size dress the texts - the article, the list's titles, the
+   quotes (D104: "the size dresses the list's items, not the elements of
+   the interface") - and the controls around them wear what every other
+   page of this extension wears: the interface family at the interface
+   size, the reading list's own dress since it was built. Said ONCE, on the
+   three boxes that stand on the body - the page under the chrome, the
+   chrome, and the note dialog that stands outside the page - so a control
+   has to opt IN to the reading face by name rather than remember to opt
+   out. Opting out was the old order, and it leaked: the notice (D151), the
+   transfer block under the quotes (D168, Michał: "Aa is for the texts")
+   and then the book's pager, the note over a book's language, the
+   highlights page's own chrome and the dialogs' heads, all found standing
+   in the reading face at the reading size - on a phone the pager's words
+   outgrew the column and its label wrapped into the Next button (Michał's
+   screenshot, 2026-09-03). What takes the reading face back, each by
+   name: `#article`, `.library-open`, `.marks-quote`, `.toc-rows button`,
+   `.search-snippet` and `.note-quote` - the texts, and the words of the
+   texts. */
+#page,
+.reader-chrome,
+.note-dialog {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Focus must be findable on every control here, in every theme - the list's
+   quiet buttons erase their resting border, so the browser default cannot be
+   trusted to survive the styling. */
+:is(a, button, select, summary, input):focus-visible {
+  outline: 2px solid var(--page-accent);
+  outline-offset: 2px;
+}
+
+/* Hover feedback eases in; nothing depends on it, and it stops entirely for
+   readers who asked motion to stop. */
+button,
+summary {
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* The clip pattern: a real label for the filter, read by screen readers,
+   invisible to everyone else. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The panels speak a step below the page's interface size, as the bar does
+   (`.page-bar`, page.css): they stand over an article and should not be
+   the loudest thing on it. The family is the chrome's (`.reader-chrome`,
+   above). */
+.reader-panel {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* The box around the bar and its two panels is `.page-chrome` (page.css)
+   since D219 - stuck to the window's top in every view, on its own paper,
+   above the scrim and the pins, with the half of the body's breathing room
+   that moved into it (see `body.reader`). What stays here under the
+   reader's own class is the article view's: the ribbon that folds the bar
+   away, and the paper under the box that runs edge to edge over an
+   article's margin pins. */
+
+/* The page's notice, in the chrome under the bar (D151) - and under an open
+   panel, which stands in flow above it. `page.css` gives a note a heading's
+   breathing room above; here the bar's own rule is the room. At the
+   panels' own size (`.reader-panel`), not the article's: set in the
+   reading face at the reading size it read as a paragraph of the text it
+   stood over, until a scroll showed it stuck (Michał's smoke,
+   2026-08-29) - the reason the chrome now wears the interface as a whole. */
+.reader-chrome .note {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* The notice's two doors (D151, after Michał's smoke: a sentence stuck over
+   the text with no way to close it): the close in the top corner, in the
+   dialogs' own dress (`.toc-close`), and the act a sentence may offer on a
+   line of its own under it - the missing-document note's framed text act
+   (`.marks-delete-all`), accent when armed like every Delete. The sentence
+   keeps clear of the close by its own right padding. */
+.notice {
+  position: relative;
+  padding-right: 3rem;
+}
+
+.notice p {
+  margin: 0;
+}
+
+.notice-close {
+  position: absolute;
+  top: 0.15rem;
+  right: 0.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.35rem;
+  border: none;
+  background: none;
+  color: var(--page-muted);
+}
+
+.notice-close:hover,
+.notice-close:focus-visible {
+  color: var(--page-fg);
+}
+
+.notice-act {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin-top: 0.5rem;
+  min-height: 44px;
+  padding: 0.35rem 0.8rem;
+  font: inherit;
+  white-space: nowrap;
+}
+
+/* The box is stuck in every view since D219 (`.page-chrome`, page.css).
+   Over an article that is D93's own bar - the voice that starts from the
+   first visible sentence and the way out of a finished article, wanted
+   mid-scroll - and its z-index is the speech bar's: the two stand at the
+   same height and never meet. Over the list and the highlights it is the
+   same box for the same reason every page got it: a long list scrolled to
+   its end kept the menu a page away. Plain sticky, no hiding on scroll:
+   the simplest thing that can be judged on an e-ink panel, where a bar
+   that moved would flash (D93). Until D219 the list views stuck the box
+   only while a panel stood open, held at its own offset (D153,
+   `lib/chrome-hold.js`); stuck at the window's top always, it has nothing
+   to be held from, and the module went with the hold. */
+
+/* The scroll padding under the bar (page.css) is the list views' - the
+   article view stands it down: every scroll it makes is its own
+   arithmetic against the bar as it stands (`chromeFold` in reader.js - a
+   bar folded behind its ribbon, or carrying a notice, which no token
+   knows), and the position restore steps back from `scrollIntoView` by
+   that measure, which the browser's padding would double. */
+:root:has(body.reader #article:not([hidden])) {
+  scroll-padding-top: auto;
+}
+
+/* The bookmark tab (Michał's design, after a mobileread request asked for a
+   way to minimize the bar): a ribbon hanging off the bar's far edge, the one
+   hand on the bar's visibility. Absolute, so the ribbon never adds to the
+   chrome's height - `chromeFold` keeps measuring the bar alone, and with
+   the bar folded it honestly measures next to nothing. Only a press ever
+   moves it: the bar never hides on a scroll (D93 - on e-ink a bar that
+   moved would flash), so each flip is one deliberate repaint. */
+.chrome-tab {
+  position: absolute;
+  top: 100%;
+  inset-inline-end: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 1.25rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--page-line);
+  border-top: none;
+  border-radius: 0 0 7px 7px;
+  background: var(--page-bg);
+  color: var(--page-muted);
+  cursor: pointer;
+}
+
+/* A ribbon-sized picture is not a finger-sized target: the halo grows the
+   press without growing the ribbon. */
+.chrome-tab::before {
+  content: "";
+  position: absolute;
+  inset: -0.5rem;
+}
+
+.chrome-tab:hover {
+  color: var(--page-fg);
+  border-color: var(--page-border);
+}
+
+/* In rem, not em: the chrome wears the interface size now, and the chevron
+   sized against it would have stepped down from the size it was tuned to
+   when the ribbon still inherited the reading size (0.85 of 18px). */
+.chrome-tab-icon {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+/* Folded away (the stored choice, stamped by `applyAppearance`): everything
+   in the chrome goes but the ribbon, which stays stuck at the window's top
+   edge with its chevron turned to say "pull out". Scoped to the article
+   view the way the stuck bar is - the list always keeps its whole chrome.
+   The breathing room goes too - the chrome's padding, which is the page's
+   whole headroom since D219's smoke (the body keeps none): an empty strip
+   of paper stuck over the text would be the bar's ghost. (Until then the
+   body held half of it, and that half kept the ribbon 0.75rem off the
+   window's edge until a scroll ate it - Michał's smoke, 2026-09-01 - so a
+   rule here zeroed it while folded.) */
+:root[data-reader-chrome="hidden"] body.reader:has(#article:not([hidden])) .reader-chrome {
+  padding-top: 0;
+}
+
+/* The room over the text (`#page`) must not be a margin while the box is
+   folded: with everything in it hidden the box is empty, adjoining margins
+   collapse straight through an empty box, and the page's 2rem then stands
+   ABOVE it - once the body's padding no longer walled it off, it carried
+   the ribbon 2rem down the window (Michał's second smoke, 2026-09-01;
+   the first smoke's 0.75rem was the body's half, this was the rest). The
+   same room as padding collapses through nothing, so the box - and the
+   ribbon on it - stays on the window's edge and the text keeps its air. */
+:root[data-reader-chrome="hidden"] body.reader:has(#article:not([hidden])) #page {
+  margin-top: 0;
+  padding-top: 2rem;
+}
+
+:root[data-reader-chrome="hidden"] body.reader:has(#article:not([hidden])) .reader-chrome > :not(.chrome-tab) {
+  display: none;
+}
+
+:root[data-reader-chrome="hidden"] body.reader:has(#article:not([hidden])) .chrome-tab-icon {
+  transform: rotate(180deg);
+}
+
+/* The strip's paper runs edge to edge while everything visible keeps the
+   column (Michał's reports, 2026-08-16): a pill sliding under a column-wide
+   bar looked erased mid-air, so the background must reach the window's
+   edges and cover whatever scrolls beneath - but the line under the bar
+   stays the bar's own, column-wide, a rule of the text rather than a beam
+   across the window. An underlay rather than margins on the chrome itself,
+   so nothing about the chrome's inner layout moves. The halves of the calc
+   overshoot by half a scrollbar; the root's overflow clip below eats the
+   excess. */
+body.reader:has(#article:not([hidden])) .reader-chrome::before,
+body.reader:has(.panel-scrim:not([hidden])) .reader-chrome::before {
+  content: "";
+  position: absolute;
+  /* Up past the page's top padding to the window's edge, so at the top of
+     the page no dimmed strip stands over the bar; scrolled, or stuck, the
+     reach is off-screen and paper on paper is invisible. */
+  inset: -100vh calc(50% - 50vw) 0;
+  z-index: -1;
+  background: var(--page-bg);
+}
+/* The same paper under an open panel over the list and the highlights,
+   where nothing stands in the margins to need it at rest: lifted above the
+   scrim, a column-wide chrome read as a white card dropped on the dimmed
+   page (Michał's smoke, 2026-08-29); edge to edge it reads as the bar it
+   is. And while a panel is open, a shadow under the sheet's one edge that
+   is not the window's - never under the plain stuck bar, which stays the
+   simplest thing an e-ink panel can be asked to redraw (D93). */
+body.reader:has(.panel-scrim:not([hidden])) .reader-chrome::before {
+  box-shadow: 0 10px 24px -8px rgb(0 0 0 / 0.35);
+}
+
+/* What lets the underlay overshoot without summoning a horizontal scrollbar.
+   `clip`, not `hidden`: clipping does not make the root a scroll container,
+   so sticky keeps working against the viewport. The page itself never needs
+   sideways room - the column wraps, and anything wider than it (code, and
+   tables below) scrolls inside its own box. */
+html {
+  overflow-x: clip;
+}
+
+/* The bar itself is `.page-bar` (page.css) since D219 - one bar in one
+   home: centred, not baseline-aligned (two of the three buttons are drawn
+   glyphs with no baseline to speak of, and against them the mark hung
+   visibly low - reported from a phone), the line under it, the height the
+   `--bar-h` token says. The tools push themselves to the far edge; the
+   back arrow and the mark keep the leading one (`space-between` stopped
+   meaning that the moment the bar had three residents). What the reader's
+   own class keeps is the tighter dress under a phone's width, below. */
+
+/* The way back, in the dress of the platform's own headers: a bare drawn
+   arrow, no frame - the frame is the tools', and back is not one more tool.
+   Muted like the mark beside it, accent when asked. The negative start
+   margin hands the hit padding back to the gutter, so the arrow itself
+   starts on the column edge the mark holds when it stands first; the mark's
+   own negative margin then only trims the gap between them. Drawn a step
+   larger than the tools' glyphs: it is the one control here that navigates,
+   and the old text arrow was reported small. */
+.reader-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.1rem;
+  min-width: 2.6rem;
+  margin-inline-start: -0.7rem;
+  padding: 0.15rem 0.4rem;
+  border: none;
+  background: none;
+  color: var(--page-muted);
+}
+
+.reader-back:hover {
+  border: none;
+  color: var(--page-accent);
+}
+
+.reader-back .reader-icon {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+/* The mark is a button now (it opens the settings) and must go on looking like
+   the quiet line of text it was: no frame, no fill, the page's muted voice.
+   The padding gives it a finger-sized target without moving the word, and the
+   negative start margin hands that padding back to the column, so the mark
+   still begins exactly on the left edge the article and its actions align to. */
+.reader-mark {
+  margin-inline-start: -0.4rem;
+  padding: 0.35rem 0.4rem;
+  border: none;
+  background: none;
+  color: var(--page-muted);
+  letter-spacing: 0.02em;
+  /* The name is one word with a slash in it, and a squeezed flex row will
+     happily break a line after a slash: on a phone the mark came apart into
+     "re/" over "read" (reported from a Pixel). The brand holds its line at
+     every width; the bar around it is what gives way (media query below). */
+  white-space: nowrap;
+}
+
+.reader-mark:hover {
+  border: none;
+  color: var(--page-accent);
+  text-decoration: underline;
+}
+
+/* The tools span is `.page-tools` (page.css) since D221: to the far edge
+   on its own (the bar's third resident, the back arrow, took
+   `space-between`'s meaning away), one frame for every tool, and one way
+   of lighting the tool in hand. The reader's own class keeps the tighter
+   gap under a phone's width, below. */
+
+#display {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* Drawn buttons: the speaker in the bar above, the transport icons below. The
+   size follows the text around them (`em`), so the icon grows with the
+   interface font instead of staying a fixed 16 pixels on a dense screen. */
+.reader-icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+
+/* The bar's buttons share one frame height - most hold drawn glyphs and
+   one holds serif text, and left to their contents their borders came out
+   three sizes (reported from a phone) - and a tool in hand is lit: the
+   voice busy, the pen in the hand, a panel open (Michał's report,
+   2026-08-19: a panel hanging under an unlit button was the one place in
+   the bar where that promise broke). Both are `.page-tools`' rules in
+   page.css since D221, one for every page's bar; the lit state there is
+   the one an e-ink panel keeps - a wash alone, since the doubled frame
+   proved too loud on the same panel. The full-screen tool is not lit: its
+   glyph says the state (below). */
+
+/* The full-screen row says what a press would do (D180): both labels are
+   in the markup, and the root's `:fullscreen` picks the one to show. The
+   state lives in the browser - entered by this row, left by Back or Esc -
+   so the stylesheet reads it from there and no script mirrors it. The
+   bar's own full-screen tool (D195) carries two glyphs the same way, by
+   the rule in page.css since every page has the tool (D220). */
+:root:fullscreen #nav-fullscreen .fullscreen-enter,
+:root:not(:fullscreen) #nav-fullscreen .fullscreen-exit {
+  display: none;
+}
+
+/* The bar's tight dress under a phone's width - tighter gaps, a slimmer
+   floor for the tools - is every page's since D219's smoke (page.css, the
+   `@media (max-width: 30rem)` block on `.page-bar` and `.page-tools`): kept
+   here as the reader's own, it left the phrases' and the settings' tools a
+   desktop's distance apart on the same phone (Michał's screenshots,
+   2026-09-14). Nothing of the bar's dress is the reader's alone now. */
+
+/* No line under the panel: the scrim dims the page beneath an open panel
+   (2026-08-29), so the panel's own edge is where the paper stops being
+   lit - a rule on top of that read as clutter (Michał's smoke,
+   2026-09-01). */
+.reader-panel {
+  padding: 0.6rem 0;
+}
+
+.reader-setting {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.35rem 0;
+}
+
+.reader-setting-name {
+  flex: 0 0 4rem;
+  color: var(--page-muted);
+}
+
+.reader-choices {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.reader-choices button {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+/* The one that is on, said with the border rather than a fill: this row sits
+   above an article and should not become the brightest thing on the screen. */
+.reader-choices button[aria-pressed="true"] {
+  border-color: var(--page-accent);
+  color: var(--page-accent);
+}
+
+.reader-choices output {
+  min-width: 2ch;
+  color: var(--page-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+/* The highlighter's inks as themselves (D106): each swatch is the actual
+   wash of the theme on screen, over the page's own paper - the choice
+   previews its result. A hairline of the ink's edge keeps the paler washes
+   from dissolving into the panel. Sized to the row's own line height, so
+   the colour stands as tall as the words in the buttons beside it (Michał's
+   report from 0.4.21: the ink was a speck inside its frame). */
+.marker-swatch {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid var(--page-line);
+  border-radius: 0.25em;
+}
+
+.marker-swatch[data-swatch="yellow"] {
+  background: var(--reader-marker-yellow);
+}
+.marker-swatch[data-swatch="green"] {
+  background: var(--reader-marker-green);
+}
+.marker-swatch[data-swatch="blue"] {
+  background: var(--reader-marker-blue);
+}
+.marker-swatch[data-swatch="pink"] {
+  background: var(--reader-marker-pink);
+}
+
+/* The underline's weights as themselves (D130), the way the inks above are:
+   each swatch is a rule drawn with the numbers its weight paints with, so the
+   choice previews its result on the panel it will be read on - which is the
+   whole point of the setting, since the reason to reach for it is a screen.
+   A border rather than a text decoration: `::highlight()` cannot be summoned
+   on a swatch, and a dotted border of the same width and colour draws the
+   same dots. `currentColor` for the same reason the underline itself uses it -
+   the swatch is ink on this page's paper, in every theme. */
+.underline-swatch {
+  display: block;
+  width: 1.6em;
+  border-bottom-style: dotted;
+}
+
+.underline-swatch[data-swatch="fine"] {
+  border-bottom-width: 1.5px;
+  border-bottom-color: color-mix(in srgb, currentColor 75%, transparent);
+}
+.underline-swatch[data-swatch="medium"] {
+  border-bottom-width: 2.5px;
+  border-bottom-color: color-mix(in srgb, currentColor 88%, transparent);
+}
+.underline-swatch[data-swatch="strong"] {
+  border-bottom-width: 4px;
+  border-bottom-color: currentColor;
+}
+
+/* The line centred in its frame, the ink's own rule below: without it the
+   swatch would sit on the button's text baseline with the frame around its
+   shoulders. */
+#underline-choices button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.35rem;
+}
+
+/* The ink centred in its frame: as an inline box the swatch hung on the
+   text baseline, a few pixels above centre, and the buttons' worded side
+   padding left the colour swimming in it (Michał's report from 0.4.21).
+   Flex centres the swatch both ways, and the even padding lets the frame
+   hug the colour instead of dressing it. */
+#marker-color-choices button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+}
+
+/* A voice is called whatever the platform calls it, and some names are a
+   sentence long. The select gives way instead of pushing the panel wider than
+   the article it stands over. */
+#voice-setting .reader-choices {
+  min-width: 0;
+}
+
+#voice-choice {
+  max-width: 100%;
+}
+
+.reader-byline {
+  margin: 0 0 2rem;
+  color: var(--page-muted);
+  font-size: 0.9em;
+}
+
+#page {
+  margin-top: 2rem;
+}
+
+#article h1 {
+  font-size: 1.7em;
+  line-height: 1.25;
+  margin: 0 0 0.75rem;
+}
+
+/* The article is THE text: the Aa panel's face and size, taken back from the
+   page's interface dress by name (see `#page` at the top of this file),
+   with the article's own leading. The title and the byline inside it
+   follow in `em`.
+
+   It selects through our own gesture for every pointer (D80, the mouse
+   since D86), so the native selection is refused outright: on touch the
+   system's menu and handles never come to exist, and at the desk a drag
+   selects whole words through select.js instead of characters through the
+   browser. The named price is copying article text by dragging over it -
+   D80 already paid it on touch. */
+#article {
+  font-family: var(--reader-font-lead, var(--reader-font-stack));
+  font-size: var(--reader-size, 18px);
+  line-height: 1.65;
+  user-select: none;
+  /* Not a belt but the only line WebKit reads: Safari 18 has no unprefixed
+     `user-select` at all (WebKit's trunk carries one behind a flag), which
+     is why the iPad spike watched native selections being built under an
+     article that said `user-select: none`. */
+  -webkit-user-select: none;
+}
+
+/* iOS's dialect of that refusal, and the one place this stylesheet tells
+   engines apart (`-webkit-touch-callout` exists in WebKit on iOS alone).
+
+   WebKit paints `::highlight()` only through text somebody could select: it
+   walks every highlight range's ends through the same candidate positions a
+   caret may stand on (`Document::updateHighlightPositions`), and a caret may
+   never stand in `user-select: none` text - so the ends slide off to the
+   nearest selectable chrome and nothing paints inside the article: not the
+   selection, not the underlines, not the marks (Michał's iPad, 2026-08-26,
+   the day after the prefixed line above started being read). Gecko and Blink
+   paint regardless and keep the plain rule.
+
+   iOS's long-press selection, on the other hand, asks the element the finger
+   HIT: the loupe is refused when that element's user-select is none, and it
+   never looks at the text underneath (`selectionPositionInformation` in
+   WebKit - a hit test, so it honours pointer-events). So the article's
+   content goes back to being selectable text, which is what lets it be
+   painted, and stops answering pointer events, so every touch on it lands on
+   #article itself, whose `none` refuses the loupe. select.js is untouched by
+   this: its target check is inclusive of the root, and every word it finds
+   comes from `caretPositionFromPoint`, which descends from #article into the
+   text the way it always did. The reader's own `elementFromPoint` climb
+   lands on #article here and takes the rect fallback that function already
+   carries. The same split serves the highlights page's quotes (D109).
+
+   What must still answer a press answers it: live links and their preview,
+   images and media with their own long-press menus, form controls. The
+   non-text ones say `none` themselves, so the loupe keeps refusing on them;
+   a link's text stays selectable so an underline through it can paint.
+   Links dressed as plain text (D95) are text here and pass their presses
+   through - a hold on one selects, a tap on one does nothing, exactly what
+   the dress promises. */
+@supports (-webkit-touch-callout: none) {
+  #article > *,
+  .marks-rows :is(.marks-quote, .marks-note) {
+    -webkit-user-select: text;
+    user-select: text; /* for the day WebKit reads the unprefixed form */
+    pointer-events: none;
+  }
+
+  #article :is(a, img, picture, video, audio, iframe, button, input, select, textarea) {
+    pointer-events: auto;
+  }
+
+  #article :is(img, picture, video, audio, iframe) {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  :root[data-reader-links="plain"] #content a {
+    pointer-events: none;
+  }
+}
+
+/* What that gesture paints instead, named in select.js: the same
+   inversion the native ::selection wears here (page.css) - ink and paper
+   swapped, the one contrast every theme and an e-ink panel are sure to have. */
+::highlight(reread-selection) {
+  background-color: var(--page-fg);
+  color: var(--page-bg);
+}
+
+/* Reading aloud, in two marks (D87), named in read-aloud.js.
+
+   The sentence is the quiet one: a wash of the page's own ink, faint enough to
+   read straight through and dark enough to find. It is also the only mark a
+   device that sends no word events ever shows, so it has to stand alone.
+
+   The word is the accent, and deliberately not the inversion above: the
+   inversion means "you selected this", and a block of it jumping word by word
+   is the worst thing that can happen to an e-ink panel. A wash leaves the
+   letters in the page's own colour - so nothing about the text moves or
+   changes weight as the voice passes over it.
+
+   Neither mark may change the metrics: `::highlight()` accepts colours and
+   decoration only, which is the same reason this API is used for underlines.
+
+   **How strong each wash is depends on the theme, and one number could not do
+   both** (reported from a Pixel: 8% of the ink was a shade of nothing in the
+   dark theme). A wash of the text colour darkens light paper and lightens dark
+   paper, and the eye is far less sensitive to the second: what reads as a
+   clear band on white disappears on near-black. So the two washes are
+   variables, set per theme below, and the dark theme takes roughly half again
+   as much of both. The ceiling on the dark word is contrast, not taste - the
+   text stays the page's own colour, and at 45% of this accent it still has
+   5.8:1 over the wash. */
+::highlight(reread-speaking) {
+  background-color: var(--reader-speaking);
+}
+
+::highlight(reread-speaking-word) {
+  background-color: var(--reader-speaking-word);
+}
+
+/* The highlighter's marks (D106): dried strokes named per colour in
+   marks-view.js, the wet one named in select.js. All of them sit at the
+   bottom of the paint order - the selection, the recall wash and the
+   speaking washes are newer news, and the underlines cross freely, being a
+   decoration and not a background. The wet stroke wears the current colour
+   through the alias, so drawing shows exactly what will stay. */
+::highlight(reread-marker-yellow) {
+  background-color: var(--reader-marker-yellow);
+}
+
+::highlight(reread-marker-green) {
+  background-color: var(--reader-marker-green);
+}
+
+::highlight(reread-marker-blue) {
+  background-color: var(--reader-marker-blue);
+}
+
+::highlight(reread-marker-pink) {
+  background-color: var(--reader-marker-pink);
+}
+
+::highlight(reread-marker-draft) {
+  background-color: var(--reader-marker-current);
+}
+
+/* The search landing (D119): the found phrase wears the read-aloud word's
+   accent wash - the same "you are here", and the two are never on screen
+   at once: the wash clears at the first tap or key, and speaking starts
+   with one. Default priority, so it reads over a mark it may land on. */
+::highlight(reread-search) {
+  background-color: var(--reader-speaking-word);
+}
+
+#content h1,
+#content h2,
+#content h3,
+#content h4,
+#content h5,
+#content h6 {
+  line-height: 1.3;
+  margin: 2.2rem 0 0.6rem;
+}
+
+#content h1 {
+  font-size: 1.4em;
+}
+#content h2 {
+  font-size: 1.2em;
+}
+#content h3 {
+  font-size: 1.05em;
+}
+
+#content p,
+#content ul,
+#content ol,
+#content dl,
+#content table,
+#content figure,
+#content blockquote,
+#content pre {
+  margin: 0 0 1.2rem;
+}
+
+/* An article's pictures (D145). A picture stands as a block of its own,
+   never wider than the text and never taller than most of the screen - a
+   photo taller than a page would fight the pager for the fold (D143). Its
+   `width` and `height` come from the database, so the text reserves the
+   room before a byte is decoded and nothing shifts when it is. Without a
+   `src` - the shape of every picture nobody has saved - it takes no room
+   at all, which keeps the elements of an article the same whether its
+   pictures are kept or not. */
+#content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  margin: 0 auto 1.2rem;
+}
+
+#content img:not([src]) {
+  display: none;
+}
+
+/* On dark paper a photograph at full brightness is a lamp in the text;
+   dimmed a little it reads as part of the page. `auto` follows the browser
+   the way the palettes do; a sepia or light page under a dark browser
+   keeps its pictures as they are. */
+:root[data-reader-theme="dark"] #content img {
+  filter: brightness(0.85);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-reader-theme="auto"] #content img {
+    filter: brightness(0.85);
+  }
+}
+
+#content figure > img {
+  margin-bottom: 0.6rem;
+}
+
+#content li {
+  margin-bottom: 0.4rem;
+}
+
+#content blockquote {
+  padding-left: 1.2rem;
+  border-left: 2px solid var(--page-line);
+  color: var(--page-muted);
+}
+
+/* Code keeps its line breaks and gets to scroll rather than push the column
+   wider - a wide code block in a reading column is how the whole text ends up
+   sideways. */
+#content pre {
+  overflow-x: auto;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--page-line);
+  border-radius: 6px;
+}
+
+/* Tables scroll inside their own box for the reason code does - and because
+   the page's sideways overflow is clipped for the sticky strip's sake, a
+   table wider than the column would otherwise have no way to be read. */
+#content table {
+  display: block;
+  overflow-x: auto;
+}
+
+#content code,
+#content pre,
+#content kbd,
+#content samp {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+#content table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+#content th,
+#content td {
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--page-line);
+  text-align: left;
+}
+
+#content figcaption {
+  margin-top: 0.4rem;
+  color: var(--page-muted);
+  font-size: 0.9em;
+}
+
+#content hr {
+  height: 0;
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid var(--page-line);
+}
+
+/* Long unbroken strings - an address in a footnote, a hash - would otherwise
+   set the width of the whole column. */
+#content a {
+  overflow-wrap: anywhere;
+}
+
+/* Links as plain text (D95, the default): the words stay - they are part of
+   the sentence - but nothing about them invites or answers a press. The main
+   gesture here is selecting a phrase to translate, and a live link under a
+   slightly short hold turns selection into navigation; a link that still
+   looked like one while doing nothing would just look broken. The click and
+   the tab stop are taken away in `reader.js`; this takes the dress. */
+:root[data-reader-links="plain"] #content a {
+  color: inherit;
+  text-decoration: none;
+  cursor: auto;
+}
+
+/* Footnote marks: the one press in the prose, in both link modes - a mark
+   is not a link (nothing leaves the page, the note opens in place), so the
+   plain-text dress above must not undress it. The accent and the cursor
+   are its whole invitation; the mark's own <sup> keeps doing the raising. */
+#content a[data-note],
+:root[data-reader-links="plain"] #content a[data-note] {
+  color: var(--page-accent);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* The note itself: the pages' note dress on a floating card. The border
+   does the separating everywhere; the translation bubble's own shadow
+   (Michał's call, 2026-09-01: the note reads better lifted a step off the
+   text) joins it for the screens that can paint one - on e-ink it
+   quantizes away to nothing, harmlessly, being paint and not motion, and
+   the two things floating over an article now wear the same elevation.
+   Deeper on dark paper, like the bubble's - though there a shadow barely
+   exists at all, which is what the dark rules below are really about.
+   No animation, opened and closed in one repaint each. It rides the
+   document (absolute), so a scroll carries note and mark together. */
+.note-popover {
+  position: absolute;
+  z-index: 3;
+  max-width: min(28rem, calc(100vw - 1.5rem));
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--page-line);
+  border-left: 3px solid var(--page-accent);
+  border-radius: 8px;
+  background: var(--page-bg);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  font-size: 0.85em;
+  line-height: 1.5;
+  /* A footnote is frequently a reference with an address in it, and an
+     unbreakable URL ran straight out of the card (Michał's screenshot,
+     2026-09-01) - the same rule the bubble wears. */
+  overflow-wrap: break-word;
+}
+
+/* On dark paper a black shadow falls on near-black and barely says a thing,
+   so the card's own paper steps a shade lighter than the page instead
+   (Michał's correction, 2026-09-01: not a lighter shadow - a lighter card)
+   - the bubble's dark paper, kept in step with tooltip.js by hand, and the
+   same lesson the bubble learned when it sank into the reader's dark theme.
+   The deepened drop stays for the card's passes over lighter content. */
+:root[data-reader-theme="dark"] .note-popover {
+  background: #262c3a;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-reader-theme="light"]):not([data-reader-theme="sepia"]) .note-popover {
+    background: #262c3a;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* The reading list is interface, not reading: it speaks the page's interface
+   font at the interface size (the `#page` rule at the top of this file -
+   the list was the first room to wear it, and the whole page wears its
+   dress now), and only the row titles keep the article's face below.
+   Everything here states its changes with text and a border - never an
+   overlay or an animation, because on e-ink every animation is a flash.
+
+   Base styles lay the list out for a narrow screen; the one media query at
+   the end spreads the same HTML out for a desktop. */
+
+/* The list reads at the phrases page's width, not the article's measure: the
+   measure is a choice about prose, and rows of titles are not prose. `:has`
+   rather than a script-set class, so the stylesheet alone owns the switch. */
+body.reader:has(#library:not([hidden])) {
+  max-width: 46rem;
+}
+
+/* --- the tabs: two halves of one list, each wearing its whole count --- */
+
+/* Wrapping for the same reason the transfer row wraps: each tab wears its
+   whole count, and two counted labels under a grown text zoom can outgrow a
+   phone's line. A tab dropping to the line below is cheaper than the page
+   scrolling sideways. */
+.library-segments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0;
+}
+
+/* Two equal halves of the line on a phone; their own width on a desktop. */
+.library-segments button {
+  flex: 1 1 0;
+  min-height: 44px;
+  padding: 0.35rem 1rem;
+}
+
+/* The tab in view: the accent as a border and a wash behind the page's own
+   text color, so the label stays readable in all four themes. */
+.library-segments button[aria-pressed="true"] {
+  border-color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 12%, transparent);
+}
+
+/* --- disclosure lines: the offline promise and the file-format note --- */
+
+/* Native details/summary: no script, keyboard for free, and closed is the
+   state both should return to. The block padding keeps the summary a
+   comfortable touch target without growing its text. */
+.fold-line {
+  margin: 0.25rem 0 0;
+}
+
+.fold-line summary {
+  padding: 0.7rem 0;
+  cursor: pointer;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+}
+
+.fold-line summary::marker {
+  color: var(--page-muted);
+}
+
+.fold-line p {
+  margin: 0 0 0.75rem;
+}
+
+/* --- the fold's line, shared with the anchor to the transfer section --- */
+
+/* One line, two quiet doors: the fold on the left, the link to the import
+   and export section on the right - the summary's own muted voice, kept a
+   link by its underline. An opened fold needs the whole line for its prose,
+   so the link steps down to the line below, still on the right. */
+.fold-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0 1rem;
+  margin: 0.25rem 0 0;
+}
+
+.fold-row .fold-line {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+}
+
+.fold-row .fold-line[open] {
+  flex-basis: 100%;
+}
+
+.fold-row a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-inline-start: auto;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+}
+
+.fold-row a:hover {
+  color: var(--page-accent);
+}
+
+/* --- the filter line above the list it narrows --- */
+
+.filter-line {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0;
+}
+
+.filter-line input {
+  flex: 1 1 auto;
+  min-height: 44px;
+  min-width: 0;
+  font: inherit;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--page-border);
+  background: transparent;
+  color: var(--page-fg);
+  /* The placeholder runs long in some languages, and the field gives up a
+     button's width while the deeper search is on: cut with an ellipsis
+     rather than mid-letter. */
+  text-overflow: ellipsis;
+}
+
+/* The Search button at the field's end (D119, D173): the document dialog's
+   form shape - the field and its button on one line, the button as tall as
+   the field by the row's stretch. Always there, since nothing narrows the
+   list without it; greyed while a press would do nothing, and lit with the
+   accent - the note dialog's Save, the page's word for "this is the one
+   press" - while the field holds words the list on screen was not narrowed
+   by. Its word never breaks. */
+.filter-line button {
+  padding: 0.35rem 1rem;
+  white-space: nowrap;
+}
+
+.filter-line button[data-stale] {
+  border-color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 12%, transparent);
+}
+
+/* The note over a book whose language is not the pair's source (O20): one
+   muted line with the settings one press away, never a bar and never a
+   dialog. */
+.book-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+}
+
+.book-note button {
+  min-height: 44px;
+  padding: 0.35rem 0.8rem;
+  white-space: nowrap;
+}
+
+/* The offer a picked file becomes: its size, a taste of its titles, and the
+   two buttons that decide. */
+.import-confirm {
+  margin: 1rem 0 0;
+  padding: 0.25rem 1rem 0.75rem;
+  border: 1px solid var(--page-line);
+  border-radius: 8px;
+}
+
+.import-sample {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--page-muted);
+}
+
+.import-sample li {
+  overflow-wrap: anywhere;
+}
+
+/* The row wraps. It held two buttons when it was written; the highlights
+   export made three (D106), and three of these labels do not fit a phone's
+   line in any language - unwrapped they ran off the screen's edge and took
+   the whole page's sideways scroll with them (Michał's report from the
+   phone, 2026-08-23). The third moved to the highlights page in D152; the
+   wrap stays, for the counted label the selection puts on Export. */
+.transfer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+}
+
+.transfer button {
+  min-height: 44px;
+  padding: 0.35rem 1rem;
+}
+
+/* The transfer section's description as a list (Michał, 2026-09-13): the
+   four points under the pictures box, and the format fold's glossary in
+   the same dress. The indent of the settings page's "First steps" list;
+   the bullets in the text's own ink, not the hint's grey - on e-ink a grey
+   dot posterizes toward the paper, and a list without its bullets is a
+   paragraph with ragged edges. The words keep the hint's voice. */
+.transfer-notes {
+  margin: 0.75rem 0 0;
+  padding-left: 1.4rem;
+}
+
+.transfer-notes li {
+  margin: 0.3rem 0;
+  overflow-wrap: anywhere;
+}
+
+.transfer-notes li::marker {
+  color: var(--page-fg);
+}
+
+/* Two paragraphs in one point (the .zip entry): the second steps down a
+   line, no more. */
+.transfer-notes p {
+  margin: 0;
+}
+
+.transfer-notes p + p {
+  margin-top: 0.35rem;
+}
+
+/* Inside the fold the list stands where its paragraphs stood. */
+.fold-line .transfer-notes {
+  margin: 0 0 0.75rem;
+}
+
+/* The glossary's extensions: the one bold of the section, in the text's
+   ink like the bullets. */
+.transfer-notes strong {
+  color: var(--page-fg);
+  font-weight: 600;
+}
+
+/* --- the two kinds of nothing: an empty segment, a filter with no match --- */
+
+#library-empty {
+  margin-top: 0.75rem;
+  border-top: 1px solid var(--page-line);
+}
+
+#library-empty p {
+  margin: 0 0 0.75rem;
+}
+
+#library-empty button {
+  min-height: 44px;
+  padding: 0.35rem 1rem;
+}
+
+/* --- the rows: a grid, the whole text cell one target, Delete outside it --- */
+
+.library-rows {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--page-line);
+}
+
+/* The empty states above speak instead; an empty list must not leave a stray
+   rule on the page. */
+.library-rows:empty {
+  display: none;
+}
+
+/* Text | action, one layout at every width. `minmax(0, 1fr)` lets long titles
+   wrap instead of pushing Delete off the row, and the 1rem gap is the moat
+   around Delete: the title's stretched click area ends a clear step before
+   the button begins, so a finger aiming at one cannot land in the other. */
+.library-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0 1rem;
+  border-bottom: 1px solid var(--page-line);
+}
+
+/* The anchor of the title button's stretched ::after: the click area is
+   exactly this cell, padding and all. */
+.library-text {
+  position: relative;
+  min-width: 0;
+  padding: 0.7rem 0;
+}
+
+/* The title is the way in and the row's accessible name: a bare button
+   dressed as text, in the article's own face - these are articles. It
+   follows the reader's type setting the way the article itself does. */
+.library-open {
+  display: block;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: var(--page-fg);
+  text-align: start;
+  font-family: var(--reader-font-lead, var(--reader-font-stack));
+  font-size: var(--reader-size, 18px);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+/* The whole text cell opens the article, not just the words of the title. */
+.library-open::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.library-item-detail {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--page-muted);
+  font-size: 0.85rem;
+}
+
+/* The row answers the pointer and the keyboard as one thing: a wash from the
+   theme's own ink, and for the keyboard a ring around the row rather than
+   around the title's words - the target it marks is the cell. */
+.library-row:has(.library-open:hover) {
+  background: color-mix(in srgb, var(--page-fg) 5%, transparent);
+}
+
+.library-open:focus-visible {
+  outline: none;
+}
+
+.library-row:has(.library-open:focus-visible) {
+  background: color-mix(in srgb, var(--page-fg) 5%, transparent);
+  outline: 2px solid var(--page-accent);
+  outline-offset: -2px;
+}
+
+/* Delete, always visible but dressed down - touch and e-ink have no hover to
+   reveal it with: no resting border, muted color, a 44px hit box. Aligned to
+   the top of the row and nowrap, so "Sure?" grows leftward from a fixed right
+   edge and the second press lands where the first one did. */
+.library-delete {
+  align-self: start;
+  margin-top: 0.35rem;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.35rem 0.8rem;
+  border-color: transparent;
+  color: var(--page-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.library-delete:hover,
+.library-delete:focus-visible {
+  border-color: var(--page-border);
+  background: color-mix(in srgb, var(--page-fg) 6%, transparent);
+  color: var(--page-fg);
+}
+
+/* --- the highlights page (D108): quote rows in the list's own dress --- */
+
+/* The quotes select through our own gesture, exactly as the article does
+   (D80/D86, extended to the rows by D109): the native selection is refused
+   so a hold or a drag selects whole words through select.js and raises the
+   bubble. The named price - drag-to-copy - was already paid here before
+   the gesture arrived: every row carries its copy button. */
+.marks-rows {
+  user-select: none;
+  -webkit-user-select: none; /* the line WebKit reads, as on #article */
+  /* On iOS the quotes themselves are handled with the article, in the
+     `-webkit-touch-callout` block beside #article: selectable for the
+     painter, deaf to the finger, so the loupe meets this rule instead. */
+}
+
+/* The row wears its mark's ink on the leading edge - the one place colour
+   can say which pen wrote the quote without washing text nobody selected.
+   The variables are the washes' own, so the stripe answers the theme
+   exactly as the mark it stands for. Drawn as an inset stroke rather than
+   a border: a full-height edge met the row's top and bottom hairlines and
+   the three read as a box missing its fourth side (Michał's report). The
+   stroke hugs the text instead - the offsets are the text cell's own
+   padding (`.marks-row .library-text` below), repeated - so air stands
+   between it and both hairlines and nothing asks for a frame. */
+.marks-row {
+  position: relative;
+  padding-inline-start: calc(0.65rem + 3px);
+}
+
+.marks-row::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: calc(var(--reader-size, 18px) * 1.1);
+  bottom: calc(var(--reader-size, 18px) * 3);
+  width: 3px;
+}
+
+.marks-row[data-color="yellow"]::before {
+  background: var(--reader-marker-yellow);
+}
+.marks-row[data-color="green"]::before {
+  background: var(--reader-marker-green);
+}
+.marks-row[data-color="blue"]::before {
+  background: var(--reader-marker-blue);
+}
+.marks-row[data-color="pink"]::before {
+  background: var(--reader-marker-pink);
+}
+
+/* Air between quotes (Michał's request): a quote is a passage, not a list
+   row, and passages need paper around them - a couple of text lines' worth
+   under each, measured in the reading size so the air breathes with the
+   text. The cell itself is interface (the note's line, the detail line),
+   so the size is named rather than taken from an `em` - the stripe above
+   repeats the same two numbers. */
+.marks-row .library-text {
+  padding: calc(var(--reader-size, 18px) * 1.1) 0 calc(var(--reader-size, 18px) * 3);
+}
+
+.marks-row .library-item-detail {
+  margin-top: 0.6em;
+}
+
+/* A quote reads like the passage it quotes: plain prose in the reading face
+   at the reading size, taken back from the page's interface dress by name
+   (`#page`), with the article's own leading - and the WHOLE of it: a
+   six-line clamp was tried first and cut every multi-paragraph highlight
+   down to its opening (Michał's report on 0.4.8): a kept passage is kept
+   to be reread, not to be teased. Its block breaks come as paragraphs of
+   their own (the renderer splits on the newlines `quoteOf` wrote at every
+   boundary), with a shade of the article's gap between them - and the
+   same block boundaries the scan respects everywhere else, so a phrase
+   never matches across them here either. */
+.marks-quote {
+  font-family: var(--reader-font-lead, var(--reader-font-stack));
+  font-size: var(--reader-size, 18px);
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.marks-quote p {
+  margin: 0 0 0.45em;
+}
+
+.marks-quote p:last-child {
+  margin-bottom: 0;
+}
+
+/* The note under its quote (D118): the reader's words under the document's,
+   and dressed apart - the interface face (the cell's own) at a step down
+   from the quote's size, so a note is a text that grows with the Aa size
+   yet never passes for the passage it stands under; the muted voice, its
+   own hairline edge so the two texts cannot be misread as one passage.
+   `pre-wrap`, because the note's own line breaks are the only structure it
+   has and textContent is the only way it enters. */
+.marks-note {
+  margin: 0.7em 0 0;
+  padding-inline-start: 0.65rem;
+  border-inline-start: 2px solid var(--page-line);
+  color: var(--page-muted);
+  font-size: calc(var(--reader-size, 18px) * 0.85);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* The line under a quote whose document is gone (it came back from the copy,
+   `marks-backup.js`): the page speaking, not the reader - a hint's size in
+   the cell's interface face, the muted voice, no rule of its own. */
+.marks-missing {
+  margin: 0.5rem 0 0;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* The quote's acts, stacked where the list's Delete stands - the rows are
+   tall, so a column wastes no width on a phone. Each is the quiet icon
+   button the list already speaks: always visible, dressed down, a 44px
+   hit box, a glyph rather than six languages of a word. */
+.marks-row-acts {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 0.25rem;
+  align-self: start;
+  /* Air under the column as well as over it: under a short quote the five
+     acts are what gives the row its height, and without it the last one -
+     the trash, or the "Sure?" it turns into - sat on the row's bottom rule
+     (Michał's smoke, 2026-08-29). In rem: the column is interface, and
+     these are the numbers it had at the default reading size. */
+  margin-block: 1rem 1.25rem;
+}
+
+.marks-act {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.35rem;
+  border-color: transparent;
+  color: var(--page-muted);
+}
+
+.marks-act:hover,
+.marks-act:focus-visible {
+  border-color: var(--page-border);
+  background: color-mix(in srgb, var(--page-fg) 6%, transparent);
+  color: var(--page-fg);
+}
+
+/* The glyphs at the size they were tuned to by eye (Michał's reports on
+   specks): 1.3em of the reading size they used to inherit is 1.45em of
+   the interface size the column wears now - and interface it is, so the
+   glyphs stand still while the Aa size moves the quotes. */
+.marks-act .reader-icon {
+  width: 1.45em;
+  height: 1.45em;
+}
+
+/* The orphan row's door to its page (D150) is an anchor in the acts' dress:
+   no underline, the icon's own colour, the same 44px box. */
+a.marks-act {
+  text-decoration: none;
+}
+
+/* A trash asking "Sure?" (D150): the glyph makes way for the word, and the
+   box grows leftward from the column's right edge - the list's Delete way,
+   so the second press lands where the first one did. */
+.marks-act[data-armed] {
+  padding: 0.35rem 0.8rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* The document-wide deletion in the missing-document note (D150): a text
+   act on its own line under the sentence that names and counts the document
+   - words, because "all" is a scope no glyph can carry. Framed at rest, in
+   the page's own button dress: the list's Delete may go quiet because its
+   place in the acts column says "control", but under a paragraph of the
+   same face and colour a quiet button read as a third line of the note
+   (Michał's smoke, 2026-08-29). The frame is thin and grey; the armed state
+   below turns it the accent, so the two states stay apart. A block on a line
+   of its own, never trailing the sentence: inline, the shorter "Sure?" fitted
+   at the end of the note's last line and the armed button jumped up beside
+   the text, away from the finger that had just pressed it; the script holds
+   the width meanwhile, so the box shrinks to nothing either. */
+.marks-delete-all {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin-top: 0.5rem;
+  min-height: 44px;
+  padding: 0.35rem 0.8rem;
+  font: inherit;
+  white-space: nowrap;
+}
+
+.marks-copy .icon-copied,
+.marks-copy[data-copied] .icon-copy {
+  display: none;
+}
+
+.marks-copy[data-copied] .icon-copied {
+  display: inline-block;
+}
+
+/* The scoped visit's one line saying whose quotes these are, snug under
+   the heading the way the article's byline sits under its title. */
+.marks-doc {
+  margin: -0.25rem 0 0;
+}
+
+/* The list has ended, the tool resumes: the export stands a clear step
+   under the rows (Michał's report) - margin only, no rule of its own,
+   because the last row already closes the list with its hairline and a
+   second line right above the button read as clutter (his follow-up). */
+.marks-transfer {
+  margin-top: 3rem;
+  /* The anchor over the rows lands here (D153); the same room the list's
+     transfer section keeps under the stuck bar's line (the root's scroll
+     padding, page.css - D219). */
+  scroll-margin-top: 0.75rem;
+  /* Chrome, not text: the buttons, hints, offer and reports wear the page's
+     interface dress (`#page`) where the quotes above them read in the Aa
+     face. This block was the second to have to say so for itself (Michał's
+     smoke, 2026-09-01: "Aa is for the texts") - the reason the page says
+     it once for everything now. */
+}
+
+/* The first row of buttons stands right under the rows, whichever half shows
+   first (D168): the backup's on the page of all highlights, the notes' under
+   the sentence that points there on one document's page. The notes half
+   keeps a breath from the backup's report above it. */
+.marks-transfer > div > .transfer:first-child {
+  margin-top: 0;
+}
+
+.marks-notes {
+  margin-top: 1.5rem;
+}
+
+#marks-copy-elsewhere {
+  margin: 0 0 1.25rem;
+}
+
+/* --- the book's pager: the shared one (`.pager`, page.css), in the article
+   view's own voice --- */
+
+/* Under the article's quiet action row and over its title, the pager speaks
+   at the size the article view's chrome speaks - the bar, the panels, the
+   actions, the notice - not the lists' full interface size: a row of
+   controls a step louder than the bar over it read as part of the text.
+   Its label is the pager's muted count, like every pager's. */
+.segment-nav {
+  font-size: 0.85rem;
+}
+
+/* The way onward under a segment's last line, pushed off it: finishing a
+   part deserves a breath between the prose and the buttons (Michał,
+   2026-08-17). Distance alone does the parting, as everywhere on this page;
+   the twin above the text keeps the pager's usual rhythm. */
+#segment-nav-end {
+  margin-top: 3rem;
+}
+
+/* --- the book's table of contents (D116) --- */
+
+/* The pager's middle: the part label with the door to the map of parts
+   beside it. `min-width: 0` lets the pair give way before the row does on a
+   narrow screen. */
+.segment-middle {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+/* An icon among the pager's worded buttons: the shared touch floor without
+   a word's width. */
+.pager .toc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.5rem;
+}
+
+/* The reader's first native dialog. No padding of its own - the header and
+   the rows carry it - so a click that reaches the element itself was a
+   click on the backdrop (see the wiring in reader.js). The engine keeps the
+   closed state's `display: none`; the open box becomes a column so the rows
+   scroll under a standing header. */
+.toc-dialog {
+  width: min(28rem, calc(100vw - 2rem));
+  max-height: min(80vh, 42rem);
+  padding: 0;
+  border: 1px solid var(--page-line);
+  border-radius: 6px;
+  background: var(--page-bg);
+  color: var(--page-fg);
+}
+
+.toc-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+/* One scrim for every theme: a dark veil reads as "behind" on paper and on
+   ink alike, and the backdrop cannot reach the page's variables reliably. */
+.toc-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.toc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0.6rem 0.6rem 1rem;
+  border-bottom: 1px solid var(--page-line);
+}
+
+.toc-head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.toc-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.35rem 0.5rem;
+  border: none;
+  background: none;
+}
+
+/* The cross at the size it had while the dialogs still inherited the
+   reading size: 1.15em of 18px is 1.3em of the interface size they wear
+   now. */
+.toc-close .reader-icon {
+  width: 1.3em;
+  height: 1.3em;
+}
+
+/* The chapters, in the menu's quiet rows: full width, a hairline under
+   each, a finger of height. The titles are the book's words and take the
+   reading face and size back by name - list items of the text, dressed
+   like the reading list's titles (D104) - inside a dialog whose head is
+   interface. The search dialog's hit rows below wear the same rule. */
+.toc-rows {
+  overflow-y: auto;
+  padding: 0 1rem 0.5rem;
+}
+
+.toc-rows button {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.55rem 0;
+  border: none;
+  border-bottom: 1px solid var(--page-line);
+  border-radius: 0;
+  background: none;
+  color: var(--page-fg);
+  font-family: var(--reader-font-lead, var(--reader-font-stack));
+  font-size: var(--reader-size, 18px);
+  text-align: left;
+}
+
+.toc-rows button:hover {
+  border-color: var(--page-line);
+  color: var(--page-accent);
+}
+
+/* Depth below the book's shallowest heading, said with the left edge - a
+   book written all in h2 stands flat. */
+.toc-rows button[data-depth="1"] {
+  padding-left: 1.1rem;
+}
+
+.toc-rows button[data-depth="2"] {
+  padding-left: 2.2rem;
+}
+
+/* Where the reading stands: weight as well as colour, because on e-ink the
+   accent flattens toward the text. */
+.toc-rows button[aria-current="true"] {
+  color: var(--page-accent);
+  font-weight: 600;
+}
+
+/* --- search in the document (D119): the TOC dialog's dress on a form and
+   a list of hits --- */
+
+/* The form under the header, in the filter line's own clothes. */
+.search-form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--page-line);
+}
+
+.search-form input {
+  flex: 1 1 auto;
+  min-height: 44px;
+  min-width: 0;
+  font: inherit;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--page-border);
+  background: transparent;
+  color: var(--page-fg);
+}
+
+.toc-dialog .search-status {
+  margin: 0.6rem 1rem 0;
+}
+
+/* A part heading between rows: where a book's hits cross into another part
+   or chapter. Quiet - the rows under it are the news. */
+.search-part {
+  margin: 0.7rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--page-accent);
+}
+
+/* The phrase inside its snippet: weight, not colour - colour alone dies on
+   an e-ink panel's greys. */
+.search-rows button b {
+  font-weight: 700;
+}
+
+/* --- search through the reading list (D119): the checkbox line under the
+   filter, and the results standing where the rows stand --- */
+
+/* The checkbox alone: its Search button stood at this line's far end until
+   2026-09-03 and went unseen there, between the field and Select (Michał's
+   screenshots); it stands at the field's end now (`.filter-line`). */
+.search-line {
+  display: flex;
+  align-items: center;
+}
+
+/* A finger of height for the checkbox and its words, like every touch
+   target on this page. */
+.search-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 44px;
+}
+
+/* --- the selection (D152): the list's line over the rows, the bar that
+   stands in its place inside the mode, and the rows wearing boxes --- */
+
+/* The list's own line: the filter's count on the left when there is one,
+   the Select button on the right. A line of its own, apart from the filter
+   and the search line - beside the filter the button read as the search's
+   own (Michał's smoke, 2026-08-29). The count is a hint by voice, not by
+   place: as a flex item it would take the hint's top margin as a real one. */
+.list-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.25rem 0 0;
+}
+
+.list-tools .hint {
+  margin: 0;
+}
+
+/* A quiet link at the line's right end: the highlights page's way down to
+   its export (D152/D153) - the reading list's fold-row anchor, on the tools
+   line, at the same finger of height. */
+.quiet-link {
+  display: inline-flex;
+  align-items: center;
+  margin-inline-start: auto;
+  min-height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.quiet-link:hover,
+.quiet-link:focus-visible {
+  color: var(--page-accent);
+}
+
+/* The glyph beside its word, and the right end of the line whether or not
+   the count stands on the left. */
+.pick-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-inline-start: auto;
+  min-height: 44px;
+  padding: 0.35rem 0.8rem;
+  white-space: nowrap;
+}
+
+/* Inside the selection, its bar: Select all, the count, and the cross
+   that closes it, where the Select button stood. Framed and washed a
+   shade, so the mode is seen to be a mode and not a line of hints; the
+   wash is the page's own ink, not the accent - the accent is what a
+   ticked row wears below, and the bar must not compete with it. Wraps on
+   a phone rather than run off its edge: the count steps down a line. In
+   the flow, where the Select line stood, and it scrolls away with the
+   rows: not a second stuck strip under the page's bar (D219 - the bar
+   and the selection's bar together would be a lot of chrome over a
+   list), and with no stacking of its own it passes under the stuck bar
+   like every row. */
+.pick-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 0.75rem;
+  margin: 0.25rem 0 0;
+  padding: 0 0.25rem 0 0.6rem;
+  border: 1px solid var(--page-line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--page-fg) 4%, transparent);
+}
+
+.pick-bar .hint {
+  margin: 0;
+  margin-inline-start: auto;
+}
+
+/* The cross in the note's dress: quiet at rest, a 44px hit box, the page's
+   ink on hover and on the keyboard. */
+.pick-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.35rem;
+  border-color: transparent;
+  color: var(--page-muted);
+}
+
+.pick-close:hover,
+.pick-close:focus-visible {
+  border-color: var(--page-border);
+  color: var(--page-fg);
+}
+
+/* A row in the selection: box | text, the Delete column gone with the act
+   it served - the mode is for choosing, and a Delete beside every box is
+   one mis-tap from a loss. The box sits centred on the title's first line,
+   whatever type size the reader chose; the whole text cell is its label,
+   so a finger has the row to aim at, not the box. */
+.library-row-pick {
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 0.75rem;
+  /* The box stands in from the row's edge by the bar's own padding and
+     border, so the rows' boxes line up under the Select all box - and the
+     ticked row's wash has air before the box instead of an edge on it
+     (Michał's second smoke). A little air at the far end too. */
+  padding-inline: calc(0.6rem + 1px) 0.5rem;
+}
+
+.library-row-pick > .library-text {
+  grid-column: 2;
+}
+
+/* Two classes deep on purpose: the page's own `input[type="checkbox"]`
+   rule zeroes every box's margin, and a single class loses to it - the
+   box then sat on the row's top rule (Michał's smoke, 2026-08-29). */
+.library-row-pick > .library-pick {
+  align-self: start;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: calc(0.7rem + (var(--reader-size, 18px) * 1.45 - 1.15rem) / 2);
+}
+
+/* The title as a label toggles on a press and, unlike the button it stands
+   in for, would select its words on a long one - refused, the way the
+   article's own title is a button and not a passage. */
+.library-row-pick .library-open {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* The keyboard's ring around the row, the article rows' own rule: the
+   target it marks is the cell the label stretches over, not the box. */
+.library-pick:focus-visible {
+  outline: none;
+}
+
+.library-row:has(.library-pick:focus-visible) {
+  background: color-mix(in srgb, var(--page-fg) 5%, transparent);
+  outline: 2px solid var(--page-accent);
+  outline-offset: -2px;
+}
+
+/* A ticked row says so with a wash of the accent, not the tick alone: the
+   tick is small, and on e-ink a filled box and an empty one are two greys
+   a glance apart. After the focus rule, so a ticked row keeps its wash
+   under the ring - the tick is the state, the ring only where the keys
+   are. */
+.library-row:has(.library-pick:checked) {
+  background: color-mix(in srgb, var(--page-accent) 10%, transparent);
+}
+
+.search-snippets {
+  margin-top: 0.15rem;
+}
+
+/* A snippet is a quiet row inside its result: full width, the page's own
+   ink, the bold phrase inside as the news. The words are the text's own,
+   so they wear the reading face - at a glance's size, not the reading
+   size: context, not content. The left edge is the resting affordance -
+   these lines are doors, and on e-ink there is no hover to say so. */
+.search-snippet {
+  display: block;
+  width: 100%;
+  padding: 0.3rem 0 0.3rem 0.6rem;
+  border: none;
+  border-left: 2px solid var(--page-line);
+  border-radius: 0;
+  background: none;
+  color: var(--page-fg);
+  text-align: left;
+  font-family: var(--reader-font-lead, var(--reader-font-stack));
+  font-size: 0.95rem;
+}
+
+.search-snippet:hover {
+  border-left-color: var(--page-accent);
+  color: var(--page-accent);
+}
+
+.search-snippet b {
+  font-weight: 700;
+}
+
+.search-more-hits {
+  color: var(--page-accent);
+}
+
+.search-more-line {
+  margin: 0.75rem 0;
+}
+
+/* --- the note dialog (D118): the TOC dialog's dress on a small form --- */
+
+/* Anchored near the top rather than centred, and capped in dvh: the box a
+   rising phone keyboard can never reach (Firefox shrinks the layout
+   viewport for the keys by default, Chromium does on the viewport meta's
+   `interactive-widget`), and on a desktop a form this small reads fine
+   high on the page. The open box is a column so the textarea can take the
+   spare height and give it back when the cap bites. */
+.note-dialog {
+  width: min(26rem, calc(100vw - 2rem));
+  margin: 4dvh auto auto;
+  max-height: 88dvh;
+  padding: 0;
+  border: 1px solid var(--page-line);
+  border-radius: 6px;
+  background: var(--page-bg);
+  color: var(--page-fg);
+}
+
+.note-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.note-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* When the cap bites, the words yield and the frame stands: only the box
+   of text shrinks - the header, the quote line and the acts keep their
+   height, so Save and Cancel are on screen for as long as the dialog is. */
+.note-dialog .toc-head,
+.note-quote,
+.note-acts {
+  flex-shrink: 0;
+}
+
+/* The words being annotated, clamped to a glance - context, not content -
+   in the reading face (they are the text's words, in a dialog that is
+   otherwise interface) at a glance's size, with the mark's own ink on the
+   leading edge, the quote rows' stripe, so the dialog visibly belongs to
+   the mark it opened over. */
+.note-quote {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin: 0.8rem 1rem 0;
+  padding-inline-start: 0.65rem;
+  border-inline-start: 3px solid var(--page-line);
+  color: var(--page-muted);
+  font-family: var(--reader-font-lead, var(--reader-font-stack));
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.note-quote[data-color="yellow"] {
+  border-inline-start-color: var(--reader-marker-yellow);
+}
+.note-quote[data-color="green"] {
+  border-inline-start-color: var(--reader-marker-green);
+}
+.note-quote[data-color="blue"] {
+  border-inline-start-color: var(--reader-marker-blue);
+}
+.note-quote[data-color="pink"] {
+  border-inline-start-color: var(--reader-marker-pink);
+}
+
+/* The box itself keeps the interface face: what is typed here is a comment,
+   not the article, and the smaller sans says so while staying readable.
+   Script grows its height to the words it holds (`sizeNoteBox`) - an
+   existing note opens whole, not through a five-line slot (Michał's
+   report) - and the flex shrink hands the height back when the dialog's
+   cap bites, the scrollbar returning only then. The floor is the old five
+   rows. */
+.note-text {
+  flex: 0 1 auto;
+  min-height: 7.5em;
+  margin: 0.8rem 1rem 0;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--page-border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--page-fg);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  overflow-y: auto;
+  resize: vertical;
+}
+
+.note-acts {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.8rem 1rem;
+}
+
+/* Save wears the held-state pill: the one press the dialog exists for. */
+.note-save {
+  border-color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 12%, transparent);
+}
+
+/* --- the transfer section: import and export, under the list --- */
+
+/* Its own quiet area below the pager, reached by the anchor beside the fold;
+   the scroll margin keeps the landing heading off the stuck bar's line (the
+   root's scroll padding, page.css - D219). No rule
+   of its own: the list's last row already ends in a line, and a second one
+   floating here read as a leftover (Michał, 2026-08-16) - distance alone does
+   the parting. With no border between them, this margin collapses with the
+   heading's, so it carries the whole former gap by itself. */
+.transfer-section {
+  margin-top: 3rem;
+  scroll-margin-top: 0.75rem;
+}
+
+/* A small heading: this is a tool shed, not a second page. */
+.transfer-section h2 {
+  margin: 1rem 0 0.25rem;
+  font-size: 1.05rem;
+}
+
+/* On a phone the backup pair shares the line edge to edge, like every paired
+   row of buttons here; the media query below gives them their own width. */
+.transfer-section > .transfer button {
+  flex: 1 1 0;
+}
+
+/* --- the article's bar: the acts on this article --- */
+
+/* At the bar's size, a step under the page's interface: quiet acts over a
+   text, in the chrome's voice. */
+.reader-actions {
+  margin-bottom: 1.75rem;
+  font-size: 0.85rem;
+}
+
+/* The line back to the list, dressed as the link it behaves as: the drawn
+   arrow with the list's name, muted until asked, no frame - the buttons
+   above it carry the acts, this only carries the reader away. Under the
+   article's last line alone since D102: mid-article the same way back
+   stands in the stuck bar. */
+.reader-return {
+  margin: 0 0 0.25rem;
+}
+
+.reader-return button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0.35rem 0;
+  border: none;
+  background: none;
+  color: var(--page-muted);
+}
+
+.reader-return button:hover {
+  color: var(--page-accent);
+  text-decoration: underline;
+}
+
+/* The article's own acts, dressed like the list's quiet actions: no resting
+   border, muted, a 44px hit box. A label never breaks inside - on a narrow
+   screen the row wraps whole buttons instead. The negative start margin gives
+   the first button's padding (and transparent border) back to the column, on
+   every wrapped line: the row's first label starts on the same left edge as
+   the way back above it and the title below it, while the hit boxes keep
+   their full size reaching into the gutter. */
+.article-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-inline-start: calc(-0.8rem - 1px);
+}
+
+.article-actions button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.35rem 0.8rem;
+  border-color: transparent;
+  color: var(--page-muted);
+  white-space: nowrap;
+}
+
+.article-actions button:hover,
+.article-actions button:focus-visible {
+  border-color: var(--page-border);
+  background: color-mix(in srgb, var(--page-fg) 6%, transparent);
+  color: var(--page-fg);
+}
+
+/* Under the last line the act wears its frame at rest: up top a bare word
+   sits in a row of controls, but after an article's end it would read as a
+   stray word - least of all like a button on paper screens, which have no
+   hover to reveal one. Before the pressed rule, so a marked article still
+   turns this button into the pill. */
+.reader-actions-end .article-actions button {
+  border-color: var(--page-border);
+  color: var(--page-fg);
+}
+
+/* A held state (saved, marked read) is a pill, not an act: the accent as a
+   border and a wash behind the page's own text color - the tabs' treatment,
+   readable in all four themes where accent-colored text is not, and the only
+   frame any of these buttons wears at rest. After the hover rule, so a
+   pressed button keeps saying what is true under the pointer. */
+.article-actions button[aria-pressed="true"] {
+  border-color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 12%, transparent);
+  color: var(--page-fg);
+}
+
+/* A delete asking "Sure?" - the second press is the confirmation (there is no
+   modal and no undo timer). The accent frames and fills the asking button
+   while the text keeps the page's own color: readable in all four themes.
+   Last, so the armed state outranks the quiet hovers above. */
+button[data-armed],
+.library-delete[data-armed],
+.library-delete[data-armed]:hover,
+.library-delete[data-armed]:focus-visible,
+.article-actions button[data-armed],
+.article-actions button[data-armed]:hover,
+.article-actions button[data-armed]:focus-visible {
+  border-color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 12%, transparent);
+  color: var(--page-fg);
+}
+
+/* --- the two acts of finishing, under the article's last line --- */
+
+/* The rule overhead mirrors the line under the bar at the top of the page:
+   the article has ended, the interface resumes. The body's own bottom
+   padding is all the room the page end needs. */
+.reader-actions-end {
+  margin: 3rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--page-line);
+}
+
+/* A framed button aligns by its frame, not its label: the negative start
+   margin that pulls the quiet row's padding into the gutter up top would
+   push a drawn border out of the column down here. */
+.reader-actions-end .article-actions {
+  margin-inline-start: 0;
+}
+
+/* The finishing order: the mark first, the way out hanging under it. */
+.reader-actions-end .reader-return {
+  margin: 0.5rem 0 0;
+}
+
+/* --- the toolbar of a tapped mark (D107) --- */
+
+/* The strip itself is dressed by `.speech-bar` below - same spot, same
+   paper, same button manners. What is its own: the swatch group holds its
+   buttons shoulder to shoulder (four inks read as one control), and the
+   copy button shows exactly one of its two glyphs - the check stands in for
+   the copy sheet for a beat after a successful copy, because on a narrow
+   screen the label is clipped and the glyph is the only place feedback can
+   live. */
+.mark-inks {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* On the bar the swatch is the whole glyph of its button, so it holds the
+   size of the transport icons it stands among, not the Aa panel's. */
+.mark-inks .marker-swatch {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+#mark-copy .icon-copied,
+#mark-copy[data-copied] .icon-copy {
+  display: none;
+}
+
+#mark-copy[data-copied] .icon-copied {
+  display: inline-block;
+}
+
+/* The chosen ink needs more than the row's hairline accent border: the
+   swatch fills the button, so a border-colour change reads as nothing
+   (Michał's report from 0.4.7). A ring outside the frame says "this one" at
+   a glance, in the Aa panel and on the mark toolbar alike - drawn as a
+   shadow so no box changes size, and dark enough to survive e-ink.
+
+   The underline's weights joined them (D133, Michał's report from a Boox Page
+   at 0.5.3): a row of drawn swatches has no word to carry the accent into, so
+   the border colour is the whole of what a panel of sixteen greys has to tell
+   the chosen one by - and it tells it nothing. The rule is the swatch rows',
+   not the panel's: Theme, Type and Links say which one is on with their own
+   words in the accent, and a ring around a word would be shouting. */
+#marker-color-choices button[aria-pressed="true"],
+#underline-choices button[aria-pressed="true"],
+.mark-inks button[aria-pressed="true"] {
+  box-shadow: 0 0 0 2px var(--page-accent);
+}
+
+/* The toolbar's own glyphs step up beyond the transport icons' desktop size
+   (Michał's report: copy and bin read as specks - the same report the
+   transport icons once got). The rule stands outside the media query, so it
+   is the bar's size at every width; the swatches beside them already hold
+   this line. */
+.mark-bar .reader-icon {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+/* Seven controls on one phone line, in the header's own dress. The first
+   cut (0.4.20, from a 360px viewport) kept the 44px floors and only cut
+   the air, and that held until Firefox for Android's font-size setting:
+   a full zoom, not a text zoom (`browser.display.os-zoom-behavior` is 1
+   by default: the OS font scale "affects full zoom - dpi, effectively"),
+   so at 125% the pixel grows with the rem, the row on a Pixel 8a is 329
+   CSS px wide, and seven 44px buttons do not fit whatever the air. The bin wrapped under the row again, and the ring around a swatch
+   stood a size larger than the bar's buttons in the header (Michał's
+   report, 2026-09-05). So the buttons take the header tools' floors -
+   2.4rem by 2.1rem, the narrow dress of #marker and its siblings - and
+   read as one family with them; the glyphs keep their size inside. Below
+   that they give way before they wrap: the preferred width is the floor,
+   and a row too narrow even for that shrinks each toward its glyph
+   (`min-width: auto`, the content's own minimum) before anything drops
+   to a second line. The desktop breakpoint below hands the 44px floors
+   back with the labels. Both classes in the selector on purpose: the
+   `.speech-bar` dress is written LATER in this file, and at equal
+   specificity later wins - the first cut lost exactly that way (0.4.20:
+   the tightening never applied). */
+.speech-bar.mark-bar {
+  gap: 0.25rem;
+  padding: 0.4rem;
+}
+
+.speech-bar.mark-bar button {
+  flex: 0 1 2.4rem;
+  min-width: auto;
+  min-height: 2.1rem;
+  padding: 0.15rem 0.4rem;
+}
+
+/* The pins of the active mark: the platform selection-handle shape - a thin
+   stem the height of the line, a dot at the outer end - in the interface
+   accent, so the mark keeps its true ink (a wash over it read as a darker,
+   wrong colour). Pointer events pass through: a tap on a pin means the text
+   under it, and a press that travels from one is the handle's drag (D181) -
+   found by the script's own hit-test around the pin, not by the element,
+   which is what keeps the tap free. Level 0, like the badges below: over the text and its paint,
+   under the scrim (1) and the chrome, the panels and the bars (2) - a pin
+   or a badge that scrolled under the stuck bar painted over it and over
+   the open menu (Michał's report, 2026-08-29). */
+.mark-pin {
+  position: absolute;
+  z-index: 0;
+  width: 2px;
+  background: var(--page-accent);
+  pointer-events: none;
+}
+
+.mark-pin::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--page-accent);
+}
+
+.mark-pin-start::after {
+  top: -8px;
+}
+
+.mark-pin-end::after {
+  bottom: -8px;
+}
+
+/* The dot saying "this mark carries words" (D118), drawn into the note
+   glyph itself so it rides wherever the icon sits - over the sheet's
+   top-right corner, ringed in the paper so it reads as a badge and not a
+   blot. Hidden until the button says otherwise. */
+#mark-note .note-dot {
+  display: none;
+  fill: var(--page-accent);
+  stroke: var(--page-bg);
+  stroke-width: 1.4;
+}
+
+#mark-note[data-has-note] .note-dot {
+  display: inline;
+}
+
+/* The note badges standing in the article (D118): the footnote's spot at
+   the tail of a noted mark, each the door to its own note. Real buttons -
+   focusable, named - but dressed as marginalia: the accent's small sheet,
+   no frame. Absolute in page coordinates like the pins; unlike the pins
+   they take the tap. The box is far wider than the drawing - a thumb
+   target (Michał's ask after the first smoke), one size on every device
+   because the pointer media query lies on e-ink (D84) - while the glyph
+   stays a footnote; the halo shows the true reach only under hover or
+   focus. The named cost: the box can shade the first letters after the
+   mark, and a tap there means the note, not the word. Level 0 for the
+   pins' reason: the badges stand at the end of the body, so at the chrome's
+   own level they painted over the stuck bar and the open menu. */
+.mark-note-badge {
+  position: absolute;
+  z-index: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--page-accent);
+}
+
+.mark-note-badge .reader-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.mark-note-badge:hover,
+.mark-note-badge:focus-visible {
+  background: color-mix(in srgb, var(--page-accent) 12%, transparent);
+}
+
+/* --- the bar that steers the voice, for as long as there is one --- */
+
+/* Pinned to the bottom of the window: a thumb reaches it on a phone and on an
+   e-reader, and it stays where it was found however far the article scrolls.
+   Its own background, because it stands over text - and the page's, so it is
+   the same paper as the article rather than a panel floating above it.
+
+   Anchored by its TOP edge, not by `bottom: 0`, though the two mean the same
+   place on a desktop: Firefox for Android moves bottom-anchored fixed boxes
+   together with its dynamic toolbar (the D77 lesson, first paid by the
+   bubble), and this bar came up half sunk under the address bar (reported
+   from a Pixel, 2026-08-17). `100dvh` is the floor of the viewport as it is
+   right now - above the browser's bar while the bar stands, the glass's own
+   floor once it has slid away - so the strip follows the address bar down
+   and keeps its one visible row either way (Michał's second report: parked
+   on the small viewport's floor it read as a strip three rows tall). The
+   browser settles `dv*` when its bar finishes moving, not frame by frame;
+   for that beat the skirt below holds the paper. The transform hands the
+   bar's own height back, whatever that height is. */
+.speech-bar {
+  position: fixed;
+  inset-inline: 0;
+  top: 100dvh;
+  transform: translateY(-100%);
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  /* Spread across the width while the buttons are bare icons: a thumb aiming
+     at Stop should have nothing else within reach of a miss. They gather back
+     into the middle at the desktop breakpoint, where they carry their words. */
+  justify-content: space-evenly;
+  gap: 0.25rem 0.4rem;
+  padding: 0.4rem 0.6rem;
+  border-top: 1px solid var(--page-border);
+  background: var(--page-bg);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+}
+
+/* The strip the browser's toolbar vacates while `dvh` has not caught up
+   with it (see `top` above): for that beat the bar still stands a step
+   high, and this much of the page's own paper keeps the article from
+   showing through the gap beneath it. Zero on a desktop, where the large
+   and the small viewport are one height. */
+.speech-bar::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  inset-inline: 0;
+  height: calc(100lvh - 100svh);
+  background: var(--page-bg);
+}
+
+/* The last lines of the article stay readable while a bar is up - the
+   voice's or the mark's, both live at the foot of the window - so the page
+   gives that much back: one row's worth, which is what either bar is at
+   every width now that the words step aside on a narrow screen. `:has`
+   rather than a class set by script, the way the reading list already
+   switches the column width. */
+body.reader:has(#speech-bar:not([hidden])),
+body.reader:has(#mark-bar:not([hidden])) {
+  padding-bottom: 4.5rem;
+}
+
+/* Icon-only on a narrow screen means the icon IS the button: at 1.15em the
+   transport glyphs were specks inside their 44px targets (reported from a
+   phone). The words come back at the desktop breakpoint below, and there the
+   glyphs step down to sit beside them. */
+.speech-bar .reader-icon {
+  width: 1.7em;
+  height: 1.7em;
+}
+
+/* These four are the point of the bar, so unlike the article's quiet actions
+   they wear the page's full text colour - but still no resting frame, which
+   would draw four boxes under an article somebody is listening to. */
+.speech-bar button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.35rem 0.7rem;
+  border-color: transparent;
+  white-space: nowrap;
+}
+
+/* The words step aside on a phone (reported from a Pixel: four labelled
+   buttons wrapped onto two rows, and the second row took another slice of the
+   article with it). Clipped rather than removed, because the label *is* each
+   button's name: a screen reader and voice control still hear "Back", and the
+   icons are the transport symbols every player uses. The desktop breakpoint at
+   the end of this file puts the words back, where there is room for them. */
+.speech-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.speech-bar button:hover,
+.speech-bar button:focus-visible {
+  border-color: var(--page-border);
+  background: color-mix(in srgb, var(--page-fg) 6%, transparent);
+}
+
+/* One button, two states, both written out in the markup: the stylesheet
+   shows the icon that matches what pressing it would do, and the script only
+   ever moves the attribute and the word beside it. */
+.speech-bar[data-state="paused"] .icon-pause,
+.speech-bar:not([data-state="paused"]) .icon-play {
+  display: none;
+}
+
+/* --- the wide breakpoint: the same HTML, spread out for a desktop --- */
+
+@media (min-width: 600px) {
+  /* The transport buttons say what they do in words again: at this width the
+     four of them and their labels sit on one line with room to spare, gathered
+     in the middle rather than pushed to the corners of a wide window. */
+  .speech-bar {
+    justify-content: center;
+  }
+
+  .speech-label {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip-path: none;
+  }
+
+  /* Beside a word the glyph is an accent, not the whole button. */
+  .speech-bar .reader-icon {
+    width: 1.2em;
+    height: 1.2em;
+  }
+
+  /* Except the mark toolbar's, which hold their size at every width
+     (Michał's report: at the transport icons' desktop size the copy and
+     the bin read as specks beside the swatches). */
+  .mark-bar .reader-icon {
+    width: 1.5em;
+    height: 1.5em;
+  }
+
+  /* With the labels back the mark bar breathes like the transport again -
+     the tight phone dress above was only ever about one line of seven -
+     and its buttons stand on the transport's 44px floors. The doubled
+     selector again: it must outweigh its own base rule. */
+  .speech-bar.mark-bar {
+    gap: 0.25rem 0.4rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .speech-bar.mark-bar button {
+    flex: none;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.35rem 0.7rem;
+  }
+
+  /* The tabs keep their own width instead of splitting the line. */
+  .library-segments button {
+    flex: none;
+  }
+
+  .transfer-section > .transfer button {
+    flex: none;
+  }
+}
+
+/* --- the colophon, only where a room of ours ends --- */
+
+/* The reading list and the highlights end in our own rows and close like
+   any page of this extension (the line lives in reader.html, its dress in
+   page.css); the document view is somebody else's text, and the room
+   disappears around it - no maker's mark under an article. Hidden rather
+   than absent, so one footer serves every view without script moving it. */
+body.reader .page-end {
+  display: none;
+}
+
+body.reader[data-view="list"] .page-end,
+body.reader[data-view="marks"] .page-end {
+  display: block;
+}

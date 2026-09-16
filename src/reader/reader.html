@@ -1,0 +1,1705 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- `interactive-widget` makes Chromium on Android shrink the layout
+         viewport when the on-screen keyboard rises, the way Firefox does by
+         default - so the note dialog's dvh-capped box, and Save under it,
+         stay above the keys (D118). Ignored everywhere else. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, interactive-widget=resizes-content"
+    />
+    <title data-i18n="reader_title">re/read - reader</title>
+    <!-- The tab's icon. Chrome takes it from the manifest for every page of an
+         extension; Firefox takes it from nowhere but a link like this one, and
+         shows the generic globe without it (test/tab-icon.test.js). -->
+    <link rel="icon" href="../assets/icons/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/page.css" />
+    <link rel="stylesheet" href="reader.css" />
+    <!--
+      The same one file that goes onto every page being read: the underline
+      under a saved phrase has to look identical here, and one stylesheet is how
+      that stays true without anybody remembering to change two.
+    -->
+    <link rel="stylesheet" href="../content/highlight.css" />
+  </head>
+  <body class="reader">
+    <!-- The English here is the fallback: `localizePage` swaps every marked
+         text for the catalogue's language before anything renders. -->
+    <!--
+      The bar and the two panels it opens, held in one box so they can stand
+      still together: the box is stuck to the top of the window in every
+      view (`.page-chrome`, assets/page.css - the box every page of this
+      extension wears since D219). Over an article, because what it holds
+      is wanted mid-article - the way back to the list at the leading edge
+      (D102), the voice that starts from the first sentence still on
+      screen, which a button that scrolled away with the top of the page
+      could never mean, and the menu to everywhere else (D93). Over the
+      list and the highlights for the reason every page got it: a long
+      list scrolled to its end kept the menu a page away. The ribbon that
+      folds the bar away stays the article view's alone (reader.css).
+    -->
+    <!-- The page dimmed under an open panel (Michał's report, 2026-08-29: the
+         menu's rows read as lines of the article they stood over). Under the
+         chrome, over everything else; a press on it is a press outside the
+         chrome, which is what closes the panels. Shown by `setPanel`. -->
+    <div id="panel-scrim" class="panel-scrim" hidden></div>
+    <div class="reader-chrome page-chrome">
+      <header class="reader-bar page-bar">
+        <!-- The way out of an article, standing where every app puts it: the
+             leading edge of the bar that is stuck over the text - the row a
+             finished reader is looking at wherever the article let them go.
+             Drawn, not written (D102): the same back arrow every header on the
+             platform wears, with the destination as its accessible name. Only
+             in the article view - on the list there is nowhere back to go.
+             It steps back through the history entry a row press pushed, so the
+             browser's own Back means the same thing (see reader.js). -->
+        <button
+          type="button"
+          id="to-library"
+          class="reader-back"
+          title="Back to the reading list"
+          data-i18n-title="reader_back_to_list"
+          aria-label="Back to the reading list"
+          data-i18n-aria-label="reader_back_to_list"
+          hidden
+        >
+          <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path
+              d="M13.25 8H3.1M7.3 3.8 3.1 8l4.2 4.2"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <!-- The mark is also the way to the settings: on this page and on the
+             saved phrases it is the one thing standing in every view. The menu
+             holds the labelled door to the same place - the mark stays because
+             a quiet path costs nothing once it is known.
+             A button rather than a link: the press walks this tab to the
+             settings through the background (D139, D147 - the settings tab
+             raised if one already stands), with the marker that licenses the
+             arrow back set first. Its accessible name is what it does; the
+             visible word stays the brand. -->
+        <button
+          type="button"
+          id="brand"
+          class="reader-mark"
+          title="Settings"
+          data-i18n-title="settings"
+          aria-label="Settings"
+          data-i18n-aria-label="settings"
+        >
+          re/read
+        </button>
+        <!-- The tools span wears the shared class too (D221): the frame the
+             tools stand in, and the way a tool in hand is lit, are one rule
+             for every page's bar (`.page-tools`, page.css). -->
+        <span class="reader-tools page-tools">
+          <!--
+            The highlighter (D106): a pressed pen changes what the selection
+            gesture means - it draws a lasting mark instead of asking for a
+            translation - and pressing it again gives the gestures back.
+            A mode in the hand, never a setting: every article opens with the
+            pen away. Drawn for the reason the speaker is drawn; only in the
+            article view, like the speaker - the list has nothing to mark.
+          -->
+          <button
+            id="marker"
+            type="button"
+            aria-pressed="false"
+            title="Highlighter"
+            data-i18n-title="reader_marker"
+            aria-label="Highlighter"
+            data-i18n-aria-label="reader_marker"
+            hidden
+          >
+            <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M10.3 2.8 13.2 5.7 7.2 11.7H4.3V8.8z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M3 14.2h10"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+          <!--
+            Reading aloud starts here and is steered from the bar at the bottom of
+            the screen, which only exists while the voice is speaking (D87). The
+            button is drawn rather than written for the reason the bubble's
+            speaker is: one row of tools, six languages, and a speaker needs no
+            label to be understood.
+          -->
+          <button
+            id="listen"
+            type="button"
+            title="Read aloud"
+            data-i18n-title="reader_listen"
+            aria-label="Read aloud"
+            data-i18n-aria-label="reader_listen"
+            hidden
+          >
+            <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M2.5 6h2.6L8.6 3.1a.6.6 0 0 1 1 .46v8.88a.6.6 0 0 1-1 .46L5.1 10H2.5a.6.6 0 0 1-.6-.6V6.6a.6.6 0 0 1 .6-.6z"
+                fill="currentColor"
+              />
+              <path
+                d="M11.6 5.8a3.2 3.2 0 0 1 0 4.4M13.4 4a5.7 5.7 0 0 1 0 8"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+          <button
+            id="display"
+            type="button"
+            aria-expanded="false"
+            title="Text and voice"
+            data-i18n-title="reader_display_title"
+          >
+            Aa
+          </button>
+          <!-- The whole screen in one press (D195, Michał's ask for the
+               Boox): the browser's full screen (D180) from the bar, where
+               the browser has one to give and only where the bar has room
+               for one more tool (measured in `lib/fullscreen-tool.js`, the
+               one home of the tool every page wears since D220: a row that
+               would run past its edge loses it, a phone held upright
+               usually does). Two glyphs stand in the markup and the root's
+               `:fullscreen` shows the one that says what a press would do,
+               the menu row's manner; the name follows in the same module.
+               Before the menu, whose row does the same from the menu: a
+               view control belongs with the view controls, and the leading
+               edge is for the way back and the mark. In every view since
+               D220, the list's included, on every platform - and the press
+               leaves the bar standing: the ribbon alone folds it (until
+               D220 the press folded it too). -->
+          <button
+            id="fullscreen"
+            type="button"
+            title="Full screen"
+            data-i18n-title="reader_fullscreen"
+            aria-label="Full screen"
+            data-i18n-aria-label="reader_fullscreen"
+            hidden
+          >
+            <svg class="reader-icon fullscreen-enter" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <svg class="reader-icon fullscreen-exit" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M6 2.5V6H2.5M10 2.5V6h3.5M13.5 10H10v3.5M2.5 10H6v3.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <!-- The other pages of this extension, behind one drawn button: on a
+               phone the toolbar popup that used to be the only hallway is three
+               taps into the browser menu, and this bar is already here. Drawn
+               for the reason the speaker is - the three lines need no label to
+               be understood, and the accessible name says what they open. -->
+          <button
+            id="menu"
+            type="button"
+            aria-expanded="false"
+            title="Menu"
+            data-i18n-title="nav_menu"
+            aria-label="Menu"
+            data-i18n-aria-label="nav_menu"
+          >
+            <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M2.5 4.25h11M2.5 8h11M2.5 11.75h11"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </span>
+      </header>
+
+      <!-- The bookmark tab (Michał's design, after a mobileread request): a
+           ribbon hanging off the bar's far edge, the one hand on the bar's
+           visibility. A press folds the bar away and leaves the ribbon; a
+           press on the ribbon brings it back. Never a scroll - D93 stands:
+           on e-ink a bar that moved would flash, and a deliberate press is
+           one repaint. Article view only, like the pen - the list keeps its
+           whole chrome (reader.js shows it per view, the stylesheet folds
+           within the same scope). -->
+      <button
+        type="button"
+        id="chrome-tab"
+        class="chrome-tab"
+        aria-expanded="true"
+        title="Hide the bar"
+        data-i18n-title="reader_bar_hide"
+        aria-label="Hide the bar"
+        data-i18n-aria-label="reader_bar_hide"
+        hidden
+      >
+        <svg class="chrome-tab-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M4 9.8 8 6l4 3.8"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <!--
+        Written out here rather than built by script: what the reader can change
+        about its own appearance is a short, fixed list, and a list is easier to
+        read in the package than the code that would have produced it.
+      -->
+      <section
+        id="display-panel"
+        class="reader-panel"
+        hidden
+        aria-label="Text and voice"
+        data-i18n-aria-label="reader_display_title"
+      >
+        <div class="reader-setting">
+          <span class="reader-setting-name" data-i18n="reader_theme">Theme</span>
+          <span class="reader-choices" id="theme-choices">
+            <button type="button" data-theme="auto" data-i18n="reader_theme_auto">Auto</button>
+            <button type="button" data-theme="light" data-i18n="reader_theme_light">Light</button>
+            <button type="button" data-theme="sepia" data-i18n="reader_theme_sepia">Sepia</button>
+            <button type="button" data-theme="dark" data-i18n="reader_theme_dark">Dark</button>
+          </span>
+        </div>
+
+        <!-- The third choice (D163) stands for the font named in the
+             settings - that is where the name is typed, since a name is
+             typed once and this panel is for knobs turned mid-reading.
+             Hidden while no name is set (a choice of nothing), and wearing
+             the name itself as its title. Choosing a preset keeps the name
+             for the way back. -->
+        <div class="reader-setting">
+          <span class="reader-setting-name" data-i18n="reader_font">Type</span>
+          <span class="reader-choices" id="font-choices">
+            <button type="button" data-font="serif" data-i18n="reader_font_serif">Serif</button>
+            <button type="button" data-font="sans" data-i18n="reader_font_sans">Sans</button>
+            <button type="button" id="font-own" data-font="custom" data-i18n="reader_font_own" hidden>Custom</button>
+          </span>
+        </div>
+
+        <div class="reader-setting">
+          <span class="reader-setting-name" data-i18n="reader_size">Size</span>
+          <span class="reader-choices">
+            <button type="button" data-size="-1" title="Smaller" data-i18n-title="reader_smaller">&minus;</button>
+            <output id="size-value">18</output>
+            <button type="button" data-size="1" title="Larger" data-i18n-title="reader_larger">+</button>
+          </span>
+        </div>
+
+        <div class="reader-setting">
+          <span class="reader-setting-name" data-i18n="reader_width">Width</span>
+          <span class="reader-choices">
+            <button type="button" data-measure="-5" title="Narrower" data-i18n-title="reader_narrower">&minus;</button>
+            <output id="measure-value">65</output>
+            <button type="button" data-measure="5" title="Wider" data-i18n-title="reader_wider">+</button>
+          </span>
+        </div>
+
+        <!--
+          Whether links in the article answer a press (D95). Plain - the
+          default - keeps their words as ordinary text: the main gesture here
+          is selecting a phrase, and a live link under it turns a slightly
+          short hold into a navigation. The original stays one menu row away.
+        -->
+        <div class="reader-setting">
+          <span class="reader-setting-name" data-i18n="reader_links">Links</span>
+          <span class="reader-choices" id="links-choices">
+            <button type="button" data-links="plain" data-i18n="reader_links_plain">Plain text</button>
+            <button type="button" data-links="active" data-i18n="reader_links_active">Active</button>
+          </span>
+        </div>
+
+        <!--
+          What the highlighter draws in (D106): four inks, one chosen for the
+          whole pen - a global setting like everything in this panel. The
+          swatches show the actual wash of the theme on screen, so the choice
+          previews itself; the pressed one wears the panel's own accent
+          frame. Marks already made keep their ink.
+        -->
+        <div class="reader-setting">
+          <span class="reader-setting-name" data-i18n="reader_marker">Highlighter</span>
+          <span class="reader-choices" id="marker-color-choices">
+            <button type="button" data-marker-color="yellow" aria-label="Yellow" data-i18n-aria-label="color_yellow">
+              <span class="marker-swatch" data-swatch="yellow" aria-hidden="true"></span>
+            </button>
+            <button type="button" data-marker-color="green" aria-label="Green" data-i18n-aria-label="color_green">
+              <span class="marker-swatch" data-swatch="green" aria-hidden="true"></span>
+            </button>
+            <button type="button" data-marker-color="blue" aria-label="Blue" data-i18n-aria-label="color_blue">
+              <span class="marker-swatch" data-swatch="blue" aria-hidden="true"></span>
+            </button>
+            <button type="button" data-marker-color="pink" aria-label="Pink" data-i18n-aria-label="color_pink">
+              <span class="marker-swatch" data-swatch="pink" aria-hidden="true"></span>
+            </button>
+          </span>
+        </div>
+
+        <!--
+          How heavily a saved phrase is underlined (D130). Here for the
+          highlighter's reason - it is how a mark on text looks - but unlike
+          everything else in this panel it is worn by every page being read,
+          not only by this one: the reason to reach for it is a screen (an
+          e-ink panel rounds a thin faint rule back into the paper), and the
+          screen is the same on both sides of the reader. Each swatch is the
+          line it stands for, so the choice previews itself. The row is not
+          here at all with translation switched off (D120): nothing is
+          underlined then.
+        -->
+        <div class="reader-setting" id="underline-setting">
+          <span class="reader-setting-name" data-i18n="reader_underline">Underline</span>
+          <span class="reader-choices" id="underline-choices">
+            <button type="button" data-underline="fine" aria-label="Fine" data-i18n-aria-label="underline_fine">
+              <span class="underline-swatch" data-swatch="fine" aria-hidden="true"></span>
+            </button>
+            <button type="button" data-underline="medium" aria-label="Medium" data-i18n-aria-label="underline_medium">
+              <span class="underline-swatch" data-swatch="medium" aria-hidden="true"></span>
+            </button>
+            <button type="button" data-underline="strong" aria-label="Strong" data-i18n-aria-label="underline_strong">
+              <span class="underline-swatch" data-swatch="strong" aria-hidden="true"></span>
+            </button>
+          </span>
+        </div>
+
+        <!--
+          The two knobs of reading aloud (D87), here rather than only in the
+          settings because this is where they are used: the voice is chosen while
+          listening to it, and the speed is changed in the middle of a sentence
+          that went too fast. Both are the same stored settings the bubble's
+          speaker reads, so a choice made here holds everywhere. The rows are
+          hidden outright on a device whose browser cannot speak - an empty voice
+          select would be a promise nothing keeps.
+        -->
+        <div class="reader-setting" id="voice-setting" hidden>
+          <label class="reader-setting-name" for="voice-choice" data-i18n="reader_voice">Voice</label>
+          <span class="reader-choices">
+            <select id="voice-choice"></select>
+          </span>
+        </div>
+
+        <div class="reader-setting" id="rate-setting" hidden>
+          <span class="reader-setting-name" data-i18n="reader_speed">Speed</span>
+          <span class="reader-choices">
+            <button type="button" data-rate="-10" title="Slower" data-i18n-title="reader_slower">&minus;</button>
+            <output id="rate-value">1.0&times;</output>
+            <button type="button" data-rate="10" title="Faster" data-i18n-title="reader_faster">+</button>
+          </span>
+        </div>
+      </section>
+
+      <!--
+        The menu the bar's three lines open: the extension's other pages, as
+        the rows the popup already speaks in - and through the popup's own
+        doors, because each of those pages is one tab (`single-tab.js`), and a
+        page that navigated itself away would leave the tab registry naming a
+        tab that no longer shows it. The way to the original moved in here
+        from the bar: the rarest press on the bar was also its longest word,
+        and six languages of it decided the bar's width on a phone. The list
+        row only turns this page's own view, so it is the one row that stays
+        put; it hides on the list view - a hallway does not list the room it
+        stands in.
+      -->
+      <!-- The rows run from the nearest to the farthest (D117, order revised
+           by Michał 2026-08-18): inside the open text (its map, its quotes),
+           then this extension's own rooms (the phrases the reading feeds,
+           the list), the one door out of it, and the settings last - the
+           door every menu keeps at the bottom. -->
+      <nav id="menu-panel" class="nav-menu" hidden aria-label="Menu" data-i18n-aria-label="nav_menu">
+        <!-- The document's table of contents (D116/D117): the same dialog the
+             book pagers open, reachable here without scrolling to a pager -
+             this bar is stuck, the pagers are not. Hidden when the document
+             has no headings to list. -->
+        <button id="nav-toc" type="button" data-i18n="reader_book_toc" hidden>Contents</button>
+        <!-- Search inside the open text (D119): every document has it - the
+             map above only shows over one with headings. Hidden on the list
+             and highlights views, which have filters of their own. -->
+        <button id="nav-search" type="button" data-i18n="reader_search_title" hidden>
+          Search in text
+        </button>
+        <!-- The highlights page (D108). Over a document the row opens that
+             document's own quotes; over the list, everybody's. Like the
+             list row it hides in the room it names. -->
+        <button id="nav-marks" type="button" data-i18n="reader_marks_title">Highlights</button>
+        <button id="nav-vocabulary" type="button" data-i18n="saved_phrases">Saved phrases</button>
+        <button id="nav-library" type="button" data-i18n="reading_list" hidden>Offline reading list</button>
+        <a id="original" data-i18n="reader_open_original" hidden>Open the original</a>
+        <!-- The article's pictures (D145): the one row that reaches the
+             network, beside the other door to the article's servers. Over a
+             saved article whose text refers to pictures it offers to fetch
+             them; while it fetches it is the progress and the stop; with
+             pictures kept it removes them. The line under it says where the
+             pictures come from before the press, and how the press went
+             after. Filled by script; hidden over everything else. -->
+        <button id="nav-pictures" type="button" class="nav-row-hinted" hidden>
+          <span id="nav-pictures-label">Download pictures</span>
+          <span id="nav-pictures-hint" class="nav-hint" data-i18n="reader_pictures_hint">
+            Downloaded once from the article's own servers, without cookies, and kept with the
+            article on this device. After the download they are shown in the article.
+          </span>
+        </button>
+        <!-- The whole screen for the page (D180). Firefox for Android folds
+             its address bar only under a finger scrolling down, brings it
+             back with every scroll up, and never moves it for the page keys
+             an e-reader turns pages with - so the reader asks the browser
+             for the screen itself. Both labels stand in the markup and the
+             stylesheet shows the one that says what a press would do
+             (`:fullscreen` on the root, the speech bar's play-and-pause
+             manner); hidden where the browser has no full screen to give.
+             Next to the settings, not among the rooms: it is about the
+             window, not about what is read in it. -->
+        <button id="nav-fullscreen" type="button" hidden>
+          <span class="fullscreen-enter" data-i18n="reader_fullscreen">Full screen</span>
+          <span class="fullscreen-exit" data-i18n="reader_fullscreen_exit">Exit full screen</span>
+        </button>
+        <button id="nav-settings" type="button" data-i18n="settings">Settings</button>
+      </nav>
+
+      <!--
+        The page's one notice - a failed write, a page with no article, a
+        highlight that could not be painted (D151) - inside the chrome rather
+        than at the top of the page: in the article view the chrome is stuck,
+        so a sentence about what is on screen is read where the reader is and
+        not at a top they have scrolled away from. `chromeFold` measures the
+        box, so the landing arithmetic counts the notice in by itself.
+      -->
+      <div id="notice" class="note notice" hidden>
+        <p id="notice-text"></p>
+        <!-- The act a sentence may offer under itself (D151, after Michał's
+             smoke): today the one the landing raises - the highlight whose
+             words the page no longer has, taken out right here, the trash
+             for it standing a trip away otherwise. Armed like every Delete
+             of this page; hidden under every other sentence. -->
+        <button type="button" id="notice-act" class="notice-act" data-act="remove-mark" hidden></button>
+        <!-- Every notice closes: stuck in the chrome, a sentence with no
+             door would sit over the text for the whole read. -->
+        <button
+          type="button"
+          id="notice-close"
+          class="notice-close"
+          title="Close"
+          data-i18n-title="close"
+          aria-label="Close"
+          data-i18n-aria-label="close"
+        >
+          <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path
+              d="M4.25 4.25l7.5 7.5M11.75 4.25l-7.5 7.5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <main id="page">
+      <!-- What a private window sees (`private-note.js`): its own, empty
+           database, gone with the session. Filled and shown by script only
+           there; hidden everywhere else. First on the page, so an emptied
+           list explains itself before it is read wrongly. -->
+      <p id="private-note" class="note private-note" hidden></p>
+
+      <!--
+        The reading list: what the reader shows when it was not pointed at a
+        page. Rows are built by script from the articles database; everything
+        static about the view is written out here.
+      -->
+      <section id="library" hidden aria-labelledby="library-title">
+        <h1 id="library-title" data-i18n="reading_list">Offline reading list</h1>
+        <!-- Two halves of one list, said with pressed buttons rather than
+             tabs: the pattern the page already speaks (`aria-pressed`), and
+             the labels carry the whole segments' counts once the list is
+             read. -->
+        <div class="library-segments" id="library-segments">
+          <button type="button" data-segment="unread" aria-pressed="true" data-i18n="reader_segment_unread">
+            To read
+          </button>
+          <button type="button" data-segment="read" aria-pressed="false" data-i18n="reader_segment_read">
+            Read
+          </button>
+        </div>
+        <!-- The offline promise, folded behind one line the way the phrases
+             page folds its intro: there to unfold on the first visit, quiet
+             on every one after. Its line ends in a quiet anchor: the transfer
+             section lives under the list, and this link is how it is found
+             without scrolling past fifty rows. The link names both things
+             the section takes, because one of them (a book) is not obvious
+             from "import and export" alone. -->
+        <div class="fold-row">
+          <details class="fold-line">
+            <summary data-i18n="reader_how_title">How it works</summary>
+            <p class="hint" data-i18n="reader_library_note">
+              Everything here is a text copy: web articles you opened in the reading view and
+              deliberately saved, and the articles and .epub files you imported with Import below.
+              They all open without a connection and stay on your device, even if the original
+              page goes away.
+            </p>
+          </details>
+          <a href="#transfer" data-i18n="reader_transfer_link">Import and export (backup or EPUB)</a>
+        </div>
+        <!-- The search line above the list (D173, Michał's call 2026-09-03):
+             the field asks, the press answers. Nothing narrows the list
+             while the words are typed - the button at the field's end (or
+             Enter, or a phone keyboard's search key) applies them, over the
+             titles and sites alone or, with the box below ticked, over the
+             saved texts too; and the box flips the scope of the results
+             already on screen. Until D173 the field filtered titles live
+             and the button appeared with the box, so a ticked box could
+             stand over a list that had never been asked about the texts
+             (Michał's screenshots). A button beside a field reads as that
+             field's own - the document dialog's form is the same shape -
+             which is also why Select stays off this line (D152). The button
+             is lit while the field holds words the list was not narrowed by
+             and greyed while a press would do nothing; an emptied field
+             brings the whole list back by itself. Adding a book used to
+             have its own button here (O19); it lives in the Import button
+             below now (Michał's call, 2026-08-16) - one door for every file,
+             and the file itself says which kind it is. -->
+        <div class="filter-line">
+          <label for="library-filter" class="visually-hidden" data-i18n="reader_filter_label">
+            Search the reading list
+          </label>
+          <input
+            type="search"
+            id="library-filter"
+            placeholder="Search by title or site"
+            data-i18n-placeholder="reader_filter_placeholder"
+          />
+          <button type="button" id="library-search-go" data-i18n="reader_search_go" disabled>
+            Search
+          </button>
+        </div>
+        <!-- The deeper search (D119): with the box ticked, the press scans
+             the saved texts themselves for the typed phrase - never per
+             keystroke: this reads whole books. -->
+        <div class="search-line">
+          <label class="search-toggle">
+            <input type="checkbox" id="library-search-toggle" />
+            <span data-i18n="reader_library_search_toggle">Search in the texts too</span>
+          </label>
+        </div>
+        <!-- What the deeper search found, standing where the rows stand:
+             rows whose own words match first (known before any text is
+             read), then the texts' hits batch by batch, with the way to the
+             next portion under them. Rows are built by script; titles and
+             snippets enter as text only. -->
+        <section id="library-search" hidden aria-labelledby="library-title">
+          <p class="hint search-status" id="library-search-status" hidden></p>
+          <ul id="library-search-rows" class="library-rows"></ul>
+          <p class="search-more-line" id="library-search-more-line" hidden>
+            <button type="button" id="library-search-more" data-i18n="reader_search_more">
+              Search further
+            </button>
+          </p>
+        </section>
+        <!-- The list's own line over the rows (D152): the filter's count on
+             the left while there is one, and on the right the door into the
+             selection - a mode in which the rows wear boxes and the export
+             takes what is ticked. A line of its own, apart from the filter
+             and the search: beside the filter the button read as the
+             search's own (Michał's smoke, 2026-08-29). The ticks are dropped
+             on the way out. The glyph is a list with empty boxes: a ticked
+             box read as a state already reached, not an act to take (his
+             second smoke). -->
+        <div class="list-tools">
+          <p class="hint" id="library-count" hidden></p>
+          <button type="button" id="library-pick" class="pick-toggle">
+            <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <rect
+                x="2"
+                y="2.5"
+                width="4.5"
+                height="4.5"
+                rx="1"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+              />
+              <path d="M9 4.75h5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+              <rect
+                x="2"
+                y="9"
+                width="4.5"
+                height="4.5"
+                rx="1"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+              />
+              <path d="M9 11.25h5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+            </svg>
+            <span data-i18n="reader_pick_start">Select</span>
+          </button>
+        </div>
+        <!-- Inside the selection, its bar stands where the line above stood:
+             Select all over the rows the tab and the filter leave - every
+             page of them, in three states - how many articles are ticked in
+             all, across tabs, filters and pages, and the cross that closes
+             the selection: the page's one glyph for closing a thing
+             (dialogs, notes), on the spot the Select button held, so the
+             way out is where the way in was. Filled by script. -->
+        <div class="pick-bar" id="library-pick-line" hidden>
+          <label class="search-toggle">
+            <input type="checkbox" id="library-pick-all" />
+            <span data-i18n="reader_pick_all">Select all</span>
+          </label>
+          <span class="hint" id="library-pick-count"></span>
+          <button
+            type="button"
+            id="library-pick-close"
+            class="pick-close"
+            title="Close the selection"
+            data-i18n-title="reader_pick_close"
+            aria-label="Close the selection"
+            data-i18n-aria-label="reader_pick_close"
+          >
+            <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M4.25 4.25l7.5 7.5M11.75 4.25l-7.5 7.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+        <div id="library-empty" class="empty" hidden></div>
+        <ul id="library-rows" class="library-rows"></ul>
+        <!-- The shared pager (page.css): a drawn chevron at each end with its
+             word beside it. Under a phone's width the word steps aside and
+             the chevron is the button, the transport bar's way - the word
+             stays the button's name. The highlights' pager, the book's two
+             and the saved phrases page's are this markup again. -->
+        <nav class="pager" id="library-pager" hidden>
+          <button type="button" id="library-prev">
+            <svg class="pager-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M10.1 3.8 5.9 8l4.2 4.2"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="pager-word" data-i18n="pager_prev">Previous</span>
+          </button>
+          <span class="pager-label" id="library-page-label"></span>
+          <button type="button" id="library-next">
+            <span class="pager-word" data-i18n="pager_next">Next</span>
+            <svg class="pager-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M5.9 3.8 10.1 8l-4.2 4.2"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </nav>
+        <!-- Import and export, after the list the way the acts themselves come
+             after the reading: visiting them is a decision, not a toll on the
+             way to the rows, and the anchor above is the short way here.
+             One Import button takes both kinds of file (Michał's call,
+             2026-08-16): the picked file itself says whether it is the
+             list's .json backup or an EPUB book, so nobody has to know
+             which button their file deserves. The line under the buttons
+             says as much, ahead of the folded format details. -->
+        <section id="transfer" class="transfer-section" aria-labelledby="transfer-title">
+          <h2 id="transfer-title" data-i18n="transfer_heading">Import and export</h2>
+          <p class="transfer">
+            <button type="button" id="library-import" data-i18n="action_import">Import</button>
+            <button type="button" id="library-export" data-i18n="action_export">Export</button>
+            <!-- The pen's own export (D106) stood here as a third button
+                 until D152: it lives on the highlights page now, where the
+                 quotes are (Michał's call), and the format fold below points
+                 there. -->
+          </p>
+          <!-- The pictures kept with articles (D145) ride in the backup only
+               when asked: with them the file is a .zip - the same .json and
+               the pictures beside it - and it can be many times the size.
+               The row stands only while some article has pictures; the
+               label says how many and what they take. Filled by script. -->
+          <p class="hint transfer-option" id="library-export-pictures-row" hidden>
+            <label>
+              <input type="checkbox" id="library-export-pictures" />
+              <span id="library-export-pictures-label"></span>
+            </label>
+          </p>
+          <!-- The books (D218) ride in the backup only when asked, like the
+               pictures: the row stands while the list holds a book, and
+               its label says how many and what they take - text and
+               pictures. Unticked by default: the backup stays the light
+               file it was, and a reader who wants the books in it says
+               so. Not inside the selection, whose export is the list's own
+               file. Filled by script. -->
+          <p class="hint transfer-option" id="library-export-books-row" hidden>
+            <label>
+              <input type="checkbox" id="library-export-books" />
+              <span id="library-export-books-label"></span>
+            </label>
+          </p>
+          <!--
+            The moment of consent: what the picked file holds, quoted before
+            anything is written - and import only ever adds; the file's rules
+            live in `lib/store/articles-file.js`. Right under the buttons,
+            with the two report lines after it, ahead of the prose (D153):
+            what a press did must be said where the press was - under the
+            hints and the fold a report stood a screen away from the button
+            (Michał's smoke, 2026-08-29).
+          -->
+          <div id="library-import-confirm" class="import-confirm" hidden>
+            <p id="library-import-summary"></p>
+            <!-- The backup of everything (D213): one line per part the file
+                 holds, over the sample of titles, and under it the box that
+                 decides about the settings - both shown by script for a
+                 backup, hidden for the list's own file. -->
+            <ul id="library-import-parts" class="import-sample" hidden></ul>
+            <ul id="library-import-sample" class="import-sample"></ul>
+            <p class="hint transfer-option" id="library-import-settings-row" hidden>
+              <label>
+                <input type="checkbox" id="library-import-settings" checked />
+                <span data-i18n="reader_backup_settings_restore">Restore the settings too</span>
+              </label>
+            </p>
+            <p class="transfer">
+              <button type="button" id="library-import-run" data-i18n="action_import">Import</button>
+              <button type="button" id="library-import-cancel" data-i18n="action_cancel">Cancel</button>
+            </p>
+          </div>
+          <p id="library-transfer-status" class="status report" role="status"></p>
+          <!-- The book import speaks its own line: its progress ticks per
+               written part while the article import's reports stand still,
+               and the two must not overwrite each other mid-sentence. -->
+          <p id="book-import-status" class="status report" role="status"></p>
+          <!-- What Export writes, and the one thing it leaves out, said in the
+               open under the buttons: until 2026-09-13 only the folded format
+               details said that books are not in the backup, and a reader who
+               had just imported books could take Export for a backup of the
+               whole list (Michał). One list, no heading (his second polish):
+               the backup, the books, what Import takes, the way to a partial
+               export (D152, said where a reader about to press Export expects
+               the choice - the button that offers it stands fifty rows up).
+               Plain hints, not a framed note - a description, not a warning;
+               the bullets in the text's own ink, so they survive e-ink. -->
+          <ul class="hint transfer-notes">
+            <li data-i18n="reader_backup_scope">
+              The backup holds your articles with their highlights and reading positions, the saved phrases of every language pair, and the settings. Highlights made in books are in it too.
+            </li>
+            <li data-i18n="reader_backup_books_note">
+              Books are in the backup only when you tick "Export with books"; otherwise keep your .epub files - when you import the same book again and the backup after it, its highlights come back.
+            </li>
+            <li data-i18n="reader_transfer_accepts">
+              Import reads the file it is given: a re/read backup (.zip - or the older .json files of the list and of the highlights), or a book (.epub).
+            </li>
+            <li data-i18n="reader_transfer_pick">
+              To export only some of the articles or books, press Select above the list and tick them.
+            </li>
+          </ul>
+          <details class="fold-line">
+            <summary data-i18n="reader_format_title">File format</summary>
+            <!-- A glossary: each entry opens with its extension in bold, the
+                 one bold of the section, written here and not in the
+                 catalogues - a marked element holds text only. Only what
+                 the list above does not say: the import's merging rules and
+                 the settings box (two paragraphs of one entry, the way the
+                 settings page's "First steps" keeps its paragraphs), what a
+                 book becomes, and the notes file. -->
+            <ul class="hint transfer-notes">
+              <li>
+                <p>
+                  <strong>.zip</strong> -
+                  <span data-i18n="reader_transfer_note">
+                    Import only adds what is missing and never overwrites what is saved: an article already here keeps its copy, a saved phrase keeps its meanings and takes only a sentence it lacks or a higher count, a highlight already here is left out.
+                  </span>
+                </p>
+                <p data-i18n="reader_transfer_settings">
+                  The settings are restored only when you tick "Restore the settings too".
+                </p>
+              </li>
+              <li>
+                <strong>.epub</strong> -
+                <span data-i18n="reader_transfer_epub">
+                  the electronic book format. A book is stored as text and pictures, split into parts at import.
+                </span>
+              </li>
+              <li>
+                <strong>.md</strong> -
+                <span data-i18n="reader_transfer_marks">
+                  notes with the highlights of articles and books, exported from the Highlights page.
+                </span>
+              </li>
+            </ul>
+          </details>
+          <input
+            type="file"
+            id="library-import-file"
+            accept=".json,application/json,.zip,application/zip,.epub,application/epub+zip"
+            hidden
+          />
+        </section>
+      </section>
+
+      <!--
+        The highlights page (D108): every quote the highlighter has kept, as
+        one flat list - the whole library's from the list's menu, one
+        document's from that document's own. Rows are built by script from
+        the marks store dressed in the lists' titles; each one opens its
+        document at the quote itself, so the page is an index into the
+        reading, not a copy of it. The rows wear the reading list's own
+        dress, and the filter and pager are the list's pattern repeated.
+      -->
+      <section id="marks" hidden aria-labelledby="marks-title">
+        <h1 id="marks-title" data-i18n="reader_marks_title">Highlights</h1>
+        <!-- The scoped page says whose quotes these are; the global one
+             says it row by row instead. -->
+        <p class="hint marks-doc" id="marks-doc" hidden></p>
+        <div class="filter-line">
+          <label for="marks-filter" class="visually-hidden" data-i18n="reader_marks_filter_label">
+            Filter the highlights
+          </label>
+          <input
+            type="search"
+            id="marks-filter"
+            placeholder="Filter by quote or title"
+            data-i18n-placeholder="reader_marks_filter_placeholder"
+          />
+        </div>
+        <!-- The page's own line over the rows, the reading list's shape: the
+             filter's count on the left while there is one, and on the right
+             the way down to the export (D152/D153) - the button stands under
+             the rows, a page away once the list is long; the reading list's
+             fold-row anchor, on the tools line. An anchor, not a second
+             button: two exports on one page put the report under the bar,
+             a page from the lower button (Michał's smoke, 2026-08-29).
+             Hidden with nothing to write, as the button greys. -->
+        <div class="list-tools">
+          <p class="hint" id="marks-count" hidden></p>
+          <a href="#marks-transfer" class="quiet-link" id="marks-transfer-link" data-i18n="reader_export_marks" hidden>
+            Export highlights
+          </a>
+        </div>
+        <div id="marks-empty" class="empty" hidden></div>
+        <ul id="marks-rows" class="library-rows marks-rows"></ul>
+        <nav class="pager" id="marks-pager" hidden>
+          <button type="button" id="marks-prev">
+            <svg class="pager-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M10.1 3.8 5.9 8l4.2 4.2"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="pager-word" data-i18n="pager_prev">Previous</span>
+          </button>
+          <span class="pager-label" id="marks-page-label"></span>
+          <button type="button" id="marks-next">
+            <span class="pager-word" data-i18n="pager_next">Next</span>
+            <svg class="pager-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M5.9 3.8 10.1 8l-4.2 4.2"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </nav>
+        <!-- The transfer block under the quotes, here where the quotes are
+             (the reading list's transfer section offered the export too
+             until D152): the pen's notes export - the .md cut to this
+             page's documents, one document when the page is scoped - with
+             its report right under the press (D153) and the button greyed
+             with nothing to write. The highlights' own .json backup (D168)
+             stood here until D213: the highlights travel in the backup of
+             everything now, and the sentence above the export says so. -->
+        <div id="marks-transfer" class="marks-transfer">
+          <!-- Where the highlights' backup is since D213: in the backup of
+               everything, exported and imported on the reading list - for
+               books too. The page's own export below is the notes file. -->
+          <p class="hint" data-i18n="reader_marks_backup_elsewhere">
+            Highlights travel in the backup of everything, exported and imported on the reading list
+            - for books too.
+          </p>
+          <div class="marks-notes">
+            <p class="transfer">
+              <button type="button" id="marks-export" data-i18n="reader_marks_export_notes">
+                Export as notes (.md)
+              </button>
+            </p>
+            <p class="hint" data-i18n="reader_marks_notes_hint">
+              The .md file is a plain-text list of the quotes and notes, grouped by document - for
+              reading and for your own notes. It cannot be imported.
+            </p>
+            <p id="marks-notes-status" class="status report" role="status"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- A quote row's acts are cloned from these: the arrow that opens
+           the document at the mark (the back arrow's own stroke, pointing
+           onward), the bar's speaker reading the quote aloud, the mark
+           toolbar's copy pair - the copy, and the check it turns into for
+           a breath once the quote is on the clipboard - and the note sheet
+           opening the row's note (D118). -->
+      <template id="marks-open-icon">
+        <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M2.75 8H12.9M8.7 3.8 12.9 8l-4.2 4.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </template>
+
+      <template id="marks-speak-icon">
+        <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M2.5 6h2.6L8.6 3.1a.6.6 0 0 1 1 .46v8.88a.6.6 0 0 1-1 .46L5.1 10H2.5a.6.6 0 0 1-.6-.6V6.6a.6.6 0 0 1 .6-.6z"
+            fill="currentColor"
+          />
+          <path
+            d="M11.6 5.8a3.2 3.2 0 0 1 0 4.4M13.4 4a5.7 5.7 0 0 1 0 8"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+          />
+        </svg>
+      </template>
+
+      <template id="marks-copy-icons">
+        <svg class="reader-icon icon-copy" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <rect
+            x="5.2"
+            y="5.2"
+            width="8"
+            height="8"
+            rx="1.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+          />
+          <path
+            d="M10.8 3.2H4.5a1.3 1.3 0 0 0-1.3 1.3v6.3"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+          />
+        </svg>
+        <svg class="reader-icon icon-copied" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M3.2 8.6 6.6 12l6.2-7.4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </template>
+
+      <!-- The note sheet (D118), worn by a quote row's note act and by the
+           badges standing in the article - one drawing, however many doors
+           lead to the same dialog. -->
+      <template id="marks-note-icon">
+        <!-- Drawn to the same optical mass as the column's other glyphs:
+             the first cut sat visibly smaller beside the copy sheet
+             (Michał's report). -->
+        <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M13.6 10V2.9a.9.9 0 0 0-.9-.9H3.3a.9.9 0 0 0-.9.9v10.2a.9.9 0 0 0 .9.9h6.2z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M9.5 14v-3.1a.9.9 0 0 1 .9-.9h3.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M4.9 5.4h6.4M4.9 7.9h4.6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+          />
+        </svg>
+      </template>
+
+      <!-- The two acts of a quote whose document is gone (D150): the door
+           to the original page - an arrow leaving a frame, standing where
+           the arrow into the document would - and the trash that takes the
+           quote out, last in the column, after everything that keeps it. -->
+      <template id="marks-original-icon">
+        <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M9.4 2.9h3.7v3.7M13.1 2.9 7.8 8.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M11.4 9.6v2.8a.9.9 0 0 1-.9.9H3.7a.9.9 0 0 1-.9-.9V5.6a.9.9 0 0 1 .9-.9h2.8"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </template>
+
+      <template id="marks-delete-icon">
+        <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M3 4.5h10M6.2 4.5V3.2a.6.6 0 0 1 .6-.6h2.4a.6.6 0 0 1 .6.6v1.3"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M4.3 4.5l.6 8.2a.9.9 0 0 0 .9.8h4.4a.9.9 0 0 0 .9-.8l.6-8.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M6.6 7.2v3.8M9.4 7.2v3.8"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+          />
+        </svg>
+      </template>
+
+      <!--
+        What can be done with the article on screen. Outside the article
+        element on purpose: the learning code scans everything under it, and
+        these labels are interface, not text anybody is studying.
+
+        One line of quiet buttons - the acts on this article. Which of them
+        stand is the database's say, not the door's (D185): a page in the
+        list offers Delete and the read mark whether it was opened from the
+        list or from a live tab, and a live page not in the list offers Save.
+        The way back to the list used to open this box; it lives in the stuck
+        bar now (D102), where it stays in reach however far the article has
+        scrolled.
+      -->
+      <div id="actions" class="reader-actions" hidden>
+        <div class="article-actions">
+          <button id="keep" type="button" data-i18n="reader_save" hidden>
+            Save to reading list
+          </button>
+          <button id="mark-read" type="button" aria-pressed="false" data-i18n="reader_mark_read" hidden>
+            Mark as read
+          </button>
+          <!-- One word, the same the list's rows use: "from the reading list"
+               only repeated what the line above and the article below already
+               say, and the spelled-out phrase kept the pair of actions from
+               sharing a phone's line. The full act stays as the accessible
+               name, set with the title by script. -->
+          <button id="remove" type="button" data-i18n="action_delete" hidden>Delete</button>
+        </div>
+      </div>
+
+      <!--
+        The book's language against the current pair (O20): said quietly,
+        once, outside the article element - interface, not text anybody is
+        studying - and never acted on by itself: the settings stay one press
+        away, the pair is never switched behind anybody's back.
+      -->
+      <p id="book-note" class="hint book-note" hidden>
+        <span id="book-note-text"></span>
+        <button type="button" id="book-note-settings" data-i18n="settings">Settings</button>
+      </p>
+
+      <!--
+        A book arrives one segment at a time, and these two rows are the way
+        between segments - the same quiet pager the lists speak (the chevrons
+        and their words, see the reading list's), above the text and again
+        under its last line, where finishing a segment leaves the reader.
+        Turning a segment swaps the content of this same page: no
+        navigation, no animation (e-ink).
+      -->
+      <nav id="segment-nav" class="pager segment-nav" hidden aria-label="Book parts" data-i18n-aria-label="reader_book_nav">
+        <button type="button" id="segment-prev">
+          <svg class="pager-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path
+              d="M10.1 3.8 5.9 8l4.2 4.2"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class="pager-word" data-i18n="pager_prev">Previous</span>
+        </button>
+        <!-- The way to the map of parts (D116), an icon beside the part it
+             locates - a word here would decide the row's width in six
+             languages. Hidden for a book without one. -->
+        <span class="segment-middle">
+          <button
+            type="button"
+            id="toc"
+            class="toc-button"
+            hidden
+            title="Contents"
+            data-i18n-title="reader_book_toc"
+            aria-label="Contents"
+            data-i18n-aria-label="reader_book_toc"
+          >
+            <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M6.5 4.25h7M6.5 8h7M6.5 11.75h7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+              <circle cx="3.1" cy="4.25" r="0.9" fill="currentColor" />
+              <circle cx="3.1" cy="8" r="0.9" fill="currentColor" />
+              <circle cx="3.1" cy="11.75" r="0.9" fill="currentColor" />
+            </svg>
+          </button>
+          <span class="pager-label" id="segment-label"></span>
+        </span>
+        <button type="button" id="segment-next">
+          <span class="pager-word" data-i18n="pager_next">Next</span>
+          <svg class="pager-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path
+              d="M5.9 3.8 10.1 8l-4.2 4.2"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </nav>
+
+      <article id="article" hidden>
+        <h1 id="title"></h1>
+        <p id="byline" class="reader-byline" hidden></p>
+        <div id="content"></div>
+      </article>
+
+      <nav id="segment-nav-end" class="pager segment-nav" hidden aria-label="Book parts" data-i18n-aria-label="reader_book_nav">
+        <button type="button" id="segment-prev-end">
+          <svg class="pager-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path
+              d="M10.1 3.8 5.9 8l4.2 4.2"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class="pager-word" data-i18n="pager_prev">Previous</span>
+        </button>
+        <span class="segment-middle">
+          <button
+            type="button"
+            id="toc-end"
+            class="toc-button"
+            hidden
+            title="Contents"
+            data-i18n-title="reader_book_toc"
+            aria-label="Contents"
+            data-i18n-aria-label="reader_book_toc"
+          >
+            <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M6.5 4.25h7M6.5 8h7M6.5 11.75h7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+              <circle cx="3.1" cy="4.25" r="0.9" fill="currentColor" />
+              <circle cx="3.1" cy="8" r="0.9" fill="currentColor" />
+              <circle cx="3.1" cy="11.75" r="0.9" fill="currentColor" />
+            </svg>
+          </button>
+          <span class="pager-label" id="segment-label-end"></span>
+        </span>
+        <button type="button" id="segment-next-end">
+          <span class="pager-word" data-i18n="pager_next">Next</span>
+          <svg class="pager-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path
+              d="M5.9 3.8 10.1 8l-4.2 4.2"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </nav>
+
+      <!--
+        The book's table of contents (D116): a native dialog, so Esc, the
+        focus trap and the way back to the opener come from the engine. Rows
+        are built by script from the book's stored list - the titles are the
+        book's own words and enter as text only. The dialog itself carries no
+        padding; a click that reaches it hit the backdrop, which is how the
+        close-on-backdrop handler tells the two apart.
+      -->
+      <dialog id="toc-dialog" class="toc-dialog" aria-labelledby="toc-title">
+        <header class="toc-head">
+          <h2 id="toc-title" data-i18n="reader_book_toc">Contents</h2>
+          <button
+            type="button"
+            id="toc-close"
+            class="toc-close"
+            title="Close"
+            data-i18n-title="close"
+            aria-label="Close"
+            data-i18n-aria-label="close"
+          >
+            <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M4.25 4.25l7.5 7.5M11.75 4.25l-7.5 7.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </header>
+        <nav id="toc-rows" class="toc-rows" aria-labelledby="toc-title"></nav>
+      </dialog>
+
+      <!--
+        Search inside the open document (D119): the TOC dialog's dress on a
+        form and a list of hits. Scanning starts on Enter or the button,
+        never per keystroke - a book's scan reads every part, and on e-ink
+        a list redrawn letter by letter is a flipbook. Rows are built by
+        script, snippets enter as text only - the words are the document's.
+      -->
+      <dialog id="search-dialog" class="toc-dialog" aria-labelledby="search-title">
+        <header class="toc-head">
+          <h2 id="search-title" data-i18n="reader_search_title">Search in text</h2>
+          <button
+            type="button"
+            id="search-close"
+            class="toc-close"
+            title="Close"
+            data-i18n-title="close"
+            aria-label="Close"
+            data-i18n-aria-label="close"
+          >
+            <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M4.25 4.25l7.5 7.5M11.75 4.25l-7.5 7.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </header>
+        <form id="search-form" class="search-form">
+          <label for="search-input" class="visually-hidden" data-i18n="reader_search_label">
+            The phrase to find
+          </label>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Find a phrase"
+            data-i18n-placeholder="reader_search_placeholder"
+          />
+          <button type="submit" data-i18n="reader_search_go">Search</button>
+        </form>
+        <p class="hint search-status" id="search-status" hidden></p>
+        <nav id="search-rows" class="toc-rows search-rows" aria-labelledby="search-title"></nav>
+      </dialog>
+
+      <!--
+        The acts of finishing, again under the last line: whoever has just
+        read a long article to its end is a whole article away from the bar
+        above. The read mark and Delete - the two ways of being done with a
+        document, keeping it as read or letting it go (D185; Delete joined
+        the mark down here on Michał's call, 2026-09-05). Saving is not among
+        them: it is a decision on the way in, and one home above is enough
+        for it. Outside the article element for the same reason the bar above
+        stands outside it, and in the finishing order: the acts first, the
+        way out under them. Every state they show is set by the same code
+        that dresses their twins above.
+      -->
+      <div id="actions-end" class="reader-actions reader-actions-end" hidden>
+        <div class="article-actions">
+          <button id="mark-read-end" type="button" aria-pressed="false" data-i18n="reader_mark_read" hidden>
+            Mark as read
+          </button>
+          <button id="remove-end" type="button" data-i18n="action_delete" hidden>Delete</button>
+        </div>
+        <p class="reader-return">
+          <button id="to-library-end" type="button" hidden>
+            <!-- The bar's own back arrow, drawn - decoration to a screen
+                 reader, which hears the list's one name alone. -->
+            <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M13.25 8H3.1M7.3 3.8 3.1 8l4.2 4.2"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span data-i18n="reading_list">Offline reading list</span>
+          </button>
+        </p>
+      </div>
+    </main>
+
+    <!--
+      The highlighter's toolbar (D107, revised twice on Michał's reports):
+      it stands at the bottom of the window - the speech bar's spot and
+      dress, which is why it wears the speech bar's class - for as long as
+      the pen is in the hand, so the ink can be chosen before the first
+      stroke. Two states, one strip: with no mark active the swatches speak
+      for the pen (the same setting the Aa panel writes) and the copy and
+      the bin stay away, having nothing to act on; a tap on a mark turns
+      the strip to that mark - the swatches recolour it in place, its quote
+      can leave for the clipboard, the bin takes it - and two pins at the
+      mark's ends say which one, in the mark's own true colour (a wash was
+      tried first and read as a darker, wrong ink). A tap on bare text
+      walks outward the way Escape does: the mark stands down first, the
+      pen second.
+    -->
+    <div
+      id="mark-bar"
+      class="speech-bar mark-bar"
+      hidden
+      role="toolbar"
+      aria-label="Highlighter"
+      data-i18n-aria-label="reader_marker"
+    >
+      <button type="button" id="mark-copy" hidden>
+        <svg class="reader-icon icon-copy" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <rect
+            x="5.2"
+            y="5.2"
+            width="8"
+            height="8"
+            rx="1.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+          />
+          <path
+            d="M10.8 3.2H4.5a1.3 1.3 0 0 0-1.3 1.3v6.3"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+          />
+        </svg>
+        <svg class="reader-icon icon-copied" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M3.2 8.6 6.6 12l6.2-7.4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span id="mark-copy-label" class="speech-label" data-i18n="marker_copy">Copy</span>
+      </button>
+      <!-- The note of the tapped mark (D118): one press to read or write the
+           reader's own words about the quote. The glyph carries a dot while
+           a note stands, so "annotated" shows before anything opens; the
+           name follows - Add note, Edit note - set by script with the dot. -->
+      <button
+        type="button"
+        id="mark-note"
+        hidden
+        title="Add note"
+        data-i18n-title="marker_note_add"
+        aria-label="Add note"
+        data-i18n-aria-label="marker_note_add"
+      >
+        <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M13.6 10V2.9a.9.9 0 0 0-.9-.9H3.3a.9.9 0 0 0-.9.9v10.2a.9.9 0 0 0 .9.9h6.2z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M9.5 14v-3.1a.9.9 0 0 1 .9-.9h3.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M4.9 5.4h6.4M4.9 7.9h4.6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+          />
+          <circle class="note-dot" cx="12.7" cy="2.9" r="2.7" />
+        </svg>
+        <span class="speech-label" data-i18n="marker_note">Note</span>
+      </button>
+      <!-- The mark's own ink, changed in place: the same four swatches the
+           Aa panel offers, only these speak about the tapped mark, not about
+           the pen - so they carry their own attribute and their pressed one
+           follows the mark's stored colour. -->
+      <span class="mark-inks">
+        <button type="button" data-mark-ink="yellow" aria-label="Yellow" data-i18n-aria-label="color_yellow">
+          <span class="marker-swatch" data-swatch="yellow" aria-hidden="true"></span>
+        </button>
+        <button type="button" data-mark-ink="green" aria-label="Green" data-i18n-aria-label="color_green">
+          <span class="marker-swatch" data-swatch="green" aria-hidden="true"></span>
+        </button>
+        <button type="button" data-mark-ink="blue" aria-label="Blue" data-i18n-aria-label="color_blue">
+          <span class="marker-swatch" data-swatch="blue" aria-hidden="true"></span>
+        </button>
+        <button type="button" data-mark-ink="pink" aria-label="Pink" data-i18n-aria-label="color_pink">
+          <span class="marker-swatch" data-swatch="pink" aria-hidden="true"></span>
+        </button>
+      </span>
+      <button
+        type="button"
+        id="mark-delete"
+        hidden
+        title="Remove highlight"
+        data-i18n-title="marker_delete"
+        aria-label="Remove highlight"
+        data-i18n-aria-label="marker_delete"
+      >
+        <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M3.2 4.6h9.6M6.4 4.6V3.3a.7.7 0 0 1 .7-.7h1.8a.7.7 0 0 1 .7.7v1.3M4.6 4.6l.6 8.2a1 1 0 0 0 1 .9h3.6a1 1 0 0 0 1-.9l.6-8.2M6.7 7v4.4M9.3 7v4.4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="speech-label" data-i18n="action_delete">Delete</span>
+      </button>
+    </div>
+
+    <!--
+      The two pins that say which mark the toolbar is about (D107): a thin
+      bar with a dot at each end of the mark, the shape every platform's
+      selection handles taught - drawn in the interface accent, so the mark
+      itself keeps its true ink. Handles by geometry, not by element (D181):
+      pointer-events pass through them, so a tap on a pin is a tap on the
+      text under it, while a press that travels from one is the script's
+      own hit-test's to read as dragging that end of the mark. Absolute in
+      page coordinates, placed by script, riding the scroll with their mark.
+    -->
+    <div id="mark-pin-start" class="mark-pin mark-pin-start" hidden aria-hidden="true"></div>
+    <div id="mark-pin-end" class="mark-pin mark-pin-end" hidden aria-hidden="true"></div>
+
+    <!--
+      The badges of the noted marks (D118): one small button at the tail of
+      every mark that carries a note, the footnote spot - a mark's own text
+      cannot take the tap (a word inside it means "translate this"), so the
+      note needs a door of its own. Built by script from the stored marks,
+      absolute in page coordinates like the pins, riding the scroll with
+      their text; each opens the note dialog on its mark.
+    -->
+    <div id="mark-note-badges"></div>
+
+    <!--
+      The note behind a mark (D118), read and written in one room: a native
+      dialog, so Esc, the focus trap and the way back to the opener come from
+      the engine (the TOC dialog's manner). The dimmed line up top quotes the
+      mark being annotated - clamped, context not content. Save keeps what
+      the box holds; an emptied box saved is the note removed - absence is
+      the only "no note" there is. The quote and the note are somebody's own
+      text, so both enter as textContent only.
+    -->
+    <dialog id="note-dialog" class="note-dialog" aria-labelledby="note-title">
+      <header class="toc-head">
+        <h2 id="note-title" data-i18n="marker_note">Note</h2>
+        <button
+          type="button"
+          id="note-close"
+          class="toc-close"
+          title="Close"
+          data-i18n-title="close"
+          aria-label="Close"
+          data-i18n-aria-label="close"
+        >
+          <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path
+              d="M4.25 4.25l7.5 7.5M11.75 4.25l-7.5 7.5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </header>
+      <blockquote id="note-quote" class="note-quote"></blockquote>
+      <textarea
+        id="note-text"
+        class="note-text"
+        rows="5"
+        maxlength="2000"
+        autofocus
+        aria-label="Note"
+        data-i18n-aria-label="marker_note"
+      ></textarea>
+      <p class="note-acts">
+        <button type="button" id="note-cancel" data-i18n="action_cancel">Cancel</button>
+        <button type="button" id="note-save" class="note-save" data-i18n="action_save">Save</button>
+      </p>
+    </dialog>
+
+    <!--
+      The bar that steers the voice (D87). It exists only while the article is
+      being read: a transport bar standing over an article nobody is listening
+      to is a row of buttons that mean nothing. Pinned to the bottom of the
+      window because that is where a thumb is on a phone and on an e-reader,
+      and the page gives it room while it is there rather than letting it cover
+      the last lines (the `:has` rule in reader.css).
+
+      Four buttons, drawn and labelled: the icons read at a glance, the words
+      say which sentence the arrows move by. Back is the press this feature
+      exists for - a sentence in a language somebody is learning is regularly
+      worth hearing twice.
+    -->
+    <div
+      id="speech-bar"
+      class="speech-bar"
+      hidden
+      role="group"
+      aria-label="Reading aloud"
+      data-i18n-aria-label="reader_speech_bar"
+    >
+      <button type="button" id="speech-back">
+        <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M8.4 3.6v8.8L3.1 8zM13.6 3.6v8.8L8.3 8z" fill="currentColor" />
+        </svg>
+        <span class="speech-label" data-i18n="reader_speech_back">Back</span>
+      </button>
+      <button type="button" id="speech-play">
+        <svg class="reader-icon icon-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M4.4 3h2.7v10H4.4zM8.9 3h2.7v10H8.9z" fill="currentColor" />
+        </svg>
+        <svg class="reader-icon icon-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M4.6 3l8 5-8 5z" fill="currentColor" />
+        </svg>
+        <span id="speech-play-label" class="speech-label" data-i18n="reader_speech_pause">Pause</span>
+      </button>
+      <button type="button" id="speech-stop">
+        <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M3.6 3.6h8.8v8.8H3.6z" fill="currentColor" />
+        </svg>
+        <span class="speech-label" data-i18n="reader_speech_stop">Stop</span>
+      </button>
+      <button type="button" id="speech-forward">
+        <svg class="reader-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M7.6 3.6v8.8L12.9 8zM2.4 3.6v8.8L7.7 8z" fill="currentColor" />
+        </svg>
+        <span class="speech-label" data-i18n="reader_speech_forward">Forward</span>
+      </button>
+    </div>
+
+    <!-- The colophon the settings page closes with, under the reading list
+         and the highlights only (reader.css shows it by data-view): those
+         rooms end in a list of ours, while the document view is somebody
+         else's text and the room disappears around it (Michał's word,
+         2026-08-17). Proper names and identifiers all - nothing for the
+         catalogue; the version is filled by reader.js from the manifest. -->
+    <footer class="page-end">
+      <p>
+        re/read <span id="version">-</span> &middot; AGPL-3.0 &middot;
+        <a href="https://reapps.eu" target="_blank" rel="noopener">Fundacja Reborn</a> &middot;
+        <a href="https://reapps.eu" target="_blank" rel="noopener">reapps.eu</a> &middot;
+        <a href="https://github.com/fundacja-reborn/reread-webext" target="_blank" rel="noopener"
+          >GitHub</a
+        >
+      </p>
+    </footer>
+
+    <!--
+      The extractor, exactly as its authors published it: vendored byte for byte
+      and loaded as its own file, so what ships hashes to what they released.
+      See vendor/readability/README.md.
+    -->
+    <script src="../vendor/readability/Readability.js"></script>
+    <script src="reader.js" defer></script>
+  </body>
+</html>

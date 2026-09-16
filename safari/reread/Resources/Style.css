@@ -1,0 +1,55 @@
+* {
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    cursor: default;
+}
+
+:root {
+    color-scheme: light dark;
+
+    --spacing: 20px;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: var(--spacing);
+    margin: 0 calc(var(--spacing) * 2);
+    height: 100%;
+
+    font: -apple-system-short-body;
+    text-align: center;
+}
+
+p {
+    max-width: 30em;
+    margin: 0;
+}
+
+h1 {
+    font: -apple-system-headline;
+    margin: 0;
+}
+
+/* The mark follows the same two tokens as the extension's own icon. */
+.mark {
+    color: #5b5b66;
+}
+
+@media (prefers-color-scheme: dark) {
+    .mark {
+        color: #fbfbfe;
+    }
+}
+
+.fine {
+    font: -apple-system-footnote;
+    opacity: 0.6;
+}

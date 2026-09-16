@@ -1,0 +1,1412 @@
+/* Shared by the extension's own pages (options, reader, popup). Content scripts
+   do not use this file - what they inject carries its own styles inside a
+   shadow root. Layout that belongs to one page lives in that page's own
+   stylesheet (options.css, reader.css, vocab.css, popup.css); this file keeps
+   the palette, the type and the controls they all share. */
+
+/* Two strengths of edge, and neither is faint: e-ink panels quantize the page
+   to 16 greys and flatten near-white hairlines into the background, and WCAG
+   1.4.11 asks 3:1 of a control's boundary. --page-line draws separators and
+   passive frames (about 2.6:1 here - visible, but quieter than any control);
+   --page-border draws the borders of controls (over 4.5:1), keeping the order
+   separator < control edge < text on paper as well as on glass. */
+:root {
+  color-scheme: light dark;
+  --page-bg: #ffffff;
+  --page-fg: #1f2430;
+  --page-muted: #5c6478;
+  --page-line: #99a1b0;
+  --page-border: #6e7583;
+  /* A control that cannot be pressed (D201): a neutral grey, the convention
+     every platform's disabled controls follow, about 2.5:1 to the paper in
+     each theme - paler than the muted ink of a note, which is still prose. */
+  --page-disabled: #9ca0a8;
+  --page-accent: #b8791d;
+  --page-error: #a3341f;
+  /* A surface raised over the page - the toolbar popup (the fourth brief's
+     D3): one step lighter than the page's paper in sepia and in the dark,
+     the paper itself where the paper is white. Never the only signal - the
+     tone is one of the 16 greys an e-ink panel rounds away, so the surface
+     always wears a 1px border in --page-border with it, and no shadow (a
+     shadow greys the edge in sepia and says nothing on e-ink). The ink and
+     the controls' borders keep their contrast on it in every theme: text
+     11:1 and above, --page-border 3.8:1 and above. */
+  --surface-raised: #ffffff;
+}
+
+/* Dark ink is dimmed on purpose: near-white on near-black (#f2f4f8 measured
+   15.8:1) is glare at paragraph length - light text blooms on an emissive
+   panel in a dark room, and long-form reading is what these pages are for.
+   11.6:1 keeps AAA with a third of the excess gone. The bubble on somebody
+   else's page keeps its own brighter ink: its paper is lighter and its text
+   is two lines, not an article. Keep this value in step with the hand-set
+   dark theme below - the two are one theme in two homes. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page-bg: #171a21;
+    --page-fg: #ccd3df;
+    --page-muted: #98a1b5;
+    --page-line: #565d6c;
+    --page-border: #767e8f;
+    --page-disabled: #5f636a;
+    --page-accent: #f09a3e;
+    --page-error: #f09a3e;
+    --surface-raised: #20242d;
+  }
+}
+
+/* The hand-set themes (D104). The reader's Aa panel writes `reader.theme`,
+   `lib/appearance.js` stamps it on a page's root, and these palettes answer -
+   on every page that follows the theme, so sepia chosen over an article is
+   also the paper of the reading list, the saved phrases, the settings and
+   the popup. `auto` stamps a value none of these match, which hands the
+   answer back to the browser (the two blocks above). Higher specificity than
+   the plain `:root` blocks, so a hand-set light beats a dark browser. The
+   reader's speaking washes ride the same attribute in reader.css; the dark
+   ink here is one theme in two homes with the auto-dark block above. */
+:root[data-reader-theme="light"] {
+  color-scheme: light;
+  --page-bg: #ffffff;
+  --page-fg: #1f2430;
+  --page-muted: #5c6478;
+  --page-line: #99a1b0;
+  --page-border: #6e7583;
+  --page-disabled: #9ca0a8;
+  --page-accent: #b8791d;
+  --page-error: #a3341f;
+  --surface-raised: #ffffff;
+}
+
+:root[data-reader-theme="dark"] {
+  color-scheme: dark;
+  --page-bg: #171a21;
+  --page-fg: #ccd3df;
+  --page-muted: #98a1b5;
+  --page-line: #565d6c;
+  --page-border: #767e8f;
+  --page-disabled: #5f636a;
+  --page-accent: #f09a3e;
+  --page-error: #f09a3e;
+  --surface-raised: #20242d;
+}
+
+/* Paper rather than a dimmed white: the point of sepia is less blue light at
+   the same contrast, so the text stays nearly as dark as on white. The
+   raised surface is the same paper a step closer to white, the hue kept. */
+:root[data-reader-theme="sepia"] {
+  color-scheme: light;
+  --page-bg: #f4ecd8;
+  --page-fg: #322a21;
+  --page-muted: #6b5f4d;
+  --page-line: #a3937a;
+  --page-border: #83745a;
+  --page-disabled: #969696;
+  --page-accent: #9a5b16;
+  --page-error: #a3341f;
+  --surface-raised: #f8f4e8;
+}
+
+/* The content typeface (the article, the reading list's titles, the saved
+   phrases): the Aa panel's Type row picks which preset stack this variable
+   holds, and its Custom choice (D163) puts the font the reader named in the
+   settings in front of it - `--reader-font-lead` is written by
+   `lib/appearance.js` as either the stack alone or `"Name", ` the stack.
+   `data-reader-font="custom"` deliberately matches no rule here, so the
+   serif default below stands behind the name as the fallback for every
+   character it lacks. Here and not in reader.css, because the saved phrases
+   wear the content face too and never load that sheet. Use as
+   `font-family: var(--reader-font-lead, var(--reader-font-stack))` - the
+   fallback covers a page nothing has dressed yet. */
+:root {
+  --reader-font-stack: Georgia, "Iowan Old Style", "Times New Roman", serif;
+}
+
+:root[data-reader-font="sans"] {
+  --reader-font-stack: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* The bar's box, as numbers the pages can lean on (D219): the paper the
+   stuck box keeps over the bar, the bar itself - its tools' floor (the
+   2.1rem every drawn button and the serif "Aa" stand on), the air under
+   them and the line - and the two together, which is how far down the
+   window the stuck bar reaches. `scroll-padding-top` below keeps anchors
+   and focused rows out from under it, and anything that has to stand
+   under the bar takes `--header-h` as its `top`. Fixed on purpose: the
+   bar is interface, so the Aa panel's size never reaches it (D104), and
+   the bar's box takes `--bar-h` as its height outright - a tool that
+   outgrew the floor would show over the line rather than move it, so the
+   number here and the bar on screen cannot quietly part. In rem, so the
+   browser's text zoom grows both alike. */
+:root {
+  --header-air: 0.75rem;
+  --bar-h: calc(2.1rem + 1rem + 1px);
+  --header-h: calc(var(--header-air) + var(--bar-h));
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* List rows are flex or grid containers, and a display declared by us outranks
+   the browser's own [hidden] { display: none } - without this line a filter
+   would "hide" rows that stay on screen. */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+  max-width: 44rem;
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--page-bg);
+  color: var(--page-fg);
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin: 0 0 0.25rem;
+}
+
+/* Two heading sizes below the title, because the settings page has two levels:
+   sections (models, dictionaries) and the doors inside them (the by-hand
+   folds, the catalogue). Same size for both levels read as one flat list. */
+h2 {
+  font-size: 1.3rem;
+  margin: 2rem 0 0.5rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+  margin: 2rem 0 0.5rem;
+}
+
+button:disabled {
+  color: var(--page-muted);
+  cursor: default;
+}
+
+button:disabled:hover {
+  border-color: var(--page-border);
+}
+
+.empty {
+  color: var(--page-muted);
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--page-line);
+}
+
+button {
+  font: inherit;
+  padding: 0.35rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid var(--page-border);
+  background: transparent;
+  color: var(--page-fg);
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--page-accent);
+}
+
+input[type="file"] {
+  font: inherit;
+  color: var(--page-muted);
+  max-width: 100%;
+}
+
+select {
+  font: inherit;
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+  border: 1px solid var(--page-border);
+  background: var(--surface-raised, var(--page-bg));
+  color: var(--page-fg);
+  color-scheme: inherit;
+}
+
+option {
+  background-color: var(--surface-raised, var(--page-bg));
+  color: var(--page-fg);
+}
+
+/* Placeholders say what a field wants, and the browser's translucent default
+   sits under the 4.5:1 floor - so they speak in the page's own muted voice.
+   Explicit opacity, because Firefox dims placeholders with opacity, not
+   color, and would dim this one too. */
+::placeholder {
+  color: var(--page-muted);
+  opacity: 1;
+}
+
+/* A selection is the one mark on these pages that must be unmissable while it
+   lasts - on the reader page it is the phrase a bubble is about to answer.
+   The browser's translucent wash sank into the dark theme's background on an
+   e-ink panel (reported from a Boox), and the surest contrast every theme
+   owns is its own two ends: ink on paper, swapped. Extension pages only -
+   a content script never touches the selection colors of somebody's page. */
+::selection {
+  background: var(--page-fg);
+  color: var(--page-bg);
+}
+
+/* A sentence hanging off the row above it - an explanation, not a status, so
+   it has no tones and never disappears. */
+.hint {
+  margin: 0.5rem 0 0;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+}
+
+/* The prose that explains a section speaks at the same size as the row
+   hints - one step below the controls it explains, keeping the page's
+   full color. */
+.explain {
+  font-size: 0.9rem;
+}
+
+/* Every checkbox of the extension ticks in the text's own ink (D202): the
+   look-up answer's boxes took it first (the sixth brief - `currentColor`
+   inside the shelf, where the bubble has no page tokens), and a switch in
+   the popup or the settings ticking in the accent beside them read as two
+   kinds of checkbox. One token here, no override per page. */
+input[type="checkbox"] {
+  margin: 0;
+  accent-color: var(--page-fg);
+}
+
+.status:empty {
+  display: none;
+}
+
+/* One step below the prose, like the hints: a status is an aside about an
+   action, not a paragraph of the page. */
+.status {
+  padding: 0.6rem 0;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+}
+
+/* A variable rather than two hard-coded blocks, because the hand-set themes
+   must swap it too - a media query alone would leave a dark page with a
+   drowned red the moment dark came from the Aa panel instead of the OS. */
+.status[data-tone="error"] {
+  color: var(--page-error);
+}
+
+/* The report of an import or an export: it lands under prose set in the same
+   muted grey, often read after a glance away at a file picker, so it borrows
+   the note's frame to be found at all. The text keeps the page's full color;
+   an error inside the frame keeps its tone. */
+.status.report {
+  margin-top: 1rem;
+  padding: calc(0.6rem - 1px) calc(0.8rem - 1px) calc(0.6rem - 1px) 0.8rem;
+  border: 1px solid var(--page-line);
+  border-left: 3px solid var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 10%, transparent);
+}
+
+.status.report:not([data-tone="error"]) {
+  color: var(--page-fg);
+}
+
+/* An error is the one status that has to be found (Michał's call, 2026-09-03:
+   statuses "look like plain text", easy to miss): every error-toned status
+   wears the report's frame, with the bar and the wash in the error's own
+   colour - under a tall field or a long list, a line in red alone was read as
+   no answer at all. On e-ink the wash quantizes away and the bar and the frame
+   remain, which is why it is a frame and not only a tint. After the report's
+   rule on purpose: an error inside a report gets this bar too. An empty status
+   stays hidden (above), so a cleared error leaves no empty frame behind. */
+.status[data-tone="error"] {
+  padding: calc(0.6rem - 1px) calc(0.8rem - 1px) calc(0.6rem - 1px) 0.8rem;
+  border: 1px solid var(--page-line);
+  border-left: 3px solid var(--page-error);
+  background: color-mix(in srgb, var(--page-error) 8%, transparent);
+}
+
+/* One pager for every long list (saved phrases, the reading list, the
+   highlights) and for a book's parts: Previous and Next at the ends, the
+   count between them. Each end is a drawn chevron with its word beside it,
+   at the page's touch floor. */
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.pager button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.35rem 0.9rem;
+  white-space: nowrap;
+}
+
+/* The chevron follows the text around it (`em`), the drawn buttons' rule
+   everywhere on these pages. */
+.pager-icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+
+.pager-label {
+  color: var(--page-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+/* Under a phone's width the words step aside and the chevrons are the
+   buttons - the transport bar's own manners (`.speech-label`, reader.css).
+   Two worded buttons and "Page 1 of 3" between them add up past a phone's
+   column once the browser's text zoom grows the rem: a Pixel at 125%, in
+   Polish, wanted 380px of a 350px column, and the book's "Part 1 of 26"
+   wrapped into the Next button (Michał's screenshot, 2026-09-03). Clipped
+   rather than removed, because the word IS the button's name: a screen
+   reader still hears "Previous". The 44px floor is untouched; the glyph
+   steps up, since icon-only means the icon is the button. The limit is in
+   rem on purpose: the overflow arrives with the text zoom, and an em-based
+   query grows with the same zoom, so the tight dress comes exactly to the
+   screens that need it. */
+@media (max-width: 30rem) {
+  .pager {
+    gap: 0.5rem;
+  }
+
+  .pager button {
+    padding-inline: 0.5rem;
+  }
+
+  .pager-word {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .pager-icon {
+    width: 1.5em;
+    height: 1.5em;
+  }
+}
+
+/* On e-ink the tinted wash flattens into the background, so the wash cannot
+   be the block's only boundary: a hairline in the separators' color closes
+   the frame the accent bar begins. The padding hands the frame's pixel back,
+   keeping the box the size it was. */
+.note {
+  margin-top: 2rem;
+  padding: calc(0.9rem - 1px) calc(1rem - 1px) calc(0.9rem - 1px) 1rem;
+  border: 1px solid var(--page-line);
+  border-left: 3px solid var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 10%, transparent);
+  color: var(--page-muted);
+}
+
+.note strong {
+  color: var(--page-fg);
+}
+
+/* The asides inside the by-hand folds are footnotes, not calls to attention:
+   they answer "where from, and what leaves this device" for whoever asks, at
+   a footnote's size behind a neutral frame. The accent frame stays on notes
+   that ask to be acted on - the first-steps card, the host notes, the
+   reader's notices. */
+.note.footnote {
+  border-left-color: var(--page-line);
+  background: color-mix(in srgb, var(--page-fg) 4%, transparent);
+  font-size: 0.85rem;
+}
+
+/* The private-browsing sentence (`private-note.js`) stands first on its page,
+   so it wears the note's frame without the note's distance from what came
+   before it - nothing did. */
+.note.private-note {
+  margin: 0 0 1.5rem;
+}
+
+/* Only a link that goes somewhere wears the accent. An anchor without an
+   href is prose that kept its element - the reader strips every address out
+   of an imported book on purpose (import-book.js) - and dressed in the
+   accent it promises a click it cannot answer (mobileread report: an EPUB's
+   dead links under "Links: Active"). */
+a[href] {
+  color: var(--page-accent);
+}
+
+/* The bar every page of this extension wears - the reader's (`.reader-bar`,
+   which wears this class too since D219), the saved phrases' and the
+   settings': the mark on the leading edge, the drawn tools at the far one,
+   one line under both. One bar in one home; what the reader's keeps in
+   reader.css is its own tighter dress under a phone's width. The line
+   under it is also the menu panel's top edge. The height is the token's
+   (`--bar-h`, above): the tools' floor is the tallest thing in it, and
+   the box is told the sum rather than left to measure it, so the stuck
+   bar's reach is a number the stylesheet knows. */
+.page-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: var(--bar-h);
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--page-line);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* The mark is a button (it opens the settings) dressed as the quiet line of
+   text it has always been: no frame, no fill, the page's muted voice. The
+   padding gives it a finger-sized target without moving the word, and the
+   negative start margin hands that padding back to the column, so the mark
+   still begins exactly on the left edge the title below aligns to. On the
+   settings page the mark is a plain line instead - the door would open the
+   room it stands in - and the button rules simply find nothing to dress. */
+/* The way back on the bar's leading edge, before the mark - the reader bar's
+   own arrow (`.reader-back`, reader.css), worn by a page that was walked
+   into from another of this extension's pages (D139). Hidden until the page
+   knows there is somewhere behind to go; the negative start margin hands the
+   finger padding back to the column, the mark's own rule. */
+.page-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.1rem;
+  min-width: 2.6rem;
+  margin-inline-start: -0.7rem;
+  padding: 0.15rem 0.4rem;
+  border: none;
+  background: none;
+  color: var(--page-muted);
+}
+
+.page-back:hover {
+  border: none;
+  color: var(--page-accent);
+}
+
+.page-back .page-icon {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+.page-mark {
+  margin-block: 0;
+  margin-inline-start: -0.4rem;
+  padding: 0.35rem 0.4rem;
+  border: none;
+  background: none;
+  color: var(--page-muted);
+  letter-spacing: 0.02em;
+}
+
+button.page-mark:hover {
+  border: none;
+  color: var(--page-accent);
+  text-decoration: underline;
+}
+
+.page-tools {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-inline-start: auto;
+}
+
+/* Drawn button glyphs follow the text around them (`em`), the reader bar's
+   own rule. */
+.page-icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+
+/* The bar's buttons wear one frame: one floor for a drawn glyph and a
+   serif "Aa" - left to their contents their borders came out three sizes
+   (reported from a phone). The reader's tools stand in it too since D221
+   (its span wears the class); what the reader keeps for them is the
+   tighter dress under a phone's width (reader.css). */
+.page-tools > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.1rem;
+  min-width: 2.6rem;
+  padding: 0.15rem 0.55rem;
+}
+
+/* A tool in hand is said on its button - the reader's pen or its voice, an
+   open Aa panel or menu on any page (a disclosure's open state is the same
+   to the eye, so `aria-expanded` counts as pressed): a wash of the accent
+   under the glyph, in the frame every button wears at rest. The wash is a
+   quarter of the accent because an e-ink panel keeps 16 greys, and the 12%
+   the state wore until D221 rounded back into the paper - Michał's photo
+   from the Boox (2026-09-14) showed the pen in hand looking exactly like
+   the pen at rest; 25% lands two greys under the paper, where the
+   highlighter's own wash, plainly visible on the same panel, lands too.
+   D221 doubled the frame as well (an inset ring of the accent: a 2px line
+   is a shape, and a shape survives the greys), and the next photo from the
+   same panel showed the doubled frame too loud for a bar that has to stay
+   quiet over an article (Michał, 2026-09-14): the wash alone says the
+   state, and the frame stays the frame. No transition on it, so the flip
+   is one repaint. The full-screen tool is not in this list on purpose:
+   its glyph turns its corners inward while the page has the screen (the
+   rule below), so a wash on top of it would light the bar for the whole
+   of a reading for nothing. */
+.page-tools > button[aria-pressed="true"],
+.page-tools > button[aria-expanded="true"] {
+  background: color-mix(in srgb, var(--page-accent) 25%, transparent);
+}
+
+/* The bar's full-screen tool (D195; in the bar of every page since D220,
+   `lib/fullscreen-tool.js`) says what a press would do: both glyphs stand
+   in the markup - the corners out to enter, in to leave - and the root's
+   `:fullscreen` shows the one that applies. The state lives in the
+   browser, entered by the press and left by it, by Back or by Esc, so the
+   stylesheet reads it from there and no script mirrors it. The glyph is
+   the whole of the tool's state - it wears no wash in full screen (the lit
+   rule above says why). */
+:root:fullscreen #fullscreen .fullscreen-enter,
+:root:not(:fullscreen) #fullscreen .fullscreen-exit {
+  display: none;
+}
+
+/* The bar's residents on one phone-wide row. At the desktop gaps and
+   button floors the reader's bar added up past a Pixel's width once the
+   browser's text zoom grew the rem: the menu slid off the edge and the
+   brand broke in half (reported 2026-08-17). Under this width the bar
+   trades air for fit - tighter gaps, a slimmer floor - and nothing leaves
+   the row. The limit is in rem on purpose: the overflow arrives with the
+   text zoom, and an em-based query grows with the same zoom, so the tight
+   dress comes exactly to the screens that need it. The reader's rule
+   until D219's smoke, every page's since: kept in reader.css alone, it
+   left the phrases' and the settings' tools a desktop's distance apart on
+   the same phone (Michał's screenshots, 2026-09-14) - one bar, one dress.
+   After the base rules above, so the same selectors win here by order. */
+@media (max-width: 30rem) {
+  .page-bar {
+    gap: 0.5rem;
+  }
+
+  .page-tools {
+    gap: 0.4rem;
+  }
+
+  .page-tools > button {
+    min-width: 2.4rem;
+    padding-inline: 0.4rem;
+  }
+}
+
+/* The small menu behind a page's drawn ☰ button: the extension's own pages
+   linking to one another. It repeats the toolbar popup's hallway where the
+   popup itself is three taps into the browser menu on a phone, and it speaks
+   in the popup's rows - quiet, full-width, separated by lines, each a
+   finger-sized target. The interface font is said outright because the
+   reader page reads in a serif. */
+.nav-menu {
+  /* Air under the last row: its line is gone (below), and the panel's paper
+     ended right at the row's foot (Michał's smoke, 2026-08-29). */
+  padding-bottom: 0.5rem;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.nav-menu a,
+.nav-menu button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.55rem 0;
+  border: none;
+  border-bottom: 1px solid var(--page-line);
+  border-radius: 0;
+  background: none;
+  color: var(--page-fg);
+  text-align: left;
+  text-decoration: none;
+}
+
+/* The row that closes the menu draws no line. The last row's line used to
+   be the menu's bottom edge; since the panel stands on paper of its own
+   with a shadow under it (the scrim, #255), a line on the paper's last
+   pixel read as an edge drawn twice (Michał's smoke, 2026-08-29). The
+   closing row is the last one showing, not the last one written: a menu
+   row hides by its attribute. (The settings' phrases row hid by the body's
+   translation-off class until 2026-09-13; no menu row follows the switch
+   now.) */
+.nav-menu > :is(a, button):not(:has(~ :is(a, button):not([hidden]))) {
+  border-bottom: none;
+}
+
+/* The popup's hover, not the framed button's: the text answers, the line
+   underneath stays a separator. */
+.nav-menu a:hover,
+.nav-menu button:hover {
+  border-color: var(--page-line);
+  color: var(--page-accent);
+}
+
+/* A line under a row that says where its press reaches, or how it went -
+   the pictures row is the one with something to say (D145). Quieter than
+   the rows, and closing on the same separator, so it reads as the row's
+   footnote rather than as a row of its own. */
+.nav-menu .nav-hint {
+  display: block;
+  margin: 0.1rem 0 0.15rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--page-muted);
+}
+
+/* A row with a second line inside it - the pictures row (D145): the label
+   and, under it, where the press reaches or how it went. One button, one
+   press target, one separator under both; a hint standing outside the row
+   behind its own line read as a second, dead row (Michał's smoke,
+   2026-08-29). */
+.nav-menu button.nav-row-hinted {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* The page under an open panel, dimmed - every page with the bar's menu
+   (Michał's reports, 2026-08-29: first the reader, where the menu's rows
+   read as lines of the article they stood over; then the list, the
+   phrases and the settings, where the wash either covered the menu or was
+   missing). One fixed sheet under the bar and its panels, over everything
+   else: the bar and the panels are lifted above it here, and the reader's
+   chrome lifts itself (reader.css). Ink rather than paper, so it dims every
+   theme the same way; a little more of it on dark paper, where a thin wash
+   disappears. `auto` follows the browser the way the palettes above do. */
+.panel-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: rgb(0 0 0 / 0.22);
+}
+
+:root[data-reader-theme="dark"] .panel-scrim {
+  background: rgb(0 0 0 / 0.45);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-reader-theme="light"]):not([data-reader-theme="sepia"]) .panel-scrim {
+    background: rgb(0 0 0 / 0.45);
+  }
+}
+
+/* The box around the bar and its panels, stuck to the top of the window on
+   every page (D219): the reading list, the highlights, the saved phrases
+   and the settings, as the article view has been since D93 - a long list
+   scrolled to its end kept the way back, Aa and the menu a whole page
+   away. One box in one home: the reader's `.reader-chrome` wears this
+   class too, and keeps for itself only what is the article view's - the
+   ribbon that folds the bar away (reader.css), which no list gets: folding
+   is for a read, not for a list. Its own paper, so nothing scrolling under
+   it shows through in any theme; the breath of paper above the bar is the
+   page's whole headroom, moved in here (the body keeps none, below), so
+   the bar rests exactly where it sticks and the first scroll moves
+   nothing - with half of the headroom left on the body the box slid up by
+   it before it held, a dozen pixels of the header hiding on every page
+   (Michał's report, 2026-09-14; until then the article view's conduct
+   since D93, and the reason D153 once held the box). Lifted above
+   the scrim (1) and above everything in a list - the highlighter's pins
+   and badges stand at 0 for this reason - as one stacking context, so the
+   paper below can stand under everything in it. Plain sticky, no hiding
+   on scroll and no transition: the simplest thing an e-ink panel can be
+   asked to redraw (D93). A child of the body, not of a page's header: a
+   stuck box never leaves its parent's box. */
+.page-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding-top: var(--header-air);
+  background: var(--page-bg);
+}
+
+/* No headroom on the body over the box: the box's own paper is the page's
+   headroom (above), on every page that wears the bar. A page's own sheet
+   sets the body's other three sides. */
+body:has(> .page-chrome) {
+  padding-top: 0;
+}
+
+/* Where the visible page begins, told to the browser (D219): under the
+   stuck bar, not at the window's edge. Every scroll the browser makes on
+   its own honours it - an anchor's landing (the settings' sections, the
+   transfer sections, the highlights' export), a row brought into view for
+   the keyboard's focus, `scrollIntoView` from the pages' scripts (a
+   turned page of the list, "Show in list" over the filter's line) - so
+   none of them lands what it aimed at under the bar. A breath more than
+   the bar itself, so a landing does not touch the line; the anchors' own
+   `scroll-margin-top` adds its heading's air on top. Only where the bar
+   is (`:has`): the popup has no bar. The reader's article view stands
+   this down for itself (reader.css): its scrolls do their own arithmetic
+   against a bar that may be folded away or carrying a notice, which no
+   token knows. */
+:root:has(.page-chrome) {
+  scroll-padding-top: calc(var(--header-h) + 0.25rem);
+}
+
+/* One sheet of paper under the whole box while the page is dimmed, from one
+   edge of the window to the other - the reader chrome's own trick
+   (reader.css): lifted alone, a column-wide bar reads as a white card
+   dropped on the dimmed page; edge to edge it reads as the bar it is. One
+   sheet rather than one per bar and panel: two sheets met at the bar's
+   foot, and once the box was stuck at a fractional scroll their seam let
+   the dimmed page through as a hairline across the window (Michał's smoke,
+   2026-08-29). The bar's own rule is drawn over the paper, column-wide, as
+   on every other page. Up past the page's top padding to the window's
+   edge, so at the top of the page no dimmed strip stands over the bar;
+   stuck or scrolled, the reach is off-screen. The halves of the calc
+   overshoot by half a scrollbar, and the root clips sideways for as long
+   as the scrim stands, so no scrollbar appears for it (`clip`, not
+   `hidden`: clipping makes no scroll container, so sticky keeps working
+   against the viewport). The shadow falls on the page under the sheet's
+   one edge that is not the window's. Only while the page is dimmed: at
+   rest the stuck box's own paper is enough on these pages, where nothing
+   stands outside the column to scroll under the bar's gutters (the reader
+   keeps its sheet up over an article for its margin pins, reader.css).
+   Until D219 the box was stuck only for as long as a panel stood open,
+   held at its own offset by `lib/chrome-hold.js` (D153); stuck at the
+   window's top on every page now, it has nothing to be held from, and the
+   module went with the hold. */
+body:not(.reader):has(.panel-scrim:not([hidden])) .page-chrome::before {
+  content: "";
+  position: absolute;
+  inset: -100vh calc(50% - 50vw) 0;
+  z-index: -1;
+  background: var(--page-bg);
+  box-shadow: 0 10px 24px -8px rgb(0 0 0 / 0.35);
+}
+
+:root:has(.panel-scrim:not([hidden])) {
+  overflow-x: clip;
+}
+
+/* --- the look-up field (D197): the popup's row and the phrases page's fold --- */
+
+/* One component in two homes (`lib/lookup-box.js`), dressed once: a field
+   with its cross and its button, and under it the answer - the phrase with
+   its standing in the vocabulary, the meanings kept, the dictionaries'
+   lines as presses. Every control keeps the pages' 44px floor. */
+.lookup-box {
+  display: grid;
+  /* A track that may shrink under its content: the field below has no
+     width of its own to insist on, and the box must not either - in the
+     popup it shares one row with the arrow and the button, and a box that
+     kept its content's width pushed the whole popup wider (Michał's
+     screenshot, 2026-09-11). */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.6rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.lookup-form {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  min-width: 0;
+}
+
+/* The field's real label, read by screen readers, invisible to everyone
+   else - the clip pattern the phrases page uses for its filter. */
+.lookup-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* A field with its cross inside (`lib/clear-field.js`: the look-up field
+   and the saved-phrases list's filter): the box takes the row, the cross
+   stands at the field's far end over the field's own padding, which the
+   field's own rule has to leave it (2.6rem at the end). */
+.clear-field {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* The browser's own cross on a search field stands down: Firefox draws
+   none, Chromium's is a small target that fires no event a page can count
+   on - the field's own cross is the one in both. */
+.clear-field > input::-webkit-search-cancel-button,
+.clear-field > input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* The one way to take the answer down: a 44px cross at the field's far end,
+   no frame of its own inside the field's, hidden while there is nothing to
+   clear (the script toggles `hidden`). */
+.clear-field-x {
+  position: absolute;
+  inset-inline-end: 0;
+  top: 0;
+  bottom: 0;
+  width: 44px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0 6px 6px 0;
+  background: none;
+  color: var(--page-muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.clear-field-x:hover,
+.clear-field-x:focus-visible {
+  color: var(--page-fg);
+}
+
+.lookup-input {
+  /* No width of its own: a text field asks for room for twenty characters
+     unless told otherwise, and that ask is what widened the popup. It takes
+     what the arrow and the button leave, and all of it. */
+  flex: 1 1 auto;
+  width: 0;
+  min-width: 0;
+  min-height: 44px;
+  font: inherit;
+  padding: 0.35rem 2.6rem 0.35rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--page-border);
+  background: transparent;
+  color: var(--page-fg);
+}
+
+.lookup-go {
+  min-height: 44px;
+  white-space: nowrap;
+}
+
+/* The answer's measures, read by every row and every name line on the
+   shelf (the sixth brief's rhythm): the box's square and its gap to the
+   text; the touch floor; the least a row keeps above and below its text
+   (`--lookup-row-gap`), which grows to what centres one line of text on
+   the floor (`--lookup-row-pad`) - so a one-line row is exactly the floor
+   tall and the space between two rows' text is twice the pad; and a name
+   line's paddings, its bottom the row's own pad and its top whatever the
+   floor still needs over the label's line - so the space from a book's
+   name to its first row is the space between two rows, measured in px.
+   The line's height comes in from the home (the phrases page sets it from
+   the reading size, vocab.css) and falls back to the interface line box. */
+.lookup-answer {
+  --lookup-box-size: 20px;
+  --lookup-line-gap: 12px;
+  --lookup-touch: 44px;
+  --lookup-row-gap: 0.45rem;
+  --lookup-label-size: 0.78rem;
+  --lookup-label-line: calc(var(--lookup-label-size) * 1.3);
+  --lookup-row-pad: max(var(--lookup-row-gap), calc((var(--lookup-touch) - var(--lookup-line-height, 1.6em)) / 2));
+  --lookup-label-pad-top: max(var(--lookup-row-pad), calc(var(--lookup-touch) - var(--lookup-label-line) - var(--lookup-row-pad)));
+  display: grid;
+  gap: 0.4rem;
+}
+
+/* The phrase, its speaker, and at the far end its standing in the
+   vocabulary; under a phone's width the standing steps down to its own
+   line under the phrase (the rule below). */
+.lookup-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+}
+
+.lookup-phrase {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* "Saved: 3 · Show in list": the count in the muted voice, the link in the
+   sentence-link dress (`.lookup-link` below), the dot between them. Stands
+   only for a saved phrase; an unsaved one says so by its unmarked lines. */
+.lookup-standing {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin-inline-start: auto;
+  color: var(--page-muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .lookup-standing {
+    flex-basis: 100%;
+    margin-inline-start: 0;
+  }
+}
+
+/* The speaker beside the phrase, the phrases page's quiet button: no
+   resting border, the muted color, the icon its whole face. */
+.lookup-speak {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  margin-block: -0.45rem;
+  padding: 0.3rem;
+  border-color: transparent;
+  color: var(--page-muted);
+}
+
+.lookup-speak:hover,
+.lookup-speak:focus-visible {
+  border-color: var(--page-border);
+  color: var(--page-fg);
+}
+
+.lookup-speak svg {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+/* The line that says the dictionaries are being asked, why they said
+   nothing, or what went wrong - the page's own status voice, one step below
+   the prose; pending in the italic the bubble uses for the same wait. */
+.lookup-note {
+  margin: 0;
+  color: var(--page-muted);
+  font-size: 0.9rem;
+}
+
+.lookup-note[data-tone="pending"] {
+  font-style: italic;
+}
+
+.lookup-note[data-tone="error"] {
+  color: var(--page-error);
+}
+
+/* A word of the sentence that is a press or a link (the bubble's hint line,
+   D192): the accent and an underline say so, and nothing else changes shape
+   - a framed button inside a sentence would read as a form. */
+.lookup-link,
+button.lookup-link,
+button.lookup-show {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  font: inherit;
+  color: var(--page-accent);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* "Show in list" is a press in the standing line's small voice; its hit box
+   keeps the 44px floor through its padding, the room given back by the
+   negative block margin, the phrases page's quiet-button trick. */
+button.lookup-show {
+  padding: 0.7rem 0.2rem;
+  margin-block: -0.7rem;
+}
+
+/* The books' entries, one fold per book (block 3 of the rebuild): a line
+   between one book and the next (a separator that survives an e-ink
+   panel's 16 greys), the book's name as the fold's own words - the small
+   uppercase label, with the count of its lines - and under it the meanings
+   one to a row. The first book opens by default, the others stand closed;
+   past the first lines of a book the rest fold again under "Show all".
+   No height limit and no scrollbar inside: the folds are the limit.
+
+   Where the field writes, a row is a label over a native checkbox and the
+   line's text (block 2): 44px tall, the box 20px with 12px to the text,
+   the text wrapping as it needs to. What says the meaning is kept is the
+   checkbox's own mark and the weight of the text - never a wash alone,
+   which an e-ink panel rounds back to paper; the hover wash is an extra,
+   not the signal. */
+.lookup-entries {
+  display: grid;
+  gap: 0;
+  /* Air between the phrase's standing and the books under it. */
+  margin-top: 0.6rem;
+}
+
+/* One separator between any two things on the shelf - a book and the next,
+   the last book and "Your own" - and no margin on either side of it: the
+   space around a separator is the 44px line of the name under it and the
+   rows' own padding above, the same for every pair. */
+.lookup-entries > * + * {
+  border-top: 1px solid var(--page-line);
+}
+
+/* The fold's line is the book's name, with the browser's own disclosure
+   triangle before it - the glyph every other fold on the page wears (D1 of
+   the fourth brief). A summary keeps the marker only as a list item, which
+   is why the line is not a flex row: 44px by its padding and floor, the
+   small uppercase label, the marker in the muted voice. The whole line is
+   the press. */
+.lookup-group-label {
+  display: list-item;
+  min-height: var(--lookup-touch, 44px);
+  margin: 0;
+  padding: var(--lookup-label-pad-top, 0.8rem) 0.35rem var(--lookup-row-pad, 0.45rem);
+  font-size: var(--lookup-label-size, 0.78rem);
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--page-muted);
+  cursor: pointer;
+}
+
+.lookup-group-label::marker {
+  color: var(--page-muted);
+}
+
+.lookup-group-label .lookup-entry-dict {
+  font-weight: 600;
+}
+
+/* A headword the book answered under when it is not the word typed (D23):
+   a quiet line over its rows. */
+.lookup-entry-headword {
+  padding: 0.35rem 0.35rem 0;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--page-muted);
+}
+
+/* A part of speech or a section's name over the meanings after it (the
+   panel's second round): the book's own small uppercase label a step
+   smaller, no line of its own, no box - nothing to tick. Set at the rows'
+   text inset so it reads as the heading of the rows under it. */
+.lookup-entry-heading {
+  padding: 0.5rem 0.35rem 0.1rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--page-muted);
+}
+
+.lookup-pronunciation {
+  padding: 0.2rem 0.35rem 0.2rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
+  font-size: 0.85rem;
+  color: var(--page-muted);
+  font-family: var(--font-ui, system-ui, sans-serif);
+}
+
+.lookup-ipa {
+  font-style: normal;
+  letter-spacing: 0.02em;
+}
+
+.lookup-cefr-wrap {
+  padding: 0.2rem 0.35rem 0.3rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
+}
+
+.lookup-cefr-badge {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  border-radius: 4px;
+  background: var(--page-tint, transparent);
+  color: var(--page-accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.lookup-example {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.25rem 0.35rem 0.25rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px) + 0.5rem);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  border-left: 2px solid var(--page-line);
+  margin: 0.1rem 0 0.2rem 0;
+}
+
+.lookup-ex-bullet {
+  color: var(--page-muted);
+  font-size: 0.75rem;
+}
+
+.lookup-ex-source {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.lookup-ex-arrow {
+  color: var(--page-muted);
+  font-size: 0.75rem;
+}
+
+.lookup-ex-target {
+  color: var(--page-muted);
+}
+
+.lookup-idiom {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.3rem 0.35rem 0.3rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.lookup-idiom-star {
+  color: var(--page-accent);
+  font-size: 0.8rem;
+}
+
+.lookup-idiom-source {
+  font-weight: 600;
+}
+
+.lookup-idiom-target {
+  color: var(--page-muted);
+}
+
+/* "More about the word" at the end of a book: the transcriptions and the
+   cross-references the book wrote between its meanings, folded and closed
+   until asked. A fold like the books', with the same triangle before its
+   words, at the rows' text inset; the lines inside are plain text, one
+   paragraph each, at the same inset. */
+.lookup-about-label {
+  display: list-item;
+  min-height: var(--lookup-touch, 44px);
+  padding: var(--lookup-label-pad-top, 0.75rem) 0.35rem var(--lookup-row-pad, 0.45rem) calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
+  font-size: var(--lookup-label-size, 0.78rem);
+  line-height: 1.3;
+  color: var(--page-muted);
+  cursor: pointer;
+}
+
+.lookup-about-label::marker {
+  color: var(--page-muted);
+}
+
+.lookup-about .lookup-paragraph {
+  padding: 0.2rem 0.35rem 0.2rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
+  color: var(--page-muted);
+}
+
+/* The button after the rest of a long book's lines - "Show all (N)" over
+   the hidden block, "Show fewer" over the shown one - the book's last child
+   either way (block 3 of the polish round). It reads like the
+   sentence-links and lines up with the rows' text: the same inset as a row
+   plus the box and the gap, not the box's own edge. */
+.lookup-more-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 0.35rem 0 calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
+  border: none;
+  border-radius: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.85rem;
+  text-align: left;
+  color: var(--page-accent);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.lookup-line {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--lookup-line-gap, 12px);
+  min-height: var(--lookup-touch, 44px);
+  padding: var(--lookup-row-pad, 0.45rem) 0.35rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.lookup-line:hover {
+  background: color-mix(in srgb, var(--page-fg) 5%, transparent);
+}
+
+/* The box - and the tick that stands in its place where the field only
+   reads - keeps its size whatever the text does, and sits centred on the
+   text's first line rather than in the middle of a wrapped row: its top
+   margin is half of what the line stands tall over the box, plus the
+   optical correction that takes it from the middle of the line box down
+   to the middle of the x-height (`--lookup-check-offset`, a serif face's
+   asymmetry - see vocab.css). The line's height and the correction come
+   in as tokens from the home - the phrases page sets them from the
+   reading size the Aa panel chose - and fall back to the interface line
+   box and its own eleventh here, where `em` is the box's inherited size,
+   which in the popup is the text's size too.
+
+   Written as the row's child on purpose: the pages' own checkbox rule
+   above (`input[type="checkbox"] { margin: 0 }`) outranks a lone class,
+   and under it the box sat at the top of its row at every size - the
+   margin was never applied (measured in Brave, 2026-09-12). Two classes
+   outrank the attribute. With the margin in force the box's centre lands
+   on the x-height's middle within a third of a pixel from 14px to 28px,
+   Georgia's x-height read off a canvas. */
+.lookup-line > .lookup-line-box,
+.lookup-line > .lookup-line-mark {
+  --lookup-box-top: calc((var(--lookup-line-height, 1.6em) - var(--lookup-box-size, 20px)) / 2 + var(--lookup-check-offset, 0.11em));
+  flex: none;
+  width: var(--lookup-box-size, 20px);
+  height: var(--lookup-box-size, 20px);
+  /* And never taller than the line as a whole: under a short line (14px)
+     the box with its correction stands out below the text, and the row
+     grew by that much, so the space to the next row did (measured in
+     Brave: 25.1px against 23.7 from a book's name). The bottom margin
+     takes the overhang back, and the row's height is the line's. */
+  margin: var(--lookup-box-top) 0 min(0px, calc(var(--lookup-line-height, 1.6em) - var(--lookup-box-size, 20px) - var(--lookup-box-top)));
+  /* The tick in the ink of the text beside it, in every theme and in
+     every home alike (the sixth brief) - the current colour, inherited
+     from the row (a form control keeps the browser's own ink otherwise),
+     not a token of the pages', because the bubble has its own ink and no
+     page tokens; over the pages' own checkbox rule (an accent) by the two
+     classes. */
+  color: inherit;
+  accent-color: currentColor;
+}
+
+.lookup-line-box {
+  cursor: pointer;
+}
+
+.lookup-line-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.lookup-line[data-saved="true"] .lookup-line-text {
+  font-weight: 600;
+}
+
+/* The reader's own meanings, last on the shelf (block 4): not a fold - the
+   field for the next meaning is always in view - under a label in a book's
+   name line's dress without its triangle, then the same rows, and the
+   field with Save beside it on one line, in the look-up field's own dress.
+   No margin and no line of its own: the shelf's one separator parts it
+   from the last book. */
+.lookup-own {
+  margin: 0;
+}
+
+.lookup-own-label {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: var(--lookup-label-pad-top, 0.8rem) 0.35rem var(--lookup-row-pad, 0.45rem);
+  font-size: var(--lookup-label-size, 0.78rem);
+  font-weight: 600;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--page-muted);
+}
+
+.lookup-own-form {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.25rem 0 0;
+  min-width: 0;
+}
+
+.lookup-own-input {
+  flex: 1 1 auto;
+  width: 0;
+  min-width: 0;
+  min-height: 44px;
+  font: inherit;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--page-border);
+  background: transparent;
+  color: var(--page-fg);
+}
+
+.lookup-own-save {
+  min-height: 44px;
+  white-space: nowrap;
+}
+
+/* The field that only reads (the popup, the fourth brief's D2): the same
+   shelf without its boxes. The rows are nothing to press - no pointer, no
+   hover wash - and their text starts at the group's edge, the box's column
+   gone; what is saved stands first under its own name, each meaning with
+   a tick standing still in the column the page's rows give their box; the
+   standing line is not drawn at all, "Saved (N)" says it. */
+.lookup-answer[data-readonly="true"] .lookup-line {
+  cursor: default;
+}
+
+.lookup-answer[data-readonly="true"] .lookup-line:hover {
+  background: none;
+}
+
+/* The tick as a glyph centred in the box's own square, so the one margin
+   rule above places it exactly where the box would stand. */
+.lookup-line-mark {
+  line-height: var(--lookup-box-size, 20px);
+  text-align: center;
+}
+
+.lookup-answer[data-readonly="true"]
+  :is(.lookup-entry-heading, .lookup-more-toggle, .lookup-about-label, .lookup-about .lookup-paragraph) {
+  padding-inline-start: 0.35rem;
+}
+
+/* A line of "More about the word": plain text with the lines inside it
+   kept (`pre-line`), one paragraph each. */
+.lookup-paragraph {
+  padding: 0 0.35rem;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.lookup-paragraph + .lookup-paragraph {
+  margin-top: 0.55em;
+}
+
+/* --- the colophon (the settings' first, now every room that ends) --- */
+
+/* The line that closes a page the way one closes a book: name and version,
+   the licence, the maker and its address, the source. One dress here for
+   every room that wears it - the settings, the reading list, the highlights
+   and the saved phrases (Michał's wish, 2026-08-17: the address is meant to
+   be read and remembered wherever a reader reaches an end). The roof of
+   space keeps it from crowding the list above; its own interface family,
+   because the reader's rooms read in serif and the colophon is chrome, not
+   text. */
+.page-end {
+  margin-top: 4rem;
+  color: var(--page-muted);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+}
+
+.page-end p {
+  margin: 0;
+}

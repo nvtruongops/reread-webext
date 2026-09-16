@@ -1,0 +1,1611 @@
+{
+  "locale_code": { "message": "de" },
+
+  "extension_description": {
+    "message": "Web-Artikel und EPUB-Bücher offline lesen - und die Sprache lernen, in der Sie sie lesen. Nichts Gelesenes verlässt das Gerät."
+  },
+
+  "pair_label": {
+    "message": "$FROM$ → $TO$",
+    "placeholders": {
+      "from": { "content": "$1", "example": "Englisch" },
+      "to": { "content": "$2", "example": "Deutsch" }
+    }
+  },
+
+  "settings": { "message": "Einstellungen" },
+  "support": { "message": "Unterstützung" },
+  "nav_menu": { "message": "Menü" },
+  "language_pair": { "message": "Sprachpaar" },
+  "reading_list": { "message": "Offline-Leseliste" },
+  "private_browsing_note": { "message": "Sie sind im privaten Modus. Der Browser verwendet für diese Seite eine eigene Datenbank und löscht sie am Ende der privaten Sitzung: Die Leseliste und die Markierungen, die Sie hier sehen, stammen aus ihren Kopien, und ein hier gespeicherter Artikel, ein importiertes Buch, eine gesetzte Markierung oder alles hier Gelöschte geht mit der Sitzung verloren. Die einzige Ausnahme sind gespeicherte Phrasen - sie bleiben erhalten. Für alles andere öffnen Sie re/read in einem normalen Tab." },
+  "saved_phrases": { "message": "Gespeicherter Wortschatz" },
+  "open_reader": { "message": "In der Leseansicht öffnen" },
+  "quiet_bubble": { "message": "Aktionen der Sprechblase standardmäßig ausblenden" },
+  "action_delete": { "message": "Löschen" },
+  "action_download": { "message": "Herunterladen" },
+  "action_cancel": { "message": "Abbrechen" },
+  "action_save": { "message": "Speichern" },
+  "action_update": { "message": "Aktualisieren" },
+
+  "error_engine_missing": { "message": "Noch keine Übersetzungs-Engine - diese Version kann nicht übersetzen." },
+  "error_model_missing": { "message": "Kein Modell für dieses Sprachpaar auf diesem Gerät - in den Einstellungen herunterladen oder aus Dateien hinzufügen. Und zum Lesen ohne maschinelle Übersetzung dort „Ohne Übersetzungsmodell verwenden“ einschalten - Wörterbücher antworten weiterhin, und Phrasen speichern Sie aus ihren Bedeutungen." },
+  "error_unsupported_pair": { "message": "Für dieses Sprachpaar gibt es kein Modell." },
+  "error_too_long": { "message": "Diese Auswahl ist zu lang zum Übersetzen." },
+  "error_no_page": { "message": "Hier gibt es keine Seite zum Lesen - öffnen Sie einen Artikel und drücken Sie die Taste erneut." },
+  "error_unknown_message": { "message": "Die Erweiterung hat eine Anfrage gesendet, die sie selbst nicht versteht." },
+  "error_internal": { "message": "In der Erweiterung ist etwas schiefgegangen." },
+
+  "bubble_save": { "message": "Speichern" },
+  "bubble_learned": { "message": "Gelernt" },
+  "bubble_edit_separator_hint": { "message": "Ein Semikolon trennt Bedeutungen." },
+  "bubble_edit": { "message": "Bearbeiten" },
+  "bubble_settings": { "message": "Einstellungen öffnen" },
+  "bubble_more": { "message": "Mehr" },
+  "bubble_less": { "message": "Weniger" },
+  "bubble_reader": { "message": "In der Leseansicht lesen" },
+  "bubble_library": { "message": "Offline-Leseliste öffnen" },
+  "bubble_translating": { "message": "Übersetze..." },
+  "bubble_looking_up": { "message": "Suche in den Wörterbüchern..." },
+  "bubble_nothing_more": { "message": "Kein Satz und kein Wörterbucheintrag vorhanden" },
+  "bubble_whole_words": { "message": "Markieren Sie ganze Wörter" },
+  "bubble_not_in_dictionary": { "message": "Nicht in Ihren Wörterbüchern" },
+  "bubble_no_dictionary": {
+    "message": "Noch kein Wörterbuch für $LANGUAGE$ - fügen Sie eines in den $SETTINGS$ hinzu",
+    "placeholders": {
+      "language": { "content": "$1", "example": "Englisch" },
+      "settings": { "content": "$2", "example": "Einstellungen" }
+    }
+  },
+  "bubble_settings_word": { "message": "Einstellungen" },
+  "bubble_model_word": { "message": "Ein Übersetzungsmodell übersetzt ein einzelnes Wort ohne Kontext oft falsch." },
+  "bubble_dictionary_sources": { "message": "Wo Wörterbücher zu finden sind:" },
+  "bubble_saves_under": {
+    "message": "Wird unter dem aktiven Sprachpaar gespeichert: $PAIR$",
+    "placeholders": { "pair": { "content": "$1", "example": "Englisch → Polnisch" } }
+  },
+  "bubble_saved_word": {
+    "message": "Gespeichertes Wort: $WORD$",
+    "placeholders": { "word": { "content": "$1", "example": "read" } }
+  },
+  "bubble_choose_meaning": { "message": "Wählen Sie eine Bedeutung aus, um sie zu speichern" },
+  "bubble_speak": { "message": "Vorlesen" },
+  "bubble_sentence_collapse": { "message": "Satz einklappen" },
+  "bubble_sentence_expand": { "message": "Satz ausklappen" },
+  "bubble_copy": { "message": "Kopieren" },
+  "bubble_copy_original": { "message": "Original kopieren" },
+  "bubble_copy_translation": { "message": "Übersetzung kopieren" },
+  "bubble_copied": { "message": "Kopiert" },
+
+  "popup_site_enabled": {
+    "message": "Eingeschaltet auf $DOMAIN$",
+    "placeholders": { "domain": { "content": "$1" } }
+  },
+  "popup_site_toggle_title": { "message": "Ob re/read auf dieser Website läuft" },
+  "popup_no_page": { "message": "re/read funktioniert auf dieser Seite nicht." },
+  "popup_no_model": {
+    "message": "Auf diesem Gerät gibt es noch kein Übersetzungsmodell - drücken Sie hier und wählen Sie eines in den Einstellungen."
+  },
+
+  "vocab_title": { "message": "re/read - gespeicherter Wortschatz" },
+  "vocab_intro": {
+    "message": "Alles, was Sie für dieses Sprachpaar behalten haben, Neuestes zuerst - beim Lesen gespeichert und nur auf diesem Gerät. „$LEARNED$“ entfernt einen Eintrag samt seinen Unterstreichungen; „$EDIT$“ schreibt seine Bedeutungen neu, eine pro Zeile. Mehrere Bedeutungen auf einmal trennen Sie mit einem Semikolon. Neben einem Eintrag zwei Zahlen - eine Lupe und ein Buch: wie oft Sie ihn nachgeschlagen haben (seine Sprechblase geöffnet) und wie oft er in den Texten vorkam, die Sie zu Ende gelesen haben - in einem Buchteil, den Sie über „Weiter“ unter dem Text verlassen haben, oder in einem als gelesen markierten Artikel. Die Liste lässt sich nach beiden ordnen.",
+    "placeholders": {
+      "learned": { "content": "$1", "example": "Gelernt" },
+      "edit": { "content": "$2", "example": "Bearbeiten" }
+    }
+  },
+  "vocab_how_title": { "message": "So funktioniert es" },
+  "vocab_format_title": { "message": "Dateiformat" },
+  "vocab_filter_placeholder": { "message": "Nach Wendung oder Bedeutung filtern" },
+  "vocab_filter_label": { "message": "Die Liste des gespeicherten Wortschatzes filtern" },
+  "vocab_filter_clear": { "message": "Filter leeren" },
+  "vocab_add_title": { "message": "Wendung hinzufügen" },
+  "vocab_add_note": { "message": "Geben Sie ein Wort ein und bestätigen Sie - haken Sie Bedeutungen aus Ihren Wörterbüchern ab oder schreiben Sie eine eigene." },
+  "lookup_label": { "message": "Wort nachschlagen" },
+  "lookup_placeholder": { "message": "Wort oder Wendung eingeben" },
+  "lookup_action": { "message": "Suchen" },
+  "lookup_clear": { "message": "Feld leeren" },
+  "lookup_saved_count": {
+    "message": "Gespeichert: $COUNT$",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "lookup_own": { "message": "Eigene" },
+  "lookup_own_placeholder": { "message": "Eigene Bedeutung eingeben" },
+  "lookup_more_about": { "message": "Mehr zum Wort" },
+  "lookup_show_all": {
+    "message": "Alle zeigen ($COUNT$)",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "lookup_show_fewer": { "message": "Weniger zeigen" },
+  "lookup_show_in_list": { "message": "In der Liste zeigen" },
+  "lookup_saved_group": {
+    "message": "Gespeichert ($COUNT$)",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "popup_lookup_back": { "message": "Zurück zum Menü" },
+  "popup_lookup_add": { "message": "Auf der Wortschatz-Seite speichern" },
+  "popup_lookup_open": { "message": "Im gespeicherten Wortschatz öffnen" },
+  "vocab_count_filtered_one": {
+    "message": "$MATCHING$ von $TOTAL$ gespeicherten Eintrag",
+    "placeholders": {
+      "total": { "content": "$1", "example": "1" },
+      "matching": { "content": "$2", "example": "0" }
+    }
+  },
+  "vocab_count_filtered_other": {
+    "message": "$MATCHING$ von $TOTAL$ gespeicherten Einträgen",
+    "placeholders": {
+      "total": { "content": "$1", "example": "26" },
+      "matching": { "content": "$2", "example": "8" }
+    }
+  },
+  "vocab_edit_aria": {
+    "message": "Wendung bearbeiten: $PHRASE$",
+    "placeholders": { "phrase": { "content": "$1", "example": "Bank" } }
+  },
+  "vocab_learned_aria": {
+    "message": "Als gelernt markieren: $PHRASE$",
+    "placeholders": { "phrase": { "content": "$1", "example": "Bank" } }
+  },
+  "vocab_speak_aria": {
+    "message": "Vorlesen: $PHRASE$",
+    "placeholders": { "phrase": { "content": "$1", "example": "Bank" } }
+  },
+  "vocab_empty": {
+    "message": "Für dieses Paar ist noch nichts gespeichert. Wählen Sie beim Lesen eine Wendung aus und drücken Sie „$BUTTON$“ - sie wartet dann hier.",
+    "placeholders": { "button": { "content": "$1", "example": "Speichern" } }
+  },
+  "vocab_filter_status_one": {
+    "message": "$SHOWN$ von $TOTAL$ Eintrag für „$QUERY$“",
+    "placeholders": {
+      "total": { "content": "$1", "example": "1" },
+      "shown": { "content": "$2", "example": "1" },
+      "query": { "content": "$3", "example": "news" }
+    }
+  },
+  "vocab_filter_status_other": {
+    "message": "$SHOWN$ von $TOTAL$ Einträgen für „$QUERY$“",
+    "placeholders": {
+      "total": { "content": "$1", "example": "827" },
+      "shown": { "content": "$2", "example": "1" },
+      "query": { "content": "$3", "example": "news" }
+    }
+  },
+  "vocab_order_label": { "message": "Reihenfolge der Liste" },
+  "vocab_order_newest": { "message": "Neueste zuerst" },
+  "vocab_order_recalled": { "message": "Am häufigsten nachgeschlagen" },
+  "vocab_order_read": { "message": "Am häufigsten gelesen" },
+  "vocab_order_alphabetical": { "message": "Alphabetisch" },
+  "vocab_recalls_one": {
+    "message": "$COUNT$-mal nachgeschlagen",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" }
+    }
+  },
+  "vocab_recalls_other": {
+    "message": "$COUNT$-mal nachgeschlagen",
+    "placeholders": {
+      "count": { "content": "$1", "example": "20" }
+    }
+  },
+  "vocab_reads_one": {
+    "message": "$COUNT$-mal in gelesenen Texten",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" }
+    }
+  },
+  "vocab_reads_other": {
+    "message": "$COUNT$-mal in gelesenen Texten",
+    "placeholders": {
+      "count": { "content": "$1", "example": "100" }
+    }
+  },
+  "vocab_legend_recalls": { "message": "nachgeschlagen – Öffnungen der Sprechblase beim Lesen" },
+  "vocab_legend_reads": { "message": "gelesen – Vorkommen in zu Ende gelesenen Texten" },
+  "vocab_import_with_sentence_one": {
+    "message": "$COUNT$ Zeile bringt einen Satz mit - ein bereits gespeicherter Eintrag übernimmt ihn nur, wenn er keinen eigenen hat.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" }
+    }
+  },
+  "vocab_import_with_sentence_other": {
+    "message": "$COUNT$ Zeilen bringen einen Satz mit - ein bereits gespeicherter Eintrag übernimmt ihn nur, wenn er keinen eigenen hat.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1,5" }
+    }
+  },
+  "vocab_import_sentenced_one": {
+    "message": "Der Satz aus der Datei wurde bei $COUNT$ bereits gespeicherten Eintrag ergänzt.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" }
+    }
+  },
+  "vocab_import_sentenced_other": {
+    "message": "Der Satz aus der Datei wurde bei $COUNT$ bereits gespeicherten Einträgen ergänzt.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1,5" }
+    }
+  },
+  "pager_page_of": {
+    "message": "Seite $PAGE$ von $PAGES$",
+    "placeholders": {
+      "page": { "content": "$1", "example": "3" },
+      "pages": { "content": "$2", "example": "13" }
+    }
+  },
+  "pager_prev": { "message": "Zurück" },
+  "pager_next": { "message": "Weiter" },
+  "action_export": { "message": "Exportieren" },
+  "vocab_export_anki": { "message": "Für Anki exportieren" },
+  "action_import": { "message": "Importieren" },
+  "transfer_heading": { "message": "Import und Export" },
+  "vocab_transfer_note": {
+    "message": "Eine .tsv-Datei mit zwei Spalten - dasselbe Format schreibt das KOReader-Plugin, und Anki liest es. Der Import ergänzt nur Phrasen, die diesem Paar fehlen; Gespeichertes bleibt unberührt. In der Bedeutungszelle trennt ein Semikolon mit Leerzeichen die Bedeutungen; ein Semikolon ohne Leerzeichen bleibt in seiner Bedeutung. „Für Anki exportieren“ schreibt eine dritte Spalte mit dem Satz, in dem die Phrase gespeichert wurde - leer, wenn es keinen gibt. Auch diese Datei lässt sich hier importieren: die Sätze kommen mit, und ein bereits gespeicherter Eintrag übernimmt den Satz aus der Datei nur, wenn er keinen eigenen hat."
+  },
+  "vocab_import_into": { "message": "Importieren in" },
+  "vocab_import_nothing": { "message": "In dieser Datei gibt es keine Phrasen zum Importieren." },
+  "vocab_import_summary_one": {
+    "message": "$NAME$ enthält $COUNT$ Zeile:",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "name": { "content": "$2", "example": "reread-en-pl.tsv" }
+    }
+  },
+  "vocab_import_summary_other": {
+    "message": "$NAME$ enthält $COUNT$ Zeilen:",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1.243" },
+      "name": { "content": "$2", "example": "reread-en-pl.tsv" }
+    }
+  },
+  "vocab_import_added_one": {
+    "message": "$COUNT$ neue Phrase hinzugefügt.",
+    "placeholders": { "count": { "content": "$1", "example": "1" } }
+  },
+  "vocab_import_added_other": {
+    "message": "$COUNT$ neue Phrasen hinzugefügt.",
+    "placeholders": { "count": { "content": "$1", "example": "1.243" } }
+  },
+  "vocab_import_skipped_other": {
+    "message": "$COUNT$ bereits gespeicherte übersprungen.",
+    "placeholders": { "count": { "content": "$1", "example": "43" } }
+  },
+  "vocab_import_unreadable_one": {
+    "message": "$COUNT$ Zeile ließ sich nicht lesen.",
+    "placeholders": { "count": { "content": "$1", "example": "1" } }
+  },
+  "vocab_import_unreadable_other": {
+    "message": "$COUNT$ Zeilen ließen sich nicht lesen.",
+    "placeholders": { "count": { "content": "$1", "example": "7" } }
+  },
+
+  "reader_title": { "message": "re/read - Leseansicht" },
+  "reader_open_original": { "message": "Original öffnen" },
+  "reader_pictures_save": {
+    "message": "Bilder herunterladen ($COUNT$)",
+    "placeholders": { "count": { "content": "$1", "example": "12" } }
+  },
+  "reader_pictures_remove": {
+    "message": "Bilder entfernen ($SIZE$)",
+    "placeholders": { "size": { "content": "$1", "example": "4,2 MB" } }
+  },
+  "reader_pictures_hint": {
+    "message": "Werden einmal von den Servern des Artikels geladen, ohne Cookies, und zusammen mit dem Artikel auf diesem Gerät gespeichert. Nach dem Laden werden sie im Artikel angezeigt."
+  },
+  "reader_pictures_book_hint": {
+    "message": "Die Bilder stammen aus der Buchdatei und wurden beim Hinzufügen zusammen mit dem Buch gespeichert. Diese Zeile entfernt nur die Bilder - das Buch bleibt, und die Bilder kommen erst zurück, wenn die Datei erneut hinzugefügt wird."
+  },
+  "reader_pictures_progress": {
+    "message": "Bild $DONE$ von $OF$ - $SIZE$",
+    "placeholders": {
+      "done": { "content": "$1", "example": "3" },
+      "of": { "content": "$2", "example": "12" },
+      "size": { "content": "$3", "example": "1,1 MB" }
+    }
+  },
+  "reader_pictures_stop": { "message": "Zum Abbrechen die Zeile antippen." },
+  "reader_pictures_done_one": {
+    "message": "$SAVED$ von $OF$ Bild heruntergeladen ($SIZE$)",
+    "placeholders": {
+      "of": { "content": "$1", "example": "1" },
+      "saved": { "content": "$2", "example": "1" },
+      "size": { "content": "$3", "example": "0,3 MB" }
+    }
+  },
+  "reader_pictures_done_other": {
+    "message": "$SAVED$ von $OF$ Bildern heruntergeladen ($SIZE$)",
+    "placeholders": {
+      "of": { "content": "$1", "example": "12" },
+      "saved": { "content": "$2", "example": "11" },
+      "size": { "content": "$3", "example": "4,2 MB" }
+    }
+  },
+  "reader_pictures_none": { "message": "Kein Bild konnte heruntergeladen werden." },
+  "reader_pictures_removed": { "message": "Bilder entfernt." },
+  "reader_pictures_failed": { "message": "Die Bilder konnten nicht gespeichert werden." },
+  "reader_fullscreen": { "message": "Vollbild" },
+  "reader_fullscreen_exit": { "message": "Vollbild beenden" },
+  "library_pictures_one": {
+    "message": "$COUNT$ Bild · $SIZE$",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "size": { "content": "$2", "example": "0,3 MB" }
+    }
+  },
+  "library_pictures_other": {
+    "message": "$COUNT$ Bilder · $SIZE$",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" },
+      "size": { "content": "$2", "example": "4,2 MB" }
+    }
+  },
+  "reader_back_to_list": { "message": "Zurück zur Leseliste" },
+  "reader_display_title": { "message": "Text und Stimme" },
+  "reader_theme": { "message": "Farbschema" },
+  "reader_theme_auto": { "message": "Auto" },
+  "reader_theme_light": { "message": "Hell" },
+  "reader_theme_sepia": { "message": "Sepia" },
+  "reader_theme_dark": { "message": "Dunkel" },
+  "reader_font": { "message": "Schrift" },
+  "reader_font_serif": { "message": "Serifen" },
+  "reader_font_sans": { "message": "Serifenlos" },
+  "reader_font_own": { "message": "Eigene" },
+  "reader_bar_hide": { "message": "Leiste ausblenden" },
+  "reader_bar_show": { "message": "Leiste einblenden" },
+  "reader_size": { "message": "Größe" },
+  "reader_smaller": { "message": "Kleiner" },
+  "reader_larger": { "message": "Größer" },
+  "reader_width": { "message": "Breite" },
+  "reader_narrower": { "message": "Schmaler" },
+  "reader_wider": { "message": "Breiter" },
+  "reader_links": { "message": "Links" },
+  "reader_links_plain": { "message": "Nur Text" },
+  "reader_links_active": { "message": "Aktiv" },
+  "reader_marker": { "message": "Textmarker" },
+  "reader_underline": { "message": "Unterstreichung" },
+  "underline_fine": { "message": "Fein" },
+  "underline_medium": { "message": "Mittel" },
+  "underline_strong": { "message": "Kräftig" },
+  "marker_delete": { "message": "Markierung entfernen" },
+  "marker_copy": { "message": "Kopieren" },
+  "marker_copied": { "message": "Kopiert" },
+  "marker_note": { "message": "Notiz" },
+  "marker_note_add": { "message": "Notiz hinzufügen" },
+  "marker_note_edit": { "message": "Notiz bearbeiten" },
+  "color_yellow": { "message": "Gelb" },
+  "color_green": { "message": "Grün" },
+  "color_blue": { "message": "Blau" },
+  "color_pink": { "message": "Rosa" },
+  "reader_footnote_aria": {
+    "message": "Fußnote $MARK$",
+    "placeholders": { "mark": { "content": "$1", "example": "1" } }
+  },
+  "reader_listen": { "message": "Vorlesen" },
+  "reader_voice": { "message": "Stimme" },
+  "reader_speed": { "message": "Tempo" },
+  "reader_slower": { "message": "Langsamer" },
+  "reader_faster": { "message": "Schneller" },
+  "reader_speech_bar": { "message": "Vorlesen" },
+  "reader_speech_back": { "message": "Zurück" },
+  "reader_speech_play": { "message": "Fortsetzen" },
+  "reader_speech_pause": { "message": "Pause" },
+  "reader_speech_stop": { "message": "Stopp" },
+  "reader_speech_forward": { "message": "Vor" },
+  "reader_speech_failed": { "message": "Dieses Gerät konnte den Artikel nicht vorlesen." },
+  "reader_segment_unread": { "message": "Zu lesen" },
+  "reader_segment_read": { "message": "Gelesen" },
+  "reader_segment_unread_count": {
+    "message": "Zu lesen ($COUNT$)",
+    "placeholders": { "count": { "content": "$1", "example": "4" } }
+  },
+  "reader_segment_read_count": {
+    "message": "Gelesen ($COUNT$)",
+    "placeholders": { "count": { "content": "$1", "example": "2" } }
+  },
+  "reader_save": { "message": "In der Leseliste speichern" },
+  "reader_delete_confirm": { "message": "Sicher?" },
+  "reader_delete_aria": {
+    "message": "Artikel löschen: $TITLE$",
+    "placeholders": { "title": { "content": "$1", "example": "Old Chinese" } }
+  },
+  "reader_delete_confirm_aria": {
+    "message": "Löschen bestätigen: $TITLE$",
+    "placeholders": { "title": { "content": "$1", "example": "Old Chinese" } }
+  },
+  "reader_mark_read": { "message": "Als gelesen markieren" },
+  "reader_marked_read": { "message": "Als gelesen markiert" },
+  "reader_mark_book_read": { "message": "Buch als gelesen markieren" },
+  "reader_book_marked_read": { "message": "Buch als gelesen markiert" },
+  "reader_no_article": { "message": "Auf dieser Seite war kein Artikel zu finden." },
+  "reader_list_write_failed": { "message": "Die Leseliste konnte nicht geschrieben werden." },
+  "reader_empty_none": {
+    "message": "Noch nichts gespeichert - öffnen Sie einen Artikel in der Leseansicht und drücken Sie „$BUTTON$“. Eine gespeicherte Seite bleibt auf diesem Gerät und öffnet sich auch ohne Internet.",
+    "placeholders": { "button": { "content": "$1", "example": "In der Leseliste speichern" } }
+  },
+  "reader_empty_all_read": { "message": "Nichts mehr zu lesen - alles Gespeicherte ist als gelesen markiert." },
+  "reader_empty_none_read": { "message": "Noch nichts ist als gelesen markiert." },
+  "reader_filter_placeholder": { "message": "Nach Titel oder Website suchen" },
+  "reader_filter_label": { "message": "Die Leseliste durchsuchen" },
+  "reader_filter_no_match": {
+    "message": "Kein gespeicherter Artikel passt zu „$QUERY$“.",
+    "placeholders": { "query": { "content": "$1", "example": "wikipedia" } }
+  },
+  "reader_filter_clear": { "message": "Suche leeren" },
+  "reader_filter_count": {
+    "message": "$MATCHING$ von $TOTAL$",
+    "placeholders": {
+      "matching": { "content": "$1", "example": "3" },
+      "total": { "content": "$2", "example": "12" }
+    }
+  },
+  "reader_how_title": { "message": "So funktioniert es" },
+  "reader_library_note": {
+    "message": "Alles hier sind Textkopien: Webartikel, die in der Leseansicht geöffnet und bewusst gespeichert wurden, sowie Artikel und .epub-Dateien, die über „Importieren\" unten hereingeholt wurden. All das öffnet sich ohne Internet und bleibt auf diesem Gerät, auch wenn die ursprüngliche Seite verschwindet."
+  },
+  "reader_format_title": { "message": "Dateiformat" },
+  "reader_transfer_note": {
+    "message": "Der Import ergänzt nur, was fehlt, und überschreibt nie Gespeichertes: ein schon vorhandener Artikel behält seine Kopie, ein gespeicherter Eintrag behält seine Bedeutungen und übernimmt nur einen fehlenden Satz oder einen höheren Zähler, eine schon vorhandene Markierung wird ausgelassen."
+  },
+  "reader_transfer_settings": {
+    "message": "Die Einstellungen werden nur wiederhergestellt, wenn Sie „Auch die Einstellungen wiederherstellen“ ankreuzen."
+  },
+  "reader_export_pictures_one": {
+    "message": "Export mit Bildern ($COUNT$ Bild · $SIZE$)",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "size": { "content": "$2", "example": "12,4 MB" }
+    }
+  },
+  "reader_export_pictures_other": {
+    "message": "Export mit Bildern ($COUNT$ Bilder · $SIZE$)",
+    "placeholders": {
+      "count": { "content": "$1", "example": "34" },
+      "size": { "content": "$2", "example": "12,4 MB" }
+    }
+  },
+  "reader_export_books_one": {
+    "message": "Export mit Büchern ($COUNT$ Buch · $SIZE$)",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "size": { "content": "$2", "example": "6,6 MB" }
+    }
+  },
+  "reader_export_books_other": {
+    "message": "Export mit Büchern ($COUNT$ Bücher · $SIZE$)",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" },
+      "size": { "content": "$2", "example": "6,6 MB" }
+    }
+  },
+  "reader_import_pictures_one": {
+    "message": "Mit $COUNT$ Bild ($SIZE$).",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "size": { "content": "$2", "example": "0,3 MB" }
+    }
+  },
+  "reader_import_pictures_other": {
+    "message": "Mit $COUNT$ Bildern ($SIZE$).",
+    "placeholders": {
+      "count": { "content": "$1", "example": "34" },
+      "size": { "content": "$2", "example": "12,4 MB" }
+    }
+  },
+  "reader_import_pictures_added_one": {
+    "message": "Bilder hinzugefügt: $COUNT$ ($SIZE$).",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "size": { "content": "$2", "example": "0,3 MB" }
+    }
+  },
+  "reader_import_pictures_added_other": {
+    "message": "Bilder hinzugefügt: $COUNT$ ($SIZE$).",
+    "placeholders": {
+      "count": { "content": "$1", "example": "34" },
+      "size": { "content": "$2", "example": "12,4 MB" }
+    }
+  },
+  "reader_transfer_epub": {
+    "message": "das Format elektronischer Bücher. Ein Buch wird als Text und Bilder gespeichert, beim Import in Teile geteilt."
+  },
+  "reader_backup_scope": {
+    "message": "Die Sicherung enthält Ihre Artikel mit ihren Markierungen und Lesepositionen, die gespeicherten Einträge jedes Sprachpaars und die Einstellungen. Markierungen in Büchern sind ebenfalls enthalten."
+  },
+  "reader_backup_books_note": {
+    "message": "Bücher sind nur dann in der Sicherung, wenn Sie „Export mit Büchern“ ankreuzen; sonst bewahren Sie Ihre .epub-Dateien auf - wenn Sie dasselbe Buch erneut importieren und danach die Sicherung, kommen seine Markierungen zurück."
+  },
+  "reader_export_marks": { "message": "Markierungen exportieren" },
+  "reader_marks_export_notes": { "message": "Als Notizen exportieren (.md)" },
+  "reader_marks_notes_hint": { "message": "Die .md-Datei ist eine Textliste der Zitate und Notizen, nach Dokumenten gruppiert - zum Lesen und für eigene Notizen. Sie kann nicht importiert werden." },
+  "reader_marks_import_books_one": {
+    "message": "Markierungen aus $COUNT$ Buch warten: $TITLES$. Importieren Sie dieses Buch aus seiner .epub-Datei und danach diese Datei erneut.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "titles": { "content": "$2", "example": "A Novel" }
+    }
+  },
+  "reader_marks_import_books_other": {
+    "message": "Markierungen aus $COUNT$ Büchern warten: $TITLES$. Importieren Sie diese Bücher aus ihren .epub-Dateien und danach diese Datei erneut.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "2" },
+      "titles": { "content": "$2", "example": "A Novel, Another Novel" }
+    }
+  },
+  "reader_marks_import_unplaced_one": {
+    "message": "$COUNT$ Markierung konnte im aktuellen Text nicht untergebracht werden ($TITLES$). Sie bleibt auf der Seite Markierungen erhalten.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "titles": { "content": "$2", "example": "Ein Roman" }
+    }
+  },
+  "reader_marks_import_unplaced_other": {
+    "message": "$COUNT$ Markierungen konnten im aktuellen Text nicht untergebracht werden ($TITLES$). Sie bleiben auf der Seite Markierungen erhalten.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" },
+      "titles": { "content": "$2", "example": "Ein Roman, Ein anderer Roman" }
+    }
+  },
+  "reader_marks_import_missing_one": {
+    "message": "$COUNT$ Dokument ist nicht in der Leseliste: $TITLES$. Importieren Sie es zuerst - ein Buch aus seiner .epub-Datei, einen Artikel aus der Sicherung der Leseliste - und danach diese Datei erneut.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "titles": { "content": "$2", "example": "Ein Roman" }
+    }
+  },
+  "reader_marks_import_missing_other": {
+    "message": "$COUNT$ Dokumente sind nicht in der Leseliste: $TITLES$. Importieren Sie sie zuerst - Bücher aus ihren .epub-Dateien, Artikel aus der Sicherung der Leseliste - und danach diese Datei erneut.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "2" },
+      "titles": { "content": "$2", "example": "Ein Roman, Ein Artikel" }
+    }
+  },
+  "reader_marks_import_twins_one": {
+    "message": "$COUNT$ Markierung ist bereits hier.",
+    "placeholders": { "count": { "content": "$1", "example": "1" } }
+  },
+  "reader_marks_import_twins_other": {
+    "message": "$COUNT$ Markierungen sind bereits hier.",
+    "placeholders": { "count": { "content": "$1", "example": "12" } }
+  },
+  "reader_marks_import_overlap_one": {
+    "message": "$COUNT$ Markierung überschneidet sich mit einer bereits vorhandenen und wird ausgelassen.",
+    "placeholders": { "count": { "content": "$1", "example": "1" } }
+  },
+  "reader_marks_import_overlap_other": {
+    "message": "$COUNT$ Markierungen überschneiden sich mit bereits vorhandenen und werden ausgelassen.",
+    "placeholders": { "count": { "content": "$1", "example": "2" } }
+  },
+  "reader_marks_import_done_one": {
+    "message": "$COUNT$ Markierung hinzugefügt.",
+    "placeholders": { "count": { "content": "$1", "example": "1" } }
+  },
+  "reader_marks_import_done_other": {
+    "message": "$COUNT$ Markierungen hinzugefügt.",
+    "placeholders": { "count": { "content": "$1", "example": "12" } }
+  },
+  "reader_transfer_marks": {
+    "message": "Notizen mit den Markierungen aus Artikeln und Büchern, zum Export von der Markierungsseite."
+  },
+  "reader_backup_done": {
+    "message": "Sicherung geschrieben nach $FILE$ ($SIZE$): $PARTS$.",
+    "placeholders": {
+      "file": { "content": "$1", "example": "reread-backup.zip" },
+      "size": { "content": "$2", "example": "2.3 MB" },
+      "parts": { "content": "$3", "example": "12 articles, 856 saved phrases, 41 highlights, the settings" }
+    }
+  },
+  "reader_backup_settings_word": {
+    "message": "die Einstellungen"
+  },
+  "reader_backup_summary": {
+    "message": "$NAME$ ist eine re/read-Sicherung vom $DATE$ (re/read $APP$):",
+    "placeholders": {
+      "name": { "content": "$1", "example": "reread-backup.zip" },
+      "date": { "content": "$2", "example": "13/09/2026" },
+      "app": { "content": "$3", "example": "0.5.56" }
+    }
+  },
+  "reader_backup_summary_highlights": {
+    "message": "$NAME$ enthält Markierungen:",
+    "placeholders": {
+      "name": { "content": "$1", "example": "reread-backup.zip" }
+    }
+  },
+  "reader_backup_settings_restore": {
+    "message": "Auch die Einstellungen wiederherstellen"
+  },
+  "reader_backup_settings_done": {
+    "message": "Einstellungen wiederhergestellt."
+  },
+  "reader_backup_newer": {
+    "message": "Diese Datei wurde von einer neueren re/read-Version ($APP$) geschrieben. Aktualisieren Sie re/read und importieren Sie sie erneut.",
+    "placeholders": {
+      "app": { "content": "$1", "example": "0.5.56" }
+    }
+  },
+  "reader_backup_nothing": {
+    "message": "In dieser Datei gibt es nichts zu importieren."
+  },
+  "reader_marks_backup_elsewhere": {
+    "message": "Markierungen reisen in der Sicherung von allem, die die Leseliste schreibt und liest - auch die von Büchern."
+  },
+  "reader_backup_articles_one": {
+    "message": "$COUNT$ Artikel",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "reader_backup_articles_other": {
+    "message": "$COUNT$ Artikel",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "reader_backup_books_one": {
+    "message": "$COUNT$ Buch",
+    "placeholders": { "count": { "content": "$1", "example": "1" } }
+  },
+  "reader_backup_books_other": {
+    "message": "$COUNT$ Bücher",
+    "placeholders": { "count": { "content": "$1", "example": "3" } }
+  },
+  "reader_backup_highlights_one": {
+    "message": "$COUNT$ Markierung",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "reader_backup_highlights_other": {
+    "message": "$COUNT$ Markierungen",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "reader_backup_part_articles_one": {
+    "message": "$COUNT$ Artikel, davon $NEW$ noch nicht in der Liste",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" },
+      "new": { "content": "$2", "example": "3" }
+    }
+  },
+  "reader_backup_part_articles_other": {
+    "message": "$COUNT$ Artikel, davon $NEW$ noch nicht in der Liste",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" },
+      "new": { "content": "$2", "example": "3" }
+    }
+  },
+  "reader_backup_part_books_one": {
+    "message": "$COUNT$ Buch, davon $NEW$ noch nicht in der Liste",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "new": { "content": "$2", "example": "2" }
+    }
+  },
+  "reader_backup_part_books_other": {
+    "message": "$COUNT$ Bücher, davon $NEW$ noch nicht in der Liste",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" },
+      "new": { "content": "$2", "example": "2" }
+    }
+  },
+  "reader_backup_part_phrases_one": {
+    "message": "$COUNT$ gespeicherter Eintrag ($PAIRS$)",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" },
+      "pairs": { "content": "$2", "example": "English → Polish" }
+    }
+  },
+  "reader_backup_part_phrases_other": {
+    "message": "$COUNT$ gespeicherte Einträge ($PAIRS$)",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" },
+      "pairs": { "content": "$2", "example": "English → Polish" }
+    }
+  },
+  "reader_backup_part_highlights_one": {
+    "message": "$COUNT$ Markierung - eine, die schon hier ist oder deren Dokument fehlt, wird ausgelassen",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "reader_backup_part_highlights_other": {
+    "message": "$COUNT$ Markierungen - schon vorhandene und solche ohne ihr Dokument werden ausgelassen",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "reader_backup_phrases_counted_one": {
+    "message": "$COUNT$ gespeicherter Eintrag hat höhere Zähler aus der Datei übernommen.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "reader_backup_phrases_counted_other": {
+    "message": "$COUNT$ gespeicherte Einträge haben höhere Zähler aus der Datei übernommen.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "reader_transfer_pick": { "message": "Um nur einige Artikel oder Bücher zu exportieren, drücken Sie über der Liste auf „Auswählen“ und haken Sie sie ab." },
+  "reader_pick_start": { "message": "Auswählen" },
+  "reader_pick_close": { "message": "Auswahl schließen" },
+  "reader_pick_all": { "message": "Alle auswählen" },
+  "reader_pick_count_one": {
+    "message": "$COUNT$ Dokument ausgewählt",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" }
+    }
+  },
+  "reader_pick_count_other": {
+    "message": "$COUNT$ Dokumente ausgewählt",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "reader_export_selected": {
+    "message": "Ausgewählte exportieren ($COUNT$)",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "reader_export_done_one": {
+    "message": "$COUNT$ Dokument nach $FILE$ exportiert ($SIZE$).",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "file": { "content": "$2", "example": "reread-selection.zip" },
+      "size": { "content": "$3", "example": "2,1 MB" }
+    }
+  },
+  "reader_export_done_other": {
+    "message": "$COUNT$ Dokumente nach $FILE$ exportiert ($SIZE$).",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" },
+      "file": { "content": "$2", "example": "reread-selection.zip" },
+      "size": { "content": "$3", "example": "2,1 MB" }
+    }
+  },
+  "reader_export_marks_done_one": {
+    "message": "Markierungen aus $COUNT$ Dokument nach $FILE$ exportiert ($SIZE$).",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "file": { "content": "$2", "example": "reread-highlights.md" },
+      "size": { "content": "$3", "example": "4 KB" }
+    }
+  },
+  "reader_export_marks_done_other": {
+    "message": "Markierungen aus $COUNT$ Dokumenten nach $FILE$ exportiert ($SIZE$).",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" },
+      "file": { "content": "$2", "example": "reread-highlights.md" },
+      "size": { "content": "$3", "example": "12 KB" }
+    }
+  },
+  "vocab_export_done_one": {
+    "message": "$COUNT$ Eintrag nach $FILE$ exportiert ($SIZE$).",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "file": { "content": "$2", "example": "reread-en-de.tsv" },
+      "size": { "content": "$3", "example": "1 KB" }
+    }
+  },
+  "vocab_export_done_other": {
+    "message": "$COUNT$ Einträge nach $FILE$ exportiert ($SIZE$).",
+    "placeholders": {
+      "count": { "content": "$1", "example": "240" },
+      "file": { "content": "$2", "example": "reread-en-de.tsv" },
+      "size": { "content": "$3", "example": "19 KB" }
+    }
+  },
+  "reader_marks_title": { "message": "Markierungen" },
+  "reader_marks_title_all": { "message": "Alle Markierungen" },
+  "reader_marks_title_article": { "message": "Markierungen in diesem Artikel" },
+  "reader_marks_title_book": { "message": "Markierungen in diesem Buch" },
+  "reader_marks_filter_label": { "message": "Die Markierungen filtern" },
+  "reader_marks_filter_placeholder": { "message": "Nach Zitat oder Titel filtern" },
+  "reader_marks_empty": {
+    "message": "Noch ist nichts markiert - markiert wird beim Lesen. Öffne etwas aus der Offline-Leseliste, nimm den Textmarker und markiere eine Passage; sie wartet dann hier."
+  },
+  "reader_marks_empty_doc": { "message": "In diesem Dokument ist noch nichts markiert." },
+  "reader_marks_no_match": {
+    "message": "Keine Markierung passt zu „$QUERY$“.",
+    "placeholders": { "query": { "content": "$1", "example": "wikipedia" } }
+  },
+  "reader_marks_back": { "message": "Zurück zu den Markierungen" },
+  "reader_back_to_doc": {
+    "message": "Zurück zu „$TITLE$“",
+    "placeholders": { "title": { "content": "$1", "example": "Old Chinese" } }
+  },
+  "reader_marks_open": {
+    "message": "„$TITLE$“ an dieser Markierung öffnen",
+    "placeholders": { "title": { "content": "$1", "example": "Old Chinese" } }
+  },
+  "reader_transfer_link": { "message": "Import und Export (Sicherung oder EPUB)" },
+  "reader_transfer_accepts": { "message": "Der Import erkennt die übergebene Datei: eine re/read-Sicherung (.zip - oder die älteren .json-Dateien der Liste und der Markierungen) oder ein Buch (.epub)." },
+  "reader_book_label": { "message": "Buch" },
+  "reader_book_part_of": {
+    "message": "Teil $PART$ von $PARTS$",
+    "placeholders": {
+      "part": { "content": "$1", "example": "3" },
+      "parts": { "content": "$2", "example": "12" }
+    }
+  },
+  "reader_percent_read": {
+    "message": "$PERCENT$ % gelesen",
+    "placeholders": {
+      "percent": { "content": "$1", "example": "34" }
+    }
+  },
+  "reader_book_nav": { "message": "Buchteile" },
+  "reader_book_toc": { "message": "Inhalt" },
+  "reader_search_title": { "message": "Im Text suchen" },
+  "reader_search_label": { "message": "Die gesuchte Phrase" },
+  "reader_search_placeholder": { "message": "Phrase finden" },
+  "reader_search_go": { "message": "Suchen" },
+  "reader_search_short": { "message": "Mindestens 2 Zeichen eingeben." },
+  "reader_search_none": { "message": "Nichts gefunden." },
+  "reader_search_count_one": {
+    "message": "$COUNT$ Treffer gefunden.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" }
+    }
+  },
+  "reader_search_count_other": {
+    "message": "$COUNT$ Treffer gefunden.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "reader_search_capped": {
+    "message": "Die ersten $COUNT$ werden angezeigt.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "200" }
+    }
+  },
+  "reader_library_search_toggle": { "message": "Auch in den Texten suchen" },
+  "reader_search_more": { "message": "Weitersuchen" },
+  "reader_search_progress": {
+    "message": "$AT$ von $TOTAL$ Dokumenten durchsucht.",
+    "placeholders": {
+      "at": { "content": "$1", "example": "12" },
+      "total": { "content": "$2", "example": "80" }
+    }
+  },
+  "reader_search_in_titles": { "message": "In Titeln" },
+  "reader_search_in_text": { "message": "Im Text" },
+  "reader_search_more_hits_one": {
+    "message": "und $COUNT$ weiterer Treffer",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" }
+    }
+  },
+  "reader_search_more_hits_other": {
+    "message": "und $COUNT$ weitere Treffer",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "close": { "message": "Schließen" },
+  "reader_book_importing": {
+    "message": "Buch wird hinzugefügt - Teil $PART$",
+    "placeholders": {
+      "part": { "content": "$1", "example": "3" }
+    }
+  },
+  "reader_book_importing_pictures": {
+    "message": "Buch wird hinzugefügt - Teil $PART$, Bild $PICTURE$ ($SIZE$)",
+    "placeholders": {
+      "part": { "content": "$1", "example": "3" },
+      "picture": { "content": "$2", "example": "12" },
+      "size": { "content": "$3", "example": "4,2 MB" }
+    }
+  },
+  "reader_book_added": {
+    "message": "„$TITLE$“ hinzugefügt.",
+    "placeholders": {
+      "title": { "content": "$1", "example": "Dracula" }
+    }
+  },
+  "reader_book_drm": { "message": "Dieses Buch ist mit DRM kopiergeschützt und kann nicht importiert werden." },
+  "reader_book_unreadable": { "message": "Diese Datei ließ sich nicht als EPUB-Buch lesen." },
+  "reader_book_pair_note": {
+    "message": "Sprache des Buches: $BOOK$; das aktuelle Paar übersetzt aus: $PAIR$.",
+    "placeholders": {
+      "book": { "content": "$1", "example": "Deutsch" },
+      "pair": { "content": "$2", "example": "Englisch" }
+    }
+  },
+  "reader_import_nothing": { "message": "In dieser Datei gibt es keine Artikel zum Importieren." },
+  "reader_import_summary_one": {
+    "message": "$NAME$ enthält $COUNT$ Artikel:",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" },
+      "name": { "content": "$2", "example": "reread-articles.json" }
+    }
+  },
+  "reader_import_summary_other": {
+    "message": "$NAME$ enthält $COUNT$ Artikel:",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" },
+      "name": { "content": "$2", "example": "reread-articles.json" }
+    }
+  },
+  "reader_import_more_one": {
+    "message": "und $COUNT$ weiterer Artikel",
+    "placeholders": { "count": { "content": "$1", "example": "1" } }
+  },
+  "reader_import_more_other": {
+    "message": "und $COUNT$ weitere Artikel",
+    "placeholders": { "count": { "content": "$1", "example": "297" } }
+  },
+  "reader_import_added_one": {
+    "message": "$COUNT$ neuer Artikel hinzugefügt.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" }
+    }
+  },
+  "reader_import_added_other": {
+    "message": "$COUNT$ neue Artikel hinzugefügt.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "reader_import_skipped_one": {
+    "message": "$COUNT$ bereits gespeicherten übersprungen.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" }
+    }
+  },
+  "reader_import_skipped_other": {
+    "message": "$COUNT$ bereits gespeicherte übersprungen.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "reader_import_books_added_one": {
+    "message": "$COUNT$ neues Buch hinzugefügt.",
+    "placeholders": { "count": { "content": "$1", "example": "1" } }
+  },
+  "reader_import_books_added_other": {
+    "message": "$COUNT$ neue Bücher hinzugefügt.",
+    "placeholders": { "count": { "content": "$1", "example": "3" } }
+  },
+  "reader_import_books_skipped_one": {
+    "message": "$COUNT$ bereits vorhandenes Buch übersprungen.",
+    "placeholders": { "count": { "content": "$1", "example": "1" } }
+  },
+  "reader_import_books_skipped_other": {
+    "message": "$COUNT$ bereits vorhandene Bücher übersprungen.",
+    "placeholders": { "count": { "content": "$1", "example": "3" } }
+  },
+  "reader_import_unreadable_one": {
+    "message": "$COUNT$ Eintrag ließ sich nicht lesen.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "1" }
+    }
+  },
+  "reader_import_unreadable_other": {
+    "message": "$COUNT$ Einträge ließen sich nicht lesen.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "2" }
+    }
+  },
+
+  "download_cancelled": { "message": "Download abgebrochen. Nichts wurde gespeichert." },
+  "download_failed": { "message": "Der Download wurde nicht fertig, und nichts wurde gespeichert." },
+  "model_download_network": {
+    "message": "Der Ort, an dem die Modelle liegen, war nicht erreichbar$DETAIL$. Nichts wurde gespeichert.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "model_download_http": {
+    "message": "Der Download wurde verweigert$DETAIL$. Das Modell ist vielleicht umgezogen; nichts wurde gespeichert.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "model_download_size": {
+    "message": "Der Download endete zu früh$DETAIL$ und wurde verworfen.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "model_download_checksum": {
+    "message": "Was ankam, ist nicht das Modell, das diese Version erwartet$DETAIL$, und wurde deshalb verworfen. Versuchen Sie es erneut - wenn es dabei bleibt, hat sich die Datei am anderen Ende geändert.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "model_download_unpack": {
+    "message": "Der Download ließ sich nicht entpacken$DETAIL$ und wurde verworfen.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "dict_download_network": {
+    "message": "Der Ort, an dem die Wörterbücher liegen, war nicht erreichbar$DETAIL$. Nichts wurde gespeichert.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "dict_download_http": {
+    "message": "Der Download wurde verweigert$DETAIL$. Das Wörterbuch ist vielleicht umgezogen; nichts wurde gespeichert.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "dict_download_too_big": {
+    "message": "Der Download ist weit größer, als ein Wörterbuch sein sollte$DETAIL$, und wurde deshalb gestoppt. Nichts wurde gespeichert.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+
+  "model_files_one_of_them": { "message": "eine der Dateien" },
+  "model_files_empty": { "message": "Es wurden keine Dateien ausgewählt." },
+  "model_files_unknown_file": {
+    "message": "Gehört nicht zu einem Modell: $FILE$. Erwartet werden Namen, die mit model., lex. und vocab. beginnen.",
+    "placeholders": { "file": { "content": "$1" } }
+  },
+  "model_files_unknown_pair": {
+    "message": "Für welche Sprachen diese Datei ist, lässt sich nicht erkennen: $FILE$.",
+    "placeholders": { "file": { "content": "$1" } }
+  },
+  "model_files_mixed_pairs": {
+    "message": "Diese Dateien gehören zu mehr als einem Sprachpaar ($PAIRS$). Laden Sie eine Richtung auf einmal.",
+    "placeholders": { "pairs": { "content": "$1" } }
+  },
+  "model_files_missing_model": { "message": "Die Modelldatei fehlt (model.<pair>.intgemm.alphas.bin)." },
+  "model_files_missing_shortlist": { "message": "Die Shortlist-Datei fehlt (lex.<pair>.s2t.bin)." },
+  "model_files_missing_vocab": { "message": "Die Vokabulardatei fehlt (vocab.<pair>.spm)." },
+  "model_files_not_a_model": { "message": "Diese Dateien sind kein Übersetzungsmodell." },
+
+  "dict_link_empty": { "message": "Fügen Sie zuerst die Adresse des Archivs ein. Nichts wurde gespeichert." },
+  "dict_link_invalid": { "message": "Das ist keine Webadresse. Nichts wurde gespeichert." },
+  "dict_link_not_https": { "message": "Es werden nur https-Adressen angenommen. Nichts wurde gespeichert." },
+  "dict_link_credentials": {
+    "message": "Eine Adresse mit Benutzername oder Passwort wird nicht angenommen. Nichts wurde gespeichert."
+  },
+  "dict_default_name": { "message": "Wörterbuch" },
+  "dict_import_empty": { "message": "Es wurden keine Dateien ausgewählt. Nichts wurde gespeichert." },
+  "dict_import_missing_ifo": { "message": "Darunter ist keine .ifo-Datei, das ist also kein StarDict-Wörterbuch. Nichts wurde gespeichert." },
+  "dict_import_missing_idx": { "message": "Der Index fehlt (.idx oder .idx.gz). Nichts wurde gespeichert." },
+  "dict_import_missing_dict": { "message": "Der Wörterbuchtext fehlt (.dict oder .dict.dz). Nichts wurde gespeichert." },
+  "dict_import_mixed": {
+    "message": "Diese Dateien gehören zu mehr als einem Wörterbuch ($NAMES$). Fügen Sie eines nach dem anderen hinzu. Nichts wurde gespeichert.",
+    "placeholders": { "names": { "content": "$1" } }
+  },
+  "dict_import_not_stardict": { "message": "Diese .ifo-Datei ist kein StarDict-Wörterbuch. Nichts wurde gespeichert." },
+  "dict_import_not_stardict_detail": {
+    "message": "Das ist $KIND$, was diese Erweiterung nicht lesen kann. Nichts wurde gespeichert.",
+    "placeholders": { "kind": { "content": "$1" } }
+  },
+  "dict_import_unpack": {
+    "message": "Die Dateien sind auf eine Art komprimiert, die sich nicht entpacken ließ$DETAIL$. Nichts wurde gespeichert.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "dict_import_no_entries": { "message": "Der Index ist leer - in diesem Wörterbuch stehen keine Wörter. Nichts wurde gespeichert." },
+  "dict_import_no_entries_detail": {
+    "message": "Keines der $COUNT$ Wörter im Index ließ sich lesen, die Dateien gehören also nicht zusammen. Nichts wurde gespeichert.",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "dict_import_unreadable": { "message": "Diese Dateien sind kein Wörterbuch, das diese Erweiterung lesen kann. Nichts wurde gespeichert." },
+
+  "zip_not_zip": { "message": "Was ankam, ist kein Zip-Archiv. Nichts wurde gespeichert." },
+  "zip_unsupported": {
+    "message": "Das Archiv verwendet eine Funktion, die diese Erweiterung nicht liest$DETAIL$. Nichts wurde gespeichert.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "zip_too_big": {
+    "message": "Das Archiv ist größer, als ein Wörterbuch je sein müsste$DETAIL$. Nichts wurde gespeichert.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "zip_bad": {
+    "message": "Das Archiv ist beschädigt$DETAIL$. Nichts wurde gespeichert - laden Sie es erneut herunter.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "zip_unreadable": { "message": "Das Archiv ließ sich nicht lesen. Nichts wurde gespeichert." },
+
+  "words_one": {
+    "message": "$COUNT$ Wort",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "words_other": {
+    "message": "$COUNT$ Wörter",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "spellings_one": {
+    "message": "$COUNT$ weitere Schreibweise",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "spellings_other": {
+    "message": "$COUNT$ weitere Schreibweisen",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "phrases_one": {
+    "message": "$COUNT$ gespeicherter Eintrag",
+    "placeholders": { "count": { "content": "$1", "example": "1" } }
+  },
+  "phrases_other": {
+    "message": "$COUNT$ gespeicherte Einträge",
+    "placeholders": { "count": { "content": "$1", "example": "1.243" } }
+  },
+
+  "options_title": { "message": "re/read - Einstellungen" },
+  "back_to_reading": {"message": "Zurück zum Lesen"},
+  "options_local_intro": {
+    "message": "Alles, was re/read tut, geschieht auf diesem Gerät (offline): das Übersetzen, das Wörterbuch, die Leseliste, der gespeicherte Wortschatz. Nichts von dem, was Sie lesen oder auswählen, wird irgendwohin gesendet. Eine Internetverbindung ist nur nötig, wenn Sie ein neues Übersetzungsmodell oder ein Wörterbuch herunterladen möchten - und nur von den zwei URLs, die offen in diesen Abschnitten genannt sind."
+  },
+  "options_first_steps_heading": { "message": "Erste Schritte" },
+  "options_first_steps_intro": {
+    "message": "Noch übersetzt nichts - das Modell, das es täte, ist noch nicht auf diesem Gerät. Die Einrichtung dauert eine Minute:"
+  },
+  "options_first_steps_model": {
+    "message": "Suchen Sie unter „Übersetzungsmodelle“ das Sprachpaar, das Sie brauchen (am schnellsten über den Filter), und drücken Sie auf „Herunterladen“. Das Modell wird auf diesem Gerät gespeichert und übersetzt von da an offline - und das erste Modell stellt das Sprachpaar oben von selbst ein."
+  },
+  "options_first_steps_dictionary": {
+    "message": "Laden Sie unter „Wörterbücher“ ein Wörterbuch für dasselbe Paar herunter (optional, aber lohnend) - einzelne Wörter bekommen dann vollständigere Antworten als eine Übersetzung allein, sichtbar in der Übersetzungsblase unter der Übersetzung."
+  },
+  "options_first_steps_pin": {
+    "message": "Heften Sie re/read zuletzt an die Symbolleiste: das Puzzleteil-Symbol rechts in der Leiste, dann neben re/read das Zahnrad und „An Symbolleiste anheften“. Der Knopf öffnet die Leseansicht, die Leseliste, den gespeicherten Wortschatz und den Schalter für die Website, auf der Sie sind."
+  },
+  "options_first_steps_pin_android": {
+    "message": "Den re/read-Knopf finden Sie im Browsermenü (⋮) im Bereich der Erweiterungen - er öffnet die Leseansicht, die Leseliste, den gespeicherten Wortschatz und den Schalter für die Website, auf der Sie sind."
+  },
+  "options_sections_aria": { "message": "Abschnitte dieser Seite" },
+  "options_engine": { "message": "Engine" },
+  "options_engine_value": { "message": "Bergamot, im Paket enthalten - übersetzt offline" },
+  "options_storage": { "message": "Daten auf diesem Gerät" },
+  "options_storage_value": {
+    "message": "$SIZE$ - Modelle, Wörterbücher, Leseliste und Ihre Phrasen zusammen",
+    "placeholders": { "size": { "content": "$1", "example": "143,2 MB" } }
+  },
+  "options_storage_how": { "message": "Speicherplatz, der von der Erweiterung belegt wird. Wörterbücher benötigen aufgrund der Datenbankstruktur mehr Platz als ihre Dateigröße. Das Löschen eines Artikels oder Buchs entfernt dessen Text, Bilder, Markierungen, Notizen und Lesefortschritt vollständig." },
+  "options_storage_persistent": { "message": "Dauerhafter Speicher: gewährt. Der Browser hat zugesagt, diese Daten nicht zu löschen, um Platz zu schaffen." },
+  "options_storage_at_risk": { "message": "Dauerhafter Speicher: nicht gewährt. Safari löscht die Daten einer Website nach etwa einem Monat Nutzung ohne ein Tippen auf ihre Seiten, und die Seiten dieser Erweiterung zählen als eine Website. Ihre Phrasen haben eine Kopie, die das übersteht (Zeile darunter); Modelle, Wörterbücher und Leseliste nicht - öffnen Sie ab und zu die Leseansicht oder diese Einstellungen." },
+  "options_storage_backup_one": {
+    "message": "Kopie des Wortschatzes: $COUNT$ Phrase, geschrieben $WHEN$ - dort, wo der Browser Daten nicht von sich aus löscht.",
+    "placeholders": { "count": { "content": "$1", "example": "1" }, "when": { "content": "$2", "example": "26.08.26, 12:41" } }
+  },
+  "options_storage_backup_other": {
+    "message": "Kopie des Wortschatzes: $COUNT$ Phrasen, geschrieben $WHEN$ - dort, wo der Browser Daten nicht von sich aus löscht.",
+    "placeholders": { "count": { "content": "$1", "example": "1234" }, "when": { "content": "$2", "example": "26.08.26, 12:41" } }
+  },
+  "options_storage_backup_none": { "message": "Kopie des Wortschatzes: noch keine - sie entsteht mit der nächsten gespeicherten Phrase." },
+  "options_storage_marks_backup_one": {
+    "message": "Kopie der Markierungen: $COUNT$ Markierung mit Notizen, geschrieben $WHEN$.",
+    "placeholders": { "count": { "content": "$1", "example": "1" }, "when": { "content": "$2", "example": "26.08.26, 12:41" } }
+  },
+  "options_storage_marks_backup_other": {
+    "message": "Kopie der Markierungen: $COUNT$ Markierungen mit Notizen, geschrieben $WHEN$.",
+    "placeholders": { "count": { "content": "$1", "example": "37" }, "when": { "content": "$2", "example": "26.08.26, 12:41" } }
+  },
+  "options_storage_marks_backup_none": { "message": "Kopie der Markierungen: noch keine - sie entsteht mit der nächsten Markierung." },
+  "options_storage_library_copy_one": {
+    "message": "Kopie der Leseliste: $COUNT$ Dokument, $SIZE$.",
+    "placeholders": { "count": { "content": "$1", "example": "1" }, "size": { "content": "$2", "example": "12,4 MB" } }
+  },
+  "options_storage_library_copy_other": {
+    "message": "Kopie der Leseliste: $COUNT$ Dokumente, $SIZE$.",
+    "placeholders": { "count": { "content": "$1", "example": "37" }, "size": { "content": "$2", "example": "12,4 MB" } }
+  },
+  "options_storage_library_copy_none": { "message": "Kopie der Leseliste: noch keine - sie entsteht mit der nächsten gespeicherten Seite oder dem nächsten importierten Buch." },
+  "options_storage_library_copy_off": { "message": "Kopie der Leseliste: aus." },
+  "options_library_copy": { "message": "Kopie der Leseliste" },
+  "options_library_copy_hint": {
+    "message": "Erstellt ein Backup Ihrer Leseliste zum Schutz vor automatischen Browser-Bereinigungen und Datenbankfehlern. Das verdoppelt den Speicherplatz, den die Leseliste belegt, hält Ihre gespeicherten Artikel aber sicher, falls die Datenbank verloren geht."
+  },
+  "reader_marks_delete_all_one": {
+    "message": "Das $COUNT$ Zitat dieser Seite löschen",
+    "placeholders": { "count": { "content": "$1", "example": "1" } }
+  },
+  "reader_marks_delete_all_other": {
+    "message": "Alle $COUNT$ Zitate dieser Seite löschen",
+    "placeholders": { "count": { "content": "$1", "example": "5" } }
+  },
+  "reader_mark_text_changed": { "message": "Der Text der Seite hat sich seit der Markierung geändert, daher lässt sie sich hier nicht zeigen." },
+  "reader_marks_missing_doc": { "message": "Das Dokument ist nicht mehr gespeichert - dieses Zitat kam aus der Kopie zurück. Öffnen Sie die Seite erneut, und die Markierung ist wieder da." },
+  "options_pair_hint": { "message": "Zeigt die auf dieses Gerät heruntergeladenen Sprachpaare an. Um neue Sprachen hinzuzufügen, laden Sie diese unten im Abschnitt" },
+  "options_pair_hint_rest": { "message": "herunter." },
+  "options_pair_none": { "message": "Noch kein Modell und kein Wörterbuch - fügen Sie unten eines hinzu" },
+  "options_pair_dictionary_only": {
+    "message": "$PAIR$ (Wörterbuch)",
+    "placeholders": { "pair": { "content": "$1", "example": "Englisch → Englisch" } }
+  },
+  "options_pair_hint_quiet": {
+    "message": "Ohne Übersetzungsmodell sagt das Paar, in welcher Sprache Sie lesen und wo gespeicherte Phrasen abgelegt sind. Paare kommen aus installierten Modellen und Wörterbüchern."
+  },
+  "options_reading_pair_quiet": {
+    "message": "Sie lesen $FROM$ - die maschinelle Übersetzung ist aus, gespeicherte Phrasen gehören zu diesem Paar.",
+    "placeholders": { "from": { "content": "$1", "example": "Englisch" } }
+  },
+  "options_reader_only": { "message": "Nur in der Leseansicht" },
+  "options_reader_only_hint": {
+    "message": "Beschränkt die Unterstreichung gespeicherter Phrasen und die Übersetzungs-Sprechblase auf die Leseansicht. Das Markieren von Text auf einer gewöhnlichen Webseite zeigt nur die Option, die Seite in der Leseansicht zu öffnen. Ist die Option eingeschaltet, kann keine Webseite feststellen, welche ihrer Wörter Sie gespeichert haben. Auf Android und iOS ist die Option standardmäßig eingeschaltet."
+  },
+  "options_keep_articles": { "message": "Standardmäßig in der Offline-Leseliste speichern" },
+  "options_keep_articles_hint": {
+    "message": "Speichert jede in der Leseansicht geöffnete Seite automatisch zum Offline-Lesen. Ihre gespeicherten Seiten, Markierungen und der Lesefortschritt bleiben erhalten, auch wenn die ursprüngliche Website sich ändert oder verschwindet."
+  },
+  "options_font_custom": { "message": "Eigene Schrift" },
+  "options_font_custom_hint": {
+    "message": "Geben Sie den Namen einer auf diesem Gerät installierten Schrift ein, zum Beispiel Georgia oder Noto Serif. Die Zeile Schrift in der Leseansicht bietet sie dann als Eigene an. Lassen Sie das Feld leer, um nur die mitgelieferten Schriften zu verwenden."
+  },
+  "options_quiet_bubble_hint": {
+    "message": "Zeigt nur den übersetzten Text in der Sprechblase an. Die Aktionsschaltflächen (wie Kopieren oder Speichern) erscheinen erst, wenn Sie auf die Sprechblase klicken oder tippen."
+  },
+  "options_bubble_more": { "message": "Satz und Wörterbucheinträge sofort anzeigen" },
+  "options_bubble_more_hint": {
+    "message": "Nach dem Markieren von Text zeigt die Sprechblase sofort, was sonst erst nach einem Druck auf „Mehr“ erscheint: den übersetzten Satz und die Wörterbucheinträge. Mit einem installierten Wörterbuch lohnt es sich, dies eingeschaltet zu lassen - ein Übersetzungsmodell übersetzt ein einzelnes Wort oft falsch, und das Wörterbuch zeigt, was es wirklich bedeutet. Die Sprechblase über einer bereits gespeicherten Wendung zeigt nur die gespeicherte Übersetzung - den Satz und die Wörterbucheinträge sehen Sie nach einem Druck auf „Mehr“."
+  },
+  "options_underline_forms": { "message": "Auch andere Formen gespeicherter Wörter unterstreichen" },
+  "options_underline_forms_hint": {
+    "message": "Ein gespeichertes Wort wird auch in seinen anderen Formen unterstrichen: Nach dem Speichern von „read“ sind auch „reads“ und „reading“ unterstrichen, und die Sprechblase darüber zeigt, was Sie für „read“ gespeichert haben. Welche Formen zählen, entscheidet Ihr Wörterbuch für die gelesene Sprache - eines muss installiert sein. Vorerst nur, wenn Sie Englisch lesen. Ausgeschaltet wird nur genau die Form unterstrichen, die Sie gespeichert haben."
+  },
+  "options_save_sentence": { "message": "Den Satz zusammen mit der Phrase speichern" },
+  "options_save_sentence_hint": {
+    "message": "Wenn Sie eine Phrase aus der Sprechblase speichern, wird der Satz um sie herum mit ihr gespeichert - der Satz so, wie die Seite ihn zeigt, ohne Übersetzung. Er wird auf der Seite der gespeicherten Phrasen unter der Phrase angezeigt, auf eine Zeile eingeklappt, und in die dritte Spalte des Exports für Anki geschrieben. Bei einer ohne Satz gespeicherten Phrase wird der Satz um sie herum gespeichert, wenn Sie ihre Sprechblase das nächste Mal auf einer Seite öffnen. Wie die Phrase wird der Satz nur auf diesem Gerät gespeichert. Ausgeschaltet wird kein neuer Satz gespeichert; die bereits gespeicherten werden nicht gelöscht."
+  },
+  "options_no_translation": { "message": "Ohne Übersetzungsmodell verwenden" },
+  "options_no_translation_hint": {
+    "message": "Schaltet die maschinelle Übersetzung (das Modell) aus. Leseansicht, Offline-Leseliste und Textmarker funktionieren weiter. Mit einem gewählten Sprachpaar zeigt die Sprechblase weiterhin Bedeutungen aus Wörterbüchern, und Phrasen lassen sich speichern und unterstreichen. Ideal zum Lesen mit Wörterbüchern oder in der Muttersprache. Gespeicherte Daten werden nicht gelöscht und kehren zurück, wenn Sie die Option ausschalten."
+  },
+  "options_bubble_off": { "message": "Keine Sprechblase beim Auswählen von Text" },
+  "options_bubble_off_hint": {
+    "message": "Ist dies an, tut das Auswählen von Text auf einer gewöhnlichen Seite gar nichts - eine Seite öffnen Sie in der Leseansicht über die Schaltfläche von re/read oder mit Alt+Umschalt+R. In der Leseansicht ist eine Auswahl nur eine Hervorhebung für den Moment: keine Sprechblase öffnet sich, ein Tippen oder Escape nimmt sie weg, und Strg+C oder Cmd+C kopiert sie (auf einem Touchscreen lässt sich nichts kopieren)."
+  },
+  "options_bubble_scale": { "message": "Textgröße der Sprechblase" },
+  "options_bubble_scale_hint": {
+    "message": "Passt die Größe von Text und Schaltflächen in der Sprechblase auf allen Seiten an."
+  },
+  "options_note_more": { "message": "Die ganze Beschreibung anzeigen" },
+  "options_tts": { "message": "Vorlesen" },
+  "options_tts_hint": {
+    "message": "Aktiviert die Vorlesefunktion (Text-to-Speech). Ist sie ausgeschaltet, werden alle Vorlese-Schaltflächen in der Sprechblase, in den Listen und in der Leseansicht ausgeblendet."
+  },
+  "options_tts_voice": { "message": "Vorlesestimme" },
+  "options_tts_lang": { "message": "Sprache der Stimme" },
+  "options_tts_default": { "message": "Standardstimme" },
+  "options_tts_listen": { "message": "Anhören" },
+  "options_tts_voice_hint": {
+    "message": "Wählen Sie für jede Sprache die Stimme zum Vorlesen von Phrasen und Artikeln. Angeboten werden nur Stimmen, die offline sprechen: Die Sprache entsteht auf diesem Gerät, und nichts wird ins Internet gesendet."
+  },
+  "speech_no_offline_voice": { "message": "Dieses Gerät hat keine Offline-Stimme für diese Sprache." },
+  "options_tts_rate": { "message": "Lesegeschwindigkeit" },
+  "options_models_heading": { "message": "Übersetzungsmodelle" },
+  "options_models_intro": {
+    "message": "Laden Sie hier für jedes Sprachpaar, das Sie übersetzen möchten, ein Übersetzungsmodell herunter. Es handelt sich um offizielle Mozilla-Dateien, die vollständig offline auf Ihrem Gerät laufen."
+  },
+  "options_models_single_word": {
+    "message": "Ein Modell übersetzt Sätze gut, ein einzelnes Wort ohne Kontext wird aber oft falsch übersetzt - das Ergebnis ist abgeschnitten oder ein Wort, das es gar nicht gibt. Für einzelne Wörter ist ein Wörterbuch aus dem Abschnitt unten die bessere Quelle."
+  },
+  "options_update_list": { "message": "Liste aktualisieren" },
+  "options_list_dated": { "message": "Liste vom" },
+  "options_filter_placeholder": { "message": "Nach Sprache oder Code filtern" },
+  "options_filter_models_label": { "message": "Die Liste der Übersetzungsmodelle filtern" },
+  "options_filter_dictionaries_label": { "message": "Die Liste der Wörterbücher filtern" },
+  "options_show_all": {
+    "message": "Alle anzeigen ($COUNT$)",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "options_show_fewer": { "message": "Weniger zeigen" },
+  "options_model_note_from": { "message": "Modelle kommen von" },
+  "options_model_note_rest": {
+    "message": "- dort veröffentlicht Mozilla sie. Die Erweiterung verbindet sich mit diesem öffentlichen Server nur, wenn Sie auf Liste aktualisieren oder Herunterladen klicken. Es werden keine persönlichen Daten gesendet."
+  },
+  "options_add_model_heading": { "message": "Modell aus Dateien hinzufügen" },
+  "options_add_model_summary": {
+    "message": "Um von Hand ein Modell hinzuzufügen, das die Liste oben nicht anbietet, laden Sie seine Dateien hier."
+  },
+  "options_add_model_intro": {
+    "message": "Wählen Sie die drei Dateien einer Richtung, und sie werden lokal gespeichert. Gzip-Dateien werden hier entpackt, die Downloads taugen also so, wie sie kommen:"
+  },
+  "options_add_model_button": { "message": "Modell hinzufügen" },
+  "options_files_note": {
+    "message": "Ein Modell aus Dateien hinzuzufügen stellt keinerlei Netzwerkanfrage, und diese Seite bleibt der Ausweg für den Tag, an dem der Ort, von dem Modelle kommen, nicht mehr antwortet."
+  },
+  "options_dictionaries_heading": { "message": "Wörterbücher" },
+  "options_dictionaries_intro": {
+    "message": "Fügen Sie Wörterbücher hinzu, um detaillierte Wortdefinitionen in der Sprechblase zu sehen. Die Reihenfolge, in der sie erscheinen, können Sie mit den Pfeilen ändern."
+  },
+  "options_dictionaries_sources": {
+    "message": "Die Wörterbücher in der Liste unten stammen von WikDict. Sie können auch eigene hinzufügen - aus Dateien oder über einen Link, auch mehrere für eine Sprache - in den Abschnitten unter der Liste. Wo sie zu finden sind, jedes mit seiner Lizenz:"
+  },
+  "options_dictionary_order_hint": {
+    "message": "Die Sprechblase antwortet in der Reihenfolge unten. Es antworten nur die Wörterbücher der Sprache, die Sie gerade lesen."
+  },
+  "options_dictionary_note_from": { "message": "Wörterbücher kommen von" },
+  "options_dictionary_note_rest": {
+    "message": "- dort veröffentlicht WikDict die Wörterbücher, die es aus dem Wiktionary (CC BY-SA) baut. Die Erweiterung verbindet sich mit diesem öffentlichen Server nur, wenn Sie auf Liste aktualisieren oder Herunterladen klicken. Es werden keine persönlichen Daten gesendet."
+  },
+  "options_add_dictionary_heading": { "message": "Wörterbuch aus Dateien hinzufügen" },
+  "options_add_dictionary_summary": {
+    "message": "Importieren Sie Ihre eigenen Wörterbücher im StarDict-Format. Entpacken Sie das Archiv, wählen Sie die erforderlichen Dateien (.ifo, .idx, .dict), stellen Sie die Sprachen ein und klicken Sie auf Wörterbuch hinzufügen."
+  },
+  "options_file_ifo": { "message": "- wie das Wörterbuch sich selbst nennt" },
+  "options_file_idx": { "message": "- der Index der Wörter" },
+  "options_file_dict_or": { "message": "oder" },
+  "options_file_dict": { "message": "- die Einträge" },
+  "options_file_syn": { "message": "- weitere Schreibweisen, wenn das Wörterbuch sie hat" },
+  "options_words_in": { "message": "Wörter auf" },
+  "options_explained_in": { "message": "erklärt auf" },
+  "options_add_dictionary_button": { "message": "Wörterbuch hinzufügen" },
+  "options_add_dictionary_mono": {
+    "message": "Auch ein einsprachiges Wörterbuch funktioniert, etwa Englisch-Englisch: Wählen Sie auf beiden Seiten dieselbe Sprache."
+  },
+  "options_dict_files_note": {
+    "message": "Aus Dateien hinzuzufügen stellt keine Netzwerkanfrage. Beliebige StarDict-Dateien funktionieren, auch die des Katalogs, veröffentlicht unter"
+  },
+  "options_add_link_heading": { "message": "Wörterbuch über einen Link hinzufügen" },
+  "options_add_link_summary": {
+    "message": "Fügen Sie die Adresse eines als .zip-Datei gepackten StarDict-Wörterbuchs ein, stellen Sie die Sprachen ein und klicken Sie auf Herunterladen. Die Erweiterung verbindet sich einmal mit dieser Adresse, wenn Sie die Schaltfläche drücken, und mit keiner anderen; nichts von Ihnen wird mitgeschickt. Das Archiv wird auf diesem Gerät entpackt und geprüft, genau wie selbst ausgewählte Dateien."
+  },
+  "options_link_label": { "message": "Adresse" },
+  "options_link_sources": {
+    "message": "Wo Wörterbücher zu finden sind, auch einsprachige - zum Beispiel Englisch-Englisch - jedes mit seiner Lizenz:"
+  },
+  "options_link_note": {
+    "message": "Es werden nur https-Adressen angenommen. Ein Archiv, das keine .zip-Datei ist (.tar.xz, .tar.zst), muss entpackt und aus Dateien hinzugefügt werden."
+  },
+  "options_downloading_link": {
+    "message": "Herunterladen von $HOST$...",
+    "placeholders": { "host": { "content": "$1", "example": "www.reader-dict.com" } }
+  },
+  "options_link_answered_by": {
+    "message": "Die Adresse führte zu $HOST$, und von dort kam das Archiv.",
+    "placeholders": { "host": { "content": "$1", "example": "objects.githubusercontent.com" } }
+  },
+  "options_disabled_heading": { "message": "Abgeschaltete Websites" },
+  "options_disabled_intro": {
+    "message": "Eine Liste von Websites, auf denen die Erweiterung abgeschaltet ist: keine Übersetzung, keine Sprechblase, keine Unterstreichungen. Fügen Sie eine Website mit dem Schalter unter dem Symbol der Erweiterung in der Symbolleiste des Browsers hinzu, während Sie sie geöffnet haben, oder tippen Sie ihre Adresse unten ein. Der Schalter fehlt, wenn sowohl „Ohne Übersetzungsmodell verwenden\" als auch „Keine Sprechblase beim Auswählen von Text\" eingeschaltet sind: auf gewöhnlichen Seiten passiert dann nichts, es gibt also nichts abzuschalten."
+  },
+  "options_add_host_label": { "message": "Adresse der Website" },
+  "options_add_host_button": { "message": "Hinzufügen" },
+  "options_add_host_note": {
+    "message": "Die Adresse, wie der Browser sie anzeigt, zum Beispiel example.org; www.example.org ist dieselbe Website. Eine Subdomain wie news.example.org ist eine eigene Website. Eine ganze Seitenadresse kann eingefügt werden; nur der Website-Teil bleibt."
+  },
+  "options_host_empty": { "message": "Geben Sie zuerst die Adresse der Website ein." },
+  "options_host_invalid": { "message": "Das ist keine Website-Adresse." },
+  "options_host_added": {
+    "message": "Auf $HOST$ abgeschaltet.",
+    "placeholders": { "host": { "content": "$1", "example": "www.example.org" } }
+  },
+  "options_host_listed": {
+    "message": "$HOST$ steht bereits auf der Liste.",
+    "placeholders": { "host": { "content": "$1", "example": "www.example.org" } }
+  },
+  "options_custom_css_heading": { "message": "Eigenes CSS" },
+  "options_custom_css_intro": {
+    "message": "Für alle, die das Aussehen der Sprechblase, der Leseansicht und des Fensters der Symbolleisten-Schaltfläche mit eigenen CSS-Regeln ändern möchten. Diese Seite bleibt außer Reichweite der Regeln, damit sich eine falsche Regel hier immer zurücknehmen lässt: Feld leeren und speichern."
+  },
+  "options_custom_css_more": { "message": "Mehr zu den CSS-Regeln und den Namen" },
+  "options_custom_css_reach": {
+    "message": "Die Regeln gelten in der Übersetzungs-Sprechblase, auf der Seite der Leseansicht - Leiste und Listen eingeschlossen - und im Fenster der Schaltfläche in der Symbolleiste, nie auf den gelesenen Seiten. Eine falsche Regel kann das Aussehen oder die Bedienung dieser Orte stören, bis das Feld geleert wird."
+  },
+  "options_custom_css_rules": {
+    "message": "Regeln, die etwas aus dem Netz laden würden (url(), @import, @font-face), werden abgelehnt. Die Namen der Elemente bleiben von Version zu Version nach Möglichkeit gleich; muss sich einer ändern, steht es in den Versionshinweisen. Die Namen stammen aus diesen Dateien:"
+  },
+  "options_custom_css_source_bubble": { "message": "tooltip.js (Sprechblase)" },
+  "options_custom_css_source_reader": { "message": "reader.css (Leseansicht)" },
+  "options_custom_css_source_popup": { "message": "popup.css (Schaltflächenfenster)" },
+  "options_custom_css_source_shared": { "message": "page.css (alle Seiten)" },
+  "options_custom_css_save": { "message": "Speichern" },
+  "options_custom_css_saved": { "message": "Gespeichert" },
+  "options_custom_css_refused": {
+    "message": "Nicht gespeichert: die Regeln wurden abgelehnt. Regeln, die etwas aus dem Netz laden (url(), @import, @font-face), sind nicht erlaubt."
+  },
+  "options_custom_css_example": {
+    "message": "Beispiel: .bubble { outline: 3px solid darkorange; } zeichnet eine orange Linie um jede Sprechblase."
+  },
+  "options_custom_css_cleared": { "message": "Gespeichert: keine Regeln, also das Standardaussehen." },
+  "options_support_intro": {
+    "message": "re/read wird von einer gemeinnützigen Stiftung entwickelt - ohne Investoren, ohne Werbung, ohne Tracking. Wenn es Ihnen nützlich ist und Sie seine Weiterentwicklung unterstützen möchten: Jede Spende hilft uns, Software frei von kommerziellem Druck zu bauen."
+  },
+  "options_support_donate": { "message": "Über Wise spenden" },
+  "options_support_more": { "message": "Weitere Möglichkeiten zu unterstützen" },
+
+  "options_badge_reading": { "message": "das lesen Sie gerade" },
+  "options_delete_confirm": { "message": "Sicher?" },
+  "options_delete_model_aria": {
+    "message": "Das Modell $PAIR$ löschen",
+    "placeholders": { "pair": { "content": "$1" } }
+  },
+  "options_delete_dictionary_aria": {
+    "message": "Das Wörterbuch $NAME$ löschen",
+    "placeholders": { "name": { "content": "$1" } }
+  },
+  "options_delete_confirm_aria": {
+    "message": "Löschen bestätigen: $NAME$",
+    "placeholders": { "name": { "content": "$1" } }
+  },
+  "options_size_here": {
+    "message": "$SIZE$ hier",
+    "placeholders": { "size": { "content": "$1" } }
+  },
+  "options_progress_of": {
+    "message": "$RECEIVED$ von $TOTAL$",
+    "placeholders": {
+      "received": { "content": "$1" },
+      "total": { "content": "$2" }
+    }
+  },
+  "options_deleted_model": {
+    "message": "Das Modell $PAIR$ wurde gelöscht.",
+    "placeholders": { "pair": { "content": "$1" } }
+  },
+  "options_checking_model": {
+    "message": "Das Modell $PAIR$ wird in der Engine geprüft...",
+    "placeholders": { "pair": { "content": "$1", "example": "Englisch zu Polnisch" } }
+  },
+  "options_model_rejected": {
+    "message": "Die Engine konnte das Angekommene nicht laden$DETAIL$. Nichts wurde gespeichert.",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "options_refreshing_list": { "message": "Die Modellliste wird aufgefrischt..." },
+  "options_refreshing_dict_list": { "message": "Die Wörterbuchliste wird aufgefrischt..." },
+  "options_refresh_failed": {
+    "message": "Die Liste ließ sich nicht auffrischen$DETAIL$. Es bleibt die Liste vom $DATE$.",
+    "placeholders": {
+      "detail": { "content": "$1" },
+      "date": { "content": "$2", "example": "2026-08-13" }
+    }
+  },
+  "options_version_unknown": { "message": "Version unbekannt" },
+  "options_downloading_model": {
+    "message": "Das Modell $PAIR$ wird heruntergeladen - $SIZE$.",
+    "placeholders": {
+      "pair": { "content": "$1" },
+      "size": { "content": "$2" }
+    }
+  },
+  "options_downloaded_model": {
+    "message": "Das Modell $PAIR$ wurde heruntergeladen, $SIZE$ auf diesem Gerät.",
+    "placeholders": {
+      "pair": { "content": "$1" },
+      "size": { "content": "$2" }
+    }
+  },
+  "options_store_failed": {
+    "message": "Das Modell wurde heruntergeladen, ließ sich aber nicht speichern: $DETAIL$",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "options_reading_pair": {
+    "message": "Gelesen wird $FROM$, übersetzt nach $TO$.",
+    "placeholders": {
+      "from": { "content": "$1" },
+      "to": { "content": "$2" }
+    }
+  },
+  "options_reading_pair_missing": {
+    "message": "Gelesen wird $FROM$, übersetzt nach $TO$ - und das Modell dieser Richtung ist noch nicht hier.",
+    "placeholders": {
+      "from": { "content": "$1" },
+      "to": { "content": "$2" }
+    }
+  },
+  "options_no_models": { "message": "Keine Modelle hier und keine zum Herunterladen - diese Version führt keines auf." },
+  "options_filter_no_match_models": { "message": "Kein Paar passt darauf. Der Filter nimmt einen Sprachnamen oder einen Code." },
+  "options_filter_no_match_dictionaries": { "message": "Kein Wörterbuch passt darauf. Der Filter nimmt einen Sprachnamen oder einen Code." },
+  "options_no_disabled": { "message": "Keine Website ist abgeschaltet. Abgeschaltet wird im Symbolleisten-Popup." },
+  "options_turn_back_on": { "message": "Wieder einschalten" },
+  "options_reading_model_files": {
+    "message": "Die Dateien für $PAIR$ werden gelesen...",
+    "placeholders": { "pair": { "content": "$1" } }
+  },
+  "options_file_disappeared": {
+    "message": "$NAME$ ist beim Lesen verschwunden",
+    "placeholders": { "name": { "content": "$1" } }
+  },
+  "options_added_model": {
+    "message": "Das Modell $PAIR$ wurde hinzugefügt, $SIZE$ auf diesem Gerät.",
+    "placeholders": {
+      "pair": { "content": "$1" },
+      "size": { "content": "$2" }
+    }
+  },
+  "options_add_model_failed": {
+    "message": "Das Modell ließ sich nicht hinzufügen: $DETAIL$",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "options_deleted_dictionary": {
+    "message": "$NAME$ wurde gelöscht.",
+    "placeholders": { "name": { "content": "$1" } }
+  },
+  "options_deleting_dictionary": {
+    "message": "$NAME$ wird gelöscht - bei einem großen Wörterbuch dauert das einen Moment...",
+    "placeholders": { "name": { "content": "$1" } }
+  },
+  "options_deleting_row": { "message": "Wird gelöscht..." },
+  "options_delete_dictionary_failed": {
+    "message": "$NAME$ ließ sich nicht löschen: $DETAIL$",
+    "placeholders": {
+      "name": { "content": "$1" },
+      "detail": { "content": "$2" }
+    }
+  },
+  "options_move_dictionary_up_aria": {
+    "message": "$NAME$ nach oben verschieben",
+    "placeholders": { "name": { "content": "$1", "example": "WikDict en-pl" } }
+  },
+  "options_move_dictionary_down_aria": {
+    "message": "$NAME$ nach unten verschieben",
+    "placeholders": { "name": { "content": "$1", "example": "WikDict en-pl" } }
+  },
+  "options_dictionary_moved": {
+    "message": "$NAME$ antwortet jetzt an Stelle $PLACE$ von $TOTAL$.",
+    "placeholders": {
+      "name": { "content": "$1", "example": "WikDict en-pl" },
+      "place": { "content": "$2", "example": "1" },
+      "total": { "content": "$3", "example": "3" }
+    }
+  },
+  "options_dictionary_details": { "message": "Details" },
+  "options_dictionary_file_name": {
+    "message": "Name aus der Datei: $NAME$",
+    "placeholders": { "name": { "content": "$1", "example": "English-Polish FreeDict+WikDict dictionary (en-pl)" } }
+  },
+  "options_dictionary_display_name": { "message": "Anzeigename" },
+  "options_dictionary_display_name_aria": {
+    "message": "Anzeigename von $NAME$",
+    "placeholders": { "name": { "content": "$1", "example": "English-Polish FreeDict+WikDict dictionary (en-pl)" } }
+  },
+  "options_dictionary_name_taken": {
+    "message": "Ein anderes Wörterbuch wird bereits als $NAME$ angezeigt - wählen Sie einen anderen Namen.",
+    "placeholders": { "name": { "content": "$1", "example": "FreeDict en-pl" } }
+  },
+  "options_rename_failed": {
+    "message": "Der Name ließ sich nicht speichern: $DETAIL$",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "options_reorder_failed": {
+    "message": "Die Reihenfolge ließ sich nicht ändern: $DETAIL$",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "options_no_catalog": { "message": "Keine Wörterbücher zum Herunterladen - diese Version führt keines auf." },
+  "options_downloading_dictionary": {
+    "message": "Das Wörterbuch $PAIR$ wird heruntergeladen...",
+    "placeholders": { "pair": { "content": "$1" } }
+  },
+  "options_storing_dictionary": {
+    "message": "$NAME$ wird gespeichert - $DONE$ von $TOTAL$...",
+    "placeholders": {
+      "name": { "content": "$1" },
+      "done": { "content": "$2" },
+      "total": { "content": "$3" }
+    }
+  },
+  "options_added_dictionary": {
+    "message": "$NAME$ hinzugefügt: $WORDS$, $SIZE$.",
+    "placeholders": {
+      "name": { "content": "$1" },
+      "words": { "content": "$2" },
+      "size": { "content": "$3" }
+    }
+  },
+  "options_skipped_entries_one": {
+    "message": "$COUNT$ Eintrag ließ sich nicht lesen und wurde ausgelassen.",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "options_skipped_entries_other": {
+    "message": "$COUNT$ Einträge ließen sich nicht lesen und wurden ausgelassen.",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "options_add_dictionary_failed": {
+    "message": "Das Wörterbuch ließ sich nicht hinzufügen: $DETAIL$",
+    "placeholders": { "detail": { "content": "$1" } }
+  },
+  "options_reading_file": {
+    "message": "$NAME$ wird gelesen...",
+    "placeholders": { "name": { "content": "$1" } }
+  },
+  "options_swept_unfinished": {
+    "message": "Ein Wörterbuch, dessen Import nie fertig wurde, wurde entfernt ($NAMES$).",
+    "placeholders": { "names": { "content": "$1" } }
+  },
+  "options_import_interrupted": {
+    "message": "Unterbrochen bei $DONE$ von $TOTAL$ - Fortsetzen macht dort weiter.",
+    "placeholders": {
+      "done": { "content": "$1" },
+      "total": { "content": "$2" }
+    }
+  },
+  "options_import_interrupted_early": { "message": "Unterbrochen, bevor der erste Eintrag gespeichert war - Fortsetzen beginnt von vorn." },
+  "options_import_elsewhere": { "message": "Ein anderer Tab fügt gerade ein Wörterbuch hinzu - warte, bis er fertig ist." },
+  "options_continue_import": { "message": "Fortsetzen" },
+  "options_continue_import_aria": {
+    "message": "$NAME$ weiter hinzufügen",
+    "placeholders": { "name": { "content": "$1" } }
+  }
+}

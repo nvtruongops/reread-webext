@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- On Android this page fills the window, and a page without this meta is
+         laid out at 980px and shrunk to fit. Desktop ignores it. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="vocab_title">re/read - saved phrases</title>
+    <!-- The tab's icon. Chrome takes it from the manifest for every page of an
+         extension; Firefox takes it from nowhere but a link like this one, and
+         shows the generic globe without it (test/tab-icon.test.js). -->
+    <link rel="icon" href="../assets/icons/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/page.css" />
+    <link rel="stylesheet" href="vocab.css" />
+  </head>
+  <body>
+    <!-- The page dimmed under an open panel, the reader's rule (PR #253, then
+         every page with the menu - Michał's smoke, 2026-08-29). Under the bar
+         and its panels, over the rest; a press on it closes the panels as any
+         press outside them does. Shown by `setPanel`. -->
+    <div id="panel-scrim" class="panel-scrim" hidden></div>
+    <!-- The two count glyphs (D211), drawn once and used by every row and by
+         the legend through <use>: a magnifier for the bubble openings, an
+         open book for the occurrences in finished texts. The speaker's own
+         style (lib/speaker-icon.js): a 16-unit box, the ink's stroke,
+         rounded ends. Out of the flow at zero size (`.icon-sprite`) rather
+         than hidden: a <use> of a symbol inside a display:none sprite
+         renders in today's browsers, but zero size is the sprite pattern
+         with no history of engine bugs behind it. -->
+    <svg class="icon-sprite" aria-hidden="true" focusable="false">
+      <symbol id="i-lookup" viewBox="0 0 16 16">
+        <circle cx="6.75" cy="6.75" r="4.25" fill="none" stroke="currentColor" stroke-width="1.75" />
+        <path d="M10 10l4 4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+      </symbol>
+      <symbol id="i-read" viewBox="0 0 16 16">
+        <path
+          d="M8 4.6C6.6 3.3 4.7 3 2 3.2v9.5c2.7-.2 4.6.1 6 1.4M8 4.6c1.4-1.3 3.3-1.6 6-1.4v9.5c-2.7-.2-4.6.1-6 1.4M8 4.6v9.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </symbol>
+    </svg>
+    <!-- The English in this file is the fallback: `localizePage` swaps every
+         `data-i18n`-marked text for the catalogue's language before the page
+         is seen. A marked element holds text only - the locales test enforces
+         that, because the swap goes through `textContent`. The intro is the
+         one exception: it quotes the bubble's own button labels through
+         placeholders, so vocab.js writes it instead of a marker. -->
+    <div class="page-chrome">
+      <!-- The reading list's bar, worn over this page's header: the mark on the
+           leading edge, the drawn tools at the far one, one line under both.
+           The dress and the conduct are the reader bar's exactly - the two
+           pages should read as one extension - and the toolset is this
+           page's own: the Aa panel (paper, typeface, size, and the voice the
+           speakers in the rows use) and the menu. The mark doubles as the
+           door to the settings, a button rather than a link because the way
+           there is the background's (D147): the settings tab raised if one
+           stands, this tab turned to the settings otherwise - which a link
+           could not choose between. The bar and its two panels are the
+           outside-press boundary: a press inside any of them is the panels'
+           own business (see vocab.js), exactly the reader's rule. The box
+           around the bar and its panels (`.page-chrome`, page.css) is stuck
+           to the top of the window (D219), as on every page of this
+           extension: a list of a few hundred phrases scrolled to its end
+           kept Aa and the menu a page away. A child of the body, not of the
+           header: a stuck box never leaves its parent's box, and inside the
+           short header it slid away with it (Michał's smoke, 2026-08-29). -->
+      <div class="page-bar">
+        <!-- The way back to the reading (D141/D142), the settings bar's own
+             arrow. Walked into in this tab, it pops the entry the system's
+             back gesture pops; raised from the popup or the settings menu
+             while the reading stands in another tab, it brings that tab
+             forward. Hidden when there is nothing to go back to - the three
+             states live in `lib/back-arrow.js`. -->
+        <button
+          id="back"
+          type="button"
+          class="page-back"
+          title="Back to reading"
+          data-i18n-title="back_to_reading"
+          aria-label="Back to reading"
+          data-i18n-aria-label="back_to_reading"
+          hidden
+        >
+          <svg class="page-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path
+              d="M13.25 8H3.1M7.3 3.8 3.1 8l4.2 4.2"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <button
+          type="button"
+          id="brand"
+          class="page-mark"
+          title="Settings"
+          data-i18n-title="settings"
+          aria-label="Settings"
+          data-i18n-aria-label="settings"
+        >
+          re/read
+        </button>
+        <span class="page-tools">
+          <!-- The reader bar's own "Aa", here because this page now has text
+               the panel dresses (the phrases) and a voice the panel steers
+               (the speakers in the rows). Its panel carries only the rows
+               that act on this page - no column width, no links: those are
+               about an article, and only the reader has one. -->
+          <button
+            id="display"
+            type="button"
+            aria-expanded="false"
+            title="Text and voice"
+            data-i18n-title="reader_display_title"
+          >
+            Aa
+          </button>
+          <!-- The bar's full-screen tool (D195; every page since D220):
+               where the browser has a full screen to give and the row has
+               room, one press asks for the whole screen and the same press
+               gives it back; hidden until the row is measured
+               (`lib/fullscreen-tool.js`). Before the menu, the reader bar's
+               own place for it; the two glyphs are page.css's, and the
+               glyph is the tool's whole state - it wears no lit frame. -->
+          <button
+            id="fullscreen"
+            type="button"
+            title="Full screen"
+            data-i18n-title="reader_fullscreen"
+            aria-label="Full screen"
+            data-i18n-aria-label="reader_fullscreen"
+            hidden
+          >
+            <svg class="page-icon fullscreen-enter" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <svg class="page-icon fullscreen-exit" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M6 2.5V6H2.5M10 2.5V6h3.5M13.5 10H10v3.5M2.5 10H6v3.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <!-- The same drawn menu button as the reader's bar, for the same
+               reason: on a phone the toolbar popup that used to be the only
+               hallway between these pages is three taps into the browser menu,
+               and this bar is already here. -->
+          <button
+            id="menu"
+            type="button"
+            aria-expanded="false"
+            title="Menu"
+            data-i18n-title="nav_menu"
+            aria-label="Menu"
+            data-i18n-aria-label="nav_menu"
+          >
+            <svg class="page-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M2.5 4.25h11M2.5 8h11M2.5 11.75h11"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </span>
+      </div>
+
+      <!-- The reader's Aa panel, minus the rows about an article's column
+           (width, links): what stays is what acts here - the paper, the
+           typeface and size the phrases wear, and the voice and speed the
+           rows' speakers use. Written out rather than built by script, for
+           the reader page's own reason: a short fixed list is easier to read
+           in the package than the code that would have produced it. Every
+           row writes the same stored settings the reader's panel writes, so
+           a choice made on either page holds on both. -->
+      <section
+        id="display-panel"
+        class="page-panel"
+        hidden
+        aria-label="Text and voice"
+        data-i18n-aria-label="reader_display_title"
+      >
+        <div class="page-setting">
+          <span class="page-setting-name" data-i18n="reader_theme">Theme</span>
+          <span class="page-choices" id="theme-choices">
+            <button type="button" data-theme="auto" data-i18n="reader_theme_auto">Auto</button>
+            <button type="button" data-theme="light" data-i18n="reader_theme_light">Light</button>
+            <button type="button" data-theme="sepia" data-i18n="reader_theme_sepia">Sepia</button>
+            <button type="button" data-theme="dark" data-i18n="reader_theme_dark">Dark</button>
+          </span>
+        </div>
+
+        <div class="page-setting">
+          <span class="page-setting-name" data-i18n="reader_font">Type</span>
+          <span class="page-choices" id="font-choices">
+            <button type="button" data-font="serif" data-i18n="reader_font_serif">Serif</button>
+            <button type="button" data-font="sans" data-i18n="reader_font_sans">Sans</button>
+          </span>
+        </div>
+
+        <div class="page-setting">
+          <span class="page-setting-name" data-i18n="reader_size">Size</span>
+          <span class="page-choices">
+            <button type="button" data-size="-1" title="Smaller" data-i18n-title="reader_smaller">&minus;</button>
+            <output id="size-value">18</output>
+            <button type="button" data-size="1" title="Larger" data-i18n-title="reader_larger">+</button>
+          </span>
+        </div>
+
+        <!-- The voice rows are hidden outright on a device whose browser
+             cannot speak - an empty voice select would be a promise nothing
+             keeps (the reader panel's own clause). -->
+        <div class="page-setting" id="voice-setting" hidden>
+          <label class="page-setting-name" for="voice-choice" data-i18n="reader_voice">Voice</label>
+          <span class="page-choices">
+            <select id="voice-choice"></select>
+          </span>
+        </div>
+
+        <div class="page-setting" id="rate-setting" hidden>
+          <span class="page-setting-name" data-i18n="reader_speed">Speed</span>
+          <span class="page-choices">
+            <button type="button" data-rate="-10" title="Slower" data-i18n-title="reader_slower">&minus;</button>
+            <output id="rate-value">1.0&times;</output>
+            <button type="button" data-rate="10" title="Faster" data-i18n-title="reader_faster">+</button>
+          </span>
+        </div>
+      </section>
+
+      <!-- The reader's menu, minus a row for this page - a hallway does not
+           list the room it stands in. The list row goes through the background
+           exactly as the popup's does (`reader-tab.js`): the reader is one
+           tab, and the message both points it at nothing and raises it, while
+           this tab stays a saved-phrases page - which is what the tab registry
+           says it is. The settings row is the mark's press with a word on it. -->
+      <nav id="menu-panel" class="nav-menu" hidden aria-label="Menu" data-i18n-aria-label="nav_menu">
+        <button id="nav-library" type="button" data-i18n="reading_list">Offline reading list</button>
+        <!-- The highlights row, the reader menu's own (D108): here it always
+             means every document's quotes - only the reader has a document
+             to scope them to. -->
+        <button id="nav-marks" type="button" data-i18n="reader_marks_title">Highlights</button>
+        <button id="nav-settings" type="button" data-i18n="settings">Settings</button>
+      </nav>
+    </div>
+    <header>
+      <div class="head-row">
+        <h1 data-i18n="saved_phrases">Saved phrases</h1>
+        <label for="pair" class="visually-hidden" data-i18n="language_pair">Language pair</label>
+        <select id="pair"></select>
+      </div>
+      <!-- The one counter this page has; the select's options carry none. -->
+      <p class="hint" id="count" hidden></p>
+      <!-- The intro's fold shares its line with a quiet anchor: the transfer
+           section lives under the list, and this link is how it is found
+           without scrolling past a hundred rows. -->
+      <div class="fold-row">
+        <details class="fold-line">
+          <summary data-i18n="vocab_how_title">How it works</summary>
+          <p id="intro">
+            Every phrase you kept for this language pair, newest first - saved while reading, stored
+            only on this device. Learned removes a phrase and its underlines with it; Edit rewrites
+            what it means, one meaning per line.
+          </p>
+        </details>
+        <a href="#transfer" data-i18n="transfer_heading">Import and export</a>
+      </div>
+    </header>
+    <!-- What a private window sees (`private-note.js`): its own, empty
+         database, gone with the session. Filled and shown by script only
+         there; hidden everywhere else. First on the page, so an emptied
+         list explains itself before it is read wrongly. -->
+    <p id="private-note" class="note private-note" hidden></p>
+
+
+    <!-- The filter stands alone above the list it narrows; the transfer tools
+         moved into their own section below the pager. -->
+    <div class="filter-line">
+      <label for="filter" class="visually-hidden" data-i18n="vocab_filter_label">
+        Filter the list of saved phrases
+      </label>
+      <!-- The same field as the look-up field in the fold below: a search
+           field with our own cross inside (`lib/clear-field.js`, wrapped by
+           vocab.js), the phone's keyboard saying Search, nothing suggested. -->
+      <input
+        type="search"
+        id="filter"
+        placeholder="Filter by phrase or meaning"
+        data-i18n-placeholder="vocab_filter_placeholder"
+        enterkeyhint="search"
+        autocomplete="off"
+      />
+      <!-- The order of the list (D209), beside the filter: newest first as
+           the page has always been, then the two counts a phrase carries
+           and the alphabet. The values are `Order` in list-view.js; the
+           choice lives with the page, like the filter, and starts over
+           with it. -->
+      <label for="order" class="visually-hidden" data-i18n="vocab_order_label">Order of the list</label>
+      <select id="order">
+        <option value="newest" data-i18n="vocab_order_newest">Newest first</option>
+        <option value="recalled" data-i18n="vocab_order_recalled">Most checked</option>
+        <option value="read" data-i18n="vocab_order_read">Most read</option>
+        <option value="alphabetical" data-i18n="vocab_order_alphabetical">A to Z</option>
+      </select>
+    </div>
+
+    <!-- A phrase added by hand (D197): a word typed instead of selected,
+         answered by the dictionaries and saved with a press on a meaning - or
+         with a meaning of the reader's own. Folded, because adding is the
+         occasional act here and the list is the page; the fold opens onto
+         the field, built by `lib/lookup-box.js` (the popup's own). Hidden
+         without a pair, when there is nowhere to file a phrase. The panel
+         does one thing: Edit and Learned stay with the phrase's row in the
+         list below, which "Show in list" under the answer brings into view. -->
+    <details class="fold-line lookup-fold" id="add-phrase">
+      <summary data-i18n="vocab_add_title">Add a phrase</summary>
+      <!-- Framed, like the import offer: the answer can be a long entry, and
+           without a frame it ran straight into the list's first row. -->
+      <div class="lookup-fold-panel">
+        <p class="hint" data-i18n="vocab_add_note">
+          Type a word and confirm - tick meanings from your dictionaries or write your own.
+        </p>
+        <div class="lookup-box" id="lookup-box"></div>
+      </div>
+    </details>
+
+    <!-- The filter's state over the list it narrows: "1 of 827 phrases for
+         "news"" with the way out beside it - said right where the rows are,
+         because the filter box at the top of the page is off the screen by
+         the time the list is read (and "Show in list" in the fold above
+         fills that box unseen). Filled by vocab.js while the filter asks
+         anything; hidden, and out of the flow, while it does not. -->
+    <p id="filter-status" class="hint filter-status" hidden></p>
+
+    <!-- The key to the two count glyphs in the rows (D211): one line in the
+         interface's voice right over the first row, under the filter's
+         state line when that stands. The magnifier and the book with the
+         words the order select uses - "checked", "read" - so the legend
+         ties the numbers to the orders. On a desktop a count's own hover
+         title says the same; the legend is for the finger. Shown by
+         vocab.js only while a row on the page has a count to explain - a
+         fresh vocabulary reads as it did before the counts. No space
+         between a glyph and its word, so a line never breaks between them. -->
+    <p id="legend" class="phrase-legend" hidden>
+      <span class="phrase-legend-item"><svg class="phrase-count-icon" aria-hidden="true" focusable="false"><use href="#i-lookup" /></svg><span data-i18n="vocab_legend_recalls">checked – bubble openings while reading</span></span>
+      <span class="phrase-legend-dot" aria-hidden="true">&middot;</span>
+      <span class="phrase-legend-item"><svg class="phrase-count-icon" aria-hidden="true" focusable="false"><use href="#i-read" /></svg><span data-i18n="vocab_legend_reads">read – occurrences in texts you finished</span></span>
+    </p>
+
+    <!-- Focusable by script only: "Clear filter" takes its own button out
+         of the page, and the focus then lands on the list itself, where the
+         eye is, without the page jumping to the filter box at the top. -->
+    <div id="list" class="phrases" tabindex="-1"></div>
+
+    <p id="status" class="status" role="status"></p>
+
+    <!-- The shared pager (page.css): a drawn chevron at each end with its
+         word beside it; under a phone's width the word steps aside and the
+         chevron is the button, the word staying its name. The reading
+         list's pager is the same markup. -->
+    <nav class="pager" id="pager" hidden>
+      <button type="button" id="prev">
+        <svg class="pager-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M10.1 3.8 5.9 8l4.2 4.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="pager-word" data-i18n="pager_prev">Previous</span>
+      </button>
+      <span class="pager-label" id="page-label"></span>
+      <button type="button" id="next">
+        <span class="pager-word" data-i18n="pager_next">Next</span>
+        <svg class="pager-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path
+            d="M5.9 3.8 10.1 8l-4.2 4.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Import and export, after the list the way the acts themselves come
+         after the reading: visiting them is a decision, not a toll on the way
+         to the rows, and the anchor in the header is the short way here. -->
+    <section id="transfer" class="transfer-section" aria-labelledby="transfer-title">
+      <h2 id="transfer-title" data-i18n="transfer_heading">Import and export</h2>
+      <!-- Two exports (D210): the sister plugin's two-column file, which is
+           also what Import reads, and the three-column file for Anki with
+           the sentence each phrase was kept from. Its own button rather than
+           a choice inside one, because the two files go to two different
+           places and a reader who only ever presses one should not have to
+           pick it each time. -->
+      <p class="transfer">
+        <button type="button" id="import" data-i18n="action_import">Import</button>
+        <button type="button" id="export" data-i18n="action_export">Export</button>
+        <button type="button" id="export-anki" data-i18n="vocab_export_anki">Export for Anki</button>
+      </p>
+      <!-- The moment of consent: what the file holds and where it would go,
+           shown before anything is written. vocab.js fills it and keeps it in
+           step with the file the reader picked. Right under the buttons, with
+           the report line after it and the format fold last (D153): what a
+           press did must be said where the press was - under the fold a
+           report stood away from the button, and an opened fold pushed it
+           further (Michał's smoke, 2026-08-29). -->
+      <div id="import-confirm" class="import-confirm" hidden>
+        <p id="import-summary"></p>
+        <ul id="import-sample" class="import-sample"></ul>
+        <!-- How many of the file's rows bring a sentence (D212), and the one
+             rule for a phrase already saved: it takes the file's sentence
+             only when it has none. Filled by vocab.js; hidden when no row
+             has one, so a plugin file reads as it always did. -->
+        <p id="import-sentences" class="hint" hidden></p>
+        <p class="import-pair">
+          <label for="import-pair" data-i18n="vocab_import_into">Import into</label>
+          <select id="import-pair"></select>
+        </p>
+        <p class="transfer">
+          <button type="button" id="import-run" data-i18n="action_import">Import</button>
+          <button type="button" id="import-cancel" data-i18n="action_cancel">Cancel</button>
+        </p>
+      </div>
+      <p id="transfer-status" class="status report" role="status"></p>
+      <details class="fold-line">
+        <summary data-i18n="vocab_format_title">File format</summary>
+        <p class="hint" data-i18n="vocab_transfer_note">
+          A two-column .tsv file - what the KOReader plugin writes and Anki imports. Importing adds
+          phrases this pair is missing and never touches a saved one. In the meaning cell, a
+          semicolon followed by a space separates meanings; a semicolon without a space stays inside
+          its meaning. Export for Anki writes a third column with the sentence each phrase was saved
+          in - empty when none was kept. That file can be imported back too: its sentences come
+          along, and a phrase already saved takes the file's sentence only when it has none of
+          its own.
+        </p>
+      </details>
+      <input type="file" id="import-file" accept=".tsv,text/tab-separated-values" hidden />
+    </section>
+
+    <!-- The colophon the settings page closes with, here because this room
+         ends in a list too (Michał's wish, 2026-08-17): the address is meant
+         to be read and remembered wherever a reader reaches an end. Proper
+         names and identifiers all - nothing for the catalogue; the version
+         is filled by vocab.js from the manifest. -->
+    <footer class="page-end">
+      <p>
+        re/read <span id="version">-</span> &middot; AGPL-3.0 &middot;
+        <a href="https://reapps.eu" target="_blank" rel="noopener">Fundacja Reborn</a> &middot;
+        <a href="https://reapps.eu" target="_blank" rel="noopener">reapps.eu</a> &middot;
+        <a href="https://github.com/fundacja-reborn/reread-webext" target="_blank" rel="noopener"
+          >GitHub</a
+        >
+      </p>
+    </footer>
+
+    <script src="vocab.js" defer></script>
+  </body>
+</html>
