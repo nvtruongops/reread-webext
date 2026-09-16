@@ -125,7 +125,7 @@ if (skipCheck) {
   console.log("[sign] skipping the quality gate - building only");
   run("npm", ["run", "--silent", "build"]);
 } else {
-  run("tools/check.sh", []);
+  run(process.execPath, ["tools/check.mjs"]);
 }
 
 // The upload lives in a child process of its own: Node reads

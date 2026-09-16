@@ -17,8 +17,11 @@
     "typecheck": "tsc --noEmit",
     "test": "node --test --import ./test/i18n-en.js \"test/**/*.test.js\"",
     "lint": "npm run build && web-ext lint --source-dir dist/firefox",
-    "check": "tools/check.sh",
+    "check": "node tools/check.mjs",
+    "check:vendor": "node tools/check-vendor.mjs",
     "check:reapps": "node tools/check-reapps.mjs",
+    "setup:hooks": "node tools/setup-hooks.mjs",
+    "prepare": "node tools/setup-hooks.mjs",
     "sign": "node tools/sign.mjs",
     "start": "npm run build && web-ext run --source-dir dist/firefox",
     "start:isolated": "npm run build && web-ext run --source-dir dist/firefox --no-reload"

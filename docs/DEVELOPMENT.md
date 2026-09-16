@@ -12,14 +12,15 @@ npm run watch            # rebuild on change
 npm test                 # unit tests (node --test, no framework)
 npm run typecheck        # tsc --noEmit over code and tests
 npm start                # build, then launch Firefox with the extension loaded
-tools/check.sh           # quality gate: vendor checksums, typecheck, tests, both builds, addons-linter
+npm run check            # cross-platform local CI quality gate: vendor checksums, typecheck, tests, all builds, addons-linter, reapps sync
+npm run setup:hooks      # configure .githooks/pre-push (runs automatically on npm install via prepare script)
 npm run sign             # gate, then AMO signing (needs credentials, see below)
 
 node tools/models-registry.mjs --all   # rewrite the model registry (network; downloads gigabytes, --pairs=en-pl,pl-en narrows it)
 node tools/wikdict-catalog.mjs         # rewrite the dictionary catalogue (network)
 ```
 
-`tools/check.sh` is exactly what CI runs, so the gate and CI cannot drift apart. The two registry tools are run by hand when upstream releases change, and their output is committed.
+`npm run check` (or `node tools/check.mjs`) is the full local quality gate, executed automatically before every `git push` via `.githooks/pre-push`. The two registry tools are run by hand when upstream releases change, and their output is committed.
 
 ## Installing a Firefox build that survives a restart
 

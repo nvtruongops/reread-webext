@@ -177,14 +177,14 @@ For English-Polish, WikDict is the recommended start: 66,609 entries plus 51,721
 Plain JavaScript with JSDoc types (TypeScript as a checker only, `--noEmit`), bundled by esbuild because content scripts cannot be ES modules, shipped unminified. No runtime dependencies beyond the three vendored components above.
 
 ```bash
-npm install
+npm install              # installs devDependencies and sets up .githooks (pre-push local CI)
 npm run build            # Firefox package in dist/firefox
 npm run build:chromium   # Chromium package in dist/chromium
 npm run build:safari     # Safari package in dist/safari, synced into safari/ (see below)
-tools/check.sh           # quality gate: vendor checksums, typecheck, tests, all builds, addons-linter
+npm run check            # cross-platform local CI quality gate: vendor checksums, typecheck, tests, all builds, addons-linter, reapps sync
 ```
 
-`tools/check.sh` is exactly what CI runs. A build loads as a temporary extension in Firefox (`about:debugging`) or an unpacked one in Chrome (`chrome://extensions` → Load unpacked → `dist/chromium`). The practical notes - AMO signing for a build that survives a Firefox restart, quirks of unpacked Chrome loads, regenerating the model registry and the dictionary catalogue, code layout - are in [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).
+`npm run check` (or `node tools/check.mjs`) runs the full local CI quality gate. It is also executed automatically before every `git push` via a native pre-push Git hook (`.githooks/pre-push`, set up via `npm run setup:hooks` or `npm install`). To bypass in emergencies, use `git push --no-verify`. A build loads as a temporary extension in Firefox (`about:debugging`) or an unpacked one in Chrome (`chrome://extensions` → Load unpacked → `dist/chromium`). The practical notes - AMO signing for a build that survives a Firefox restart, quirks of unpacked Chrome loads, regenerating the model registry and the dictionary catalogue, code layout - are in [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).
 
 **Safari (iOS/iPadOS, experimental - not yet in the App Store):** Safari installs extensions only inside a native app, so `safari/` holds a minimal Xcode wrapper - one screen that says what the extension is and how to turn it on, a required no-op message handler, nothing else. `npm run build:safari` builds the same extension for Safari (the manifest differences are in `tools/manifest-target.mjs`, like Chromium's) and syncs it into the wrapper's gitignored `Resources/` directory; then `safari/reread.xcodeproj` builds and runs it on a device from Xcode. Verified on an iPad Pro (2018); requires Safari 18.2+ for detecting taps on underlines - on older versions that part does not work, the rest does.
 

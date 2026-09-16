@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+# ==============================================================================
+# Git pre-push hook: Local CI Quality Gate
+# Validates types, vendor checksums, 1840+ unit tests, builds (Firefox, Chromium,
+# Safari), AMO Addons Linter, and Reapps ecosystem sync before any code can be pushed.
+#
+# To bypass in emergencies: git push --no-verify
+# ==============================================================================
+
+echo ""
+echo "🚀 [pre-push] Running local CI quality gate before push..."
+echo "-------------------------------------------------------"
+
+node tools/check.mjs
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+  echo "" >&2
+  echo "❌ [pre-push] Local CI check FAILED (exit code $EXIT_CODE)!" >&2
+  echo "   Push has been aborted to protect the repository." >&2
+  echo "   Fix the issues above and retry, or use 'git push --no-verify' to bypass." >&2
+  echo "" >&2
+  exit $EXIT_CODE
+fi
+
+echo "✔ [pre-push] Local CI passed successfully. Proceeding with push."
+echo ""
+exit 0
