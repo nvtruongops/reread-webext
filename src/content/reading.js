@@ -1384,7 +1384,11 @@ async function fillSecondLayer(forAction = "more") {
     return;
   }
 
-  tooltip.setContext(sentence);
+  if (sentence !== null && sentence.length > 0) {
+    tooltip.setContext(sentence);
+  } else if (!useLazy) {
+    tooltip.setContext(null);
+  }
   tooltip.setEntries(groups);
   tooltip.expand();
   if (useLazy && wanted.context !== null) {
@@ -1638,7 +1642,8 @@ function present(selection, { deliberate, touch, chain = false }) {
     scheme: bubbleScheme?.() ?? null,
   });
 
-  const useLazy = lazySentence && wordsOf(normalized) <= 2 && selection.context !== null;
+  const notWholeSentence = selection.context !== null && text.trim() !== selection.context.trim();
+  const useLazy = lazySentence && notWholeSentence;
 
   /** @type {Promise<import("../lib/protocol.js").Result<import("../lib/protocol.js").Translation>>} */
   const answer = ask(

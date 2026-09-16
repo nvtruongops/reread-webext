@@ -3385,5 +3385,14 @@
   },
   "lookup_etymology": {
     "message": "Étymologie"
+  },
+  "lookup_similar_words": {
+    "message": "Mots similaires"
+  },
+  "lookup_meaning_prefix": {
+    "message": "Sens :"
+  },
+  "lookup_example_prefix": {
+    "message": "Exemple :"
   }
 }

@@ -4368,5 +4368,14 @@
   },
   "lookup_etymology": {
     "message": "Етимологія"
+  },
+  "lookup_similar_words": {
+    "message": "Схожі слова"
+  },
+  "lookup_meaning_prefix": {
+    "message": "Значення:"
+  },
+  "lookup_example_prefix": {
+    "message": "Приклад:"
   }
 }

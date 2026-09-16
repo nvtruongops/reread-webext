@@ -4368,5 +4368,14 @@
   },
   "lookup_etymology": {
     "message": "Etymologia"
+  },
+  "lookup_similar_words": {
+    "message": "Podobne słowa"
+  },
+  "lookup_meaning_prefix": {
+    "message": "Znaczenie:"
+  },
+  "lookup_example_prefix": {
+    "message": "Przykład:"
   }
 }

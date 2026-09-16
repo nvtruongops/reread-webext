@@ -3346,5 +3346,14 @@
   },
   "lookup_etymology": {
     "message": "Etimología"
+  },
+  "lookup_similar_words": {
+    "message": "Palabras similares"
+  },
+  "lookup_meaning_prefix": {
+    "message": "Significado:"
+  },
+  "lookup_example_prefix": {
+    "message": "Ejemplo:"
   }
 }

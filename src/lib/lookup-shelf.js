@@ -204,23 +204,233 @@ export function formatDictName(name) {
 }
 
 /**
+ * Common etymology patterns translated to Vietnamese with original terms preserved.
+ * @type {Array<[RegExp, string]>}
+ */
+const ETYM_MAP = [
+  [/\blate\s+Middle\s+English\b/gi, "tiếng Anh trung đại muộn (late Middle English)"],
+  [/\bearly\s+Middle\s+English\b/gi, "tiếng Anh trung đại sớm (early Middle English)"],
+  [/\bMiddle\s+English\b/gi, "tiếng Anh trung đại (Middle English)"],
+  [/\blate\s+Old\s+English\b/gi, "tiếng Anh cổ muộn (late Old English)"],
+  [/\bearly\s+Old\s+English\b/gi, "tiếng Anh cổ sớm (early Old English)"],
+  [/\bOld\s+English\b/gi, "tiếng Anh cổ (Old English)"],
+  [/\bAnglo-Norman\s+French\b/gi, "tiếng Pháp Anglo-Norman"],
+  [/\bOld\s+French\b/gi, "tiếng Pháp cổ (Old French)"],
+  [/\bOld\s+Norse\b/gi, "tiếng Bắc Âu cổ (Old Norse)"],
+  [/\bLatin\b/gi, "tiếng La-tinh (Latin)"],
+  [/\bGreek\b/gi, "tiếng Hy Lạp (Greek)"],
+  [/\bGermanic\b/gi, "tiếng Giéc-manh (Germanic)"],
+  [/\bGerman\b/gi, "tiếng Đức (German)"],
+  [/\bFrench\b/gi, "tiếng Pháp (French)"],
+  [/\bItalian\b/gi, "tiếng Ý (Italian)"],
+  [/\bSpanish\b/gi, "tiếng Tây Ban Nha (Spanish)"],
+  [/\bDutch\b/gi, "tiếng Hà Lan (Dutch)"],
+  [/\breinforced\s+by\s+its\s+source\b/gi, "được bổ trợ từ gốc"],
+  [/\bderivative\s+of\b/gi, "từ phái sinh của"],
+  [/\bvariant\s+of\b/gi, "biến thể của"],
+  [/\bliterally\b/gi, "nghĩa đen là"],
+  [/\bdiminutive\s+of\b/gi, "dạng từ giảm nhẹ của"],
+  [/\bshortening\s+of\b/gi, "viết tắt của"],
+  [/\bblend\s+of\b/gi, "từ kết hợp của"],
+  [/\bfrom\b/gi, "từ"],
+];
+
+/**
  * @param {string} text
+ * @returns {string}
+ */
+export function translateEtymology(text) {
+  let res = text;
+  /** @type {string[]} */
+  const placeholders = [];
+  ETYM_MAP.forEach(([regex, repl]) => {
+    res = res.replace(regex, () => {
+      const ph = `__ETYM_${placeholders.length}__`;
+      placeholders.push(/** @type {string} */ (repl));
+      return ph;
+    });
+  });
+  placeholders.forEach((repl, i) => {
+    res = res.replace(`__ETYM_${i}__`, repl);
+  });
+  return res;
+}
+
+/**
+ * @param {string} form
+ * @param {string} [baseWord]
+ * @param {string} [baseMeaning]
+ * @param {string[]} [examples]
+ * @returns {{ form: string, tag: string, meaning: string, exSrc: string, exTgt: string }}
+ */
+export function deriveFormDetails(form, baseWord = "", baseMeaning = "", examples = []) {
+  const f = form.trim();
+  const lower = f.toLowerCase();
+  const meaningBase = (baseMeaning || baseWord || f).replace(/^(to\s+|a\s+|an\s+)/i, "").trim();
+
+  let tag = t("lookup_word_forms");
+  let meaning = meaningBase;
+  let exSrc = `• ${f}`;
+  let exTgt = `→ ${meaningBase}`;
+
+  if (lower.startsWith("the ")) {
+    tag = "Dạng xác định (the + noun)";
+    meaning = `chính ${meaningBase}`;
+    exSrc = `• for ${f}`;
+    exTgt = `→ vì ${meaningBase}`;
+  } else if (
+    lower.endsWith("ies") ||
+    (lower.endsWith("s") && !lower.endsWith("ss") && !lower.endsWith("us") && !lower.endsWith("is"))
+  ) {
+    tag = "Dạng số nhiều (plural)";
+    meaning = `các ${meaningBase}`;
+    exSrc = `• multiple ${f}`;
+    exTgt = `→ nhiều ${meaningBase}`;
+  } else if (lower.endsWith("ed")) {
+    tag = "Quá khứ / Phân từ (V-ed)";
+    meaning = `đã ${meaningBase}`;
+    exSrc = `• well ${f}`;
+    exTgt = `→ được ${meaningBase} tốt`;
+  } else if (lower.endsWith("ing")) {
+    tag = "Hiện tại phân từ (V-ing)";
+    meaning = `đang ${meaningBase} / việc ${meaningBase}`;
+    exSrc = `• when ${f}`;
+    exTgt = `→ khi ${meaningBase}`;
+  } else if (lower.endsWith("er")) {
+    tag = "So sánh hơn (comparative)";
+    meaning = `${meaningBase} hơn`;
+    exSrc = `• much ${f}`;
+    exTgt = `→ ${meaningBase} hơn nhiều`;
+  } else if (lower.endsWith("est")) {
+    tag = "So sánh nhất (superlative)";
+    meaning = `${meaningBase} nhất`;
+    exSrc = `• the ${f}`;
+    exTgt = `→ ${meaningBase} nhất`;
+  }
+
+  for (const ex of examples) {
+    if (typeof ex === "string" && ex.toLowerCase().includes(lower)) {
+      const parts = ex.split(/[↔→]/);
+      const p0 = parts[0];
+      const p1 = parts[1];
+      if (p0 !== undefined && p1 !== undefined) {
+        exSrc = `• ${p0.replace(/^[•*‣\-]+\s*/, "").trim()}`;
+        exTgt = `→ ${p1.trim()}`;
+        break;
+      }
+    }
+  }
+
+  return { form: f, tag, meaning, exSrc, exTgt };
+}
+
+/**
+ * @param {string} text
+ * @param {{ baseWord?: string, primaryMeaning?: string, entryExamples?: string[] } | null} [context]
  * @returns {HTMLElement}
  */
-export function formatAboutRow(text) {
+export function formatAboutRow(text, context = null) {
   const clean = text.replace(/^[•*—\-–]+\s*/u, "").trim();
   const row = element("div", "lookup-about-row");
 
   if (clean.includes(" — ")) {
+    const head = element("div", "lookup-about-head");
     const badge = element("span", "lookup-about-badge", t("lookup_word_forms"));
-    const content = element("span", "lookup-about-content", clean);
-    row.append(badge, content);
+    head.append(badge);
+
+    const forms = clean.split(" — ").map((s) => s.trim()).filter(Boolean);
+    const chipsWrap = element("div", "lookup-about-chips");
+
+    forms.forEach((formStr) => {
+      const details = deriveFormDetails(formStr, context?.baseWord, context?.primaryMeaning, context?.entryExamples);
+      const chip = button("lookup-about-chip", "");
+      chip.type = "button";
+      chip.setAttribute("aria-expanded", "false");
+      chip.title = `${details.form}: ${details.meaning}`;
+
+      const chipWord = element("span", "lookup-chip-word", details.form);
+      const chipPreview = element("span", "lookup-chip-meaning-preview", `(${details.meaning})`);
+      chip.append(chipWord, chipPreview);
+
+      const card = element("div", "lookup-about-card");
+      card.hidden = true;
+
+      const cardTag = element("span", "lookup-about-card-tag", details.tag);
+      const cardMeaningLabel = element("span", "lookup-card-label", t("lookup_meaning_prefix"));
+      const cardMeaningVal = element("span", "lookup-card-text", details.meaning);
+      const cardExLabel = element("span", "lookup-card-label", t("lookup_example_prefix"));
+      const cardExWrap = element("div", "lookup-card-ex-wrap");
+      const cardExSrc = element("div", "lookup-card-ex-src", details.exSrc);
+      const cardExTgt = element("div", "lookup-card-ex-tgt", details.exTgt);
+      cardExWrap.append(cardExSrc, cardExTgt);
+
+      card.append(cardTag, cardMeaningLabel, cardMeaningVal, cardExLabel, cardExWrap);
+
+      chip.addEventListener("click", () => {
+        const opening = card.hidden === true;
+        card.hidden = !opening;
+        chip.setAttribute("aria-expanded", String(opening));
+      });
+
+      const itemWrap = element("div", "lookup-about-item");
+      itemWrap.append(chip, card);
+      chipsWrap.append(itemWrap);
+    });
+
+    row.append(head, chipsWrap);
   } else if (/^(?:late\s+|early\s+)?(?:Old\s+English|Old\s+Norse|Middle\s+English|Latin|Greek|French|German|from)\b/i.test(clean)) {
+    const head = element("div", "lookup-about-head");
     const badge = element("span", "lookup-about-badge", t("lookup_etymology"));
-    const content = element("span", "lookup-about-content", clean);
-    row.append(badge, content);
+    const content = element("span", "lookup-about-content", translateEtymology(clean));
+    head.append(badge, content);
+    row.append(head);
+  } else if (
+    /^[a-zA-Z\s'-]+$/.test(clean) &&
+    clean.length > 1 &&
+    clean.length < 35 &&
+    context?.baseWord &&
+    clean.toLowerCase() !== context.baseWord.toLowerCase()
+  ) {
+    const head = element("div", "lookup-about-head");
+    const badge = element("span", "lookup-about-badge", t("lookup_similar_words"));
+    head.append(badge);
+
+    const details = deriveFormDetails(clean, context.baseWord, context.primaryMeaning, context.entryExamples);
+    const chip = button("lookup-about-chip", "");
+    chip.type = "button";
+    chip.setAttribute("aria-expanded", "false");
+
+    const chipWord = element("span", "lookup-chip-word", details.form);
+    const chipPreview = element("span", "lookup-chip-meaning-preview", `(${details.meaning})`);
+    chip.append(chipWord, chipPreview);
+
+    const card = element("div", "lookup-about-card");
+    card.hidden = true;
+
+    const cardTag = element("span", "lookup-about-card-tag", details.tag);
+    const cardMeaningLabel = element("span", "lookup-card-label", t("lookup_meaning_prefix"));
+    const cardMeaningVal = element("span", "lookup-card-text", details.meaning);
+    const cardExLabel = element("span", "lookup-card-label", t("lookup_example_prefix"));
+    const cardExWrap = element("div", "lookup-card-ex-wrap");
+    const cardExSrc = element("div", "lookup-card-ex-src", details.exSrc);
+    const cardExTgt = element("div", "lookup-card-ex-tgt", details.exTgt);
+    cardExWrap.append(cardExSrc, cardExTgt);
+
+    card.append(cardTag, cardMeaningLabel, cardMeaningVal, cardExLabel, cardExWrap);
+
+    chip.addEventListener("click", () => {
+      const opening = card.hidden === true;
+      card.hidden = !opening;
+      chip.setAttribute("aria-expanded", String(opening));
+    });
+
+    const itemWrap = element("div", "lookup-about-item");
+    itemWrap.append(chip, card);
+    row.append(head, itemWrap);
   } else {
-    row.append(element("span", "lookup-about-bullet", "•"), element("span", "lookup-about-content", clean));
+    const head = element("div", "lookup-about-head");
+    head.append(element("span", "lookup-about-bullet", "•"), element("span", "lookup-about-content", clean));
+    row.append(head);
   }
   return row;
 }
@@ -239,19 +449,32 @@ export function formatAboutRow(text) {
 function aboutFold(group, folds) {
   const about = shelfFold("lookup-about", `about:${group.dictionary}`, false, element("summary", "lookup-about-label", t("lookup_more_about")), folds);
   const seenTexts = new Set();
+  let primaryMeaning = "";
+  /** @type {string[]} */
+  const entryExamples = [];
+
   for (const entry of group.entries) {
     for (const row of entry.rows) {
       if (row.kind === "pronunciation" || row.kind === "example" || row.kind === "idiom" || row.kind === "meaning") {
         seenTexts.add(row.text.trim());
       }
+      if (row.kind === "meaning" && !primaryMeaning) {
+        primaryMeaning = row.text.replace(/^\d+\.\s*/, "").split(";")[0]?.trim() ?? "";
+      } else if (row.kind === "example") {
+        entryExamples.push(row.text);
+      }
     }
   }
+
+  const baseWord = group.entries[0]?.headword || "";
+  const context = { baseWord, primaryMeaning, entryExamples };
+
   let count = 0;
   for (const line of group.about) {
     const trimmed = line.trim();
     if (seenTexts.has(trimmed)) continue;
     if (/sachxy\.com|từ điển anh việt/i.test(trimmed)) continue;
-    about.append(formatAboutRow(trimmed));
+    about.append(formatAboutRow(trimmed, context));
     count += 1;
   }
   if (count === 0) {

@@ -3257,5 +3257,14 @@
   },
   "lookup_etymology": {
     "message": "Etymologie"
+  },
+  "lookup_similar_words": {
+    "message": "Ähnliche Wörter"
+  },
+  "lookup_meaning_prefix": {
+    "message": "Bedeutung:"
+  },
+  "lookup_example_prefix": {
+    "message": "Beispiel:"
   }
 }

@@ -2705,7 +2705,7 @@
     "message": "Dịch từ tức thì (dưới 50ms)"
   },
   "options_lazy_sentence_hint": {
-    "message": "Khi chọn 1 hoặc 2 từ, dịch ngay từ đó và tra từ điển StarDict tức thì mà không phải chờ dịch cả câu. Bạn có thể dịch cả câu bất kỳ lúc nào bằng cách bấm \"Dịch cả câu\"."
+    "message": "Khi bôi đen từ hoặc cụm từ, dịch ngay phần bôi đen và tra từ điển StarDict tức thì mà không phải chờ dịch cả câu. Bạn có thể dịch cả câu bất kỳ lúc nào bằng cách bấm \"Dịch cả câu\"."
   },
   "options_bundled_dict_title": {
     "message": "Bộ từ điển Anh - Việt StarDict tích hợp sẵn"
@@ -2732,5 +2732,14 @@
   },
   "lookup_etymology": {
     "message": "Nguồn gốc từ"
+  },
+  "lookup_similar_words": {
+    "message": "Từ tương tự"
+  },
+  "lookup_meaning_prefix": {
+    "message": "Dịch nghĩa:"
+  },
+  "lookup_example_prefix": {
+    "message": "Ví dụ:"
   }
 }

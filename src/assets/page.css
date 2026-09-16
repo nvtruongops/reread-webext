@@ -1207,12 +1207,18 @@ button.lookup-show {
 
 .lookup-about-row {
   display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.25rem 0.35rem 0.35rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.lookup-about-head {
+  display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0.4rem;
-  padding: 0.2rem 0.35rem 0.25rem calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
-  font-size: 0.82rem;
-  line-height: 1.4;
 }
 
 .lookup-about-badge {
@@ -1224,6 +1230,100 @@ button.lookup-show {
   border: 1px solid var(--page-line);
   color: var(--page-muted);
   letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+
+.lookup-about-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.lookup-about-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.lookup-about-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  width: fit-content;
+  background: color-mix(in srgb, var(--page-line) 40%, transparent);
+  border: 1px solid var(--page-line);
+  border-radius: 4px;
+  padding: 0.15rem 0.45rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  color: var(--page-fg);
+  cursor: pointer;
+  text-align: left;
+}
+
+.lookup-about-chip:hover {
+  border-color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 12%, transparent);
+}
+
+.lookup-chip-word {
+  font-weight: 600;
+}
+
+.lookup-chip-meaning-preview {
+  color: var(--page-muted);
+  font-size: 0.76rem;
+}
+
+.lookup-about-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: 0.2rem;
+  column-gap: 0.45rem;
+  background: color-mix(in srgb, var(--page-line) 25%, transparent);
+  border-left: 2.5px solid var(--page-accent);
+  border-radius: 0 4px 4px 0;
+  padding: 0.35rem 0.55rem;
+  margin-left: 0.25rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.lookup-about-card-tag {
+  grid-column: 1 / -1;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--page-muted);
+  margin-bottom: 0.1rem;
+}
+
+.lookup-card-label {
+  grid-column: 1;
+  font-weight: 600;
+  color: var(--page-muted);
+}
+
+.lookup-card-text {
+  grid-column: 2;
+  color: var(--page-fg);
+}
+
+.lookup-card-ex-wrap {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.lookup-card-ex-src {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.lookup-card-ex-tgt {
+  color: var(--page-muted);
 }
 
 .lookup-about-content {

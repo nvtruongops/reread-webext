@@ -63,6 +63,25 @@ describe("Vietnamese dictionary classification and formatting", () => {
     assert.equal(row.querySelector(".lookup-idiom-source")?.textContent, "bad book");
     assert.equal(row.querySelector(".lookup-idiom-target")?.textContent, "không được ưa");
   });
+
+  it("translates etymology phrases into understandable Vietnamese", async () => {
+    const { translateEtymology } = await import("../src/lib/lookup-shelf.js");
+    const raw = "late Middle English: from Old French comunete, reinforced by its source, Latin communitas, from...";
+    const translated = translateEtymology(raw);
+    assert.ok(translated.includes("tiếng Anh trung đại muộn"), "must translate late Middle English");
+    assert.ok(translated.includes("tiếng Pháp cổ"), "must translate Old French");
+    assert.ok(translated.includes("tiếng La-tinh"), "must translate Latin");
+  });
+
+  it("derives form details with grammatical tag, Vietnamese meaning, and examples", async () => {
+    const { deriveFormDetails } = await import("../src/lib/lookup-shelf.js");
+    const details = deriveFormDetails("communities", "community", "cộng đồng", ["work for the good of the community ↔ làm việc vì lợi ích của cộng đồng"]);
+    assert.equal(details.form, "communities");
+    assert.equal(details.meaning, "các cộng đồng");
+    assert.ok(details.tag.includes("số nhiều"), "must identify plural");
+    assert.ok(details.exSrc.length > 0, "must provide example source");
+    assert.ok(details.exTgt.length > 0, "must provide example target");
+  });
 });
 
 describe("Vietnamese models and dictionary preloads", () => {

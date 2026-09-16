@@ -3479,7 +3479,7 @@
     "message": "Instant single-word translation (sub-50ms)"
   },
   "options_lazy_sentence_hint": {
-    "message": "When selecting 1 or 2 words, translates the word and looks up the StarDict dictionary immediately without waiting for full sentence translation. You can translate the full sentence anytime by clicking \"Translate sentence\"."
+    "message": "When selecting words or phrases, translates the selection and looks up the StarDict dictionary immediately without waiting for full sentence translation. You can translate the full sentence anytime by clicking \"Translate sentence\"."
   },
   "options_bundled_dict_title": {
     "message": "Bundled English - Vietnamese StarDict Dictionary"
@@ -3506,5 +3506,14 @@
   },
   "lookup_etymology": {
     "message": "Etymology"
+  },
+  "lookup_similar_words": {
+    "message": "Similar words"
+  },
+  "lookup_meaning_prefix": {
+    "message": "Meaning:"
+  },
+  "lookup_example_prefix": {
+    "message": "Example:"
   }
 }
