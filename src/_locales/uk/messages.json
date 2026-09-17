@@ -4377,5 +4377,20 @@
   },
   "lookup_example_prefix": {
     "message": "Приклад:"
+  },
+  "lookup_etymology_toggle": {
+    "message": "Переглянути походження слова"
+  },
+  "lookup_more_examples": {
+    "message": "+$COUNT$ більше прикладів",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "lookup_fewer_examples": {
+    "message": "Менше прикладів"
   }
 }

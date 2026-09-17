@@ -204,35 +204,130 @@ export function formatDictName(name) {
 }
 
 /**
- * Common etymology patterns translated to Vietnamese with original terms preserved.
- * @type {Array<[RegExp, string]>}
+ * Common etymology patterns and clauses translated to natural, fluent Vietnamese.
+ * @type {Array<[RegExp, string | ((...args: any[]) => string)]>}
  */
-const ETYM_MAP = [
-  [/\blate\s+Middle\s+English\b/gi, "tiếng Anh trung đại muộn (late Middle English)"],
-  [/\bearly\s+Middle\s+English\b/gi, "tiếng Anh trung đại sớm (early Middle English)"],
-  [/\bMiddle\s+English\b/gi, "tiếng Anh trung đại (Middle English)"],
-  [/\blate\s+Old\s+English\b/gi, "tiếng Anh cổ muộn (late Old English)"],
-  [/\bearly\s+Old\s+English\b/gi, "tiếng Anh cổ sớm (early Old English)"],
-  [/\bOld\s+English\b/gi, "tiếng Anh cổ (Old English)"],
-  [/\bAnglo-Norman\s+French\b/gi, "tiếng Pháp Anglo-Norman"],
-  [/\bOld\s+French\b/gi, "tiếng Pháp cổ (Old French)"],
-  [/\bOld\s+Norse\b/gi, "tiếng Bắc Âu cổ (Old Norse)"],
-  [/\bLatin\b/gi, "tiếng La-tinh (Latin)"],
-  [/\bGreek\b/gi, "tiếng Hy Lạp (Greek)"],
-  [/\bGermanic\b/gi, "tiếng Giéc-manh (Germanic)"],
-  [/\bGerman\b/gi, "tiếng Đức (German)"],
-  [/\bFrench\b/gi, "tiếng Pháp (French)"],
-  [/\bItalian\b/gi, "tiếng Ý (Italian)"],
-  [/\bSpanish\b/gi, "tiếng Tây Ban Nha (Spanish)"],
-  [/\bDutch\b/gi, "tiếng Hà Lan (Dutch)"],
-  [/\breinforced\s+by\s+its\s+source\b/gi, "được bổ trợ từ gốc"],
-  [/\bderivative\s+of\b/gi, "từ phái sinh của"],
-  [/\bvariant\s+of\b/gi, "biến thể của"],
-  [/\bliterally\b/gi, "nghĩa đen là"],
+const ETYM_RULES = [
+  // Specific literary/historical clauses
+  [/\boriginally\s+meant\s+[‘']having\s+the\s+power\s+to\s+control\s+destiny['’]/gi, "ban đầu mang nghĩa 'có quyền năng điều khiển số phận'"],
+  [/\band\s+was\s+used\s+especially\s+in\s+the\s+Weird\s+Sisters\b/gi, "và đặc biệt xuất hiện trong cụm 'Weird Sisters'"],
+  [/\boriginally\s+referring\s+to\s+the\s+Fates\b/gi, "ban đầu dùng để chỉ Ba nữ thần Định Mệnh (Fates)"],
+  [/\blater\s+the\s+witches\s+in\s+Shakespeare's\s+Macbeth\b/gi, "sau này là các mụ phù thủy trong vở kịch Macbeth của Shakespeare"],
+  [/\bthe\s+latter\s+use\s+gave\s+rise\s+to\s+the\s+sense\s+[‘']unearthly['’]/gi, "cách dùng sau này đã làm biến chuyển sang nét nghĩa 'kỳ lạ, huyền bí'"],
+  [/\bgave\s+rise\s+to\s+the\s+sense\b/gi, "đã làm phát sinh nét nghĩa"],
+  [/\bgave\s+rise\s+to\b/gi, "đã tạo nên"],
+
+  // Sentence starters / periods
+  [/^senses?\s+(\d+)\s+to\s+(\d+)\s*/i, "Đối với nét nghĩa $1 đến $2: "],
+  [/^sense\s+\(?(\d+)\)?\s*/i, "Đối với nét nghĩa $1: "],
+  [/\bearly\s+(\d+)th\s+cent\.(?:\s*\(in\s+the\s+sense\s+([^)]+)\))?/gi, (_, c, s) => `đầu thế kỷ ${c}${s ? ` (với nghĩa ${s})` : ""}`],
+  [/\blate\s+(\d+)th\s+cent\.(?:\s*\(in\s+the\s+sense\s+([^)]+)\))?/gi, (_, c, s) => `cuối thế kỷ ${c}${s ? ` (với nghĩa ${s})` : ""}`],
+  [/\bmid\s+(\d+)th\s+cent\.(?:\s*\(in\s+the\s+sense\s+([^)]+)\))?/gi, (_, c, s) => `giữa thế kỷ ${c}${s ? ` (với nghĩa ${s})` : ""}`],
+  [/\b(\d+)th\s+cent\./gi, "thế kỷ $1"],
+  [/^(\d{4})s:/i, "Thập niên $1:"],
+
+  // Common syntactic structures
+  [/\barchaic\s+past\s+participle\s+of\b/gi, "quá khứ phân từ cổ của"],
+  [/\bpast\s+participle\s+of\b/gi, "quá khứ phân từ của"],
+  [/\bpast\s+of\b/gi, "thì quá khứ của"],
+  [/\bshortened\s+form\b/gi, "dạng từ rút gọn"],
+  [/\bshortening\s+of\b/gi, "dạng rút gọn của"],
+  [/\babbreviation\s+of\b/gi, "từ viết tắt của"],
+  [/\babbreviation\b/gi, "từ viết tắt"],
   [/\bdiminutive\s+of\b/gi, "dạng từ giảm nhẹ của"],
-  [/\bshortening\s+of\b/gi, "viết tắt của"],
-  [/\bblend\s+of\b/gi, "từ kết hợp của"],
+  [/\bvariant\s+of\b/gi, "biến thể của"],
+  [/\bblend\s+of\b/gi, "từ kết hợp giữa"],
+  [/\bderivative\s+of\b/gi, "từ phái sinh của"],
+  [/\bbased\s+on\b/gi, "dựa trên"],
+  [/\brelated\s+to\b/gi, "có liên hệ với"],
+  [/\bcompare\s+with\b/gi, "so sánh với"],
+  [/\bnamed\s+after\b/gi, "được đặt tên theo"],
+  [/\breinforced\s+by\s+its\s+source\b/gi, "được bổ trợ từ gốc"],
+  [/\boriginally\s+meant\b/gi, "ban đầu mang nghĩa"],
+  [/\boriginally\s+found\s+in\b/gi, "ban đầu chỉ xuất hiện trong"],
+  [/\bprobably\s+from\b/gi, "có thể bắt nguồn từ"],
+  [/\bprobably\s+of\b/gi, "có thể thuộc gốc"],
+  [/\bof\s+unknown\s+(?:ultimate\s+)?origin\b/gi, "không rõ nguồn gốc"],
+  [/\bAn\s+acronym\s+from\b/gi, "Từ viết tắt từ các chữ cái đầu của"],
+
+  // "from the <part of speech>"
+  [/\bfrom\s+the\s+verb\b/gi, "từ động từ"],
+  [/\bfrom\s+the\s+noun\b/gi, "từ danh từ"],
+  [/\bfrom\s+the\s+adjective\b/gi, "từ tính từ"],
+  [/\b,\s*or\s+from\b/gi, ", hoặc từ"],
+  [/\b,\s*or\b/gi, ", hoặc"],
+  [/\bor\s+from\b/gi, "hoặc từ"],
+  [/\bor\b/gi, "hoặc"],
+
+  // Languages & origins
+  [/\bof\s+West\s+Germanic\s+origin\b/gi, "thuộc gốc Tây Giéc-manh"],
+  [/\bof\s+Germanic\s+origin\b/gi, "thuộc gốc Giéc-manh"],
+  [/\bof\s+Scandinavian\s+origin\b/gi, "thuộc gốc Bắc Âu"],
+  [/\bof\s+African\s+origin\b/gi, "thuộc gốc Châu Phi"],
+  [/\bvia\s+medieval\s+Latin\s+from\s+Greek\b/gi, "thông qua tiếng La-tinh trung cổ từ tiếng Hy Lạp"],
+  [/\bvia\s+Latin\s+from\s+Greek\b/gi, "thông qua tiếng La-tinh từ tiếng Hy Lạp"],
+  [/\bvia\s+Old\s+French\b/gi, "thông qua tiếng Pháp cổ"],
+  [/\bvia\s+French\b/gi, "thông qua tiếng Pháp"],
+  [/\bvia\s+Latin\b/gi, "thông qua tiếng La-tinh"],
+
+  // "from <Language>"
+  [/\bfrom\s+Old\s+French\b/gi, "từ tiếng Pháp cổ"],
+  [/\bfrom\s+Old\s+English\b/gi, "từ tiếng Anh cổ"],
+  [/\bfrom\s+Old\s+Norse\b/gi, "từ tiếng Bắc Âu cổ"],
+  [/\bfrom\s+late\s+Latin\b/gi, "từ tiếng La-tinh hậu kỳ"],
+  [/\bfrom\s+medieval\s+Latin\b/gi, "từ tiếng La-tinh trung cổ"],
+  [/\bfrom\s+ecclesiastical\s+Latin\b/gi, "từ tiếng La-tinh giáo hội"],
+  [/\bfrom\s+Latin\b/gi, "từ tiếng La-tinh"],
+  [/\bfrom\s+Greek\b/gi, "từ tiếng Hy Lạp"],
+  [/\bfrom\s+French\b/gi, "từ tiếng Pháp"],
+  [/\bfrom\s+German\b/gi, "từ tiếng Đức"],
+  [/\bfrom\s+Dutch\b/gi, "từ tiếng Hà Lan"],
+  [/\bfrom\s+Italian\b/gi, "từ tiếng Ý"],
+  [/\bfrom\s+Spanish\b/gi, "từ tiếng Tây Ban Nha"],
+  [/\bfrom\s+Celtic\b/gi, "từ tiếng Xen-tơ"],
+  [/\bfrom\s+Urdu\b/gi, "từ tiếng Urdu"],
+  [/\bfrom\s+Persian\b/gi, "từ tiếng Ba Tư"],
+  [/\bfrom\s+Arabic\b/gi, "từ tiếng Ả Rập"],
+
+  // Language names standalone
+  [/\blate\s+Middle\s+English\b/gi, "tiếng Anh trung đại muộn"],
+  [/\bearly\s+Middle\s+English\b/gi, "tiếng Anh trung đại sớm"],
+  [/\bMiddle\s+English\b/gi, "tiếng Anh trung đại"],
+  [/\blate\s+Old\s+English\b/gi, "tiếng Anh cổ muộn"],
+  [/\bearly\s+Old\s+English\b/gi, "tiếng Anh cổ sớm"],
+  [/\bOld\s+English\b/gi, "tiếng Anh cổ"],
+  [/\bOld\s+French\b/gi, "tiếng Pháp cổ"],
+  [/\bOld\s+Norse\b/gi, "tiếng Bắc Âu cổ"],
+  [/\bAnglo-Norman\s+French\b/gi, "tiếng Pháp Anglo-Norman"],
+  [/\blate\s+Latin\b/gi, "tiếng La-tinh hậu kỳ"],
+  [/\bmedieval\s+Latin\b/gi, "tiếng La-tinh trung cổ"],
+  [/\becclesiastical\s+Latin\b/gi, "tiếng La-tinh giáo hội"],
+  [/\bLatin\b/gi, "tiếng La-tinh"],
+  [/\bGreek\b/gi, "tiếng Hy Lạp"],
+  [/\bGermanic\b/gi, "Giéc-manh"],
+  [/\bDutch\b/gi, "tiếng Hà Lan"],
+  [/\bGerman\b/gi, "tiếng Đức"],
+  [/\bFrench\b/gi, "tiếng Pháp"],
+  [/\bItalian\b/gi, "tiếng Ý"],
+  [/\bSpanish\b/gi, "tiếng Tây Ban Nha"],
+
+  // Parts of speech & words
+  [/\bThe\s+adjective\b/gi, "Tính từ này"],
+  [/\bThe\s+noun\b/gi, "Danh từ này"],
+  [/\bThe\s+verb\b/gi, "Động từ này"],
+  [/\bthe\s+verb\b/gi, "động từ"],
+  [/\bthe\s+noun\b/gi, "danh từ"],
+  [/\bthe\s+adjective\b/gi, "tính từ"],
+  [/\(verb\)/gi, "(động từ)"],
+  [/\(noun\)/gi, "(danh từ)"],
+  [/\(adjective\)/gi, "(tính từ)"],
+  [/\(plural\)/gi, "(số nhiều)"],
+  [/\bdestiny\b/gi, "số phận, định mệnh"],
+  [/\bunearthly\b/gi, "huyền bí, kỳ lạ"],
+  [/\bexpressing\s+reversal\b/gi, "biểu thị sự đảo ngược"],
+  [/\bexpressing\s+negation\b/gi, "biểu thị sự phủ định"],
   [/\bfrom\b/gi, "từ"],
+  [/\balso\s+to\b/gi, "cũng liên quan đến"],
 ];
 
 /**
@@ -240,19 +335,16 @@ const ETYM_MAP = [
  * @returns {string}
  */
 export function translateEtymology(text) {
-  let res = text;
-  /** @type {string[]} */
-  const placeholders = [];
-  ETYM_MAP.forEach(([regex, repl]) => {
-    res = res.replace(regex, () => {
-      const ph = `__ETYM_${placeholders.length}__`;
-      placeholders.push(/** @type {string} */ (repl));
-      return ph;
-    });
-  });
-  placeholders.forEach((repl, i) => {
-    res = res.replace(`__ETYM_${i}__`, repl);
-  });
+  let res = text.trim();
+  if (res.startsWith("•")) res = res.replace(/^[•*—\-–]+\s*/u, "").trim();
+
+  if (/^Old\s+English\b/i.test(res)) {
+    res = "Bắt nguồn từ " + res;
+  }
+
+  for (const [pattern, repl] of ETYM_RULES) {
+    res = res.replace(pattern, /** @type {any} */ (repl));
+  }
   return res;
 }
 
@@ -379,11 +471,20 @@ export function formatAboutRow(text, context = null) {
 
     row.append(head, chipsWrap);
   } else if (/^(?:late\s+|early\s+)?(?:Old\s+English|Old\s+Norse|Middle\s+English|Latin|Greek|French|German|from)\b/i.test(clean)) {
-    const head = element("div", "lookup-about-head");
-    const badge = element("span", "lookup-about-badge", t("lookup_etymology"));
-    const content = element("span", "lookup-about-content", translateEtymology(clean));
-    head.append(badge, content);
-    row.append(head);
+    const details = document.createElement("details");
+    details.className = "lookup-etymology-details";
+    details.open = false;
+
+    const summary = document.createElement("summary");
+    summary.className = "lookup-etymology-summary";
+    const badge = element("span", "lookup-about-badge", t("lookup_etymology") || "Nguồn gốc từ");
+    const toggleLabel = element("span", "lookup-etymology-toggle-label", t("lookup_etymology_toggle") || "Xem chi tiết nguồn gốc từ");
+    summary.append(badge, toggleLabel);
+
+    const body = element("div", "lookup-etymology-body", translateEtymology(clean));
+    details.append(summary, body);
+
+    row.append(details);
   } else if (
     /^[a-zA-Z\s'-]+$/.test(clean) &&
     clean.length > 1 &&
@@ -628,6 +729,24 @@ export function renderShelf(groups, { meanings, folds, readOnly = false, disable
       }
       /** @type {string | null} */
       let label = null;
+      let senseExampleCount = 0;
+      /** @type {HTMLElement | null} */
+      let extraExamplesWrap = null;
+      /** @type {HTMLButtonElement | null} */
+      let extraExamplesToggle = null;
+      /** @type {HTMLElement | null} */
+      let extraExamplesHome = null;
+
+      const flushExtraExamples = () => {
+        if (extraExamplesWrap !== null && extraExamplesHome !== null && extraExamplesToggle !== null) {
+          extraExamplesHome.append(extraExamplesWrap, extraExamplesToggle);
+          extraExamplesWrap = null;
+          extraExamplesToggle = null;
+          extraExamplesHome = null;
+        }
+        senseExampleCount = 0;
+      };
+
       for (const row of entry.rows) {
         if (row.kind === "heading") {
           label = row.text;
@@ -640,15 +759,43 @@ export function renderShelf(groups, { meanings, folds, readOnly = false, disable
         }
         if (row.kind === "example") {
           const home = more !== null && index >= shown ? more.rest : book;
-          home.append(formatExampleRow(row.text));
+          if (senseExampleCount < 2) {
+            home.append(formatExampleRow(row.text));
+            senseExampleCount += 1;
+          } else {
+            if (extraExamplesWrap === null) {
+              extraExamplesWrap = element("div", "lookup-extra-examples");
+              extraExamplesWrap.hidden = true;
+              extraExamplesHome = home;
+              const wrap = extraExamplesWrap;
+              extraExamplesToggle = button("lookup-examples-toggle", "");
+              extraExamplesToggle.type = "button";
+              const btn = extraExamplesToggle;
+              btn.addEventListener("click", () => {
+                const opening = wrap.hidden === true;
+                wrap.hidden = !opening;
+                const remaining = wrap.childElementCount;
+                btn.textContent = opening
+                  ? (t("lookup_fewer_examples") || "Thu gọn ví dụ")
+                  : (t("lookup_more_examples", [String(remaining)]) || `+${remaining} ví dụ khác`);
+              });
+            }
+            extraExamplesWrap.append(formatExampleRow(row.text));
+            const extraCount = extraExamplesWrap.childElementCount;
+            if (extraExamplesToggle !== null) {
+              extraExamplesToggle.textContent = t("lookup_more_examples", [String(extraCount)]) || `+${extraCount} ví dụ khác`;
+            }
+          }
           continue;
         }
         if (row.kind === "idiom") {
+          flushExtraExamples();
           const home = more !== null && index >= shown ? more.rest : book;
           home.append(formatIdiomRow(row.text));
           continue;
         }
         if (row.kind !== "meaning") continue;
+        flushExtraExamples();
         const home = more !== null && index >= shown ? more.rest : book;
         if (label !== null) {
           home.append(element("div", "lookup-entry-heading", label));
@@ -657,6 +804,7 @@ export function renderShelf(groups, { meanings, folds, readOnly = false, disable
         home.append(shelfRow(row.text, `${at}:${index}`, { saved: isSaved(meanings, row.text), readOnly, disabled, onPress }));
         index += 1;
       }
+      flushExtraExamples();
     }
     if (more !== null) book.append(more.rest, more.toggle);
     if (group.about.length > 0) book.append(aboutFold(group, folds));

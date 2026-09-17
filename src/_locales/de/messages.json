@@ -3266,5 +3266,20 @@
   },
   "lookup_example_prefix": {
     "message": "Beispiel:"
+  },
+  "lookup_etymology_toggle": {
+    "message": "Wortherkunft ansehen"
+  },
+  "lookup_more_examples": {
+    "message": "+$COUNT$ weitere Beispiele",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "lookup_fewer_examples": {
+    "message": "Weniger Beispiele"
   }
 }

@@ -4377,5 +4377,20 @@
   },
   "lookup_example_prefix": {
     "message": "Przykład:"
+  },
+  "lookup_etymology_toggle": {
+    "message": "Zobacz pochodzenie słowa"
+  },
+  "lookup_more_examples": {
+    "message": "+$COUNT$ więcej przykładów",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "lookup_fewer_examples": {
+    "message": "Mniej przykładów"
   }
 }

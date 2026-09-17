@@ -1155,7 +1155,10 @@ async function change(write, remember, next) {
     return;
   }
 
-  tooltip.setActions([...next, ...secondLayer]);
+  const sentenceAction = /** @type {import("./tooltip.js").Action[]} */ (
+    unfetched?.context && !next.includes("sentence") ? ["sentence"] : []
+  );
+  tooltip.setActions([...next, ...sentenceAction, ...secondLayer]);
 }
 
 /**

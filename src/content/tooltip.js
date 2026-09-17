@@ -1002,6 +1002,63 @@ export const STYLE = `
     opacity: 0.7;
     margin-right: 2px;
   }
+  .lookup-etymology-details {
+    width: 100%;
+    margin-top: 2px;
+  }
+  .lookup-etymology-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+    font-size: calc(var(--type-second) * var(--bubble-scale, 1) * 0.82);
+    opacity: 0.9;
+  }
+  .lookup-etymology-summary:hover {
+    opacity: 1;
+  }
+  .lookup-etymology-toggle-label {
+    font-size: 0.78rem;
+    opacity: 0.85;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .lookup-etymology-body {
+    margin-top: 5px;
+    padding: 6px 9px;
+    background: color-mix(in srgb, currentColor 6%, transparent);
+    border-left: 2px solid color-mix(in srgb, currentColor 50%, transparent);
+    border-radius: 0 4px 4px 0;
+    font-size: calc(var(--type-second) * var(--bubble-scale, 1) * 0.82);
+    line-height: 1.45;
+    opacity: 0.95;
+  }
+  .lookup-extra-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .lookup-examples-toggle {
+    display: inline-flex;
+    align-items: center;
+    margin: 2px 0 4px calc(5px + var(--lookup-box-size) + var(--lookup-line-gap));
+    padding: 2px 8px;
+    width: fit-content;
+    background: color-mix(in srgb, currentColor 6%, transparent);
+    border: 1px dashed color-mix(in srgb, currentColor 30%, transparent);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: calc(var(--type-second) * var(--bubble-scale, 1) * 0.78);
+    color: inherit;
+    opacity: 0.85;
+    cursor: pointer;
+  }
+  .lookup-examples-toggle:hover {
+    background: color-mix(in srgb, currentColor 12%, transparent);
+    border-style: solid;
+    opacity: 1;
+  }
 
   /* A meaning as a row: the box, then the text, 40px tall so a finger has
      something to press; the text wraps as it needs to. What says a meaning

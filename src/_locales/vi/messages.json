@@ -2741,5 +2741,20 @@
   },
   "lookup_example_prefix": {
     "message": "Ví dụ:"
+  },
+  "lookup_etymology_toggle": {
+    "message": "Xem chi tiết nguồn gốc từ"
+  },
+  "lookup_more_examples": {
+    "message": "+$COUNT$ ví dụ khác",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "lookup_fewer_examples": {
+    "message": "Thu gọn ví dụ"
   }
 }

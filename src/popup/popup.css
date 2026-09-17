@@ -415,6 +415,69 @@ body[data-os="android"][data-mode="lookup"] .popup-lookup-answer {
   color: var(--page-muted);
 }
 
+.popup-lookup-answer .lookup-etymology-details {
+  width: 100%;
+  margin-top: 2px;
+}
+
+.popup-lookup-answer .lookup-etymology-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.82rem;
+  color: var(--page-fg);
+}
+
+.popup-lookup-answer .lookup-etymology-summary:hover {
+  opacity: 1;
+}
+
+.popup-lookup-answer .lookup-etymology-toggle-label {
+  font-size: 0.78rem;
+  color: var(--page-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.popup-lookup-answer .lookup-etymology-body {
+  margin-top: 5px;
+  padding: 6px 9px;
+  background: color-mix(in srgb, currentColor 6%, transparent);
+  border-left: 2px solid color-mix(in srgb, currentColor 50%, transparent);
+  border-radius: 0 4px 4px 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--page-fg);
+}
+
+.popup-lookup-answer .lookup-extra-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.popup-lookup-answer .lookup-examples-toggle {
+  display: inline-flex;
+  align-items: center;
+  margin: 2px 0 4px calc(0.35rem + var(--lookup-box-size, 20px) + var(--lookup-line-gap, 12px));
+  padding: 2px 8px;
+  width: fit-content;
+  background: color-mix(in srgb, currentColor 6%, transparent);
+  border: 1px dashed color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  color: var(--page-fg);
+  cursor: pointer;
+}
+
+.popup-lookup-answer .lookup-examples-toggle:hover {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  border-style: solid;
+}
+
 .popup-lookup-answer .lookup-pronunciation {
   font-size: 0.82rem;
   color: var(--page-muted);
